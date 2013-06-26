@@ -1,0 +1,241 @@
+{
+  "id" : "cnaz-c5je",
+  "name" : "Reports",
+  "averageRating" : 0,
+  "downloadCount" : 93,
+  "numberOfComments" : 0,
+  "oid" : 26151,
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1302998589,
+  "publicationGroup" : 21105,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1313894154,
+  "rowsUpdatedBy" : "bkd2-kuf4",
+  "signed" : false,
+  "tableId" : 21105,
+  "totalTimesRated" : 0,
+  "viewCount" : 26,
+  "viewLastModified" : 1313894154,
+  "viewType" : "tabular",
+  "columns" : [ {
+    "id" : 183531,
+    "name" : "Title",
+    "dataTypeName" : "text",
+    "fieldName" : "title",
+    "position" : 2,
+    "renderTypeName" : "text",
+    "tableColumnId" : 140270,
+    "width" : 99,
+    "cachedContents" : {
+      "non_null" : 4,
+      "smallest" : "First",
+      "null" : 2,
+      "largest" : "Third",
+      "top" : [ {
+        "count" : 1,
+        "item" : "First"
+      }, {
+        "count" : 1,
+        "item" : "Fourth"
+      }, {
+        "count" : 1,
+        "item" : "Third"
+      }, {
+        "count" : 1,
+        "item" : "Second"
+      } ]
+    },
+    "format" : {
+      "datatype_name" : "Text"
+    }
+  }, {
+    "id" : 183595,
+    "name" : "Reports",
+    "dataTypeName" : "nested_table",
+    "fieldName" : "reports",
+    "position" : 3,
+    "renderTypeName" : "nested_table",
+    "tableColumnId" : 140335,
+    "width" : 115,
+    "childColumns" : [ {
+      "id" : 183596,
+      "name" : "Read?",
+      "dataTypeName" : "checkbox",
+      "fieldName" : "read",
+      "position" : 1,
+      "renderTypeName" : "checkbox",
+      "tableColumnId" : 140336,
+      "width" : 107,
+      "format" : {
+        "view" : "boolean_checkbox",
+        "datatype_name" : "Boolean"
+      }
+    } ],
+    "format" : {
+      "datatype_name" : "blist-in-a-blist"
+    }
+  }, {
+    "id" : 183533,
+    "name" : "FW",
+    "dataTypeName" : "nested_table",
+    "fieldName" : "fw",
+    "position" : 4,
+    "renderTypeName" : "nested_table",
+    "tableColumnId" : 140272,
+    "width" : 93,
+    "childColumns" : [ {
+      "id" : 2448686,
+      "name" : "Author",
+      "dataTypeName" : "drop_down_list",
+      "fieldName" : "author",
+      "position" : 1,
+      "renderTypeName" : "drop_down_list",
+      "tableColumnId" : 1352021,
+      "width" : 203,
+      "dropDown" : {
+        "values" : [ {
+          "id" : "a7v2-9uh5",
+          "deleted" : false,
+          "description" : "Andrew"
+        }, {
+          "id" : "vi6n-2u6s",
+          "deleted" : false,
+          "description" : "Barry"
+        }, {
+          "id" : "swad-2tec",
+          "deleted" : false,
+          "description" : "Charlie"
+        }, {
+          "id" : "ey5d-npgp",
+          "deleted" : false,
+          "description" : "Deryck"
+        }, {
+          "id" : "2vc6-ssgk",
+          "deleted" : false,
+          "description" : "Edith"
+        }, {
+          "id" : "stfb-sd72",
+          "deleted" : false,
+          "description" : "Fred"
+        } ]
+      },
+      "format" : {
+        "datatype_name" : "Fieldworkers"
+      }
+    }, {
+      "id" : 2448688,
+      "name" : "State",
+      "dataTypeName" : "drop_down_list",
+      "fieldName" : "state",
+      "position" : 2,
+      "renderTypeName" : "drop_down_list",
+      "tableColumnId" : 1352023,
+      "width" : 103,
+      "dropDown" : {
+        "values" : [ {
+          "id" : "hw5g-js5t",
+          "deleted" : false,
+          "description" : "a"
+        }, {
+          "id" : "4ag7-vggk",
+          "deleted" : false,
+          "description" : "b"
+        }, {
+          "id" : "66zx-f7si",
+          "deleted" : false,
+          "description" : "c"
+        }, {
+          "id" : "rsip-v93u",
+          "deleted" : false,
+          "description" : "d"
+        }, {
+          "id" : "tz3q-r3wm",
+          "deleted" : false,
+          "description" : "e"
+        }, {
+          "id" : "jeda-arig",
+          "deleted" : false,
+          "description" : "f"
+        }, {
+          "id" : "5dmd-6yhz",
+          "deleted" : false,
+          "description" : "g"
+        }, {
+          "id" : "kieb-j4v2",
+          "deleted" : false,
+          "description" : "h"
+        } ]
+      },
+      "format" : {
+        "datatype_name" : "State"
+      }
+    }, {
+      "id" : 2486980,
+      "name" : "Notes",
+      "dataTypeName" : "html",
+      "fieldName" : "notes",
+      "position" : 3,
+      "renderTypeName" : "html",
+      "tableColumnId" : 1375352,
+      "width" : 138,
+      "format" : {
+        "richTextToolBarOption" : "show_toolbar",
+        "datatype_name" : "Text"
+      }
+    } ],
+    "format" : {
+      "datatype_name" : "blist-in-a-blist"
+    }
+  }, {
+    "id" : 183559,
+    "name" : "Updated?",
+    "dataTypeName" : "checkbox",
+    "fieldName" : "updated",
+    "position" : 5,
+    "renderTypeName" : "checkbox",
+    "tableColumnId" : 140297,
+    "width" : 125,
+    "cachedContents" : {
+      "non_null" : 6,
+      "smallest" : false,
+      "null" : 0,
+      "largest" : true,
+      "top" : [ {
+        "count" : 4,
+        "item" : false
+      }, {
+        "count" : 2,
+        "item" : true
+      } ]
+    },
+    "format" : {
+      "view" : "boolean_checkbox",
+      "datatype_name" : "Checkbox"
+    }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "contributor",
+    "flags" : [ "public" ]
+  } ],
+  "owner" : {
+    "id" : "bkd2-kuf4",
+    "displayName" : "Russell Todd",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1278666999,
+    "screenName" : "Russell Todd"
+  },
+  "query" : {
+  },
+  "rights" : [ "read", "add" ],
+  "tableAuthor" : {
+    "id" : "bkd2-kuf4",
+    "displayName" : "Russell Todd",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1278666999,
+    "screenName" : "Russell Todd"
+  },
+  "flags" : [ "default" ]
+}

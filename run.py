@@ -5,7 +5,7 @@ import socrata
 
 def rows():
     for portal in os.listdir('data'):
-        for viewid in os.listdir(os.path.join('data', portal, 'views'))[-100:]:
+        for viewid in os.listdir(os.path.join('data', portal, 'views')):
             try:
                 row = socrata.load('data', portal, viewid)
             except:

@@ -69,7 +69,7 @@ def load(data_dir, portal, viewid):
         ('attribution', original_data.get('attribution', None)),
         ('averageRating', original_data['averageRating']),
         ('category', original_data.get('category', None)),
-        ('createdAt', original_data['createdAt']),
+        ('createdAt', original_data.get('createdAt', None)),
         ('description', original_data.get('description', None)),
         ('displayType', original_data.get('displayType', None)),
         ('downloadCount', original_data['downloadCount']),
