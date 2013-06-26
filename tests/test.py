@@ -42,11 +42,16 @@ def test_load():
     for portal in os.listdir(OUT_DIR):
         for viewid in os.listdir(os.path.join(OUT_DIR,portal,'views')):
             yield check_load_keys, portal, viewid
+            yield check_load_values, portal, viewid
 
-def check_load_items(portal,viewid):
-    observed = socrata.load(os.path.join('fixtures', 'data-input'),portal,'views',viewid)
-    expected = socrata.load(os.path.join('fixtures','data-output'),portal,'views',viewid)
-    n.assert_equal(observed, expected)
+def check_load_values(portal,viewid):
+    observed = socrata.load(os.path.join('fixtures', 'data-input'),portal,viewid)
+    expected = json.load(open(os.path.join('fixtures','data-output',portal,'views',viewid)))
+    if expected == None:
+        n.assert_is_none(observed)
+    else:
+        for key in set(observed.keys()).union(expected.keys()):
+            n.assert_equal(observed[key], expected[key], key)
 
 def check_load_keys(portal,viewid):
     'After I load a file, it should have the right keys in the right order.'

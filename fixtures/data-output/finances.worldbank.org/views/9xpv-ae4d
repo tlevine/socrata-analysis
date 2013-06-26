@@ -35,7 +35,7 @@
   "displayFormat.titleX" : "Calendar Year",
   "displayFormat.renderOther" : false,
   "displayFormat.stacking" : false,
-  "displayFormat.legend" : "none"
+  "displayFormat.legend" : "none",
 
   "license.name": "Creative Commons Attribution 3.0 Unported",
 
@@ -66,5 +66,5 @@
   "tableAuthor.screenName" : "World Bank Finances",
   "tableAuthor.nrights" : 19,
 
-  "ntags" : 3,
+  "ntags" : 3
 }

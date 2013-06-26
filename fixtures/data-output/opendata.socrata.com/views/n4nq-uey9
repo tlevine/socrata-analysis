@@ -21,14 +21,14 @@
   "viewType" : "tabular",
   "ncol": 1,
   "nrow": 0,
-  "ncol.url': 1,
+  "ncol.url": 1,
 
   "owner.id" : "i5tr-zhqm",
   "owner.displayName" : "pruebasocrata",
   "owner.emailUnsubscribed" : false,
   "owner.privacyControl" : "login",
   "owner.profileLastModified" : 1291161312,
-  "owner.screenName" : "pruebasocrata"
+  "owner.screenName" : "pruebasocrata",
   
   "nrights" : 1,
   "tableAuthor.id" : "i5tr-zhqm",
@@ -36,6 +36,9 @@
   "tableAuthor.emailUnsubscribed" : false,
   "tableAuthor.privacyControl" : "login",
   "tableAuthor.profileLastModified" : 1291161312,
-  "tableAuthor.screenName" : "pruebasocrata"
+  "tableAuthor.screenName" : "pruebasocrata",
   "nflags" : 1,
+
+  "description" : null,
+  "attribution" : null
 }
