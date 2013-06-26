@@ -50,5 +50,5 @@ class UnicodeDictWriter:
 f = open('socrata.csv', 'w')
 w = csv.UnicodeDictWriter(f, rows().next().keys())
 for row in rows():
-    w.write(row)
+    w.writerow(row)
 f.close()
