@@ -50,6 +50,12 @@ These are the various possible column dataTypes.
     "dataTypeName" : "url",
     "item" : "There is inconsistency key usage in DataType.dataTypes ArrayCollectionPlus.  The datatype class uses name as key while the datatype manager uses id. This does not address the issue.\n\n\n\nCustomerDataType panel is the only area affected I know about that was affected by this bug.  But it was changed to use DataType.dataTypesByDB in bug#615."
 
+###
+Summary statistics
+
+    $ ./summary.sh 
+    There are 58097 total datasets in all of the Socrata portals.
+    Of those, 29091 contain metadata; the others are empty files.
 
 ## Predicting view counts
 What sorts of datasets get viewed more?
