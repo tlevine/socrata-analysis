@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import csv
 
 import socrata
 
@@ -14,4 +15,10 @@ def rows():
             if row != None:
                 yield row
 
-metadata = socrata.concat_to_array(rows())
+# metadata = socrata.concat_to_array(rows())
+
+f = open('socrata.csv', 'w')
+w = csv.DictWriter(f, rows().next().keys())
+for row in rows():
+    w.write(row)
+f.close()
