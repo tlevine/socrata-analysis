@@ -68,7 +68,7 @@ def load(data_dir, portal, viewid):
         ('name', original_data['name']),
         ('attribution', original_data.get('attribution', None)),
         ('averageRating', original_data['averageRating']),
-        ('category', original_data['category']),
+        ('category', original_data.get('category', None)),
         ('createdAt', original_data['createdAt']),
         ('description', original_data.get('description', None)),
         ('displayType', original_data.get('displayType', None)),
@@ -90,7 +90,12 @@ def load(data_dir, portal, viewid):
         ('viewType', original_data['viewType']),
     ]
 
-    out.append(('nrow', original_data['columns'][0]["cachedContents"]["non_null"] + original_data['columns'][0]["cachedContents"]["null"]))
+    if len(original_data['columns']) == 0:
+        out.append(('nrow', 0))
+    else:
+        out.append(('nrow',
+            original_data['columns'][0]["cachedContents"]["non_null"] + \
+            original_data['columns'][0]["cachedContents"]["null"]))
     out.append(('ncol', len(original_data['columns'])))
     out.extend(_column_types(original_data['columns']))
 
