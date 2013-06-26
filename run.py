@@ -49,6 +49,7 @@ class UnicodeDictWriter:
 
 f = open('socrata.csv', 'w')
 w = csv.UnicodeDictWriter(f, rows().next().keys())
+w.writeheader()
 for row in rows():
     w.write(row)
 f.close()
