@@ -1,0 +1,162 @@
+{
+  "id" : "msig-vtkt",
+  "name" : "Templates",
+  "averageRating" : 0,
+  "createdAt" : 1360360300,
+  "downloadCount" : 0,
+  "numberOfComments" : 0,
+  "oid" : 2472282,
+  "publicationAppendEnabled" : false,
+  "publicationGroup" : 666181,
+  "publicationStage" : "published",
+  "resourceName" : "templates",
+  "rowIdentifierColumnId" : 43766888,
+  "signed" : false,
+  "state" : "empty",
+  "tableId" : 666181,
+  "totalTimesRated" : 0,
+  "viewCount" : 2,
+  "viewLastModified" : 1360360305,
+  "viewType" : "tabular",
+  "columns" : [ {
+    "id" : 43766885,
+    "name" : "Name",
+    "dataTypeName" : "text",
+    "fieldName" : "name",
+    "position" : 2,
+    "renderTypeName" : "text",
+    "tableColumnId" : 7695127,
+    "cachedContents" : {
+      "non_null" : 0,
+      "null" : 0
+    },
+    "format" : {
+    },
+    "metadata" : {
+      "sync" : true
+    }
+  }, {
+    "id" : 43766886,
+    "name" : "Path",
+    "dataTypeName" : "object",
+    "fieldName" : "path",
+    "position" : 3,
+    "renderTypeName" : "object",
+    "tableColumnId" : 7695128,
+    "format" : {
+    },
+    "metadata" : {
+      "sync" : true
+    }
+  }, {
+    "id" : 43766887,
+    "name" : "Title",
+    "dataTypeName" : "object",
+    "fieldName" : "title",
+    "position" : 4,
+    "renderTypeName" : "object",
+    "tableColumnId" : 7695129,
+    "format" : {
+    },
+    "metadata" : {
+      "sync" : true
+    }
+  }, {
+    "id" : 43766888,
+    "name" : "Identifier",
+    "dataTypeName" : "text",
+    "fieldName" : "identifier",
+    "position" : 5,
+    "renderTypeName" : "text",
+    "tableColumnId" : 7695130,
+    "cachedContents" : {
+      "non_null" : 0,
+      "null" : 0
+    },
+    "format" : {
+    },
+    "metadata" : {
+      "sync" : true
+    }
+  }, {
+    "id" : 43766889,
+    "name" : "Version",
+    "dataTypeName" : "number",
+    "fieldName" : "version",
+    "position" : 6,
+    "renderTypeName" : "number",
+    "tableColumnId" : 7695131,
+    "cachedContents" : {
+      "non_null" : 0,
+      "sum" : "0",
+      "null" : 0
+    },
+    "format" : {
+    },
+    "metadata" : {
+      "sync" : true
+    }
+  }, {
+    "id" : 43766890,
+    "name" : "Status",
+    "dataTypeName" : "text",
+    "fieldName" : "status",
+    "position" : 7,
+    "renderTypeName" : "text",
+    "tableColumnId" : 7695132,
+    "cachedContents" : {
+      "non_null" : 0,
+      "null" : 0
+    },
+    "format" : {
+    },
+    "metadata" : {
+      "sync" : true
+    }
+  }, {
+    "id" : 43766891,
+    "name" : "Content",
+    "dataTypeName" : "object",
+    "fieldName" : "content",
+    "position" : 8,
+    "renderTypeName" : "object",
+    "tableColumnId" : 7695133,
+    "format" : {
+    },
+    "metadata" : {
+      "sync" : true
+    }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "metadata" : {
+    "rowIdentifier" : "identifier"
+  },
+  "owner" : {
+    "id" : "gw45-qc93",
+    "displayName" : "Susan Queen",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1359579986,
+    "roleName" : "administrator",
+    "screenName" : "Susan Queen",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages" ]
+  },
+  "query" : {
+  },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "gw45-qc93",
+    "displayName" : "Susan Queen",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1359579986,
+    "roleName" : "administrator",
+    "screenName" : "Susan Queen",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages" ]
+  },
+  "flags" : [ "default" ]
+}

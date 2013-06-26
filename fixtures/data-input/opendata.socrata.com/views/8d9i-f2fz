@@ -1,0 +1,43 @@
+{
+  "id" : "8d9i-f2fz",
+  "name" : "f",
+  "averageRating" : 0,
+  "createdAt" : 1209743698,
+  "downloadCount" : 2,
+  "numberOfComments" : 0,
+  "oid" : 71516,
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1302998589,
+  "publicationGroup" : 61660,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1313887611,
+  "rowsUpdatedBy" : "ghxd-w2fk",
+  "signed" : false,
+  "tableId" : 61660,
+  "totalTimesRated" : 0,
+  "viewCount" : 8,
+  "viewType" : "tabular",
+  "columns" : [ ],
+  "grants" : [ {
+    "inherited" : true,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "owner" : {
+    "id" : "ghxd-w2fk",
+    "displayName" : "Robert Rodric",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "screenName" : "Robert Rodric"
+  },
+  "query" : {
+  },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "ghxd-w2fk",
+    "displayName" : "Robert Rodric",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "screenName" : "Robert Rodric"
+  }
+}

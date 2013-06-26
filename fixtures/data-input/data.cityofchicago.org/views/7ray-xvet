@@ -1,0 +1,128 @@
+{
+  "id" : "7ray-xvet",
+  "name" : "Performance Metrics - Buildings - Time to Issue Easy Permits",
+  "attribution" : "City of Chicago",
+  "attributionLink" : "http://www.cityofchicago.org",
+  "averageRating" : 0,
+  "category" : "Administration & Finance",
+  "createdAt" : 1317130554,
+  "description" : "The Easy Permit Process allows home and building owners to obtain a permit to repair or replace the same or existing elements of a building, without making any changes to the structure of the building. Eligible projects include repairing or replacing drywall, flooring, fences, sheds or garages. This metric tracks the average number of days DOB takes to process individual Easy Permits, grouped by the week the permit was processed. The target process time is within 1.3 days. For more information about the Easy Permitting process, go to http://www.cityofchicago.org/city/en/depts/bldgs/provdrs/permit_proc.html.",
+  "displayType" : "table",
+  "downloadCount" : 30,
+  "numberOfComments" : 0,
+  "oid" : 4122212,
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1371737838,
+  "publicationGroup" : 239303,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1371737836,
+  "rowsUpdatedBy" : "scy9-9wg4",
+  "signed" : false,
+  "tableId" : 930220,
+  "totalTimesRated" : 0,
+  "viewCount" : 213,
+  "viewLastModified" : 1371737838,
+  "viewType" : "tabular",
+  "columns" : [ {
+    "id" : 75439003,
+    "name" : "Week",
+    "dataTypeName" : "calendar_date",
+    "fieldName" : "week",
+    "position" : 2,
+    "renderTypeName" : "calendar_date",
+    "tableColumnId" : 1505806,
+    "width" : 88,
+    "format" : {
+      "align" : "left",
+      "view" : "date"
+    }
+  }, {
+    "id" : 75439004,
+    "name" : "Week - Text",
+    "dataTypeName" : "text",
+    "fieldName" : "week_text",
+    "position" : 3,
+    "renderTypeName" : "text",
+    "tableColumnId" : 1505805,
+    "width" : 120,
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 75439005,
+    "name" : "Average Days to Permit",
+    "dataTypeName" : "number",
+    "fieldName" : "average_days_to_permit",
+    "position" : 4,
+    "renderTypeName" : "number",
+    "tableColumnId" : 1505800,
+    "width" : 188,
+    "format" : {
+    }
+  }, {
+    "id" : 75439006,
+    "name" : "Target",
+    "dataTypeName" : "number",
+    "fieldName" : "target",
+    "position" : 5,
+    "renderTypeName" : "number",
+    "tableColumnId" : 1505801,
+    "width" : 87,
+    "format" : {
+    }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "metadata" : {
+    "custom_fields" : {
+      "Metadata" : {
+        "Time Period" : "June 2011 to present",
+        "Data Owner" : "Buildings",
+        "Frequency" : "Data is updated weekly"
+      }
+    },
+    "renderTypeConfig" : {
+      "visible" : {
+        "table" : true
+      }
+    },
+    "availableDisplayTypes" : [ "table", "fatrow", "page" ],
+    "rdfSubject" : "0"
+  },
+  "owner" : {
+    "id" : "scy9-9wg4",
+    "displayName" : "cocadmin",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "privilegesDisabled" : false,
+    "profileImageUrlLarge" : "/images/profile/4783/7574/CitySeal_Small_large.jpg",
+    "profileImageUrlMedium" : "/images/profile/4783/7574/CitySeal_Small_thumb.jpg",
+    "profileImageUrlSmall" : "/images/profile/4783/7574/CitySeal_Small_tiny.jpg",
+    "profileLastModified" : 1365435185,
+    "roleName" : "administrator",
+    "screenName" : "cocadmin",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages" ]
+  },
+  "query" : {
+  },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "scy9-9wg4",
+    "displayName" : "cocadmin",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "privilegesDisabled" : false,
+    "profileImageUrlLarge" : "/images/profile/4783/7574/CitySeal_Small_large.jpg",
+    "profileImageUrlMedium" : "/images/profile/4783/7574/CitySeal_Small_thumb.jpg",
+    "profileImageUrlSmall" : "/images/profile/4783/7574/CitySeal_Small_tiny.jpg",
+    "profileLastModified" : 1365435185,
+    "roleName" : "administrator",
+    "screenName" : "cocadmin",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages" ]
+  },
+  "tags" : [ "performance metrics", "buildings", "permits" ],
+  "flags" : [ "default" ]
+}

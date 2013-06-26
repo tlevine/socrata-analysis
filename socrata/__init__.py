@@ -76,7 +76,7 @@ def load(data_dir, portal, viewid):
         ('numberOfComments', original_data['numberOfComments']),
         ('oid', original_data['oid']),
         ('publicationAppendEnabled', original_data['publicationAppendEnabled']),
-        ('publicationDate', original_data['publicationDate']),
+        ('publicationDate', original_data.get('publicationDate', None)),
         ('publicationStage', original_data['publicationStage']),
         ('publicationGroup', original_data.get('publicationGroup', None)),
     #   ('rowClass', original_data['rowClass']),
@@ -86,16 +86,18 @@ def load(data_dir, portal, viewid):
         ('tableId', original_data['tableId']),
         ('totalTimesRated', original_data['totalTimesRated']),
         ('viewCount', original_data['viewCount']),
-        ('viewLastModified', original_data['viewLastModified']),
+        ('viewLastModified', original_data.get('viewLastModified', None)),
         ('viewType', original_data['viewType']),
     ]
 
     if len(original_data['columns']) == 0:
         out.append(('nrow', 0))
-    else:
+    elif "cachedContents" in original_data['columns'][0]:
         out.append(('nrow',
             original_data['columns'][0]["cachedContents"]["non_null"] + \
             original_data['columns'][0]["cachedContents"]["null"]))
+    else:
+        out.append(('nrow', None))
     out.append(('ncol', len(original_data['columns'])))
     out.extend(_column_types(original_data['columns']))
 
