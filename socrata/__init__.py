@@ -1,5 +1,36 @@
 import os, json
-from collections import OrderedDict
+from collections import OrderedDict, Counter
+
+DATATYPES = [
+    "calendar_date",
+    "checkbox",
+    "dataset_link",
+    "date",
+    "document",
+    "document_obsolete",
+    "drop_down_list",
+    "email",
+    "flag",
+    "geospatial",
+    "html",
+    "list",
+    "location",
+    "money",
+    "nested_table",
+    "number",
+    "object",
+    "percent",
+    "phone",
+    "photo",
+    "photo_obsolete",
+    "stars",
+    "text",
+    "url",
+]
+
+def _column_types(columns):
+    c = Counter([column["dataTypeName"] for column in columns])
+    return [(k,c[k]) for k in sorted(DATATYPES)]
 
 def load(data_dir, portal, viewid):
     '''
@@ -17,6 +48,7 @@ def load(data_dir, portal, viewid):
     return OrderedDict([
         ('portal', portal),
         ('viewid', viewid),
+
         ('id', original_data['id']),
         ('name', original_data['name']),
         ('attribution', original_data['attribution']),

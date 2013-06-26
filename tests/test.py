@@ -1,8 +1,40 @@
-import os
+import os,json
+from collections import Counter, OrderedDict
 
 import nose.tools as n
 
 import socrata
+
+DATATYPES = [
+    "calendar_date",
+    "checkbox",
+    "dataset_link",
+    "date",
+    "document",
+    "document_obsolete",
+    "drop_down_list",
+    "email",
+    "flag",
+    "geospatial",
+    "html",
+    "list",
+    "location",
+    "money",
+    "nested_table",
+    "number",
+    "object",
+    "percent",
+    "phone",
+    "photo",
+    "photo_obsolete",
+    "stars",
+    "text",
+    "url",
+]
+def test_column_types():
+    'The appropriate column types should be extracted.'
+    columns = json.load(open(os.path.join('fixtures','data-input','data.cityofnewyork.us','views','hdr6-7r95')))['columns']
+    n.assert_list_equal(OrderedDict(socrata._column_types(columns)).keys(), DATATYPES)
 
 def test_load():
     'Run all of the fixtures.'
