@@ -44,6 +44,7 @@ def test_load_keys():
     'After I load a file, it should have the right keys in the right order.'
     observed = socrata.load(os.path.join('fixtures','data-input'),'data.cityofnewyork.us','hdr6-7r95').keys()
     expected = [
+        "portal",
         "id",
         "name",
         "attribution",

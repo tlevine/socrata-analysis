@@ -45,10 +45,8 @@ def load(data_dir, portal, viewid):
     original_data = json.load(fp)
     fp.close()
 
-    return OrderedDict([
+    out = [
         ('portal', portal),
-        ('viewid', viewid),
-
         ('id', original_data['id']),
         ('name', original_data['name']),
         ('attribution', original_data['attribution']),
@@ -70,7 +68,14 @@ def load(data_dir, portal, viewid):
         ('viewCount', original_data['viewCount']),
         ('viewLastModified', original_data['viewLastModified']),
         ('viewType', original_data['viewType']),
-    ])
+    ]
+
+    for datatype in DATATYPES:
+        key = 'ncol.' + datatype
+        value = original_data.get(datatype, 0)
+        out.append((key, value))
+
+    return OrderedDict(out)
 
 def concat_to_matrix(rows):
     '''
