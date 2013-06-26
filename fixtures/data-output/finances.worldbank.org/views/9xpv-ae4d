@@ -8,7 +8,6 @@
   "description" : "The innovative financing and governance arrangements of Financial Intermediary Funds (FIFs) enable funds to be raised from multiple sources, including from sovereign and private sources. FIFs can receive contributions in the form of concessional loans and capital contribution in addition to traditional grant funds. In addition, FIFs can receive funds from innovative sources, such as proceeds from CER sales. This chart shows contributions to all FIFs provided by a country during a certain calendar year.",
   "displayType" : "chart",
   "downloadCount" : 8,
-  "licenseId" : "CC_30_BY",
   "modifyingViewUid" : "536v-dxib",
   "numberOfComments" : 0,
   "oid" : 3989658,
@@ -58,8 +57,6 @@
   "displayFormat.renderOther" : false,
   "displayFormat.stacking" : false,
   "displayFormat.legend" : "none",
-
-  "license.name": "Creative Commons Attribution 3.0 Unported",
 
   "nmetadata" : 3,
 

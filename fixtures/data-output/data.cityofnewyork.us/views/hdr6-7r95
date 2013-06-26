@@ -1,4 +1,5 @@
 {
+  "portal" : "data.cityofnewyork.us",
   "id" : "hdr6-7r95",
   "name" : "Map of Monuments",
   "attribution" : "Department of Parks and Recreation (DPR)",
@@ -55,7 +56,7 @@
   "owner.profileLastModified" : 1331656907,
   "owner.roleName" : "administrator",
   "owner.screenName" : "NYC OpenData",
-  "owner.nrights" : 2,
+  "owner.nrights" : 19,
 
   "tableAuthor.id" : "5fuc-pqz2",
   "tableAuthor.displayName" : "NYC OpenData",
@@ -64,7 +65,7 @@
   "tableAuthor.profileLastModified" : 1331656907,
   "tableAuthor.roleName" : "administrator",
   "tableAuthor.screenName" : "NYC OpenData",
-  "tableAuthor.nrights" : 2,
-  "ntags" : 2,
+  "tableAuthor.nrights" : 19,
+  "ntags" : 14,
   "nflags" : 1
 }

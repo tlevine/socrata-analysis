@@ -40,7 +40,7 @@ PERSONKEYS = [
 
 def _column_types(columns):
     c = Counter([column["dataTypeName"] for column in columns])
-    return [(k,c[k]) for k in sorted(DATATYPES)]
+    return [('ncol.' + k,c[k]) for k in sorted(DATATYPES)]
 
 def load(data_dir, portal, viewid):
     '''
@@ -86,15 +86,15 @@ def load(data_dir, portal, viewid):
 
     out.append(('nrow', original_data['columns'][0]["cachedContents"]["non_null"] + original_data['columns'][0]["cachedContents"]["null"]))
     out.append(('ncol', len(original_data['columns'])))
+    out.extend(_column_types(original_data['columns']))
 
-    for datatype in DATATYPES:
-        key = 'ncol.' + datatype
-        value = original_data.get(datatype, 0)
-        out.append((key, value))
+    for person in ['owner', 'tableAuthor']:
+        for key in PERSONKEYS:
+            out.append(('%s.%s' % (person, key), original_data[person].get(key, None)))
+        out.append(('%s.nrights' % person, len(original_data[person].get('rights', []))))
 
-    for key in PERSONKEYS:
-        out.append(('tableAuthor.%s' % key, original_data['tableAuthor'].get(key, None)))
-    out.append(('tableAuthor.nrights', len(original_data['tableAuthor'].get('rights', []))))
+    out.append(('nflags', len(original_data.get('flags', []))))
+    out.append(('ntags', len(original_data.get('tags', []))))
 
     return OrderedDict(out)
 

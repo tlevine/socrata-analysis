@@ -34,7 +34,7 @@ DATATYPES = [
 def test_column_types():
     'The appropriate column types should be extracted.'
     columns = json.load(open(os.path.join('fixtures','data-input','data.cityofnewyork.us','views','hdr6-7r95')))['columns']
-    n.assert_list_equal(OrderedDict(socrata._column_types(columns)).keys(), DATATYPES)
+    n.assert_list_equal(OrderedDict(socrata._column_types(columns)).keys(), ['ncol.%s' % dt for dt in DATATYPES])
 
 def test_load():
     IN_DIR = os.path.join('fixtures','data-input')
@@ -53,7 +53,7 @@ def check_load_values(portal,viewid):
         for key in set(observed.keys()).union(expected.keys()):
             n.assert_in(key, observed.keys(), msg = 'I expected the output to include the key "%s", but I did not observe this key.' % key)
             n.assert_in(key, expected.keys(), msg = 'I expected the output not to include the key "%s", but I did observed this key.' % key)
-            n.assert_equal(observed[key], expected[key])
+            n.assert_equal(observed[key], expected[key], 'For key "%s", I observed "%s" and expected "%s".' % (key, observed[key], expected[key]))
 
 def check_load_keys(portal,viewid):
     'After I load a file, it should have the right keys in the right order.'
@@ -108,6 +108,15 @@ def check_load_keys(portal,viewid):
         "ncol.text",
         "ncol.url",
 
+        "owner.id",
+        "owner.displayName",
+        "owner.emailUnsubscribed",
+        "owner.privacyControl",
+        "owner.profileLastModified",
+        "owner.roleName",
+        "owner.screenName",
+        "owner.nrights",
+
         "tableAuthor.id",
         "tableAuthor.displayName",
         "tableAuthor.emailUnsubscribed",
@@ -116,6 +125,9 @@ def check_load_keys(portal,viewid):
         "tableAuthor.roleName",
         "tableAuthor.screenName",
         "tableAuthor.nrights",
+
+        "nflags",
+        "ntags",
     ]
     if hasattr(observed, 'keys'):
         n.assert_equal(observed.keys(), expected)
