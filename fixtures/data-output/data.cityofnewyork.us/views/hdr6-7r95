@@ -19,6 +19,10 @@
   "viewCount" : 693,
   "viewLastModified" : 1363706317,
   "viewType" : "tabular",
+
+  "nrow": 813,
+  "ncol": 6,
+
   "ncol.calendar_date": 0,
   "ncol.checkbox": 0,
   "ncol.dataset_link": 0,
@@ -43,100 +47,16 @@
   "ncol.stars": 0,
   "ncol.text": 4,
   "ncol.url": 0,
-  "nrow": 813,
-  "ncol": 6,
-  "displayFormat" : {
-    "plotStyle" : "point",
-    "plot" : {
-      "longitudeId" : 1560270,
-      "descriptionColumns" : [ {
-        "tableColumnId" : 1560271
-      } ],
-      "latitudeId" : 1560269
-    }
-  },
-  "grants" : [ {
-    "inherited" : false,
-    "type" : "viewer",
-    "flags" : [ "public" ]
-  } ],
-  "metadata" : {
-    "custom_fields" : {
-      "drawingInfo.renderer" : {
-        "symbol.height" : "9",
-        "symbol.url" : "1A24A78E",
-        "symbol.type" : "esriPMS",
-        "symbol.yoffset" : "0",
-        "symbol.contentType" : "image/png",
-        "symbol.xoffset" : "0",
-        "symbol.angle" : "0",
-        "symbol.width" : "11",
-        "symbol.imageData" : "iVBORw0KGgoAAAANSUhEUgAAAA8AAAAMCAYAAAC9QufkAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAVtJREFUKJGV0L8vQ1EUwPHvfa+VCGG1mfgTWIhEvDRVBoZGWrxGLBZNDLgJm3h9DBU/FoNoXiQiYSBNB0n/A/4DoyjBREPbd6/Fz6Z+ne3ccz73nJwAP4QbC22VTWNpwctd1aoHvoPOSKhTo6ZMXzUAif9gIQy1DggB4048vCH3cmd/wqmYlQA63j5CV9aA7l9xetJqei7ivKaPQL2ALiduReXe6cGP+LnIItCoTX9AevmsY0daKJc8oXEd2z6WmcxTTexGw+2aShJwpZfPAshMtuAmBkd16enSKBdmgOWaWAcraTRBMC4+v8/tnlynYtaDRknHjuzITLbwBTtjvRF8+l/TYWD3rbYSD/UprZoBRLm0DEy84+1p6u5vzfTHLDWYillHQvmHGMFWpdXsp0Xs1Fh4c97LnQcA7m56k8Kgrep2Q9owh0BV39TAr6SBngCA3M+vAqvVXb/FC5pLe0sNE4hXAAAAAElFTkSuQmCC"
-      },
-      "Basic" : {
-        "copyrightText" : "",
-        "type" : "Feature Layer",
-        "definitionExpression" : "",
-        "Source" : "http://nycopendata.esri.com/ArcGIS/rest/services/DOITTServices/MonumentsWM/MapServer/0",
-        "id" : "0",
-        "minScale" : "0",
-        "displayField" : "NAME",
-        "htmlPopupType" : "esriServerHTMLPopupTypeAsHTMLText",
-        "name" : "Monuments",
-        "currentVersion" : "10.02",
-        "hasAttachments" : "false",
-        "capabilities" : "Map,Query,Data",
-        "Spatial Reference wkid" : "102100",
-        "maxScale" : "0",
-        "defaultVisibility" : "true",
-        "geometryType" : "esriGeometryPoint"
-      },
-      "Update" : {
-        "Update Frequency" : "Annually"
-      },
-      "drawingInfo" : {
-        "transparency" : "0",
-        "renderer.description" : "",
-        "renderer.type" : "simple",
-        "renderer.label" : ""
-      }
-    },
-    "renderTypeConfig" : {
-      "visible" : {
-        "map" : true
-      }
-    },
-    "availableDisplayTypes" : [ "map", "table", "fatrow", "page" ],
-    "rdfSubject" : "0",
-    "attachments" : [ {
-      "blobId" : "B11754FA-7A6A-41AA-B0F8-B476AE98A2B1",
-      "name" : "DPR_Monuments_001.zip",
-      "filename" : "DPR_Monuments_001.zip"
-    } ],
-    "rowIdentifier" : "0",
-    "rdfClass" : ""
-  },
-  "northWest" : {
-    "long" : -74.2550307238728,
-    "lat" : 40.9070285169244
-  },
-  "owner" : {
-    "id" : "5fuc-pqz2",
-    "displayName" : "NYC OpenData",
-    "emailUnsubscribed" : false,
-    "privacyControl" : "login",
-    "profileLastModified" : 1331656907,
-    "roleName" : "administrator",
-    "screenName" : "NYC OpenData",
-    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages", "short_session" ]
-  },
-  "query" : {
-  },
-  "rights" : [ "read" ],
-  "southEast" : {
-    "long" : -73.7178386973998,
-    "lat" : 40.502288197833
-  },
+
+  "owner.id" : "5fuc-pqz2",
+  "owner.displayName" : "NYC OpenData",
+  "owner.emailUnsubscribed" : false,
+  "owner.privacyControl" : "login",
+  "owner.profileLastModified" : 1331656907,
+  "owner.roleName" : "administrator",
+  "owner.screenName" : "NYC OpenData",
+  "owner.nrights" : 2,
+
   "tableAuthor.id" : "5fuc-pqz2",
   "tableAuthor.displayName" : "NYC OpenData",
   "tableAuthor.emailUnsubscribed" : false,
@@ -145,6 +65,6 @@
   "tableAuthor.roleName" : "administrator",
   "tableAuthor.screenName" : "NYC OpenData",
   "tableAuthor.nrights" : 2,
-  "tags" : [ "map", "location", "cartography", "site", "art", "public", "permanent", "culture", "history", "historical", "monument", "sculpture", "statue", "healthy living" ],
-  "flags" : [ "default" ]
+  "ntags" : 2,
+  "nflags" : 1
 }

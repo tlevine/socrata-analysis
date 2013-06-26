@@ -51,7 +51,9 @@ def check_load_values(portal,viewid):
         n.assert_is_none(observed)
     else:
         for key in set(observed.keys()).union(expected.keys()):
-            n.assert_equal(observed[key], expected[key], msg = key)
+            n.assert_in(key, observed.keys(), msg = 'I expected the output to include the key "%s", but I did not observe this key.' % key)
+            n.assert_in(key, expected.keys(), msg = 'I expected the output not to include the key "%s", but I did observed this key.' % key)
+            n.assert_equal(observed[key], expected[key])
 
 def check_load_keys(portal,viewid):
     'After I load a file, it should have the right keys in the right order.'
