@@ -28,6 +28,16 @@ DATATYPES = [
     "url",
 ]
 
+PERSONKEYS = [
+    "id",
+    "displayName",
+    "emailUnsubscribed",
+    "privacyControl",
+    "profileLastModified",
+    "roleName",
+    "screenName",
+]
+
 def _column_types(columns):
     c = Counter([column["dataTypeName"] for column in columns])
     return [(k,c[k]) for k in sorted(DATATYPES)]
@@ -78,6 +88,10 @@ def load(data_dir, portal, viewid):
         key = 'ncol.' + datatype
         value = original_data.get(datatype, 0)
         out.append((key, value))
+
+    for key in PERSONKEYS:
+        out.append(('tableAuthor.%s' % key, original_data['tableAuthor'][key]))
+    out.append(('tableAuthor.nrights', len(original_data['tableAuthor']['rights'])))
 
     return OrderedDict(out)
 

@@ -103,6 +103,15 @@ def check_load_keys(portal,viewid):
         "ncol.stars",
         "ncol.text",
         "ncol.url",
+
+        "tableAuthor.id",
+        "tableAuthor.displayName",
+        "tableAuthor.emailUnsubscribed",
+        "tableAuthor.privacyControl",
+        "tableAuthor.profileLastModified",
+        "tableAuthor.roleName",
+        "tableAuthor.screenName",
+        "tableAuthor.nrights",
     ]
     if hasattr(observed, 'keys'):
         n.assert_equal(observed.keys(), expected)
