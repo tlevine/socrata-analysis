@@ -38,11 +38,20 @@ def test_column_types():
 
 def test_load():
     'Run all of the fixtures.'
-    pass
+    IN_DIR = os.path.join('fixtures','data-input')
+    OUT_DIR = os.path.join('fixtures','data-output')
+    for portal in os.listdir(OUT_DIR):
+        for viewid in os.listdir(os.path.join(OUT_DIR,portal,'views')):
+            yield check_load_keys, portal, viewid
 
-def test_load_keys():
+def check_load_items(portal,viewid):
+    observed = socrata.load(os.path.join('fixtures', 'data-input'),portal,'views',viewid)
+    expected = socrata.load(os.path.join('fixtures','data-output'),portal,'views',viewid)
+    n.assert_equal(observed, expected)
+
+def check_load_keys(portal,viewid):
     'After I load a file, it should have the right keys in the right order.'
-    observed = socrata.load(os.path.join('fixtures','data-input'),'data.cityofnewyork.us','hdr6-7r95').keys()
+    observed = socrata.load(os.path.join('fixtures','data-input'),portal,viewid).keys()
     expected = [
         "portal",
         "id",
