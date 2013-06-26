@@ -1,4 +1,5 @@
 {
+  "portal" : "finances.worldbank.org",
   "id" : "9xpv-ae4d",
   "name" : "Contributions to Financial Intermediary Funds by Thailand",
   "attribution" : "World Bank",
@@ -8,7 +9,6 @@
   "description" : "The innovative financing and governance arrangements of Financial Intermediary Funds (FIFs) enable funds to be raised from multiple sources, including from sovereign and private sources. FIFs can receive contributions in the form of concessional loans and capital contribution in addition to traditional grant funds. In addition, FIFs can receive funds from innovative sources, such as proceeds from CER sales. This chart shows contributions to all FIFs provided by a country during a certain calendar year.",
   "displayType" : "chart",
   "downloadCount" : 8,
-  "modifyingViewUid" : "536v-dxib",
   "numberOfComments" : 0,
   "oid" : 3989658,
   "publicationAppendEnabled" : false,
@@ -50,14 +50,7 @@
   "ncol.text": 1,
   "ncol.url": 0,
 
-  "displayFormat.chartType" : "column",
-  "displayFormat.titleY" : "Amount in US$",
-  "displayFormat.fixedColumns" : [ 1473154 ],
-  "displayFormat.titleX" : "Calendar Year",
-  "displayFormat.renderOther" : false,
-  "displayFormat.stacking" : false,
-  "displayFormat.legend" : "none",
-
+  "ndisplayFormat" : 8,
   "nmetadata" : 3,
 
   "owner.id" : "yg9t-hf5u",
@@ -78,5 +71,7 @@
   "tableAuthor.screenName" : "World Bank Finances",
   "tableAuthor.nrights" : 19,
 
+  "nflags" : 0,
+  "nrights" : 1,
   "ntags" : 3
 }

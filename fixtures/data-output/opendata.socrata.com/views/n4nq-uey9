@@ -1,4 +1,5 @@
 {
+  "portal" : "opendata.socrata.com",
   "id" : "n4nq-uey9",
   "name" : "www.elhistoriador.com.ar",
   "averageRating" : 0,
@@ -53,6 +54,7 @@
   "owner.profileLastModified" : 1291161312,
   "owner.screenName" : "pruebasocrata",
   "owner.roleName" : null,
+  "owner.nrights" : 0,
   
   "tableAuthor.id" : "i5tr-zhqm",
   "tableAuthor.displayName" : "pruebasocrata",
@@ -60,10 +62,15 @@
   "tableAuthor.privacyControl" : "login",
   "tableAuthor.profileLastModified" : 1291161312,
   "tableAuthor.screenName" : "pruebasocrata",
+  "tableAuthor.roleName" : null,
+  "tableAuthor.nrights" : 0,
 
+  "displayType" : null,
+  "ndisplayFormat" : 0,
   "nflags" : 1,
   "nrights" : 1,
   "nmetadata" : 0,
+  "ntags" : 0,
 
   "description" : null,
   "attribution" : null

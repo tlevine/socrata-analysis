@@ -11,9 +11,12 @@
   "downloadCount" : 340,
   "numberOfComments" : 1,
   "oid" : 341755,
+  "rowsUpdatedBy": null,
+  "rowsUpdatedAt": null,
   "publicationAppendEnabled" : false,
   "publicationDate" : 1318013164,
   "publicationStage" : "published",
+  "publicationGroup" : null,
   "signed" : false,
   "tableId" : 243844,
   "totalTimesRated" : 0,
@@ -66,6 +69,10 @@
   "tableAuthor.roleName" : "administrator",
   "tableAuthor.screenName" : "NYC OpenData",
   "tableAuthor.nrights" : 19,
-  "ntags" : 14,
-  "nflags" : 1
+
+  "ndisplayFormat": 2,
+  "nflags" : 1,
+  "nmetadata" : 7,
+  "nrights" : 1,
+  "ntags" : 14
 }

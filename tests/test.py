@@ -74,8 +74,10 @@ def check_load_keys(portal,viewid):
         "publicationAppendEnabled",
         "publicationDate",
         "publicationStage",
+        "publicationGroup",
     #   "rowClass",
         "rowsUpdatedBy",
+        "rowsUpdatedAt",
         "signed",
         "tableId",
         "totalTimesRated",
@@ -127,8 +129,10 @@ def check_load_keys(portal,viewid):
         "tableAuthor.screenName",
         "tableAuthor.nrights",
 
+        "ndisplayFormat",
         "nflags",
         "nmetadata",
+        "nrights",
         "ntags",
     ]
     if hasattr(observed, 'keys'):

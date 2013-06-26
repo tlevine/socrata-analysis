@@ -75,8 +75,10 @@ def load(data_dir, portal, viewid):
         ('publicationAppendEnabled', original_data['publicationAppendEnabled']),
         ('publicationDate', original_data['publicationDate']),
         ('publicationStage', original_data['publicationStage']),
+        ('publicationGroup', original_data.get('publicationGroup', None)),
     #   ('rowClass', original_data['rowClass']),
         ("rowsUpdatedBy", original_data.get('rowsUpdatedBy', None)), # parent dataset
+        ("rowsUpdatedAt", original_data.get('rowsUpdatedAt', None)), # parent dataset
         ('signed', original_data['signed']),
         ('tableId', original_data['tableId']),
         ('totalTimesRated', original_data['totalTimesRated']),
@@ -94,9 +96,8 @@ def load(data_dir, portal, viewid):
             out.append(('%s.%s' % (person, key), original_data[person].get(key, None)))
         out.append(('%s.nrights' % person, len(original_data[person].get('rights', []))))
 
-    out.append(('nflags', len(original_data.get('flags', []))))
-    out.append(('nmetadata', len(original_data.get('metadata', {}))))
-    out.append(('ntags', len(original_data.get('tags', []))))
+    for countable in sorted(['flags', 'metadata', 'tags', 'displayFormat', 'rights']):
+        out.append(('n' + countable, len(original_data.get(countable, []))))
 
     return OrderedDict(out)
 
