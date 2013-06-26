@@ -1,0 +1,243 @@
+{
+  "id" : "9xpv-ae4d",
+  "name" : "Contributions to Financial Intermediary Funds by Thailand",
+  "attribution" : "World Bank",
+  "averageRating" : 0,
+  "category" : "Financial Intermediary Funds",
+  "createdAt" : 1308653086,
+  "description" : "The innovative financing and governance arrangements of Financial Intermediary Funds (FIFs) enable funds to be raised from multiple sources, including from sovereign and private sources. FIFs can receive contributions in the form of concessional loans and capital contribution in addition to traditional grant funds. In addition, FIFs can receive funds from innovative sources, such as proceeds from CER sales. This chart shows contributions to all FIFs provided by a country during a certain calendar year.",
+  "displayType" : "chart",
+  "downloadCount" : 8,
+  "licenseId" : "CC_30_BY",
+  "modifyingViewUid" : "536v-dxib",
+  "numberOfComments" : 0,
+  "oid" : 3989658,
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1370967054,
+  "publicationGroup" : 236340,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1370967006,
+  "rowsUpdatedBy" : "5ten-w5b6",
+  "signed" : false,
+  "tableId" : 873828,
+  "totalTimesRated" : 0,
+  "viewCount" : 5142,
+  "viewLastModified" : 1337968532,
+  "viewType" : "tabular",
+  "columns" : [ {
+    "id" : 72971021,
+    "name" : "Calendar Year",
+    "dataTypeName" : "text",
+    "description" : "Year when the contribution was received",
+    "fieldName" : "calendar_year",
+    "position" : 2,
+    "renderTypeName" : "text",
+    "tableColumnId" : 1473154,
+    "width" : 87,
+    "cachedContents" : {
+      "non_null" : 9,
+      "smallest" : "2003",
+      "null" : 0,
+      "largest" : "2012",
+      "top" : [ {
+        "count" : 20,
+        "item" : "2008"
+      }, {
+        "count" : 19,
+        "item" : "2011"
+      }, {
+        "count" : 18,
+        "item" : "2006"
+      }, {
+        "count" : 17,
+        "item" : "2005"
+      }, {
+        "count" : 16,
+        "item" : "2007"
+      }, {
+        "count" : 15,
+        "item" : "2003"
+      }, {
+        "count" : 14,
+        "item" : "2009"
+      }, {
+        "count" : 13,
+        "item" : "2010"
+      }, {
+        "count" : 12,
+        "item" : "2012"
+      } ]
+    },
+    "format" : {
+      "drill_down" : "true"
+    }
+  }, {
+    "id" : 72971026,
+    "name" : "Amount in USD",
+    "dataTypeName" : "money",
+    "description" : "Amount in US Dollars equivalent calculated using historical rates",
+    "fieldName" : "amount_in_usd",
+    "position" : 3,
+    "renderTypeName" : "money",
+    "tableColumnId" : 1472366,
+    "width" : 173,
+    "cachedContents" : {
+      "non_null" : 9,
+      "smallest" : "100000.00",
+      "sum" : "12999725.00",
+      "null" : 0,
+      "average" : "1444413.888888889",
+      "largest" : "2300000.00",
+      "top" : [ {
+        "count" : 20,
+        "item" : "100000.00"
+      }, {
+        "count" : 19,
+        "item" : "2300000.00"
+      }, {
+        "count" : 18,
+        "item" : "137037.85"
+      }, {
+        "count" : 17,
+        "item" : "1962881.15"
+      }, {
+        "count" : 16,
+        "item" : "2099946.00"
+      }, {
+        "count" : 15,
+        "item" : "2000000.00"
+      }, {
+        "count" : 14,
+        "item" : "2099919.00"
+      }, {
+        "count" : 13,
+        "item" : "1099973.00"
+      }, {
+        "count" : 12,
+        "item" : "1199968.00"
+      } ]
+    },
+    "format" : {
+      "grouping_aggregate" : "sum"
+    }
+  } ],
+  "displayFormat" : {
+    "chartType" : "column",
+    "valueColumns" : [ {
+      "color" : "#6572a1",
+      "tableColumnId" : 1472366
+    } ],
+    "titleY" : "Amount in US$",
+    "fixedColumns" : [ 1473154 ],
+    "titleX" : "Calendar Year",
+    "renderOther" : false,
+    "stacking" : false,
+    "legend" : "none"
+  },
+  "grants" : [ {
+    "inherited" : true,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "license" : {
+    "name" : "Creative Commons Attribution 3.0 Unported",
+    "logoUrl" : "images/licenses/cc30by.png",
+    "termsLink" : "http://creativecommons.org/licenses/by/3.0/legalcode"
+  },
+  "metadata" : {
+    "custom_fields" : {
+      "Data As Of" : {
+        "Data As Of" : "03/31/2012"
+      },
+      "Scope" : {
+        "Country" : "Thailand"
+      }
+    },
+    "renderTypeConfig" : {
+      "visible" : {
+        "chart" : true
+      }
+    },
+    "availableDisplayTypes" : [ "chart", "table", "fatrow", "page" ]
+  },
+  "owner" : {
+    "id" : "yg9t-hf5u",
+    "displayName" : "World Bank Bot",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileImageUrlLarge" : "/images/profile/7646/0888/worldbankbot_large.jpg",
+    "profileImageUrlMedium" : "/images/profile/7646/0888/worldbankbot_thumb.jpg",
+    "profileImageUrlSmall" : "/images/profile/7646/0888/worldbankbot_tiny.jpg",
+    "profileLastModified" : 1318643857,
+    "roleName" : "publisher",
+    "screenName" : "World Bank Bot",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_nominations", "approve_nominations", "moderate_comments", "manage_stories", "feature_items", "short_session", "change_configurations", "view_domain", "view_others_datasets", "create_pages" ]
+  },
+  "query" : {
+    "filterCondition" : {
+      "type" : "operator",
+      "value" : "AND",
+      "children" : [ {
+        "type" : "operator",
+        "value" : "EQUALS",
+        "children" : [ {
+          "columnId" : 72971017,
+          "type" : "column"
+        }, {
+          "type" : "literal",
+          "value" : "Thailand"
+        } ]
+      } ]
+    },
+    "groupBys" : [ {
+      "columnId" : 72971017,
+      "type" : "column"
+    }, {
+      "columnId" : 72971021,
+      "type" : "column"
+    } ],
+    "orderBys" : [ {
+      "ascending" : true,
+      "expression" : {
+        "columnId" : 72971021,
+        "type" : "column"
+      }
+    } ]
+  },
+  "rights" : [ "read" ],
+  "sortBys" : [ {
+    "id" : 0,
+    "viewColumnId" : 72971021,
+    "flags" : [ "asc" ]
+  } ],
+  "tableAuthor" : {
+    "id" : "tap8-m577",
+    "displayName" : "World Bank Finances",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "privilegesDisabled" : false,
+    "profileImageUrlLarge" : "/images/profile/1301/3488/WBF_large.jpg",
+    "profileImageUrlMedium" : "/images/profile/1301/3488/WBF_thumb.jpg",
+    "profileImageUrlSmall" : "/images/profile/1301/3488/WBF_tiny.jpg",
+    "profileLastModified" : 1367236784,
+    "roleName" : "administrator",
+    "screenName" : "World Bank Finances",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "short_session", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages" ]
+  },
+  "tags" : [ "fifs", "donors", "country level" ],
+  "viewFilters" : {
+    "type" : "operator",
+    "value" : "AND",
+    "children" : [ {
+      "type" : "operator",
+      "value" : "EQUALS",
+      "children" : [ {
+        "columnId" : 72971017,
+        "type" : "column"
+      }, {
+        "type" : "literal",
+        "value" : "Thailand"
+      } ]
+    } ]
+  }
+}

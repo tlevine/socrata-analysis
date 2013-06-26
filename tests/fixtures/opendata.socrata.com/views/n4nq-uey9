@@ -1,0 +1,64 @@
+{
+  "id" : "n4nq-uey9",
+  "name" : "www.elhistoriador.com.ar",
+  "averageRating" : 0,
+  "category" : "Education",
+  "createdAt" : 1291163121,
+  "downloadCount" : 4,
+  "numberOfComments" : 0,
+  "oid" : 306021,
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1302998589,
+  "publicationGroup" : 220327,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1313892935,
+  "rowsUpdatedBy" : "i5tr-zhqm",
+  "signed" : false,
+  "tableId" : 220327,
+  "totalTimesRated" : 0,
+  "viewCount" : 13,
+  "viewLastModified" : 1313892935,
+  "viewType" : "tabular",
+  "columns" : [ {
+    "id" : 2591665,
+    "name" : "www.elhistoriador.com.ar",
+    "dataTypeName" : "url",
+    "fieldName" : "www_elhistoriador_com_ar",
+    "position" : 2,
+    "renderTypeName" : "url",
+    "tableColumnId" : 1417286,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : 0,
+      "null" : 0
+    },
+    "format" : {
+    },
+    "subColumnTypes" : [ "url", "description" ]
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "owner" : {
+    "id" : "i5tr-zhqm",
+    "displayName" : "pruebasocrata",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1291161312,
+    "screenName" : "pruebasocrata"
+  },
+  "query" : {
+  },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "i5tr-zhqm",
+    "displayName" : "pruebasocrata",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1291161312,
+    "screenName" : "pruebasocrata"
+  },
+  "flags" : [ "default" ]
+}
