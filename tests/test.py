@@ -52,7 +52,7 @@ def check_load_values(portal,viewid):
     else:
         for key in set(observed.keys()).union(expected.keys()):
             n.assert_in(key, observed.keys(), msg = 'I expected the output to include the key "%s", but I did not observe this key.' % key)
-            n.assert_in(key, expected.keys(), msg = 'I expected the output not to include the key "%s", but I did observed this key.' % key)
+            n.assert_in(key, expected.keys(), msg = 'I unexpectedly observed the key "%s".' % key)
             n.assert_equal(observed[key], expected[key], 'For key "%s", I observed "%s" and expected "%s".' % (key, observed[key], expected[key]))
 
 def check_load_keys(portal,viewid):
@@ -75,6 +75,7 @@ def check_load_keys(portal,viewid):
         "publicationDate",
         "publicationStage",
     #   "rowClass",
+        "rowsUpdatedBy",
         "signed",
         "tableId",
         "totalTimesRated",
@@ -127,6 +128,7 @@ def check_load_keys(portal,viewid):
         "tableAuthor.nrights",
 
         "nflags",
+        "nmetadata",
         "ntags",
     ]
     if hasattr(observed, 'keys'):

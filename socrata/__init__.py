@@ -76,6 +76,7 @@ def load(data_dir, portal, viewid):
         ('publicationDate', original_data['publicationDate']),
         ('publicationStage', original_data['publicationStage']),
     #   ('rowClass', original_data['rowClass']),
+        ("rowsUpdatedBy", original_data.get('rowsUpdatedBy', None)), # parent dataset
         ('signed', original_data['signed']),
         ('tableId', original_data['tableId']),
         ('totalTimesRated', original_data['totalTimesRated']),
@@ -94,6 +95,7 @@ def load(data_dir, portal, viewid):
         out.append(('%s.nrights' % person, len(original_data[person].get('rights', []))))
 
     out.append(('nflags', len(original_data.get('flags', []))))
+    out.append(('nmetadata', len(original_data.get('metadata', {}))))
     out.append(('ntags', len(original_data.get('tags', []))))
 
     return OrderedDict(out)

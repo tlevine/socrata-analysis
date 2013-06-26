@@ -54,14 +54,16 @@
   "owner.screenName" : "pruebasocrata",
   "owner.roleName" : null,
   
-  "nrights" : 1,
   "tableAuthor.id" : "i5tr-zhqm",
   "tableAuthor.displayName" : "pruebasocrata",
   "tableAuthor.emailUnsubscribed" : false,
   "tableAuthor.privacyControl" : "login",
   "tableAuthor.profileLastModified" : 1291161312,
   "tableAuthor.screenName" : "pruebasocrata",
+
   "nflags" : 1,
+  "nrights" : 1,
+  "nmetadata" : 0,
 
   "description" : null,
   "attribution" : null
