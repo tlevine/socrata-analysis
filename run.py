@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
-import csv
+import csv, codecs, cStringIO
+from collections import OrderedDict
 
 import socrata
 
@@ -27,12 +28,21 @@ class UnicodeDictWriter:
     def __init__(self, f, fieldnames, dialect=csv.excel, encoding="utf-8", **kwds):
         # Redirect output to a queue
         self.queue = cStringIO.StringIO()
-        self.writer = csv.DictWiter(self.queue, fieldnames, dialect=dialect, **kwds)
+        self.writer = csv.DictWriter(self.queue, fieldnames, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()
 
+    @staticmethod
+    def encode_if_text(value):
+        if isinstance(value, basestring):
+            return value.encode('utf-8')
+        else:
+            return value
+
     def writerow(self, row):
-        self.writer.writerow([s.encode("utf-8") for s in row])
+        self.writer.writerow(OrderedDict(
+            [(UnicodeDictWriter.encode_if_text(k), UnicodeDictWriter.encode_if_text(v)) for k,v in row.items()]
+        ))
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
         data = data.decode("utf-8")
@@ -48,7 +58,7 @@ class UnicodeDictWriter:
             self.writerow(row)
 
 f = open('socrata.csv', 'w')
-w = csv.UnicodeDictWriter(f, rows().next().keys())
+w = UnicodeDictWriter(f, rows().next().keys())
 for row in rows():
     w.writerow(row)
 f.close()
