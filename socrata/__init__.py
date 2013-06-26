@@ -49,11 +49,12 @@ def load(data_dir, portal, viewid):
         return None
     original_data = json.loads(original_string)
 
+    print original_data
     out = [
         ('portal', portal),
         ('id', original_data['id']),
         ('name', original_data['name']),
-        ('attribution', original_data['attribution']),
+        ('attribution', original_data.get('attribution')),
         ('averageRating', original_data['averageRating']),
         ('category', original_data['category']),
         ('createdAt', original_data['createdAt']),
@@ -65,7 +66,7 @@ def load(data_dir, portal, viewid):
         ('publicationAppendEnabled', original_data['publicationAppendEnabled']),
         ('publicationDate', original_data['publicationDate']),
         ('publicationStage', original_data['publicationStage']),
-        ('rowClass', original_data['rowClass']),
+    #   ('rowClass', original_data['rowClass']),
         ('signed', original_data['signed']),
         ('tableId', original_data['tableId']),
         ('totalTimesRated', original_data['totalTimesRated']),
