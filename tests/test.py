@@ -1,9 +1,88 @@
 import os,json
 from collections import Counter, OrderedDict
 
+import numpy as np
 import nose.tools as n
 
 import socrata
+
+KEYS = [
+    "portal",
+    "id",
+    "name",
+    "attribution",
+    "averageRating",
+    "category",
+    "createdAt",
+    "description",
+    "displayType",
+    "downloadCount",
+    "numberOfComments",
+    "oid",
+    "publicationAppendEnabled",
+    "publicationDate",
+    "publicationStage",
+    "publicationGroup",
+#   "rowClass",
+    "rowsUpdatedBy",
+    "rowsUpdatedAt",
+    "signed",
+    "tableId",
+    "totalTimesRated",
+    "viewCount",
+    "viewLastModified",
+    "viewType",
+    "nrow",
+    "ncol",
+    "ncol.calendar_date",
+    "ncol.checkbox",
+    "ncol.dataset_link",
+    "ncol.date",
+    "ncol.document",
+    "ncol.document_obsolete",
+    "ncol.drop_down_list",
+    "ncol.email",
+    "ncol.flag",
+    "ncol.geospatial",
+    "ncol.html",
+    "ncol.list",
+    "ncol.location",
+    "ncol.money",
+    "ncol.nested_table",
+    "ncol.number",
+    "ncol.object",
+    "ncol.percent",
+    "ncol.phone",
+    "ncol.photo",
+    "ncol.photo_obsolete",
+    "ncol.stars",
+    "ncol.text",
+    "ncol.url",
+
+    "owner.id",
+    "owner.displayName",
+    "owner.emailUnsubscribed",
+    "owner.privacyControl",
+    "owner.profileLastModified",
+    "owner.roleName",
+    "owner.screenName",
+    "owner.nrights",
+
+    "tableAuthor.id",
+    "tableAuthor.displayName",
+    "tableAuthor.emailUnsubscribed",
+    "tableAuthor.privacyControl",
+    "tableAuthor.profileLastModified",
+    "tableAuthor.roleName",
+    "tableAuthor.screenName",
+    "tableAuthor.nrights",
+
+    "ndisplayFormat",
+    "nflags",
+    "nmetadata",
+    "nrights",
+    "ntags",
+]
 
 DATATYPES = [
     "calendar_date",
@@ -58,84 +137,22 @@ def check_load_values(portal,viewid):
 def check_load_keys(portal,viewid):
     'After I load a file, it should have the right keys in the right order.'
     observed = socrata.load(os.path.join('fixtures','data-input'),portal,viewid)
-    expected = [
-        "portal",
-        "id",
-        "name",
-        "attribution",
-        "averageRating",
-        "category",
-        "createdAt",
-        "description",
-        "displayType",
-        "downloadCount",
-        "numberOfComments",
-        "oid",
-        "publicationAppendEnabled",
-        "publicationDate",
-        "publicationStage",
-        "publicationGroup",
-    #   "rowClass",
-        "rowsUpdatedBy",
-        "rowsUpdatedAt",
-        "signed",
-        "tableId",
-        "totalTimesRated",
-        "viewCount",
-        "viewLastModified",
-        "viewType",
-        "nrow",
-        "ncol",
-        "ncol.calendar_date",
-        "ncol.checkbox",
-        "ncol.dataset_link",
-        "ncol.date",
-        "ncol.document",
-        "ncol.document_obsolete",
-        "ncol.drop_down_list",
-        "ncol.email",
-        "ncol.flag",
-        "ncol.geospatial",
-        "ncol.html",
-        "ncol.list",
-        "ncol.location",
-        "ncol.money",
-        "ncol.nested_table",
-        "ncol.number",
-        "ncol.object",
-        "ncol.percent",
-        "ncol.phone",
-        "ncol.photo",
-        "ncol.photo_obsolete",
-        "ncol.stars",
-        "ncol.text",
-        "ncol.url",
-
-        "owner.id",
-        "owner.displayName",
-        "owner.emailUnsubscribed",
-        "owner.privacyControl",
-        "owner.profileLastModified",
-        "owner.roleName",
-        "owner.screenName",
-        "owner.nrights",
-
-        "tableAuthor.id",
-        "tableAuthor.displayName",
-        "tableAuthor.emailUnsubscribed",
-        "tableAuthor.privacyControl",
-        "tableAuthor.profileLastModified",
-        "tableAuthor.roleName",
-        "tableAuthor.screenName",
-        "tableAuthor.nrights",
-
-        "ndisplayFormat",
-        "nflags",
-        "nmetadata",
-        "nrights",
-        "ntags",
-    ]
     if hasattr(observed, 'keys'):
-        n.assert_equal(observed.keys(), expected)
+        n.assert_equal(observed.keys(), KEYS)
     else:
         n.assert_is_none(observed)
+
+
+def test_concat_to_array():
+    observed = socrata.concat_to_array([
+        OrderedDict([('a', 3), ('b', 8), ('c', 'abc')]),
+        OrderedDict([('a', 9), ('b', 2), ('c', 'aoeuaoeu')]),
+        OrderedDict([('a', 5), ('b', None), ('c', 'potato')]),
+        OrderedDict([('a', 1), ('b', 1.2), ('c', None)]),
+    ])
+    expected = np.array([
+        [3,9,5,1],
+        [8,2,None,1.2],
+        ['abc', 'aoeuaoeu', 'potato', None],
+    ])
+    np.testing.assert_array_equal(observed, expected)

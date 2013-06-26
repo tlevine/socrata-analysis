@@ -1,6 +1,9 @@
 import os, json
 from collections import OrderedDict, Counter
 
+import numpy as np
+
+
 DATATYPES = [
     "calendar_date",
     "checkbox",
@@ -101,11 +104,23 @@ def load(data_dir, portal, viewid):
 
     return OrderedDict(out)
 
-def concat_to_matrix(rows):
+def concat_to_array(rows):
     '''
     Return a numpy matrix of the table.
 
     Parameters:
 
-    - `rows`: An iterable of dicts
+    - `rows`: An iterable of OrderedDicts
     '''
+    rows = iter(rows)
+    try:
+        firstrow = rows.next()
+    except StopIteration:
+        raise ValueError('You must pass at least one row.')
+
+    columns = [np.array([cell]) for cell in firstrow.values()]
+    for row in rows:
+        for i, v in enumerate(row.values()):
+            columns[i] = np.append(columns[i], v)
+
+    return np.array(columns)
