@@ -1,7 +1,7 @@
 import os, json
 from collections import OrderedDict
 
-def load(data_dir, portal, viewid),:
+def load(data_dir, portal, viewid):
     '''
     Load a metadata file. Return it as a  array.
 
@@ -10,7 +10,7 @@ def load(data_dir, portal, viewid),:
     - `portal`: String portal name (like "explore.data.gov")
     - `viewid`: Socrata 4x4 view id
     '''
-    fp = open(os.path.join(data_dir, portal, viewid), 'r')
+    fp = open(os.path.join(data_dir, portal, 'views', viewid), 'r')
     original_data = json.load(fp)
     fp.close()
 

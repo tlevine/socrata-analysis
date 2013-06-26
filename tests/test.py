@@ -1,4 +1,8 @@
+import os
+
 import nose.tools as n
+
+import socrata
 
 def test_load():
     'Run all of the fixtures.'
@@ -6,7 +10,7 @@ def test_load():
 
 def test_load_keys():
     'After I load a file, it should have the right keys in the right order.'
-    observed = load(os.path.join('fixtures','data-input'),'data.cityofnewyork.us','hdr6-7r95').keys()
+    observed = socrata.load(os.path.join('fixtures','data-input'),'data.cityofnewyork.us','hdr6-7r95').keys()
     expected = [
         "ncol.calendar_date",
         "ncol.checkbox",
