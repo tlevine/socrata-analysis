@@ -1,10 +1,12 @@
+import nose.tools as n
+
 def test_load():
     'Run all of the fixtures.'
     pass
 
 def test_load_keys():
     'After I load a file, it should have the right keys in the right order.'
-    observed = load().keys()
+    observed = load(os.path.join('fixtures','data-input'),'data.cityofnewyork.us','hdr6-7r95').keys()
     expected = [
         "ncol.calendar_date",
         "ncol.checkbox",
@@ -31,6 +33,4 @@ def test_load_keys():
         "ncol.text",
         "ncol.url",
     ]
-
-## Predicting view counts
-What sorts of datasets get viewed more?
+    n.assert_equal(observed, expected)

@@ -1,0 +1,614 @@
+{
+  "id" : "hdr6-7r95",
+  "name" : "Map of Monuments",
+  "attribution" : "Department of Parks and Recreation (DPR)",
+  "averageRating" : 0,
+  "category" : "Facilities and Structures",
+  "createdAt" : 1318013146,
+  "description" : "GIS Map of Permanent Art and Monuments in New York City Department of Parks & Recreation properties.",
+  "displayType" : "map",
+  "downloadCount" : 340,
+  "numberOfComments" : 1,
+  "oid" : 341755,
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1318013164,
+  "publicationStage" : "published",
+  "rowClass" : "",
+  "signed" : false,
+  "tableId" : 243844,
+  "totalTimesRated" : 0,
+  "viewCount" : 693,
+  "viewLastModified" : 1363706317,
+  "viewType" : "tabular",
+  "columns" : [ {
+    "id" : 2979071,
+    "name" : "OBJECTID",
+    "dataTypeName" : "number",
+    "description" : "OBJECTID",
+    "fieldName" : "objectid",
+    "position" : 1,
+    "renderTypeName" : "number",
+    "tableColumnId" : 1560269,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : 813,
+      "smallest" : "1",
+      "sum" : "330891",
+      "null" : 0,
+      "average" : "407",
+      "largest" : "813",
+      "top" : [ {
+        "count" : 20,
+        "item" : "780"
+      }, {
+        "count" : 19,
+        "item" : "781"
+      }, {
+        "count" : 18,
+        "item" : "782"
+      }, {
+        "count" : 17,
+        "item" : "783"
+      }, {
+        "count" : 16,
+        "item" : "784"
+      }, {
+        "count" : 15,
+        "item" : "785"
+      }, {
+        "count" : 14,
+        "item" : "786"
+      }, {
+        "count" : 13,
+        "item" : "787"
+      }, {
+        "count" : 12,
+        "item" : "788"
+      }, {
+        "count" : 11,
+        "item" : "789"
+      }, {
+        "count" : 10,
+        "item" : "790"
+      }, {
+        "count" : 9,
+        "item" : "791"
+      }, {
+        "count" : 8,
+        "item" : "792"
+      }, {
+        "count" : 7,
+        "item" : "793"
+      }, {
+        "count" : 6,
+        "item" : "794"
+      }, {
+        "count" : 5,
+        "item" : "795"
+      }, {
+        "count" : 4,
+        "item" : "796"
+      }, {
+        "count" : 3,
+        "item" : "797"
+      }, {
+        "count" : 2,
+        "item" : "798"
+      }, {
+        "count" : 1,
+        "item" : "799"
+      } ]
+    },
+    "format" : {
+    }
+  }, {
+    "id" : 2979072,
+    "name" : "Shape",
+    "dataTypeName" : "location",
+    "description" : "Shape",
+    "fieldName" : "shape",
+    "position" : 2,
+    "renderTypeName" : "location",
+    "tableColumnId" : 1560270,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : 813,
+      "smallest" : {
+        "longitude" : "-74.1087919169999",
+        "latitude" : "40.64387358500005"
+      },
+      "null" : 0,
+      "largest" : {
+        "longitude" : "-73.75638917099991",
+        "latitude" : "40.673825074000035"
+      },
+      "top" : [ {
+        "count" : 20,
+        "item" : {
+          "longitude" : "-73.98150328399993",
+          "latitude" : "40.72671422500008"
+        }
+      }, {
+        "count" : 19,
+        "item" : {
+          "longitude" : "-73.98138482799993",
+          "latitude" : "40.72691092600007"
+        }
+      }, {
+        "count" : 18,
+        "item" : {
+          "longitude" : "-73.98217412499991",
+          "latitude" : "40.72663983400008"
+        }
+      }, {
+        "count" : 17,
+        "item" : {
+          "longitude" : "-73.98689341699992",
+          "latitude" : "40.72993400100006"
+        }
+      }, {
+        "count" : 16,
+        "item" : {
+          "longitude" : "-73.94203631699992",
+          "latitude" : "40.84716984600004"
+        }
+      }, {
+        "count" : 15,
+        "item" : {
+          "longitude" : "-74.02131033299992",
+          "latitude" : "40.63664683400009"
+        }
+      }, {
+        "count" : 14,
+        "item" : {
+          "longitude" : "-73.9846583339999",
+          "latitude" : "40.783532584000056"
+        }
+      }, {
+        "count" : 13,
+        "item" : {
+          "longitude" : "-73.8211349419999",
+          "latitude" : "40.72588226100004"
+        }
+      }, {
+        "count" : 12,
+        "item" : {
+          "longitude" : "-73.82040901699992",
+          "latitude" : "40.72361409200005"
+        }
+      }, {
+        "count" : 11,
+        "item" : {
+          "longitude" : "-73.9771069169999",
+          "latitude" : "40.768616834000056"
+        }
+      }, {
+        "count" : 10,
+        "item" : {
+          "longitude" : "-74.00639704299994",
+          "latitude" : "40.70453925900006"
+        }
+      }, {
+        "count" : 9,
+        "item" : {
+          "longitude" : "-73.77311992099993",
+          "latitude" : "40.72947704000006"
+        }
+      }, {
+        "count" : 8,
+        "item" : {
+          "longitude" : "-73.98621050399993",
+          "latitude" : "40.72195923600009"
+        }
+      }, {
+        "count" : 7,
+        "item" : {
+          "longitude" : "-73.92258896699991",
+          "latitude" : "40.76768064200007"
+        }
+      }, {
+        "count" : 6,
+        "item" : {
+          "longitude" : "-73.94545714999992",
+          "latitude" : "40.81290709600006"
+        }
+      }, {
+        "count" : 5,
+        "item" : {
+          "longitude" : "-73.99076275099992",
+          "latitude" : "40.71847573300005"
+        }
+      }, {
+        "count" : 4,
+        "item" : {
+          "longitude" : "-74.01662045699993",
+          "latitude" : "40.702994069000056"
+        }
+      }, {
+        "count" : 3,
+        "item" : {
+          "longitude" : "-73.9758906859999",
+          "latitude" : "40.77565723400005"
+        }
+      }, {
+        "count" : 2,
+        "item" : {
+          "longitude" : "-73.98425213999991",
+          "latitude" : "40.75441416600006"
+        }
+      }, {
+        "count" : 1,
+        "item" : {
+          "longitude" : "-73.93183930499993",
+          "latitude" : "40.80472185200006"
+        }
+      } ]
+    },
+    "format" : {
+    },
+    "subColumnTypes" : [ "human_address", "latitude", "longitude", "machine_address", "needs_recoding" ]
+  }, {
+    "id" : 2979073,
+    "name" : "GIS_Propnu",
+    "dataTypeName" : "text",
+    "description" : "GIS_Propnu",
+    "fieldName" : "gis_propnu",
+    "position" : 3,
+    "renderTypeName" : "text",
+    "tableColumnId" : 1560271,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : 813,
+      "smallest" : " ",
+      "null" : 0,
+      "largest" : "XZ363",
+      "top" : [ {
+        "count" : 20,
+        "item" : "M010"
+      }, {
+        "count" : 19,
+        "item" : "B073"
+      }, {
+        "count" : 18,
+        "item" : "M071"
+      }, {
+        "count" : 17,
+        "item" : "Q099"
+      }, {
+        "count" : 16,
+        "item" : "M005"
+      }, {
+        "count" : 15,
+        "item" : "M013"
+      }, {
+        "count" : 14,
+        "item" : "B113C"
+      }, {
+        "count" : 13,
+        "item" : "B035"
+      }, {
+        "count" : 12,
+        "item" : "M007"
+      }, {
+        "count" : 11,
+        "item" : "M012"
+      }, {
+        "count" : 10,
+        "item" : "B045"
+      }, {
+        "count" : 9,
+        "item" : "M086"
+      }, {
+        "count" : 8,
+        "item" : "M164"
+      }, {
+        "count" : 7,
+        "item" : "M089"
+      }, {
+        "count" : 6,
+        "item" : "M052"
+      }, {
+        "count" : 5,
+        "item" : "M032"
+      }, {
+        "count" : 4,
+        "item" : "M008"
+      }, {
+        "count" : 3,
+        "item" : "M011"
+      }, {
+        "count" : 2,
+        "item" : "M076"
+      }, {
+        "count" : 1,
+        "item" : "Q052"
+      } ]
+    },
+    "format" : {
+    }
+  }, {
+    "id" : 2979074,
+    "name" : "OMP_PropID",
+    "dataTypeName" : "text",
+    "description" : "OMP_PropID",
+    "fieldName" : "omp_propid",
+    "position" : 4,
+    "renderTypeName" : "text",
+    "tableColumnId" : 1560272,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : 813,
+      "smallest" : " ",
+      "null" : 0,
+      "largest" : "XZ363",
+      "top" : [ {
+        "count" : 20,
+        "item" : "M005-ZN02"
+      }, {
+        "count" : 19,
+        "item" : "M010-ZN01"
+      }, {
+        "count" : 18,
+        "item" : "B073-ZN11"
+      }, {
+        "count" : 17,
+        "item" : "M010-ZN12&13"
+      }, {
+        "count" : 16,
+        "item" : "M013"
+      }, {
+        "count" : 15,
+        "item" : "B113C"
+      }, {
+        "count" : 14,
+        "item" : "M005-ZN01"
+      }, {
+        "count" : 13,
+        "item" : "M007"
+      }, {
+        "count" : 12,
+        "item" : "M012"
+      }, {
+        "count" : 11,
+        "item" : "M086"
+      }, {
+        "count" : 10,
+        "item" : "M089-09"
+      }, {
+        "count" : 9,
+        "item" : "M052-02"
+      }, {
+        "count" : 8,
+        "item" : "M008"
+      }, {
+        "count" : 7,
+        "item" : "M011"
+      }, {
+        "count" : 6,
+        "item" : "M076"
+      }, {
+        "count" : 5,
+        "item" : "Q052-01"
+      }, {
+        "count" : 4,
+        "item" : "B114-01"
+      }, {
+        "count" : 3,
+        "item" : "M088-01"
+      }, {
+        "count" : 2,
+        "item" : "B052-01"
+      }, {
+        "count" : 1,
+        "item" : "M071-04"
+      } ]
+    },
+    "format" : {
+    }
+  }, {
+    "id" : 2979075,
+    "name" : "NAME311",
+    "dataTypeName" : "text",
+    "description" : "NAME311",
+    "fieldName" : "name311",
+    "position" : 5,
+    "renderTypeName" : "text",
+    "tableColumnId" : 1560273,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : 813,
+      "smallest" : " ",
+      "null" : 0,
+      "largest" : " ",
+      "top" : [ {
+        "count" : 20,
+        "item" : " "
+      } ]
+    },
+    "format" : {
+    }
+  }, {
+    "id" : 2979076,
+    "name" : "NAME",
+    "dataTypeName" : "text",
+    "description" : "NAME",
+    "fieldName" : "name",
+    "position" : 6,
+    "renderTypeName" : "text",
+    "tableColumnId" : 1560274,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : 813,
+      "smallest" : "#11 Perspectives",
+      "null" : 0,
+      "largest" : "Zoo",
+      "top" : [ {
+        "count" : 20,
+        "item" : "Ukrainian American Flagstaff"
+      }, {
+        "count" : 19,
+        "item" : "Slocum Disaster Memorial"
+      }, {
+        "count" : 18,
+        "item" : "Temperance Fountain"
+      }, {
+        "count" : 17,
+        "item" : "3000 A.D."
+      }, {
+        "count" : 16,
+        "item" : "Leiv Eiriksson Stone and Plaque"
+      }, {
+        "count" : 15,
+        "item" : "The Henry Neufeld Playground Plaque"
+      }, {
+        "count" : 14,
+        "item" : "Haym Solomon Memorial"
+      }, {
+        "count" : 13,
+        "item" : "Theodor Herzl Memorial"
+      }, {
+        "count" : 12,
+        "item" : "Anna Atkins Heckscher"
+      }, {
+        "count" : 11,
+        "item" : "Wall Street Fountain"
+      }, {
+        "count" : 10,
+        "item" : "Cunningham Park Tennis Building Plaque"
+      }, {
+        "count" : 9,
+        "item" : "Large Coqui"
+      }, {
+        "count" : 8,
+        "item" : "Aristotle"
+      }, {
+        "count" : 7,
+        "item" : "Tree of Hope III Marker"
+      }, {
+        "count" : 6,
+        "item" : "Justen Ladda Allen Street Malls Project"
+      }, {
+        "count" : 5,
+        "item" : "The Immigrants"
+      }, {
+        "count" : 4,
+        "item" : "Imagine"
+      }, {
+        "count" : 3,
+        "item" : "Benito Juarez"
+      }, {
+        "count" : 2,
+        "item" : "Crack Is Wack"
+      }, {
+        "count" : 1,
+        "item" : "369th Infantry Regiment Memorial"
+      } ]
+    },
+    "format" : {
+    }
+  } ],
+  "displayFormat" : {
+    "plotStyle" : "point",
+    "plot" : {
+      "longitudeId" : 1560270,
+      "descriptionColumns" : [ {
+        "tableColumnId" : 1560271
+      } ],
+      "latitudeId" : 1560269
+    }
+  },
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "metadata" : {
+    "custom_fields" : {
+      "drawingInfo.renderer" : {
+        "symbol.height" : "9",
+        "symbol.url" : "1A24A78E",
+        "symbol.type" : "esriPMS",
+        "symbol.yoffset" : "0",
+        "symbol.contentType" : "image/png",
+        "symbol.xoffset" : "0",
+        "symbol.angle" : "0",
+        "symbol.width" : "11",
+        "symbol.imageData" : "iVBORw0KGgoAAAANSUhEUgAAAA8AAAAMCAYAAAC9QufkAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAVtJREFUKJGV0L8vQ1EUwPHvfa+VCGG1mfgTWIhEvDRVBoZGWrxGLBZNDLgJm3h9DBU/FoNoXiQiYSBNB0n/A/4DoyjBREPbd6/Fz6Z+ne3ccz73nJwAP4QbC22VTWNpwctd1aoHvoPOSKhTo6ZMXzUAif9gIQy1DggB4048vCH3cmd/wqmYlQA63j5CV9aA7l9xetJqei7ivKaPQL2ALiduReXe6cGP+LnIItCoTX9AevmsY0daKJc8oXEd2z6WmcxTTexGw+2aShJwpZfPAshMtuAmBkd16enSKBdmgOWaWAcraTRBMC4+v8/tnlynYtaDRknHjuzITLbwBTtjvRF8+l/TYWD3rbYSD/UprZoBRLm0DEy84+1p6u5vzfTHLDWYillHQvmHGMFWpdXsp0Xs1Fh4c97LnQcA7m56k8Kgrep2Q9owh0BV39TAr6SBngCA3M+vAqvVXb/FC5pLe0sNE4hXAAAAAElFTkSuQmCC"
+      },
+      "Basic" : {
+        "copyrightText" : "",
+        "type" : "Feature Layer",
+        "definitionExpression" : "",
+        "Source" : "http://nycopendata.esri.com/ArcGIS/rest/services/DOITTServices/MonumentsWM/MapServer/0",
+        "id" : "0",
+        "minScale" : "0",
+        "displayField" : "NAME",
+        "htmlPopupType" : "esriServerHTMLPopupTypeAsHTMLText",
+        "name" : "Monuments",
+        "currentVersion" : "10.02",
+        "hasAttachments" : "false",
+        "capabilities" : "Map,Query,Data",
+        "Spatial Reference wkid" : "102100",
+        "maxScale" : "0",
+        "defaultVisibility" : "true",
+        "geometryType" : "esriGeometryPoint"
+      },
+      "Update" : {
+        "Update Frequency" : "Annually"
+      },
+      "drawingInfo" : {
+        "transparency" : "0",
+        "renderer.description" : "",
+        "renderer.type" : "simple",
+        "renderer.label" : ""
+      }
+    },
+    "renderTypeConfig" : {
+      "visible" : {
+        "map" : true
+      }
+    },
+    "availableDisplayTypes" : [ "map", "table", "fatrow", "page" ],
+    "rdfSubject" : "0",
+    "attachments" : [ {
+      "blobId" : "B11754FA-7A6A-41AA-B0F8-B476AE98A2B1",
+      "name" : "DPR_Monuments_001.zip",
+      "filename" : "DPR_Monuments_001.zip"
+    } ],
+    "rowIdentifier" : "0",
+    "rdfClass" : ""
+  },
+  "northWest" : {
+    "long" : -74.2550307238728,
+    "lat" : 40.9070285169244
+  },
+  "owner" : {
+    "id" : "5fuc-pqz2",
+    "displayName" : "NYC OpenData",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1331656907,
+    "roleName" : "administrator",
+    "screenName" : "NYC OpenData",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages", "short_session" ]
+  },
+  "query" : {
+  },
+  "rights" : [ "read" ],
+  "southEast" : {
+    "long" : -73.7178386973998,
+    "lat" : 40.502288197833
+  },
+  "tableAuthor" : {
+    "id" : "5fuc-pqz2",
+    "displayName" : "NYC OpenData",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1331656907,
+    "roleName" : "administrator",
+    "screenName" : "NYC OpenData",
+    "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages", "short_session" ]
+  },
+  "tags" : [ "map", "location", "cartography", "site", "art", "public", "permanent", "culture", "history", "historical", "monument", "sculpture", "statue", "healthy living" ],
+  "flags" : [ "default" ]
+}
