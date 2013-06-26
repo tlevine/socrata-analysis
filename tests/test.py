@@ -51,7 +51,7 @@ def check_load_values(portal,viewid):
         n.assert_is_none(observed)
     else:
         for key in set(observed.keys()).union(expected.keys()):
-            n.assert_equal(observed[key], expected[key], key)
+            n.assert_equal(observed[key], expected[key], msg = key)
 
 def check_load_keys(portal,viewid):
     'After I load a file, it should have the right keys in the right order.'
@@ -79,6 +79,8 @@ def check_load_keys(portal,viewid):
         "viewCount",
         "viewLastModified",
         "viewType",
+        "nrow",
+        "ncol",
         "ncol.calendar_date",
         "ncol.checkbox",
         "ncol.dataset_link",

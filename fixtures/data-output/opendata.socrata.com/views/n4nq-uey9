@@ -52,6 +52,7 @@
   "owner.privacyControl" : "login",
   "owner.profileLastModified" : 1291161312,
   "owner.screenName" : "pruebasocrata",
+  "owner.roleName" : null,
   
   "nrights" : 1,
   "tableAuthor.id" : "i5tr-zhqm",

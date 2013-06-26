@@ -84,14 +84,17 @@ def load(data_dir, portal, viewid):
         ('viewType', original_data['viewType']),
     ]
 
+    out.append(('nrow', original_data['columns'][0]["cachedContents"]["non_null"] + original_data['columns'][0]["cachedContents"]["null"]))
+    out.append(('ncol', len(original_data['columns'])))
+
     for datatype in DATATYPES:
         key = 'ncol.' + datatype
         value = original_data.get(datatype, 0)
         out.append((key, value))
 
     for key in PERSONKEYS:
-        out.append(('tableAuthor.%s' % key, original_data['tableAuthor'][key]))
-    out.append(('tableAuthor.nrights', len(original_data['tableAuthor']['rights'])))
+        out.append(('tableAuthor.%s' % key, original_data['tableAuthor'].get(key, None)))
+    out.append(('tableAuthor.nrights', len(original_data['tableAuthor'].get('rights', []))))
 
     return OrderedDict(out)
 
