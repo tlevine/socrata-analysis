@@ -49,7 +49,6 @@ def load(data_dir, portal, viewid):
         return None
     original_data = json.loads(original_string)
 
-    print original_data
     out = [
         ('portal', portal),
         ('id', original_data['id']),
@@ -58,8 +57,8 @@ def load(data_dir, portal, viewid):
         ('averageRating', original_data['averageRating']),
         ('category', original_data['category']),
         ('createdAt', original_data['createdAt']),
-        ('description', original_data['description']),
-        ('displayType', original_data['displayType']),
+        ('description', original_data.get('description', '')),
+        ('displayType', original_data.get('displayType', None)),
         ('downloadCount', original_data['downloadCount']),
         ('numberOfComments', original_data['numberOfComments']),
         ('oid', original_data['oid']),

@@ -37,7 +37,6 @@ def test_column_types():
     n.assert_list_equal(OrderedDict(socrata._column_types(columns)).keys(), DATATYPES)
 
 def test_load():
-    'Run all of the fixtures.'
     IN_DIR = os.path.join('fixtures','data-input')
     OUT_DIR = os.path.join('fixtures','data-output')
     for portal in os.listdir(OUT_DIR):
@@ -101,6 +100,6 @@ def check_load_keys(portal,viewid):
         "ncol.url",
     ]
     if hasattr(observed, 'keys'):
-        n.assert_equal(observed, expected)
+        n.assert_equal(observed.keys(), expected)
     else:
         n.assert_is_none(observed)
