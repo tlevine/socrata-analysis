@@ -1,0 +1,109 @@
+{
+  "id" : "9dsu-d5wu",
+  "name" : "2035 Metro Vision Base Rapid Transit Network",
+  "averageRating" : 0,
+  "category" : "Geo Data",
+  "createdAt" : 1338428285,
+  "description" : "Base Rapid Transit from the 2035 Metro Vision Scenario, as derived from the DRCOG Linear Referencing Sysetm (LRS)",
+  "displayType" : "href",
+  "downloadCount" : 75,
+  "numberOfComments" : 0,
+  "oid" : 726396,
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1338428294,
+  "publicationGroup" : 351178,
+  "publicationStage" : "published",
+  "signed" : false,
+  "tableId" : 351178,
+  "totalTimesRated" : 0,
+  "viewCount" : 90,
+  "viewLastModified" : 1338474158,
+  "viewType" : "href",
+  "columns" : [ ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "metadata" : {
+    "custom_fields" : {
+      "Geospatial" : {
+        "Horizontal Coordinate System" : "State Plane, Colorado Central, NAD 83",
+        "Collection Method" : "",
+        "Horizontal Accuracy" : ""
+      },
+      "Data Description" : {
+        "Data Collection Instrument" : "",
+        "Collection Mode" : ""
+      },
+      "Dataset Summary" : {
+        "Type" : "Dataset",
+        "Sub-Agency" : "",
+        "Date Updated" : "  November 9, 2011",
+        "Time Period" : "",
+        "Suggested by Public" : "",
+        "Progress" : "Complete",
+        "Source" : "",
+        "High Value Dataset" : "",
+        "Date Released" : "  November 9, 2011",
+        "Purpose" : "For display of the base rapid transit system in DRCOG map publications ",
+        "Frequency" : "As Needed",
+        "Local Government Entity" : "Denver Regional Council of Governments (DRCOG)",
+        "Agency" : ""
+      },
+      "Additional Dataset Documentation" : {
+        "Data Dictionary" : "",
+        "Additional Metadata" : "",
+        "Technical Documentation" : ""
+      },
+      "Dataset Coverage" : {
+        "Geographic Coverage" : "Denver metropolitan region",
+        "Granularity" : "",
+        "Unit of Analysis" : ""
+      },
+      "Contributing Agency Information" : {
+        "Agency Data Series Page" : "",
+        "Agency Program Page" : "",
+        "Citation" : "DRCOG Regional Data Catalog"
+      },
+      "Data Quality" : {
+        "Data Quality Certification" : "",
+        "Stewardship Plan" : "",
+        "Applicable Information Quality Guideline Designation" : ""
+      }
+    },
+    "renderTypeConfig" : {
+      "visible" : {
+        "href" : true
+      }
+    },
+    "availableDisplayTypes" : [ "href" ],
+    "accessPoints" : {
+      "open dataset source in new window" : "http://gis.drcog.org/datacatalog/content/2035-metro-vision-base-rapid-transit-network"
+    }
+  },
+  "owner" : {
+    "id" : "cpqk-px4d",
+    "displayName" : "Jon Gottsegen",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1336150308,
+    "roleName" : "editor",
+    "screenName" : "Jon Gottsegen",
+    "rights" : [ "create_datasets", "view_domain" ]
+  },
+  "query" : {
+  },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "cpqk-px4d",
+    "displayName" : "Jon Gottsegen",
+    "emailUnsubscribed" : false,
+    "privacyControl" : "login",
+    "profileLastModified" : 1336150308,
+    "roleName" : "editor",
+    "screenName" : "Jon Gottsegen",
+    "rights" : [ "create_datasets", "view_domain" ]
+  },
+  "flags" : [ "default" ]
+}
