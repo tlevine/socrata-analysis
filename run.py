@@ -58,6 +58,9 @@ def build_csv():
             for row in rows:
                 self.writerow(row)
 
+        def writeheader(self, *args, **kwargs):
+            return self.writer.writeheader(*args, **kwargs)
+
     f = open('socrata.csv', 'w')
     w = UnicodeDictWriter(f, rows().next().keys())
     w.writeheader()
