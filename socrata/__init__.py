@@ -42,8 +42,12 @@ def load(data_dir, portal, viewid):
     - `viewid`: Socrata 4x4 view id
     '''
     fp = open(os.path.join(data_dir, portal, 'views', viewid), 'r')
-    original_data = json.load(fp)
+    original_string = fp.read()
     fp.close()
+
+    if original_string == '':
+        return None
+    original_data = json.loads(original_string)
 
     out = [
         ('portal', portal),
