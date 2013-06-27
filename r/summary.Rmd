@@ -4,3 +4,7 @@ ggplot(socrata) + aes(x = createdAt, y = viewCount, color = portal) +
   scale_x_date('Dataset creation date') +
   scale_y_log10('Dataset view count')
 ```
+
+```{r ncol}
+ggplot(subset(melt(socrata), strtrim(variable, 5) == 'ncol.')) + aes(group = paste(portal, id), y = variable, x = value, color = portal) + geom_path()
+```
