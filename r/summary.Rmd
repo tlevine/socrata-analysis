@@ -1,3 +1,6 @@
-```{r}
-print(3)
+```{r count_v_date}
+ggplot(socrata) + aes(x = createdAt, y = viewCount, color = portal) +
+  geom_point() +
+  scale_x_date('Dataset creation date') +
+  scale_y_log10('Dataset view count')
 ```
