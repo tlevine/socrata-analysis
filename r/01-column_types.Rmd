@@ -6,5 +6,41 @@ ggplot(socrata) + aes(x = createdAt, y = viewCount, color = portal) +
 ```
 
 ```{r ncol}
-ggplot(subset(melt(socrata), strtrim(variable, 5) == 'ncol.')) + aes(group = paste(portal, id), y = variable, x = value, color = portal) + geom_path()
+socrata.column.types <- subset(melt(socrata), strtrim(variable, 5) == 'ncol.')
+ggplot(socrata.column.types) +
+  aes(group = paste(portal, id), y = variable, x = value, color = portal) +
+  geom_path()
+```
+
+```{r}
+# Bin the minority types
+socrata.column.types$variable <-
+  factor(socrata.column.types$variable, levels = c(
+    "ncol.calendar_date", "ncol.checkbox",
+    "ncol.dataset_link", "ncol.date",
+    "ncol.document", "ncol.document_obsolete",
+    "ncol.drop_down_list", "ncol.email",
+    "ncol.flag", "ncol.geospatial",
+    "ncol.html", "ncol.list",
+    "ncol.location", "ncol.money",
+    "ncol.nested_table", "ncol.number",
+    "ncol.object", "ncol.percent",
+    "ncol.phone", "ncol.photo",
+    "ncol.photo_obsolete", "ncol.stars",
+    "ncol.text", "ncol.url",
+  ))
+levels(socrata.column.types$variable) <- c(
+  "ncol.other", "ncol.checkbox",
+  "ncol.other", "ncol.date",
+  "ncol.other", "ncol.other",
+  "ncol.drop_down_list", "ncol.other",
+  "ncol.other", "ncol.other",
+  "ncol.html", "ncol.other",
+  "ncol.other", "ncol.money",
+  "ncol.other", "ncol.number",
+  "ncol.other", "ncol.percent",
+  "ncol.other", "ncol.photo",
+  "ncol.other", "ncol.stars",
+  "ncol.text", "ncol.url",
+))
 ```
