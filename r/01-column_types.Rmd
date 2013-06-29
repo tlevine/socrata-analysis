@@ -27,7 +27,7 @@ socrata.column.types$variable <-
     "ncol.object", "ncol.percent",
     "ncol.phone", "ncol.photo",
     "ncol.photo_obsolete", "ncol.stars",
-    "ncol.text", "ncol.url",
+    "ncol.text", "ncol.url"
   ))
 levels(socrata.column.types$variable) <- c(
   "ncol.other", "ncol.checkbox",
@@ -41,6 +41,6 @@ levels(socrata.column.types$variable) <- c(
   "ncol.other", "ncol.percent",
   "ncol.other", "ncol.photo",
   "ncol.other", "ncol.stars",
-  "ncol.text", "ncol.url",
+  "ncol.text", "ncol.url"
 ))
 ```
