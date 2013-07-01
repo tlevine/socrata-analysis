@@ -83,3 +83,7 @@ Same dataset in opendata.socrata.com and a different portal
 7790       dati.lombardia.it 3syc-54zf     234   56          1675
 10425   opendata.socrata.com 54y8-wyde     234   56             9
 ```
+
+Deleted datasets?
+
+    subset(socrata, nrow == 0 & ncol == 0)
