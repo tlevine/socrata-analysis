@@ -128,7 +128,53 @@ looking at the following variables, each of which has one observation per datase
 * Number of rows
 * Number of columns
 
-### Different portals
+### Sizes
+Let's first see which portals are biggest. Which has the most datasets?
+
+```
+
+```
+
+Which portals get the most downloads?
+
+```
+
+```
+
+Do any of them have few datasets but get a lot of downloads?
+
+```
+
+```
+
+### Dataset shapes
+Within the context of the current analysis, a datasets is a table. A table has columns and rows.
+How tall and fat are these datasets?
+
+Dataset sizes
+
+```
+
+```
+
+Average dataset size by portal (ncol, nrow, ncol * nrow)
+
+```
+
+```
+
+### Time
+What does the growth of downloads of a dataset look like? We don't have the data
+for individual datasets, but we can compare the current download counts between
+old datasets and new datasets.
+
+
+
+Has dataset size changed over the past couple years?
+
+
+
+When do datasets get uploaded? Does it happen in bursts?
 
 
 ```{r shape}
