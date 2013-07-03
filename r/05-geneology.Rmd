@@ -1,0 +1,10 @@
+
+
+
+Same dataset in opendata.socrata.com and a different portal
+
+```
+                      portal        id    nrow ncol downloadCount
+7790       dati.lombardia.it 3syc-54zf     234   56          1675
+10425   opendata.socrata.com 54y8-wyde     234   56             9
+```

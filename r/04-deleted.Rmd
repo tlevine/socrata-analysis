@@ -1,0 +1,6 @@
+
+Deleted datasets?
+
+    subset(socrata, nrow == 0 & ncol == 0)
+
+
