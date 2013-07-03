@@ -90,9 +90,10 @@ for example, I take the number of dataset tags rather than the full list of tags
 You can download this table [here](socrata.csv). The following analyses all come from
 that table.
 
-## An interesting point about the Socrata software
+## Two interesting points about the Socrata software
 I learned some fun things about Socrata in doing all of this.
 
+### Multi-portal architecture
 All of the different Socrata portals are probably served from the same web application.
 I say this because rate limits apply across portals rather than within portals and because
 all of the sites were down for maintenance on the same day (6/26/2013).
@@ -102,9 +103,33 @@ for each city. I suspect that Socrata found that people want to feel like they h
 own curated portal rather than feeling like they are dumping data into the abyss of
 [opendata.socrata.com](https://opendata.socrata.com).
 
-Anyway, on to the quantitative analysis
+### URLs
+If you navigate to a dataset in Socrata in your web browser, you'll wind up with a URL like this.
+
+> [`https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf`](https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf).
+
+It turns out that the directories don't matter; this URL also works.
+
+> [`https://iranhumanrights.socrata.com/-/-/uqfx-z9cf`](https://iranhumanrights.socrata.com/-/-/uqfx-z9cf)
+
+So if you ever are curious for more information about a dataset that you find in the spreadsheet,
+you can just type in a URL like that for the particular dataset and look at all of the information
+that Socrata has on it.
 
 ## Initial analysis
+Anyway, on to the quantitative analysis.
+
+For now, I'm just going to give a broader summary of the datasets in Socrata. I'm mainly
+looking at the following variables, each of which has one observation per dataset.
+
+* Data portal
+* Date published
+* Download count
+* Number of rows
+* Number of columns
+
+### Different portals
+
 
 ```{r shape}
 ggplot(socrata) + aes(x = ncol, y = nrow, size = downloadCount, color = portal) + geom_point()
