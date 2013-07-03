@@ -6,6 +6,37 @@ I downloaded the metadata files for most of the datasets across most of the Socr
 Here I explain how I did that and present an summary of the sorts of data that we find in the portals.
 
 ## Acquiring the data
+I acquired the data the same way any ordinary person could have,
+except that I had substantial assistance from robot scripts.
+You can see the general workflow below.
+
+![A flow chart diagraming how the program works](<%= @item.identifier %>architecture.jpg)
+
+First, I get a list of Socrata portals from the Socrata [status page](http://status.socrata.com).
+This page makes loads the portal names and descriptions from [this JSON file](http://status.socrata.com/sites).
+I download parse that file in [`portals.py`](<%= root %>portals.py). Most of the portal URLs
+are in the `description` fields, but this isn't always the case, so I used some heuristics to
+tidy that up.
+
+```
+#
+# From portals.py
+# 
+if is_domain(portal['description']):
+    domain = portal['description']
+elif is_domain(portal['name']):
+    domain = portal['name']
+elif portal['name'] == 'Socrata':
+    continue
+else:
+    warnings.warn('Could not find a valid domain for %s, skipping' % portal['name'])
+    continue
+
+domain = domain.replace('https://', '').replace('http://', '')
+```
+
+Most of these steps are encapsulated in the file [`run.sh`](<%= root %>run.sh),
+and that is the file that I run.
 
 ## Initial analysis
 
