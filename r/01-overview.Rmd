@@ -12,6 +12,7 @@ You can see the general workflow below.
 
 ![A flow chart diagraming how the program works](<%= @item.identifier %>architecture.jpg)
 
+### Listing the portals
 First, I get a list of Socrata portals from the Socrata [status page](http://status.socrata.com).
 This page makes loads the portal names and descriptions from [this JSON file](http://status.socrata.com/sites).
 I download parse that file in [`portals.py`](<%= root %>portals.py). Most of the portal URLs
@@ -35,8 +36,35 @@ else:
 domain = domain.replace('https://', '').replace('http://', '')
 ```
 
-Most of these steps are encapsulated in the file [`run.sh`](<%= root %>run.sh),
-and that is the file that I run.
+It turns out that the [opendata.socrata.com](https://opendata.socrata.com) portal isn't
+ listed there, so I add that one manually.
+
+Next, I create a directory for each data portal and start downloading and parsing data
+from each individual portal. Most of the portal-specific stuff is enclosed in the
+[`run_one.sh`](<%= root %>run_one.sh) script.
+
+### Search for datasets
+As far as I could tell, Socrata doesn't have a formal API for searching datasets, so I
+just searched with the ordinary web interface. In [`search.sh`](<%= root %>search.sh),
+I make a search for all datasets of all kinds, and then I keep going to the next page
+as long as there are results. I save all of the results in a `searches` directory inside
+of the portal data folder. For example, search results for `data.colorado.gov` go in
+`data/data.colorado.gov/searches`.
+
+### Conversion to a table
+All of the steps so far are encapsulated in the file [`run.sh`](<%= root %>run.sh),
+and that is the file that I run. This resulted in a bunch of inconsistently structured
+JSON files. There are a lot of different ways that one may want to reformat these
+files, and I happened to want a table with specific sorts of information, so I decided
+to separate that into a different file (and repository altogether).
+
+A script in the [analysis repository](https://github.com/tlevine/socrata-analysis)
+opens all of the JSON files and makes a row in a CSV file for each one. It doesn't take
+all of the fields. It handles nested structures by extracting flat features from them;
+for example, I take the number of dataset tags rather than the full list of tags.
+
+You can download this table [here](socrata.csv). The following analyses all come from
+that table.
 
 ## Initial analysis
 
