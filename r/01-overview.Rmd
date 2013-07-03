@@ -51,6 +51,30 @@ as long as there are results. I save all of the results in a `searches` director
 of the portal data folder. For example, search results for `data.colorado.gov` go in
 `data/data.colorado.gov/searches`.
 
+### Find dataset identifiers
+The search result pages are big HTML blobs. The script [`viewids.py`](<%= root %>viewids)
+finds the Socrata 4x4 identifiers in these HTML files and saves them to a file called
+`viewids`. It makes a separate file for each portal.
+
+### Download dataset metadata
+You can download the metadata for a particular dataset at the url
+`https://${SOCRATA_URL}/views/${viewid}.json`, where `SOCRATA_URL` is something like
+`dati.lombardia.it` and `viewid` is something like `tuar-wxya`.
+The script [`views.sh`](<%= root %>views.sh) downloads the metadata files.
+
+There are sometimes other attachments that you can read about in the "About" section
+of a dataset, and those don't get downloaded automatically.
+
+### Download the datasets themselves
+Downloading the datasets is similarly straightforward; you just go to 
+`https://$SOCRATA_URL/api/views/${viewid}/rows.csv?accessType=DOWNLOAD`,
+where `SOCRATA_URL` is again something like
+`dati.lombardia.it` and `viewid` is again something like `tuar-wxya`.
+[`rows.sh`](<%= root %>rows.sh) does this.
+
+Unfortunately, Socrata is pretty slow enough that this is actually pretty annoying,
+so I'm not downloading the actual datasets for now, just the metadata.
+
 ### Conversion to a table
 All of the steps so far are encapsulated in the file [`run.sh`](<%= root %>run.sh),
 and that is the file that I run. This resulted in a bunch of inconsistently structured
@@ -65,6 +89,9 @@ for example, I take the number of dataset tags rather than the full list of tags
 
 You can download this table [here](socrata.csv). The following analyses all come from
 that table.
+
+## Cool tricks
+I learned some fun things about Socrata in doing all of this.
 
 ## Initial analysis
 
