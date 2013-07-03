@@ -90,8 +90,19 @@ for example, I take the number of dataset tags rather than the full list of tags
 You can download this table [here](socrata.csv). The following analyses all come from
 that table.
 
-## Cool tricks
+## An interesting point about the Socrata software
 I learned some fun things about Socrata in doing all of this.
+
+All of the different Socrata portals are probably served from the same web application.
+I say this because rate limits apply across portals rather than within portals and because
+all of the sites were down for maintenance on the same day (6/26/2013).
+
+When I open Socrata portals in my web browser, I feel like they are different installations
+for each city. I suspect that Socrata found that people want to feel like they have their
+own curated portal rather than feeling like they are dumping data into the abyss of
+[opendata.socrata.com](https://opendata.socrata.com).
+
+Anyway, on to the quantitative analysis
 
 ## Initial analysis
 
