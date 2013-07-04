@@ -3,6 +3,7 @@ title: Analyze all the datasets
 tags: ['socrata']
 ---
 <% root = 'https://github.com/tlevine/socrata-analysis/tree/master/' %>
+<style>article img { width: 100%; margin-left: 0; margin-right: 0; }</style>
 
 I downloaded the metadata files for most of the datasets across most of the Socrata data portals.
 Here I explain how I did that and present an summary of the sorts of data that we find in the portals.
@@ -108,11 +109,11 @@ own curated portal rather than feeling like they are dumping data into the abyss
 ### URLs
 If you navigate to a dataset in Socrata in your web browser, you'll wind up with a URL like this.
 
-> [`https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf`](https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf).
+> [https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf](https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf).
 
 It turns out that the directories don't matter; this URL also works.
 
-> [`https://iranhumanrights.socrata.com/-/-/uqfx-z9cf`](https://iranhumanrights.socrata.com/-/-/uqfx-z9cf)
+> [https://iranhumanrights.socrata.com/-/-/uqfx-z9cf](https://iranhumanrights.socrata.com/-/-/uqfx-z9cf)
 
 So if you ever are curious for more information about a dataset that you find in the spreadsheet,
 you can just type in a URL like that for the particular dataset and look at all of the information
@@ -177,22 +178,20 @@ ggplot(.download) + aes(x = datasets, y = downloads, label = portal) +
 What are the most popular datasets for each portal? Let's first do the one with
 the most downloads.
 
-```
-{r popular.by.portal.raw, asis = T}
+```{r popular_by_portal_raw, asis = T}
 datasets <- ddply(socrata, 'portal', function(df) {
   df[order(df$downloadCount, decreasing = T)[1],c('id', 'name', 'createdAt', 'downloadCount')]
 })
-listify(datasets)
+print(listify(datasets))
 ```
 
 Next, let's do the one with the most downloads per time since published.
 
-```
-{r popular.by.portal.density, asis = T}
+```{r popular_by_portal_density, asis = T}
 ddply(socrata, 'portal', function(df) {
   df[order(df$downloadCount / as.numeric(as.Date('2013-07-01') - df$createdAt), decreasing = T)[1],c('id', 'name', 'createdAt', 'downloadCount')]
 })
-listify(datasets)
+print(listify(datasets))
 ```
 
 
@@ -218,10 +217,11 @@ ggplot(socrata) + aes(x = ncol, y = nrow, fill = portal) +
   scale_y_log10('Number of rows', labels = comma)
 ```
 
-Some datasets have no rows nor columns.
-```
-{r deleted}
-socrata[(socrata$nrow == 0 & socrata$ncol == 0),]
+Some datasets have no rows nor columns. Here are ten of them.
+```{r deleted}
+deleted <- socrata[(socrata$nrow == 0 & socrata$ncol == 0),]
+set.seed(13984382)
+print(listify(sample.int(nrow(deleted), 10)))
 ```
 
 These appear to be listed as deleted.
