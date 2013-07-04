@@ -194,16 +194,42 @@ ddply(socrata, 'portal', function(df) {
 Within the context of the current analysis, a datasets is a table. A table has columns and rows.
 How tall and fat are these datasets?
 
-Dataset sizes
+I thought it would be cool to show dataset size as a rectangle because datasets are tables.
 
 ```
-ggplot(socrata)
+ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = portal) +
+  geom_rect(alpha = 0.1) +
+  scale_x_log10('Number of columns', labels = comma) + 
+  scale_y_log10('Number of rows', labels = comma)
 ```
 
-Average dataset size by portal (ncol, nrow, ncol * nrow)
+But that looks bad, so let's do it as points.
 
 ```
+ggplot(socrata) + aes(x = ncol, y = nrow, fill = portal) +
+  geom_point(alpha = 0.5) +
+  scale_x_log10('Number of columns', labels = comma) + 
+  scale_y_log10('Number of rows', labels = comma)
+```
 
+Some datasets have no rows nor columns.
+```
+socrata[(socrata$nrow == 0 && socrata$ncol == 0),]
+```
+
+These appear to be listed as deleted.
+
+
+Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
+
+```
+.sizes <- melt(ddply(socrata, 'portal', function(df) {
+  c(ncol = mean(df$ncol), 
+    nrow = mean(df$nrow), 
+    ncell = mean(df$ncol * df$nrow))
+}), id.vars = c('portal'))
+ggplot(.sizes) + aes(x = variable, y = portal, group = portal, color = portal) +
+  geom_line()
 ```
 
 

@@ -2,6 +2,7 @@ library(ggplot2)
 library(plyr)
 library(knitr)
 library(scales)
+library(reshape2)
 
 if (!('socrata' %in% ls())) {
   socrata <- read.csv('../socrata.csv', stringsAsFactors = F)
