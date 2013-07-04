@@ -192,7 +192,7 @@ print(listify(datasets))
 Next, let's do the one with the most downloads per time since published.
 
 ```{r popular_by_portal_density, asis = T}
-ddply(socrata, 'portal', function(df) {
+datasets <- ddply(socrata, 'portal', function(df) {
   df[order(df$downloadCount / as.numeric(as.Date('2013-07-01') - df$createdAt), decreasing = T)[1],c('id', 'name', 'createdAt', 'downloadCount')]
 })
 print(listify(datasets))
@@ -225,7 +225,7 @@ Some datasets have no rows nor columns. Here are ten of them.
 ```{r deleted}
 deleted <- socrata[(socrata$nrow == 0 & socrata$ncol == 0),]
 set.seed(13984382)
-print(listify(sample.int(nrow(deleted), 10)))
+print(listify(deleted[sample.int(nrow(deleted), 10),]))
 ```
 
 These appear to be listed as deleted.
