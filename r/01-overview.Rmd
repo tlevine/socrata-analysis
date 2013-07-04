@@ -175,8 +175,19 @@ ggplot(.download) + aes(x = datasets, y = downloads, label = portal) +
 What are the most popular datasets for each portal? Let's first do the one with
 the most downloads.
 
+```
+ddply(socrata, 'portal', function(df) {
+  df[order(df$downloadCount, decreasing = T)[1],c('id', 'name', 'createdAt', 'downloadCount')]
+})
+```
 
 Next, let's do the one with the most downloads per time since published.
+
+```
+ddply(socrata, 'portal', function(df) {
+  df[order(df$downloadCount / as.numeric(as.Date('2013-07-01') - df$createdAt), decreasing = T)[1],c('id', 'name', 'createdAt', 'downloadCount')]
+})
+```
 
 
 ### Dataset shapes
