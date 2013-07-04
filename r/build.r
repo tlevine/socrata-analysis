@@ -11,7 +11,7 @@ if (!('socrata' %in% ls())) {
 
 # Helpers
 listify <- function(datasets) {
-  paste(
+  cat(paste(
     paste(
       '* `', datasets$portal, '`: [', datasets$name, ']',
       '(https://', datasets$portal, '/-/-/', datasets$id, ')',
@@ -19,7 +19,7 @@ listify <- function(datasets) {
       sep = ''
     ),
     collapse = '\n'
-  )
+  ))
 }
 
 for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
