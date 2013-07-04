@@ -23,10 +23,14 @@ listify <- function(datasets) {
 }
 
 for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
+  # Remove the old figures.
+  file.remove(c(paste('figure', list.files('figure'), sep = '/'), 'figure'))
+
+  # Compile the markdown and the figures.
   md <- sub('Rmd$', 'md', Rmd)
   knit(Rmd, md)
 
-  file.remove(c(paste('figure', list.files('figure'), sep = '/'), 'figure'))
+  # Rename the figure directory so we separate different figure directories.
   figure <- sub('.Rmd$', '-figure', Rmd)
   file.rename('figure', figure)
   break
