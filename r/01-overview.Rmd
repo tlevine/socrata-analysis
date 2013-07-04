@@ -4,7 +4,7 @@ tags: ['socrata']
 ---
 <% root = 'https://github.com/tlevine/socrata-analysis/tree/master/' %>
 ```{r configure, echo = F}
-opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 6)
+opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 5)
 ```
 
 I downloaded the metadata files for most of the datasets across most of the Socrata data portals.
@@ -25,6 +25,9 @@ are in the `description` fields, but this isn't always the case, so I used some 
 tidy that up.
 
 ```
+#
+# From portals.py
+# 
 if is_domain(portal['description']):
     domain = portal['description']
 elif is_domain(portal['name']):
@@ -255,7 +258,7 @@ old datasets and new datasets.
 
 Has dataset size changed over the past couple years?
 
-```{r datasets_size_over_time, fig.width = 5}
+```{r datasets_size_over_time, fig.height = 10}
 base <- ggplot(socrata) + aes(x = createdAt, group = portal, color = portal) +
   geom_point() + scale_y_log10(labels = comma)
 
@@ -266,12 +269,12 @@ print(base + aes(y = nrow * ncol))
 
 
 When did datasets get uploaded?
-```{r datasets_when_uploaded, fig.width = 5}
+```{r datasets_when_uploaded, fig.height = 10}
 ggplot(socrata) + aes(x = createdAt, group = portal, fill = portal) + geom_bar()
 ```
 
 On what days of the week do datasets get uploaded?
-```{r datasets_day_of_week_uploaded, fig.width = 5}
+```{r datasets_day_of_week_uploaded, fig.height = 10}
 socrata$createdAt.dayOfWeek <- factor(
   strftime(socrata$createdAt, format = '%a'),
   levels = c('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'))
