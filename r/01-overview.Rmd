@@ -1,5 +1,7 @@
-Analyze all the datasets
-=====
+---
+title: Analyze all the datasets
+tags: ['socrata']
+---
 <% root = 'https://github.com/tlevine/socrata-analysis/tree/master/' %>
 
 I downloaded the metadata files for most of the datasets across most of the Socrata data portals.
@@ -131,7 +133,7 @@ looking at the following variables, each of which has one observation per datase
 ### Sizes
 Let's first see which portals are biggest. Which has the most datasets?
 
-```{r big.portals.datasets}
+```{r big_portals_datasets}
 socrata$portal <- factor(socrata$portal,
   levels = names(sort(table(socrata$portal), decreasing = T)))
 
@@ -142,7 +144,7 @@ ggplot(socrata) + aes(x = portal) + geom_bar() + coord_flip() +
 
 Which portals get the most downloads?
 
-```{r big.portals.downloads}
+```{r big_portals_downloads}
 .download <- ddply(socrata, 'portal', function(df) {
   c(datasets = nrow(df), downloads = sum(df$downloadCount))
 })
@@ -156,7 +158,7 @@ ggplot(.download) + aes(x = portal, y = downloads) + geom_point() + coord_flip()
 
 Do any of them have few datasets but get a lot of downloads?
 
-```{r big.portals.density.scatter}
+```{r big_portals_density_scatter}
 ggplot(.download) + aes(x = datasets, y = downloads, color = portal) + geom_point() +
   scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
   scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
@@ -165,7 +167,7 @@ ggplot(.download) + aes(x = datasets, y = downloads, color = portal) + geom_poin
 Here's the same plot except with the portal names in the plot.
 This might be easier or harder to read.
 
-```{r big.portals.density.text}
+```{r big_portals_density_text}
 ggplot(.download) + aes(x = datasets, y = downloads, label = portal) +
   geom_text() +
   scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
@@ -200,7 +202,7 @@ How tall and fat are these datasets?
 
 I thought it would be cool to show dataset size as a rectangle because datasets are tables.
 
-```{r shapes.rect}
+```{r shapes_rect}
 ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = portal) +
   geom_rect(alpha = 0.1) +
   scale_x_log10('Number of columns', labels = comma) + 
@@ -209,7 +211,7 @@ ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = porta
 
 But that looks bad, so let's do it as points.
 
-```{r shapes.scatter}
+```{r shapes_scatter}
 ggplot(socrata) + aes(x = ncol, y = nrow, fill = portal) +
   geom_point(alpha = 0.5) +
   scale_x_log10('Number of columns', labels = comma) + 
@@ -227,7 +229,7 @@ These appear to be listed as deleted.
 
 Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
 
-```{r dataset.size.by.portal.nrow}
+```{r dataset_size_by_portal_nrow}
 .sizes <- ddply(socrata, 'portal', function(df) {
   c(ncol = mean(df$ncol), 
     nrow = mean(df$nrow), 
@@ -237,10 +239,10 @@ base <- ggplot(.sizes) + aes(y = portal, group = portal, color = portal) +
   geom_point() + scale_x_log10(labels = comma)
 base + aes(x = nrow)
 ```
-```{r datasets.size.over.time.ncol}
+```{r dataset_size_by_portal_ncol}
 base + aes(y = ncol)
 ```
-```{r datasets.size.over.time.ncell}
+```{r dataset_size_by_portal_ncell}
 base + aes(y = nrow * ncol)
 ```
 
@@ -252,25 +254,25 @@ old datasets and new datasets.
 
 Has dataset size changed over the past couple years?
 
-```{r datasets.size.over.time.nrow}
+```{r datasets_size_over_time_nrow}
 base <- ggplot(socrata) + aes(x = createdAt, group = portal) +
   geom_point() + scale_y_log10(labels = comma)
 base + aes(y = nrow)
 ```
-```{r datasets.size.over.time.ncol}
+```{r datasets_size_over_time_ncol}
 base + aes(y = ncol)
 ```
-```{r datasets.size.over.time.ncell}
+```{r datasets_size_over_time_ncell}
 base + aes(y = nrow * ncol)
 ```
 
 When did datasets get uploaded?
-```{r datasets.when.uploaded}
+```{r datasets_when_uploaded}
 ggplot(socrata) + aes(x = createdAt, group = portal, fill = portal) + geom_bar()
 ```
 
 On what days of the week do datasets get uploaded?
-```{r datasets.day.of.week.uploaded}
+```{r datasets_day_of_week_uploaded}
 socrata$createdAt.dayOfWeek <- factor(
   strftime(socrata$createdAt, format = '%a'),
   levels = c('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'))
