@@ -3,9 +3,8 @@ title: Analyze all the datasets
 tags: ['socrata']
 ---
 <% root = 'https://github.com/tlevine/socrata-analysis/tree/master/' %>
-<style>article img { width: 100%; margin-left: 0; margin-right: 0; }</style>
 ```{r configure, echo = F}
-opts_chunk$set(fig.width=10, fig.height=4, dip = 42 * 4)
+opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 6)
 ```
 
 I downloaded the metadata files for most of the datasets across most of the Socrata data portals.
@@ -146,6 +145,7 @@ ggplot(socrata) + aes(x = portal) + geom_bar() + coord_flip() +
   scale_y_log10('Number of datasets', breaks = 10^(0:4)) +
   scale_x_discrete('Data portal')
 ```
+{:.wide}
 
 Which portals get the most downloads?
 
@@ -160,10 +160,11 @@ ggplot(.download) + aes(x = portal, y = downloads) + geom_point() + coord_flip()
   scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9)) +
   scale_x_discrete('Data portal')
 ```
+{:.wide}
 
 Do any of them have few datasets but get a lot of downloads?
 
-```{r big_portals_density_scatter}
+```{r big_portals_density_scatter, fig.height = 10}
 ggplot(.download) + aes(x = datasets, y = downloads, color = portal) + geom_point() +
   scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
   scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
@@ -178,6 +179,7 @@ ggplot(.download) + aes(x = datasets, y = downloads, label = portal) +
   scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
   scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
 ```
+{:.wide}
 
 What are the most popular datasets for each portal? Let's first do the one with
 the most downloads.
@@ -205,7 +207,7 @@ How tall and fat are these datasets?
 
 I thought it would be cool to show dataset size as a rectangle because datasets are tables.
 
-```{r shapes_rect}
+```{r shapes_rect, fig.height = 10}
 ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = portal) +
   geom_rect(alpha = 0.1) +
   scale_x_log10('Number of columns', labels = comma) + 
@@ -214,12 +216,13 @@ ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = porta
 
 But that looks bad, so let's do it as points.
 
-```{r shapes_scatter}
+```{r shapes_scatter, fig.height = 10}
 ggplot(socrata) + aes(x = ncol, y = nrow, fill = portal) +
   geom_point(alpha = 0.5) +
   scale_x_log10('Number of columns', labels = comma) + 
   scale_y_log10('Number of rows', labels = comma)
 ```
+{:.wide}
 
 Some datasets have no rows nor columns. Here are ten of them.
 ```{r deleted}
@@ -233,7 +236,7 @@ These appear to be listed as deleted.
 
 Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
 
-```{r dataset_size_by_portal}
+```{r dataset_size_by_portal, fig.height = 10}
 .sizes <- ddply(socrata, 'portal', function(df) {
   c(ncol = mean(df$ncol), 
     nrow = mean(df$nrow), 
@@ -243,8 +246,8 @@ base <- ggplot(.sizes) + aes(y = portal, group = portal, color = portal) +
   geom_point() + scale_x_log10(labels = comma)
 
 print(base + aes(x = nrow))
-print(base + aes(y = ncol))
-print(base + aes(y = nrow * ncol))
+print(base + aes(x = ncol))
+print(base + aes(x = nrow * ncol))
 ```
 
 
@@ -255,8 +258,8 @@ old datasets and new datasets.
 
 Has dataset size changed over the past couple years?
 
-```{r datasets_size_over_time}
-base <- ggplot(socrata) + aes(x = createdAt, group = portal) +
+```{r datasets_size_over_time, fig.height = 10}
+base <- ggplot(socrata) + aes(x = createdAt, group = portal, color = portal) +
   geom_point() + scale_y_log10(labels = comma)
 
 print(base + aes(y = nrow))
@@ -269,6 +272,7 @@ When did datasets get uploaded?
 ```{r datasets_when_uploaded}
 ggplot(socrata) + aes(x = createdAt, group = portal, fill = portal) + geom_bar()
 ```
+{:.wide}
 
 On what days of the week do datasets get uploaded?
 ```{r datasets_day_of_week_uploaded}
@@ -279,6 +283,7 @@ ggplot(socrata) + aes(x = createdAt.dayOfWeek, group = portal, fill = portal) +
   geom_bar() + scale_y_continuous('Dataset uploads', labels = comma) +
   scale_x_discrete('Day of the week')
 ```
+{:.wide}
 
 
 ## Future plans
