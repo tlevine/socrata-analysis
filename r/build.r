@@ -27,5 +27,8 @@ listify <- function(datasets) {
 for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
   md <- sub('Rmd$', 'md', Rmd)
   knit(Rmd, md)
+
+  figure <- sub('.Rmd$', '-figure', Rmd)
+  file.rename('figure', figure)
   break
 }
