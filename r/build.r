@@ -12,14 +12,12 @@ if (!('socrata' %in% ls())) {
 # Helpers
 listify <- function(datasets) {
   paste(
-    '<ul>',
     paste(
-      '<li>',
-        '<a href="https://', datasets$portal, '/-/-/', datasets$id, '">', datasets$name, '</a>',
-        ' (', datasets$downloadCount, ' downloads)',
-      '</li>', sep = ''
+      '* `', datasets$portal, '`: [', datasets$name, ']',
+      '(https://', datasets$portal, '/-/-/', datasets$id, ')',
+      ' (', datasets$downloadCount, ' downloads)',
+      sep = ''
     ),
-    '</ul>',  
     collapse = '\n'
   )
 }
