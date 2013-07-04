@@ -146,7 +146,6 @@ ggplot(socrata) + aes(x = portal) + geom_bar() + coord_flip() +
   scale_y_log10('Number of datasets', breaks = 10^(0:4)) +
   scale_x_discrete('Data portal')
 ```
-{:.language-r}
 
 Which portals get the most downloads?
 
@@ -161,7 +160,6 @@ ggplot(.download) + aes(x = portal, y = downloads) + geom_point() + coord_flip()
   scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9)) +
   scale_x_discrete('Data portal')
 ```
-{:.language-r}
 
 Do any of them have few datasets but get a lot of downloads?
 
@@ -170,7 +168,6 @@ ggplot(.download) + aes(x = datasets, y = downloads, color = portal) + geom_poin
   scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
   scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
 ```
-{:.language-r}
 
 Here's the same plot except with the portal names in the plot.
 This might be easier or harder to read.
@@ -181,7 +178,6 @@ ggplot(.download) + aes(x = datasets, y = downloads, label = portal) +
   scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
   scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
 ```
-{:.language-r}
 
 What are the most popular datasets for each portal? Let's first do the one with
 the most downloads.
@@ -192,7 +188,6 @@ datasets <- ddply(socrata, 'portal', function(df) {
 })
 print(listify(datasets))
 ```
-{:.language-r}
 
 Next, let's do the one with the most downloads per time since published.
 
@@ -202,7 +197,6 @@ ddply(socrata, 'portal', function(df) {
 })
 print(listify(datasets))
 ```
-{:.language-r}
 
 
 ### Dataset shapes
@@ -217,7 +211,6 @@ ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = porta
   scale_x_log10('Number of columns', labels = comma) + 
   scale_y_log10('Number of rows', labels = comma)
 ```
-{:.language-r}
 
 But that looks bad, so let's do it as points.
 
@@ -227,7 +220,6 @@ ggplot(socrata) + aes(x = ncol, y = nrow, fill = portal) +
   scale_x_log10('Number of columns', labels = comma) + 
   scale_y_log10('Number of rows', labels = comma)
 ```
-{:.language-r}
 
 Some datasets have no rows nor columns. Here are ten of them.
 ```{r deleted}
@@ -235,7 +227,6 @@ deleted <- socrata[(socrata$nrow == 0 & socrata$ncol == 0),]
 set.seed(13984382)
 print(listify(sample.int(nrow(deleted), 10)))
 ```
-{:.language-r}
 
 These appear to be listed as deleted.
 
@@ -255,7 +246,6 @@ print(base + aes(x = nrow))
 print(base + aes(y = ncol))
 print(base + aes(y = nrow * ncol))
 ```
-{:.language-r}
 
 
 ### Time
@@ -273,14 +263,12 @@ print(base + aes(y = nrow))
 print(base + aes(y = ncol))
 print(base + aes(y = nrow * ncol))
 ```
-{:.language-r}
 
 
 When did datasets get uploaded?
 ```{r datasets_when_uploaded}
 ggplot(socrata) + aes(x = createdAt, group = portal, fill = portal) + geom_bar()
 ```
-{:.language-r}
 
 On what days of the week do datasets get uploaded?
 ```{r datasets_day_of_week_uploaded}
@@ -291,7 +279,6 @@ ggplot(socrata) + aes(x = createdAt.dayOfWeek, group = portal, fill = portal) +
   geom_bar() + scale_y_continuous('Dataset uploads', labels = comma) +
   scale_x_discrete('Day of the week')
 ```
-{:.language-r}
 
 
 ## Future plans

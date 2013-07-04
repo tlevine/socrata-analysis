@@ -27,9 +27,7 @@ for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
   figure <- sub('.Rmd$', '-figure', Rmd)
 
   # Remove the old figures.
-  for (directory in c(figure, 'figure')){
-    file.remove(c(paste(directory, list.files(directory), sep = '/'), directory))
-  }
+  file.remove(c(paste(figure, list.files(figure), sep = '/'), figure))
 
   # Compile the markdown and the figures.
   knit(Rmd, md)
