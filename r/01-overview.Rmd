@@ -5,7 +5,7 @@ tags: ['socrata']
 <% root = 'https://github.com/tlevine/socrata-analysis/tree/master/' %>
 <style>article img { width: 100%; margin-left: 0; margin-right: 0; }</style>
 ```{r configure, echo = F}
-opts_chunk$set(fig.width=10, fig.height=6, dip = 42 * 3)
+opts_chunk$set(fig.width=10, fig.height=4, dip = 42 * 4)
 ```
 
 I downloaded the metadata files for most of the datasets across most of the Socrata data portals.
@@ -242,7 +242,7 @@ These appear to be listed as deleted.
 
 Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
 
-```{r dataset_size_by_portal_nrow}
+```{r dataset_size_by_portal}
 .sizes <- ddply(socrata, 'portal', function(df) {
   c(ncol = mean(df$ncol), 
     nrow = mean(df$nrow), 
@@ -250,17 +250,10 @@ Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
 })
 base <- ggplot(.sizes) + aes(y = portal, group = portal, color = portal) +
   geom_point() + scale_x_log10(labels = comma)
-base + aes(x = nrow)
-```
-{:.language-r}
 
-```{r dataset_size_by_portal_ncol}
-base + aes(y = ncol)
-```
-{:.language-r}
-
-```{r dataset_size_by_portal_ncell}
-base + aes(y = nrow * ncol)
+print(base + aes(x = nrow))
+print(base + aes(y = ncol))
+print(base + aes(y = nrow * ncol))
 ```
 {:.language-r}
 
@@ -272,20 +265,13 @@ old datasets and new datasets.
 
 Has dataset size changed over the past couple years?
 
-```{r datasets_size_over_time_nrow}
+```{r datasets_size_over_time}
 base <- ggplot(socrata) + aes(x = createdAt, group = portal) +
   geom_point() + scale_y_log10(labels = comma)
-base + aes(y = nrow)
-```
-{:.language-r}
 
-```{r datasets_size_over_time_ncol}
-base + aes(y = ncol)
-```
-{:.language-r}
-
-```{r datasets_size_over_time_ncell}
-base + aes(y = nrow * ncol)
+print(base + aes(y = nrow))
+print(base + aes(y = ncol))
+print(base + aes(y = nrow * ncol))
 ```
 {:.language-r}
 
