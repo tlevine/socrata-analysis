@@ -227,7 +227,7 @@ These appear to be listed as deleted.
 
 Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
 
-```{r dataset.size.by.portal}
+```{r dataset.size.by.portal.nrow}
 .sizes <- ddply(socrata, 'portal', function(df) {
   c(ncol = mean(df$ncol), 
     nrow = mean(df$nrow), 
@@ -235,9 +235,13 @@ Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
 })
 base <- ggplot(.sizes) + aes(y = portal, group = portal, color = portal) +
   geom_point() + scale_x_log10(labels = comma)
-base + aes(x = ncol)
 base + aes(x = nrow)
-base + aes(x = ncell)
+```
+```{r datasets.size.over.time.ncol}
+base + aes(y = ncol)
+```
+```{r datasets.size.over.time.ncell}
+base + aes(y = nrow * ncol)
 ```
 
 
@@ -248,12 +252,15 @@ old datasets and new datasets.
 
 Has dataset size changed over the past couple years?
 
-```{r datasets.size.over.time}
+```{r datasets.size.over.time.nrow}
 base <- ggplot(socrata) + aes(x = createdAt, group = portal) +
   geom_point() + scale_y_log10(labels = comma)
-
 base + aes(y = nrow)
+```
+```{r datasets.size.over.time.ncol}
 base + aes(y = ncol)
+```
+```{r datasets.size.over.time.ncell}
 base + aes(y = nrow * ncol)
 ```
 
