@@ -163,6 +163,14 @@ Average dataset size by portal (ncol, nrow, ncol * nrow)
 
 ```
 
+What are the most popular datasets for each portal? Let's first do the one with
+the most downloads.
+
+
+Next, let's do the one with the most downloads per time since published.
+
+
+
 ### Time
 What does the growth of downloads of a dataset look like? We don't have the data
 for individual datasets, but we can compare the current download counts between
@@ -177,6 +185,12 @@ Has dataset size changed over the past couple years?
 When do datasets get uploaded? Does it happen in bursts?
 
 
+## Future plans
+I'm conducting more detailed studies around more pointed data portal considerations;
+expect those to come out over the next few months. And I could use your help. If you
+use or publish open data, I'd love to talk and see what you would like to know about
+how open data get used; there's probably a lot we can learn from this dataset.
+
 ```{r shape}
 ggplot(socrata) + aes(x = ncol, y = nrow, size = downloadCount, color = portal) + geom_point()
 ```
@@ -186,8 +200,3 @@ Popular datasets by portal
 
   socrata[order(socrata$downloadCount, decreasing = T),][1:10,c('portal','id','nrow','ncol','downloadCount')]
 
-## Future plans
-I'm conducting more detailed studies around more pointed data portal considerations;
-expect those to come out over the next few months. And I could use your help. If you
-use or publish open data, I'd love to talk and see what you would like to know about
-how open data get used; there's probably a lot we can learn from this dataset.
