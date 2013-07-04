@@ -245,10 +245,19 @@ old datasets and new datasets.
 
 Has dataset size changed over the past couple years?
 
+```
+base <- ggplot(socrata) + aes(x = createdAt, group = portal) +
+  geom_point() + scale_y_log10(labels = comma)
 
+base + aes(y = nrow)
+base + aes(y = ncol)
+base + aes(y = nrow * ncol)
+```
 
-When do datasets get uploaded? Does it happen in bursts?
-
+When did datasets get uploaded?
+```
+ggplot(socrata) + aes(x = createdAt, group = portal, fill = portal) + geom_bar()
+```
 
 ## Future plans
 I'm conducting more detailed studies around more pointed data portal considerations;
