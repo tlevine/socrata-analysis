@@ -132,32 +132,27 @@ looking at the following variables, each of which has one observation per datase
 Let's first see which portals are biggest. Which has the most datasets?
 
 ```
+socrata$portal <- factor(socrata$portal,
+  levels = names(sort(table(socrata$portal), decreasing = T)))
 
+ggplot(socrata) + aes(x = portal) + geom_bar() + coord_flip() +
+  scale_y_log10('Number of datasets', breaks = 10^(0:4)) +
+  scale_x_discrete('Data portal')
 ```
 
 Which portals get the most downloads?
 
 ```
+.downloadCount <- ddply(socrata, 'portal', function(df) { c(downloadCount = sum(df$downloadCount)) })
+socrata$portal <- factor(socrata$portal,
+  levels = .downloadCount$portal[order(.downloadCount$downloadCount, descreasing = T)])
 
+ggplot(.downloadCount) + aes(x = portal, y = downloadCount) + geom_point() + coord_flip() +
+  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))) +
+  scale_x_discrete('Data portal')
 ```
 
 Do any of them have few datasets but get a lot of downloads?
-
-```
-
-```
-
-### Dataset shapes
-Within the context of the current analysis, a datasets is a table. A table has columns and rows.
-How tall and fat are these datasets?
-
-Dataset sizes
-
-```
-
-```
-
-Average dataset size by portal (ncol, nrow, ncol * nrow)
 
 ```
 
@@ -169,6 +164,22 @@ the most downloads.
 
 Next, let's do the one with the most downloads per time since published.
 
+
+### Dataset shapes
+Within the context of the current analysis, a datasets is a table. A table has columns and rows.
+How tall and fat are these datasets?
+
+Dataset sizes
+
+```
+ggplot(socrata)
+```
+
+Average dataset size by portal (ncol, nrow, ncol * nrow)
+
+```
+
+```
 
 
 ### Time
