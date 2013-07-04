@@ -259,6 +259,17 @@ When did datasets get uploaded?
 ggplot(socrata) + aes(x = createdAt, group = portal, fill = portal) + geom_bar()
 ```
 
+On what days of the week do datasets get uploaded?
+```
+socrata$createdAt.dayOfWeek <- factor(
+  strftime(socrata$createdAt, format = '%a'),
+  levels = c('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'))
+ggplot(socrata) + aes(x = createdAt.dayOfWeek, group = portal, fill = portal) +
+  geom_bar() + scale_y_continuous('Dataset uploads', labels = comma) +
+  scale_x_discrete('Day of the week')
+```
+
+
 ## Future plans
 I'm conducting more detailed studies around more pointed data portal considerations;
 expect those to come out over the next few months. And I could use your help. If you
