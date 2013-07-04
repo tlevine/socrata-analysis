@@ -143,19 +143,33 @@ ggplot(socrata) + aes(x = portal) + geom_bar() + coord_flip() +
 Which portals get the most downloads?
 
 ```
-.downloadCount <- ddply(socrata, 'portal', function(df) { c(downloadCount = sum(df$downloadCount)) })
+.download <- ddply(socrata, 'portal', function(df) {
+  c(datasets = nrow(df), downloads = sum(df$downloadCount))
+})
 socrata$portal <- factor(socrata$portal,
-  levels = .downloadCount$portal[order(.downloadCount$downloadCount, descreasing = T)])
+  levels = .download$portal[order(.download$downloads, descreasing = T)])
 
-ggplot(.downloadCount) + aes(x = portal, y = downloadCount) + geom_point() + coord_flip() +
-  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))) +
+ggplot(.download) + aes(x = portal, y = downloads) + geom_point() + coord_flip() +
+  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9)) +
   scale_x_discrete('Data portal')
 ```
 
 Do any of them have few datasets but get a lot of downloads?
 
 ```
+ggplot(.download) + aes(x = datasets, y = downloads, color = portal) + geom_point() +
+  scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
+  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
+```
 
+Here's the same plot except with the portal names in the plot.
+This might be easier or harder to read.
+
+```
+ggplot(.download) + aes(x = datasets, y = downloads, label = portal) +
+  geom_text() +
+  scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
+  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
 ```
 
 What are the most popular datasets for each portal? Let's first do the one with
