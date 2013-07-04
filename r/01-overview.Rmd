@@ -235,7 +235,7 @@ print(listify(deleted[sample.int(nrow(deleted), 10),]))
 These appear to be listed as deleted.
 
 
-Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
+Now let's look at average dataset size by portal (ncol, nrow, ncol $$\times$$ nrow)
 
 ```{r dataset_size_by_portal, fig.height = 10}
 .sizes <- ddply(socrata, 'portal', function(df) {
