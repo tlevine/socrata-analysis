@@ -223,13 +223,16 @@ These appear to be listed as deleted.
 Now let's look at average dataset size by portal (ncol, nrow, ncol * nrow)
 
 ```
-.sizes <- melt(ddply(socrata, 'portal', function(df) {
+.sizes <- ddply(socrata, 'portal', function(df) {
   c(ncol = mean(df$ncol), 
     nrow = mean(df$nrow), 
     ncell = mean(df$ncol * df$nrow))
-}), id.vars = c('portal'))
-ggplot(.sizes) + aes(x = variable, y = portal, group = portal, color = portal) +
-  geom_line()
+})
+base <- ggplot(.sizes) + aes(y = portal, group = portal, color = portal) +
+  geom_point() + scale_x_log10(labels = comma)
+base + aes(x = ncol)
+base + aes(x = nrow)
+base + aes(x = ncell)
 ```
 
 
