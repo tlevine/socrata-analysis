@@ -187,7 +187,6 @@ listify <- function(datasets) {
     ),
     '</ul>',  
     collapse = '\n'
-    )
   )
 }
 ```
