@@ -5,6 +5,16 @@ from collections import OrderedDict
 
 import socrata
 
+def check_json():
+    'Delete any files that neither empty nor valid JSON.'
+    for portal in os.listdir('data'):
+        for viewid in os.listdir(os.path.join('data', portal, 'views')):
+            try:
+                row = socrata.load('data', portal, viewid)
+            except ValueError:
+                os.remove(os.path.join('data', portal, 'views', viewid))
+                print 'Deleted %s/views/%s' % (portal, viewid)
+
 def rows():
     for portal in os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
