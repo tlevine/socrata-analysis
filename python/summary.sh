@@ -4,11 +4,14 @@ set -e
 n_nonempty_increment() {
   if test -s "$1"; then
     n_nonempty=$(($n_nonempty + 1))
+  else
+    echo "$1"
   fi
 }
 
 n=0
 n_nonempty=0
+echo Empty files:
 for path in $(find data/ -wholename '*views/*' -type f); do
   n=$(($n + 1))
   n_nonempty_increment "$path"
