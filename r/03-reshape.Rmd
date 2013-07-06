@@ -1,0 +1,8 @@
+
+
+[Worker compensation](https://data.oregon.gov/Business/Workers-Compensation-Costs-Percent-of-National-Med/52s9-f7ab)                  is deceptively wide; it can be melted into three columns.
+I can find other casted/pivoted datasets by looking for datasets
+with all the same column type; for example
+
+    subset(socrata, ncol > 0 & ncol.percent == ncol)[c('portal', 'id')]
+  

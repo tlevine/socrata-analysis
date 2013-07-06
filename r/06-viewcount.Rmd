@@ -1,0 +1,18 @@
+```{r shape}
+ggplot(socrata) + aes(x = ncol, y = nrow, size = downloadCount, color = portal) + geom_point()
+```
+
+
+Popular datasets by portal
+
+  socrata[order(socrata$downloadCount, decreasing = T),][1:10,c('portal','id','nrow','ncol','downloadCount')]
+
+Which ones get more views?
+
+```{r count_v_date}
+ggplot(socrata) + aes(x = createdAt, y = viewCount, color = portal) +
+  geom_point() +
+  scale_x_date('Dataset creation date') +
+  scale_y_log10('Dataset view count')
+```
+

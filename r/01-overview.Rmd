@@ -1,0 +1,292 @@
+---
+title: Analyze all the datasets
+tags: ['socrata']
+---
+<% root = 'https://github.com/tlevine/socrata-analysis/tree/master/' %>
+```{r configure, echo = F}
+opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 5)
+```
+<style>img { width: 70%; margin-left: 15%; margin-right: 15%; }</style>
+
+I downloaded the metadata files for most of the datasets across most of the Socrata data portals.
+Here I explain how I did that and present an summary of the sorts of data that we find in the portals.
+
+## Acquiring the data
+I acquired the data the same way any ordinary person could have,
+except that I had substantial assistance from robot scripts.
+You can see the general workflow below.
+
+![A flow chart diagraming how the program works](<%= @item.identifier %>architecture.jpg)
+
+### Listing the portals
+First, I get a list of Socrata portals from the Socrata [status page](http://status.socrata.com).
+This page makes loads the portal names and descriptions from [this JSON file](http://status.socrata.com/sites).
+I download parse that file in [`portals.py`](<%= root %>portals.py). Most of the portal URLs
+are in the `description` fields, but this isn't always the case, so I used some heuristics to
+tidy that up.
+
+```
+#
+# From portals.py
+# 
+if is_domain(portal['description']):
+    domain = portal['description']
+elif is_domain(portal['name']):
+    domain = portal['name']
+elif portal['name'] == 'Socrata':
+    continue
+else:
+    warnings.warn('Could not find a valid domain for %s, skipping' % portal['name'])
+    continue
+
+domain = domain.replace('https://', '').replace('http://', '')
+```
+{:.language-python}
+
+It turns out that the [opendata.socrata.com](https://opendata.socrata.com) portal isn't
+ listed there, so I add that one manually.
+
+Next, I create a directory for each data portal and start downloading and parsing data
+from each individual portal. Most of the portal-specific stuff is enclosed in the
+[`run_one.sh`](<%= root %>run_one.sh) script.
+
+### Search for datasets
+As far as I could tell, Socrata doesn't have a formal API for searching datasets, so I
+just searched with the ordinary web interface. In [`search.sh`](<%= root %>search.sh),
+I make a search for all datasets of all kinds, and then I keep going to the next page
+as long as there are results. I save all of the results in a `searches` directory inside
+of the portal data folder. For example, search results for `data.colorado.gov` go in
+`data/data.colorado.gov/searches`.
+
+### Find dataset identifiers
+The search result pages are big HTML blobs. The script [`viewids.py`](<%= root %>viewids)
+finds the Socrata 4x4 identifiers in these HTML files and saves them to a file called
+`viewids`. It makes a separate file for each portal.
+
+### Download dataset metadata
+You can download the metadata for a particular dataset at the url
+`https://${SOCRATA_URL}/views/${viewid}.json`, where `SOCRATA_URL` is something like
+`dati.lombardia.it` and `viewid` is something like `tuar-wxya`.
+The script [`views.sh`](<%= root %>views.sh) downloads the metadata files.
+
+There are sometimes other attachments that you can read about in the "About" section
+of a dataset, and those don't get downloaded automatically.
+
+### Download the datasets themselves
+Downloading the datasets is similarly straightforward; you just go to 
+`https://$SOCRATA_URL/api/views/${viewid}/rows.csv?accessType=DOWNLOAD`,
+where `SOCRATA_URL` is again something like
+`dati.lombardia.it` and `viewid` is again something like `tuar-wxya`.
+[`rows.sh`](<%= root %>rows.sh) does this.
+
+Unfortunately, Socrata is pretty slow enough that this is actually pretty annoying,
+so I'm not downloading the actual datasets for now, just the metadata.
+
+### Conversion to a table
+All of the steps so far are encapsulated in the file [`run.sh`](<%= root %>run.sh),
+and that is the file that I run. This resulted in a bunch of inconsistently structured
+JSON files. There are a lot of different ways that one may want to reformat these
+files, and I happened to want a table with specific sorts of information, so I decided
+to separate that into a different file (and repository altogether).
+
+A script in the [analysis repository](https://github.com/tlevine/socrata-analysis)
+opens all of the JSON files and makes a row in a CSV file for each one. It doesn't take
+all of the fields. It handles nested structures by extracting flat features from them;
+for example, I take the number of dataset tags rather than the full list of tags.
+
+You can download this table [here](socrata.csv). The following analyses all come from
+that table.
+
+## Two interesting points about the Socrata software
+I learned some fun things about Socrata in doing all of this.
+
+### Multi-portal architecture
+All of the different Socrata portals are probably served from the same web application.
+I say this because rate limits apply across portals rather than within portals and because
+all of the sites were down for maintenance on the same day (6/26/2013).
+
+When I open Socrata portals in my web browser, I feel like they are different installations
+for each city. I suspect that Socrata found that people want to feel like they have their
+own curated portal rather than feeling like they are dumping data into the abyss of
+[opendata.socrata.com](https://opendata.socrata.com).
+
+### URLs
+If you navigate to a dataset in Socrata in your web browser, you'll wind up with a URL like this.
+
+> [https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf](https://iranhumanrights.socrata.com/dataset/List-of-Prisoners-of-Conscience-in-Iran/uqfx-z9cf).
+
+It turns out that the directories don't matter; this URL also works.
+
+> [https://iranhumanrights.socrata.com/-/-/uqfx-z9cf](https://iranhumanrights.socrata.com/-/-/uqfx-z9cf)
+
+So if you ever are curious for more information about a dataset that you find in the spreadsheet,
+you can just type in a URL like that for the particular dataset and look at all of the information
+that Socrata has on it.
+
+## Initial analysis
+Anyway, on to the quantitative analysis.
+
+For now, I'm just going to give a broader summary of the datasets in Socrata. I'm mainly
+looking at the following variables, each of which has one observation per dataset.
+
+* Data portal
+* Date published
+* Download count
+* Number of rows
+* Number of columns
+
+### Sizes
+Let's first see which portals are biggest. Which has the most datasets?
+
+```{r big_portals_datasets}
+socrata$portal <- factor(socrata$portal,
+  levels = names(sort(table(socrata$portal), decreasing = T)))
+
+ggplot(socrata) + aes(x = portal) + geom_bar() + coord_flip() +
+  scale_y_log10('Number of datasets', breaks = 10^(0:4)) +
+  scale_x_discrete('Data portal')
+```
+{:.wide}
+
+Which portals get the most downloads?
+
+```{r big_portals_downloads}
+.download <- ddply(socrata, 'portal', function(df) {
+  c(datasets = nrow(df), downloads = sum(df$downloadCount))
+})
+socrata$portal <- factor(socrata$portal,
+  levels = .download$portal[order(.download$downloads, decreasing = T)])
+
+ggplot(.download) + aes(x = portal, y = downloads) + geom_point() + coord_flip() +
+  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9)) +
+  scale_x_discrete('Data portal')
+```
+{:.wide}
+
+Do any of them have few datasets but get a lot of downloads?
+
+```{r big_portals_density_scatter, fig.height = 10}
+ggplot(.download) + aes(x = datasets, y = downloads, color = portal) + geom_point() +
+  scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
+  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
+```
+
+Here's the same plot except with the portal names in the plot.
+This might be easier or harder to read.
+
+```{r big_portals_density_text}
+ggplot(.download) + aes(x = datasets, y = downloads, label = portal) +
+  geom_text() +
+  scale_x_log10('Number of datasets', breaks = 10^(0:4)) +
+  scale_y_log10('Number of dataset downloads', labels = comma, breaks = 10^c(2:9))
+```
+{:.wide}
+
+What are the most popular datasets for each portal? Let's first do the one with
+the most downloads.
+
+```{r popular_by_portal_raw, asis = T}
+datasets <- ddply(socrata, 'portal', function(df) {
+  df[order(df$downloadCount, decreasing = T)[1],c('id', 'name', 'createdAt', 'downloadCount')]
+})
+(listify(datasets))
+```
+
+Next, let's do the one with the most downloads per time since published.
+
+```{r popular_by_portal_density, asis = T}
+datasets <- ddply(socrata, 'portal', function(df) {
+  df[order(df$downloadCount / as.numeric(as.Date('2013-07-01') - df$createdAt), decreasing = T)[1],c('id', 'name', 'createdAt', 'downloadCount')]
+})
+(listify(datasets))
+```
+
+
+### Dataset shapes
+Within the context of the current analysis, a datasets is a table. A table has columns and rows.
+How tall and fat are these datasets?
+
+I thought it would be cool to show dataset size as a rectangle because datasets are tables.
+
+```{r shapes_rect, fig.height = 10}
+ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = portal) +
+  geom_rect(alpha = 0.1) +
+  scale_x_log10('Number of columns', labels = comma) + 
+  scale_y_log10('Number of rows', labels = comma)
+```
+
+But that looks bad, so let's do it as points.
+
+```{r shapes_scatter, fig.height = 10}
+ggplot(socrata) + aes(x = ncol, y = nrow, fill = portal) +
+  geom_point(alpha = 0.5) +
+  scale_x_log10('Number of columns', labels = comma) + 
+  scale_y_log10('Number of rows', labels = comma)
+```
+{:.wide}
+
+Some datasets have no rows nor columns. Here are ten of them.
+```{r deleted}
+deleted <- socrata[(socrata$nrow == 0 & socrata$ncol == 0),]
+set.seed(13984382)
+(listify(deleted[sample.int(nrow(deleted), 10),]))
+```
+
+These appear to be listed as deleted.
+
+
+Now let's look at average dataset size by portal (ncol, nrow, ncol $$\times$$ nrow)
+
+```{r dataset_size_by_portal, fig.height = 10}
+.sizes <- ddply(socrata, 'portal', function(df) {
+  c(ncol = mean(df$ncol), 
+    nrow = mean(df$nrow), 
+    ncell = mean(df$ncol * df$nrow))
+})
+base <- ggplot(.sizes) + aes(y = portal, group = portal, color = portal) +
+  geom_point() + scale_x_log10(labels = comma)
+
+print(base + aes(x = nrow))
+print(base + aes(x = ncol))
+print(base + aes(x = nrow * ncol))
+```
+
+
+### Time
+What does the growth of downloads of a dataset look like? We don't have the data
+for individual datasets, but we can compare the current download counts between
+old datasets and new datasets.
+
+Has dataset size changed over the past couple years?
+
+```{r datasets_size_over_time, fig.height = 10}
+base <- ggplot(socrata) + aes(x = createdAt, group = portal, color = portal) +
+  geom_point() + scale_y_log10(labels = comma)
+
+print(base + aes(y = nrow))
+print(base + aes(y = ncol))
+print(base + aes(y = nrow * ncol))
+```
+
+
+When did datasets get uploaded?
+```{r datasets_when_uploaded, fig.height = 10}
+ggplot(socrata) + aes(x = createdAt, group = portal, fill = portal) + geom_bar()
+```
+
+On what days of the week do datasets get uploaded?
+```{r datasets_day_of_week_uploaded, fig.height = 10}
+socrata$createdAt.dayOfWeek <- factor(
+  strftime(socrata$createdAt, format = '%a'),
+  levels = c('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'))
+ggplot(socrata) + aes(x = createdAt.dayOfWeek, group = portal, fill = portal) +
+  geom_bar() + scale_y_continuous('Dataset uploads', labels = comma) +
+  scale_x_discrete('Day of the week')
+```
+
+
+## Future plans
+I'm conducting more detailed studies around more pointed data portal considerations;
+expect those to come out over the next few months. And I could use your help. If you
+use or publish open data, I'd love to talk and see what you would like to know about
+how open data get used; there's probably a lot we can learn from this dataset.
