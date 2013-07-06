@@ -13,7 +13,11 @@ First, get the data by running the socrata downloader or downloading the June 23
     tar xzf data.tar.gz
 
 This will result in a directory called `data`. Once this directory exists,
-you can run the various analyses that are documented below.
+you can convert it to CSV.
+
+    # In ipython
+    %run run.py
+    build_csv()
 
 ### Running tests
 Also, you can run the tests like so from the root directory.
