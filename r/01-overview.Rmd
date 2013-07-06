@@ -97,6 +97,26 @@ for example, I take the number of dataset tags rather than the full list of tags
 You can download this table [here](socrata.csv). The following analyses all come from
 that table.
 
+### Missing metadata
+[`summary.sh`](<%= root %>summary.sh) tells me which files are empty (as a result of
+HTTP errors) and how total files there are. It turns out that six of the Hawaii files
+are empty. The Hawaii data portal had only just started as I was downloading the files,
+so it might be that these datasets got changed suddenly between the searching and the
+downloading.
+
+```
+$ ./summary.sh 
+Empty files:
+data/data.hawaii.gov/views/qbr3-puhj
+data/data.hawaii.gov/views/s8xa-f7xy
+data/data.hawaii.gov/views/mmnd-twmz
+data/data.hawaii.gov/views/bi6a-gquj
+data/data.hawaii.gov/views/r7hz-w7x9
+data/data.hawaii.gov/views/wbtr-iq8j
+There are 89120 total datasets in all of the Socrata portals.
+Of those, 89114 contain metadata; the others are empty files.
+```
+
 ## Two interesting points about the Socrata software
 I learned some fun things about Socrata in doing all of this.
 
