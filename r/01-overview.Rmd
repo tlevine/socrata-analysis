@@ -238,7 +238,7 @@ ggplot(socrata) + aes(xmin = 0, ymin = 0, xmax = ncol, ymax = nrow, fill = porta
 But that looks bad, so let's do it as points.
 
 ```{r shapes_scatter, fig.height = 10}
-ggplot(socrata) + aes(x = ncol, y = nrow, fill = portal) +
+ggplot(socrata) + aes(x = ncol, y = nrow, color = portal) +
   geom_point(alpha = 0.5) +
   scale_x_log10('Number of columns', labels = comma) + 
   scale_y_log10('Number of rows', labels = comma)
@@ -254,8 +254,8 @@ set.seed(13984382)
 
 These appear to be listed as deleted.
 
-
-Now let's look at average dataset size by portal (ncol, nrow, ncol $$\times$$ nrow)
+Now let's look at average dataset size by portal, where size is number of columns (`ncol`),
+number of rows (`nrow`) or number of cells (`ncell`).
 
 ```{r dataset_size_by_portal, fig.height = 10}
 .sizes <- ddply(socrata, 'portal', function(df) {
@@ -263,7 +263,7 @@ Now let's look at average dataset size by portal (ncol, nrow, ncol $$\times$$ nr
     nrow = mean(df$nrow), 
     ncell = mean(df$ncol * df$nrow))
 })
-base <- ggplot(.sizes) + aes(y = portal, group = portal, color = portal) +
+base <- ggplot(.sizes) + aes(y = portal) +
   geom_point() + scale_x_log10(labels = comma)
 
 print(base + aes(x = nrow))
@@ -281,7 +281,7 @@ Has dataset size changed over the past couple years?
 
 ```{r datasets_size_over_time, fig.height = 10}
 base <- ggplot(socrata) + aes(x = createdAt, group = portal, color = portal) +
-  geom_point() + scale_y_log10(labels = comma)
+  geom_point(alpha = 0.5) + scale_y_log10(labels = comma)
 
 print(base + aes(y = nrow))
 print(base + aes(y = ncol))
