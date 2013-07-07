@@ -59,7 +59,7 @@ of the portal data folder. For example, search results for `data.colorado.gov` g
 `data/data.colorado.gov/searches`.
 
 ### Find dataset identifiers
-The search result pages are big HTML blobs. The script [`viewids.py`](<%= root %>viewids)
+The search result pages are big HTML blobs. The script [`viewids.py`](<%= root %>viewids.py)
 finds the Socrata 4x4 identifiers in these HTML files and saves them to a file called
 `viewids`. It makes a separate file for each portal.
 
@@ -98,7 +98,7 @@ You can download this table [here](socrata.csv). The following analyses all come
 that table.
 
 ### Missing metadata
-[`summary.sh`](<%= root %>summary.sh) tells me which files are empty (as a result of
+[`summary.sh`](https://github.com/tlevine/socrata-analysis/tree/master/summary.sh) tells me which files are empty (as a result of
 HTTP errors) and how total files there are. It turns out that six of the Hawaii files
 are empty. The Hawaii data portal had only just started as I was downloading the files,
 so it might be that these datasets got changed suddenly between the searching and the
@@ -257,7 +257,7 @@ These appear to be listed as deleted.
 Now let's look at average dataset size by portal, where size is number of columns (`ncol`),
 number of rows (`nrow`) or number of cells (`ncell`).
 
-```{r dataset_size_by_portal, fig.height = 10}
+```{r dataset_size_by_portal}
 .sizes <- ddply(socrata, 'portal', function(df) {
   c(ncol = mean(df$ncol), 
     nrow = mean(df$nrow), 
