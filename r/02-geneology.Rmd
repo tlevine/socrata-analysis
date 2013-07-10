@@ -11,7 +11,7 @@ sort(table(socrata.ancestry$rowsUpdatedBy), decreasing = T)[1:10]
 ```{r top.ancestor}
 top.ancestor <- names(sort(table(socrata.ancestry$rowsUpdatedBy), decreasing = T))[2]
 print(top.ancestor) # 5fuc-pqz2
-authors <- sort(table(subset(socrata, rowsUpdatedBy == top.ancestor)<ableAuthor.id), decreasing = T)[1:10]                                                                      
+authors <- sort(table(subset(socrata, rowsUpdatedBy == top.ancestor)$tableAuthor.id), decreasing = T)[1:10]
 ```
 
 
