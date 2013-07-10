@@ -116,10 +116,21 @@ Socrata has a [language for building filters](http://dev.socrata.com/deprecated/
 These are like SQL views; they are like tables, but they're
 defined as a transformation on an existing table.
 
+I searched the New York data portal for datasets with filtered views
 
+    cd data/data.cityofnewyork.us
+    grep '"filterCondition"' views/*
 
+Then I looked at view [dtkp-v9cz]().
+For whatever reason, the `tableId` caught my attention.
+I looked for all of the datasets with that `tableId`.
 
+There are `r sum(socrata$tableId == 908693)` datasets with this `tableId`.
+Here are ten of them.
 
+```{r tableId}
+subset(socrata, tableId == 908693)[1:10,c('id', 'name', 'owner.displayName')]
+```
 
 
 
