@@ -1,6 +1,10 @@
-```{r select}
+```{r select.rowsUpdatedBy}
 socrata.ancestry <- socrata[c('portal', 'id', 'rowsUpdatedBy')]
 ```
+
+## `rowsUpdatedBy`?
+This field `rowsUpdatedBy` seemed to be present in sibling datasets.
+Let's see where that takes us.
 
 ```{r common.ancestors}
 sort(table(socrata.ancestry$rowsUpdatedBy), decreasing = T)[1:10]
@@ -14,8 +18,41 @@ print(top.ancestor) # 5fuc-pqz2
 authors <- sort(table(subset(socrata, rowsUpdatedBy == top.ancestor)$tableAuthor.id), decreasing = T)[1:10]
 ```
 
-Maybe it's the `oid`? The greenbooks have the same oid across portal.
-I think that stand
+Hmm that wasn't that interesting. Let's try something else
+
+## Namespace for 4x4 ids
+The 4x4 ids appear to be unique across portal. That is, no two different
+datasets will have the same 4x4 id, even if they're in different portals.
+On the other hand, if the same dataset is present in two portals, they
+will have the same 4x4 id.
+
+
+    diff data.hawaii.gov/views/5gah-bvex data.oregon.gov/views/5gah-bvex
+
+```{r cross.portal.datasets}
+cross.portal.datasets <- sort(table(socrata$id), decreasing = T)
+print(cross.portal.datasets)[1:10]
+```
+
+Here's one of the top ones.
+
+```{r top.cross.portal.dataset}
+print(sort(table(socrata$id), decreasing = T)[1:10])
+subset(socrata[c('portal', 'id', 'name')], id == '22u2-apnq')
+```
+
+In my download, the metadata files are exactly the same.
+
+    diff explore.data.gov/views/22u2-apnq data.oregon.gov/views/22u2-apnq
+
+The `oid` field tells us the same thing.
+
+```{r oid}
+subset(socrata[c('portal', 'id', 'oid', 'name')], oid == 309331)
+```
+
+
+So how do we tell which portal is the original source?
 
 
 
