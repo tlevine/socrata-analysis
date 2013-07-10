@@ -14,6 +14,9 @@ print(top.ancestor) # 5fuc-pqz2
 authors <- sort(table(subset(socrata, rowsUpdatedBy == top.ancestor)$tableAuthor.id), decreasing = T)[1:10]
 ```
 
+Maybe it's the `oid`? The greenbooks have the same oid across portal.
+I think that stand
+
 
 
 Same dataset in opendata.socrata.com and a different portal
