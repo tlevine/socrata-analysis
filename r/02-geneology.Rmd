@@ -1,3 +1,18 @@
+```{r select}
+socrata.ancestry <- socrata[c('portal', 'id', 'rowsUpdatedBy')]
+```
+
+```{r common.ancestors}
+sort(table(socrata.ancestry$rowsUpdatedBy), decreasing = T)[1:10]
+```
+
+`rowsUpdatedBy` is a user (4x4 Socrata id).
+
+```{r top.ancestor}
+top.ancestor <- names(sort(table(socrata.ancestry$rowsUpdatedBy), decreasing = T))[2]
+print(top.ancestor) # 5fuc-pqz2
+authors <- sort(table(subset(socrata, rowsUpdatedBy == top.ancestor)<ableAuthor.id), decreasing = T)[1:10]                                                                      
+```
 
 
 
