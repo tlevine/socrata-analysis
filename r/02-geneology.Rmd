@@ -1,8 +1,29 @@
+---
+title: Geneology of dataset
+---
+
+
+
+
+Reference the ScraperWiki post on Twitter, the responses to me from Twitter, ...
+
+
+## Metadata schema
+Socrata documents how to search for [data within a dataset](https://opendata.socrata.com/api/docs/),
+and it releases a bunch of examples [on GitHub](https://github.com/socrata). It also has a bunch of
+cool-looking projects that seem to be parts of their infrastructure. (I'm referring to all of the
+packages written in Scala.)
+
+But I didn't find a great codebook/dictionary/schema for the dataset metadata.
+([This](https://opendata.socrata.com/api/docs/views) is all I found.)
+The genealogical information must be in there somewhere, so I'm gonna figure
+it out and document it. And then I'll write about the geneology of datasets.
+
+### `rowsUpdatedBy`?
 ```{r select.rowsUpdatedBy}
 socrata.ancestry <- socrata[c('portal', 'id', 'rowsUpdatedBy')]
 ```
 
-## `rowsUpdatedBy`?
 This field `rowsUpdatedBy` seemed to be present in sibling datasets.
 Let's see where that takes us.
 
@@ -51,8 +72,17 @@ The `oid` field tells us the same thing.
 subset(socrata[c('portal', 'id', 'oid', 'name')], oid == 309331)
 ```
 
-
+### Finding the original dataset
 So how do we tell which portal is the original source?
+
+The `oid` field appears to correspond with the various `owner` fields;
+the "o" must stand for "owner". I doubt that this owner is tied to a
+portal, but it seems to work pretty well for identifying the source portal
+
+```{r owner}
+sort(table(socrata$owner.displayName), decreasing = T)[1:10]
+```
+
 
 
 
