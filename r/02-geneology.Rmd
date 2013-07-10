@@ -66,7 +66,7 @@ In my download, the metadata files are exactly the same.
 
     diff explore.data.gov/views/22u2-apnq data.oregon.gov/views/22u2-apnq
 
-The `oid` field tells us the same thing.
+The `oid` field tells us the same thing as the `id`.
 
 ```{r oid}
 subset(socrata[c('portal', 'id', 'oid', 'name')], oid == 309331)
@@ -75,15 +75,19 @@ subset(socrata[c('portal', 'id', 'oid', 'name')], oid == 309331)
 ### Finding the original dataset
 So how do we tell which portal is the original source?
 
-The `oid` field appears to correspond with the various `owner` fields;
-the "o" must stand for "owner". I doubt that this owner is tied to a
+There are a bunch of "owner" fields. I doubt that this owner is tied to a
 portal, but it seems to work pretty well for identifying the source portal
 
 ```{r owner}
 sort(table(socrata$owner.displayName), decreasing = T)[1:10]
 ```
 
+Let's make sure that owner id and owner display name always match.
 
+```{r owner.match}
+owner.counts <- ddply(socrata[c('owner.id', 'owner.displayName')], c('owner.id', 'owner.displayName'), function(df) {c(n = nrow(df))})
+max(owner.counts$n)
+```
 
 
 Same dataset in opendata.socrata.com and a different portal
