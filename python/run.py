@@ -77,3 +77,32 @@ def build_csv():
     for row in rows():
         w.writerow(row)
     f.close()
+
+def build_geneology():
+    CANONICAL_DATASETS = [
+        ('explore.data.gov', '5gah-bvex'),
+    ]
+    result = {}
+    for portal, viewid in CANONICAL_DATASETS:
+        dataset = socrata.load('data', portal, viewid)
+        result[dataset['tableId']] = {
+            'source': {'portal': portal, 'id': viewid},
+            'datasets': []
+        }
+
+    for portal in os.listdir('data'):
+        for viewid in os.listdir(os.path.join('data', portal, 'views')):
+            row = socrata.load('data', portal, viewid)
+            result[row['tableId']]['datasets'].append({
+                'portal':        row['portal'],
+                'id':            row['id'],
+                'name':          row['name'],
+                'description':   row['description'],
+                'nrow':          row['nrow'],
+                'ncol':          row['ncol'],
+                'createdAt':     row['createdAt'],
+                'viewCount':     row['viewCount'],
+                'downloadCount': row['downloadCount'],
+            })
+
+    json.dump(result, open('geneology.json', 'w'))
