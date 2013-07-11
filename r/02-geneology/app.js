@@ -6,11 +6,15 @@ function Dataset(canonical_portal, canonical_id, canonical_name) {
   this.url = function(){
     return 'https://' + this.portal + '/-/-/' + this.id
   }
-  this.add_derived_dataset = function(derived_portal, canonical_id, derived_name) {
-    if (!(derived_portal in this.portals)) {
-      this.portals[derived_portal] = {}
+  this.add_derived_dataset = function(derived_portal, derived_id, derived_name) {
+    if (!(derived_portal in this.portals)){
+      this.portals[derived_portal] = new Dataset(derived_portal, canonical_id, canonical_name)
     }
-    this.portals[derived_portal][derived_id] = new Dataset(derived_portal, derived_id, derived_name)
+    if (canonical_id === derived_id) {
+      this.portals[derived_portal].name = derived_name
+    } else {
+      this.portals[derived_portal].add_derived_dataset(derived_portal, derived_id, derived_name)
+    }
   }
 }
 
