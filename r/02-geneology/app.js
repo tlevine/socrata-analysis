@@ -1,3 +1,22 @@
+function Dataset(canonical_portal, canonical_id, canonical_name) {
+  this.portal = canonical_portal
+  this.id = canonical_id
+  this.name = canonical_name
+  this.portals = {}
+  this.url = function(){
+    return 'https://' + this.portal + '/-/-/' + this.id
+  }
+  this.add_derived_dataset = function(derived_portal, canonical_id, derived_name) {
+    if (!(derived_portal in this.portals)) {
+      this.portals[derived_portal] = {}
+    }
+    this.portals[derived_portal][derived_id] = new Dataset(derived_portal, derived_id, derived_name)
+  }
+}
+
+greenbook = new Dataset('explore.data.gov', '5gah-bvex', 'U.S. Overseas Loans and Grants (Greenbook)')
+greenbook.add_derived_dataset('data.hawaii.gov', '5gah-bvex', 'U.S. Overseas Loans and Grants (Greenbook)')
+
 function TodoCtrl($scope) {
   $scope.todos = [
     {text:'learn angular', done:true},
