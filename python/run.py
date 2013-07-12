@@ -111,6 +111,6 @@ def build_tables():
                 result['source'] = result[dataset['tableId']]['datasets'][dataset['id']]
 
     for tableId in result:
-        result['tableId']['datasets'] = result['tableId']['datasets'].values()
+        result[tableId]['datasets'] = result[tableId]['datasets'].values()
 
     json.dump(result, open('geneology.json', 'w'))
