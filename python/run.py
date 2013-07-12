@@ -83,8 +83,9 @@ def build_tables():
     result = {}
     for portal in os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
-
-            dataset = socrata.load('data', portal, viewid)
+            handle = open(os.path.join('data', portal, 'views', viewid), 'r')
+            dataset = json.load(handle)
+            handle.close()
             if dataset == None:
                 continue
 
@@ -107,7 +108,7 @@ def build_tables():
                 'modifyingViewUid': dataset.get('modifyingViewUid'),
             }
 
-            if 'modifyingViewId' not in dataset:
+            if 'viewFilters' in dataset:
                 result[dataset['tableId']]['source'] = result[dataset['tableId']]['datasets'][dataset['id']]
 
     for tableId in result:
