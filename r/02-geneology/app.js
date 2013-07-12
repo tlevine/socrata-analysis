@@ -26,19 +26,7 @@ function Dataset(params) {
 
 
 function GeneologyCtrl($scope, $http) {
-  var canonical_dataset = $http.get('geneology/873607.json').then(function(res){
-    canonical_dataset = new Dataset(res.data.source)
-    res.data.datasets.map(function(dataset){
-      canonical_dataset.add_derived_dataset(dataset)
-    })
-    console.log(canonical_dataset)
-    return canonical_dataset
-  })
-  window.c = canonical_dataset
-
-  $scope.canonical_datasets = [canonical_dataset]
-  $scope.i = 0 // Current dataset
- 
+  // Buttons
   $scope.next = function() {
     $scope.i++
   }
@@ -46,8 +34,21 @@ function GeneologyCtrl($scope, $http) {
     $scope.i--
   }
 
-  $scope.d = function() {
-    return $scope.canonical_datasets[$scope.i]
-  }
+  $http.get('geneology/873607.json').then(function(res){
+
+    // Make Dataset objects
+    canonical_dataset = new Dataset(res.data.source)
+    res.data.datasets.map(function(dataset){
+      canonical_dataset.add_derived_dataset(dataset)
+    })
+
+    // Choose the current dataset
+    $scope.canonical_datasets = [canonical_dataset]
+    $scope.i = 0 // Current dataset
+
+    $scope.d = function() {
+      return $scope.canonical_datasets[$scope.i]
+    }
  
+  })
 }
