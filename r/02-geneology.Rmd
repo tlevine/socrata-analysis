@@ -28,7 +28,7 @@ https://dati.lombardia.it/Cultura/Musei/3syc-54zf?
 
 
 
-## Metadata schema
+## Figuring out the metadata schema
 Socrata documents how to search for [data within a dataset](https://opendata.socrata.com/api/docs/),
 and it releases a bunch of examples [on GitHub](https://github.com/socrata). It also has a bunch of
 cool-looking projects that seem to be parts of their infrastructure. (I'm referring to all of the
@@ -132,5 +132,26 @@ Here are ten of them.
 subset(socrata, tableId == 908693)[1:10,c('id', 'name', 'owner.displayName')]
 ```
 
+### Which view is the original dataset?
+Connecting everything that I discussed above and adding a few other
+points, I think I have figured out how to assemble the full family
+tree of datasets.
+
+Many different datasets may descent from one dataset.
+I'm pretty sure that this entire family of views/datasets,
+across portals, is defined by a `tableId`.
+
+Within a portal, a dataset can descend from another in the
+form of a filtered view. The `modifyingViewUid` field in a
+filtered view indicates its parent view.
+
+It is also possible for one portal to "provide" datasets from another portal.
+(Hawaii [does this a lot](https://data.hawaii.gov/browse/embed?q=&utf8=✓&view_type=table&sortBy=most_accessed&sortPeriod=week).)
+In such situations, all of the views have the exact same JSON metadata file.
+Even the dataset `id` fields are the same.
 
 
+
+This of course ignores situations where someone downloaded a file
+and then uploaded it as a new dataset. I'll save that possibility
+for another post. :)
