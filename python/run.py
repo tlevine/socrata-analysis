@@ -108,9 +108,10 @@ def build_tables():
             }
 
             if 'modifyingViewId' not in dataset:
-                result['source'] = result[dataset['tableId']]['datasets'][dataset['id']]
+                result[dataset['tableId']]['source'] = result[dataset['tableId']]['datasets'][dataset['id']]
 
     for tableId in result:
         result[tableId]['datasets'] = result[tableId]['datasets'].values()
 
     json.dump(result, open('geneology.json', 'w'))
+    return result
