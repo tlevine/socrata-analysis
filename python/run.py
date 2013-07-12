@@ -80,9 +80,9 @@ def build_csv():
 
 def build_tables():
     result = {}
-
     for portal in os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
+
             dataset = socrata.load('data', portal, viewid)
 
             if dataset['tableId'] not in result:
@@ -101,6 +101,7 @@ def build_tables():
                 'createdAt':     dataset['createdAt'],
                 'viewCount':     dataset['viewCount'],
                 'downloadCount': dataset['downloadCount'],
+                'modifyingViewUid': dataset['modifyingViewUid'],
             })
 
     json.dump(result, open('geneology.json', 'w'))
