@@ -117,6 +117,6 @@ def build_tables():
         os.mkdir('geneology')
     except OSError:
         pass
-    for tableId, tableData in result:
+    for tableId, tableData in result.items():
         json.dump(tableData, open(os.path.join('geneology', tableId + '.json'), 'w'))
     json.dump(result.keys(), open(os.path.join('geneology', 'index.json'), 'w'))
