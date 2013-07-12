@@ -30,6 +30,19 @@ function Dataset(params) {
   }
 }
 
+angular.module('socrata.service', [$http]).
+  value('table', function(tableId) { return {
+    "then": function(func){
+      $http.get('geneology/' + tableId + ".json').then(function(res){
+        // Make Dataset objects
+        canonical_dataset = new Dataset(res.data.source)
+        for (var i = 0; i < res.data.datasets.length; i++) {
+          canonical_dataset.add_derived_dataset(res.data.datasets[i])
+        }
+        func(canonical_dataset)
+      })
+    }
+  })
 
 function GeneologyCtrl($scope, $http) {
   // Buttons
@@ -39,16 +52,7 @@ function GeneologyCtrl($scope, $http) {
   $scope.prev = function() {
     $scope.i--
   }
-
-  $http.get('geneology/873607.json').then(function(res){
-    // Make Dataset objects
-    canonical_dataset = new Dataset(res.data.source)
-    for (var i = 0; i < res.data.datasets.length; i++) {
-      canonical_dataset.add_derived_dataset(res.data.datasets[i])
-    }
-
-    window.c = canonical_dataset
-
+  load_table(873607).then(function(canonical_dataset) {
     // Choose the current dataset
     $scope.canonical_datasets = [canonical_dataset]
     $scope.i = 0 // Current dataset
@@ -56,6 +60,5 @@ function GeneologyCtrl($scope, $http) {
     $scope.d = function() {
       return $scope.canonical_datasets[$scope.i]
     }
- 
   })
 }
