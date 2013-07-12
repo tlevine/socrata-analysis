@@ -8,7 +8,7 @@ function Dataset(params) {
   }
   this.add_derived_dataset = function(derived_params) {
     if (!(derived_params.portal in this.portals.map(function(portal){portal.portal}))){
-      dataset = new Dataset(derived_params.portal, this.id, this.name)
+      dataset = new Dataset(derived_params)
       this.portals.push(dataset)
     }
     for (var i = 0; i < this.portals.length; i++) {
@@ -16,7 +16,7 @@ function Dataset(params) {
         if (derived_params.id === this.id) {
           this.portals[i].name = derived_params.name
         } else {
-          this.portals[i].add_derived_dataset(derived_params.portal, derived_params.id, derived_params.name)
+          this.portals[i].add_derived_dataset(derived_params)
         }
         break
       }
@@ -35,12 +35,15 @@ function GeneologyCtrl($scope, $http) {
   }
 
   $http.get('geneology/873607.json').then(function(res){
+    window.d = res.data
 
     // Make Dataset objects
     canonical_dataset = new Dataset(res.data.source)
     res.data.datasets.map(function(dataset){
       canonical_dataset.add_derived_dataset(dataset)
     })
+
+    window.c = canonical_dataset
 
     // Choose the current dataset
     $scope.canonical_datasets = [canonical_dataset]
