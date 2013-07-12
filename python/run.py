@@ -113,5 +113,10 @@ def build_tables():
     for tableId in result:
         result[tableId]['datasets'] = result[tableId]['datasets'].values()
 
-    json.dump(result, open('geneology.json', 'w'))
-    return result
+    try:
+        os.mkdir('geneology')
+    except OSError:
+        pass
+    for tableId, tableData in result:
+        json.dump(tableData, open(os.path.join('geneology', tableId + '.json'), 'w'))
+    json.dump(result.keys(), open(os.path.join('geneology', 'index.json'), 'w'))
