@@ -7,7 +7,7 @@ function Dataset(params) {
     return 'https://' + this.portal + '/-/-/' + this.id
   }
   this.add_derived_dataset = function(derived_params) {
-    if (!(derived_params.portal in this.portals.map(function(portal){return portal.portal}))){
+    if (this.portals.map(function(portal){return portal.portal}).indexOf(derived_params.portal) === -1){
       dataset = new Dataset(derived_params)
       this.portals.push(dataset)
     }
