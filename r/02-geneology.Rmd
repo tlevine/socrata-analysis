@@ -92,6 +92,10 @@ The `oid` field tells us the same thing as the `id`.
 subset(socrata[c('portal', 'id', 'oid', 'name')], oid == 309331)
 ```
 
+This is because `data.oregon.gov/views/22u2-apnq` just redirects to
+`explore.data.gov/views/22u2-apnq`; I conflated redirects and ordinary
+responses in my data collection.
+
 ### Finding the original dataset
 So how do we tell which portal is the original source?
 
@@ -147,11 +151,11 @@ filtered view indicates its parent view.
 
 It is also possible for one portal to "provide" datasets from another portal.
 (Hawaii [does this a lot](https://data.hawaii.gov/browse/embed?q=&utf8=✓&view_type=table&sortBy=most_accessed&sortPeriod=week).)
-In such situations, all of the views have the exact same JSON metadata file.
-Even the dataset `id` fields are the same.
-
-
+In such situations, the dataset shows up in the search, but you just get linked
+to the dataset in the other portal.
 
 This of course ignores situations where someone downloaded a file
 and then uploaded it as a new dataset. I'll save that possibility
 for another post. :)
+
+## Pretty buttons
