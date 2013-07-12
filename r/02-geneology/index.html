@@ -18,8 +18,8 @@
         <li style="list-style: none;" ng-repeat="portal in d().portals">
           <h3><a href="{{portal.url()}}">{{portal.portal}}</a></h3>
           <ul>
-            <li ng-repeat="derived_dataset in portal.derived_datasets()">
-              <a href="{{derived_dataset.url()}}">{{derived_dataset.name}}</a>
+            <li ng-repeat="filtered_view in portal.filtered_views">
+              <a href="{{filtered_view.url()}}">{{filtered_view.name}}</a>
             </li>
           </ul>
         </li>
