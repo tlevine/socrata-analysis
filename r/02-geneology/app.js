@@ -16,7 +16,7 @@ function Dataset(params) {
   }
 
   this.update = function(new_params){
-    for (param in {"portal":null, "id":null, "name":null, "description":null, "nrow":null, "ncol":null, "createdAt":null, "modifyingViewUid":null, "viewCount":null}){
+    for (param in {"portal":null, "id":null, "name":null, "description":null, "nrow":null, "ncol":null, "createdAt":null, "viewCount":null}){
       if (typeof(this[param]) !== 'undefined'){
         this[param] = new_params[param]
       }
@@ -32,20 +32,18 @@ function Dataset(params) {
     var dataset = new Dataset(derived_params)
 
     // Add the portal if it isn't already there.
-    if (this.portals.map(function(portal){return portal.portal}).indexOf(derived_params.portal) === -1){
+    if (this.portals.map(function(portal){return portal.portal}).indexOf(dataset.portal) === -1){
       this.portals.push(dataset)
     }
 
     for (var i = 0; i < this.portals.length; i++) {
       if (this.portals[i].portal == this.portal) {
-        if (derived_params.modifyingViewUid === null) {
-          // Set the portal properties to this one if it is the data portal root (no modifyingViewUid)
-          this.portals[i].update(dataset)
-          console.log(dataset)
-        } else {
+        if (derived_params.is_filtered_view) {
           // Add the dataset as a filtered view if it is a filtered view.
-          derived_dataset = new Dataset(derived_params)
-          this.portals[i].filtered_views.push(derived_dataset)
+          this.portals[i].filtered_views.push(dataset)
+        } else {
+          // Set the portal properties to this one if it is the data portal root
+          this.portals[i].update(derived_params)
         }
         break
       }
@@ -59,10 +57,11 @@ function GeneologyCtrl($scope, $http) {
   _load = function() {
     $http.get('geneology/' + $scope.tableIds[$scope.i] + '.json').then(function(res){
       // Make Dataset objects
-      $scope.canonical_dataset = new Dataset(res.data.source)
+      var canonical_dataset = new Dataset(res.data.source)
       for (var i = 0; i < res.data.datasets.length; i++) {
-        $scope.canonical_dataset.add_derived_dataset(res.data.datasets[i])
+        canonical_dataset.add_derived_dataset(res.data.datasets[i])
       }
+      $scope.canonical_dataset = canonical_dataset
     })
   }
 
