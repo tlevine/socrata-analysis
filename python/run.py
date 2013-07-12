@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import json
 import csv, codecs, cStringIO
 from collections import OrderedDict
 
@@ -84,14 +85,16 @@ def build_tables():
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
 
             dataset = socrata.load('data', portal, viewid)
+            if dataset == None:
+                continue
 
             if dataset['tableId'] not in result:
                 result[dataset['tableId']] = {
                     'source': {},
-                    'datasets': []
+                    'datasets': {},
                 }
 
-            result[dataset['tableId']]['datasets'].append({
+            result[dataset['tableId']]['datasets'][dataset['id']] = {
                 'portal':        dataset['portal'],
                 'id':            dataset['id'],
                 'name':          dataset['name'],
@@ -101,7 +104,13 @@ def build_tables():
                 'createdAt':     dataset['createdAt'],
                 'viewCount':     dataset['viewCount'],
                 'downloadCount': dataset['downloadCount'],
-                'modifyingViewUid': dataset['modifyingViewUid'],
-            })
+                'modifyingViewUid': dataset.get('modifyingViewUid'),
+            }
+
+            if 'modifyingViewId' not in dataset:
+                result['source'] = result[dataset['tableId']]['datasets'][dataset['id']]
+
+    for tableId in result:
+        result['tableId']['datasets'] = result['tableId']['datasets'].values()
 
     json.dump(result, open('geneology.json', 'w'))
