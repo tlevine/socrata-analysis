@@ -177,7 +177,7 @@ SELECT tableId, count(*)
 FROM table_info
 GROUP BY tableId
 ORDER BY count(*) DESC
-limit 100;
+limit 2;
 ''')]
 
     try:
@@ -191,15 +191,14 @@ limit 100;
             'source': dt.execute('SELECT * FROM table_info WHERE tableId = ? ORDER BY createdAt ASC LIMIT 1', [tableId])[0],
             'datasets': {},
         }
-        main_portal = result['source']['portal']
         for dataset in dt.execute('SELECT * FROM table_info WHERE tableId = ?', [tableId]):
             if dataset['id'] not in result['datasets']:
-                result['datasets'][dataset['id']] = {'other_portals': []}
+                result['datasets'][dataset['id']] = dataset
+                result['datasets'][dataset['id']]['portals'] = []
 
-            if dataset['portal'] == main_portal:
-                result['datasets'][dataset['id']].update(dataset)
-            else:
-                result['datasets'][dataset['id']]['other_portals'].append(dataset['portal'])
+            result['datasets'][dataset['id']]['portals'].append(dataset['portal'])
 
         result['datasets'] = result['datasets'].values()
+        for dataset in result['datasets']:
+            del dataset['portal']
         json.dump(result, open(os.path.join('geneology', '%d.json' % tableId), 'w'))
