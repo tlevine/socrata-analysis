@@ -10,13 +10,18 @@
       <h2>Original dataset</h2>
       <div>
         <a href="" ng-click="prev()">&lt;</a>
-        <a href="{{table.source.portal}}">{{table.source.name}}</a>
+        <a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{table.source.name}}</a>
         <a href="" ng-click="next()">&gt;</a>
       </div>
       <h2>Derived datasets</h2>
-      <ul class="derived">
+      <ul class="derived" style="list-style: none;">
         <li ng-repeat="dataset in table.datasets">
-          <a href="https://{{dataset.portal}}/-/-/{{dataset.id}}">{{dataset.name}}</a>
+          {{dataset.name}}
+          <ul>
+            <li ng-repeat="portal in dataset.portals">
+              <a href="https://{{portal}}/-/-/{{dataset.id}}">{{portal}}</a>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
