@@ -166,4 +166,5 @@ def build_one_table(sourceportal, sourceid, portals = os.listdir('data')):
     except OSError:
         pass
 
+    return result
     json.dump(result, open(os.path.join('geneology', '%d.json' % result['source']['tableId']), 'w'))
