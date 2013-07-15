@@ -159,7 +159,7 @@ def extract_dataset_table_info():
     dt = DumpTruck(dbname = 'table_info.db')
     dt.create_table({'portal': 'abc', 'id': 'abcd-efgh'}, 'table_info')
     dt.create_index(['portal', 'id'], 'table_info', unique = True)
-    for portal in portals:
+    for portal in os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
             dt.upsert(_dataset_table_info(portal, viewid), 'table_info')
 
