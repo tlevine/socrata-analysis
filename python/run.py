@@ -184,16 +184,15 @@ limit 100;
         os.mkdir('geneology')
     except OSError:
         pass
+    json.dump(tableIds, open(os.path.join('geneology', 'index.json'), 'w'))
 
     for tableId in tableIds:
         result = {
-            'source': None,
+            'source': dt.execute('SELECT * FROM table_info WHERE tableId = ? ORDER BY createdAt ASC LIMIT 1', [tableId])[0],
             'datasets': [],
         }
         for dataset in dt.execute('SELECT * FROM table_info WHERE tableId = ?', [tableId]):
             if dataset['has_viewFilters']:
                 result['datasets'].append(dataset)
-            else:
-                result['source'] = dataset
 
         json.dump(result, open(os.path.join('geneology', '%d.json' % tableId), 'w'))
