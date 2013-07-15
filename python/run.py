@@ -159,26 +159,41 @@ def extract_dataset_table_info():
     dt = DumpTruck(dbname = '/tmp/table_info.db')
     dt.create_table({'portal': 'abc', 'id': 'abcd-efgh'}, 'table_info')
     dt.create_index(['portal', 'id'], 'table_info', unique = True)
+    dt.create_index(['tableId'], 'table_info', unique = False)
     done = set([tuple(row.keys()) for row in dt.execute('SELECT portal, id FROM table_info')])
     for portal in os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
             if (portal, viewid) in done:
                 continue
-            dt.upsert(_dataset_table_info(portal, viewid), 'table_info')
+            d = _dataset_table_info(portal, viewid)
+            if d == None:
+                continue
+            dt.upsert(d, 'table_info')
 
-def build_one_table(sourceportal, sourceid, portals = os.listdir('data')):
-    result = {
-        'source': _dataset_table_info(sourceportal, sourceid),
-        'datasets': [],
-    }
-    for portal in portals:
-        for viewid in os.listdir(os.path.join('data', portal, 'views')):
-            result['datasets'].append(_dataset_table_info(portal, viewid))
+def build_table_from_db(dbname = '/tmp/table_info.db'):
+    dt = DumpTruck(dbname = dbname)
+    tableIds = [row['tableId'] for row in dt.execute('''
+SELECT tableId, count(*)
+FROM table_info
+GROUP BY tableId
+ORDER BY count(*) DESC
+limit 100;
+''')]
 
     try:
         os.mkdir('geneology')
     except OSError:
         pass
 
-    return result
-    json.dump(result, open(os.path.join('geneology', '%d.json' % result['source']['tableId']), 'w'))
+    for tableId in tableIds:
+        result = {
+            'source': None,
+            'datasets': [],
+        }
+        for dataset in dt.execute('SELECT * FROM table_info WHERE tableId = ?', [tableId]):
+            if dataset['has_viewFilters']:
+                result['datasets'].append(dataset)
+            else:
+                result['source'] = dataset
+
+        json.dump(result, open(os.path.join('geneology', '%d.json' % tableId), 'w'))
