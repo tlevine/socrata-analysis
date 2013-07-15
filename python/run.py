@@ -189,10 +189,17 @@ limit 100;
     for tableId in tableIds:
         result = {
             'source': dt.execute('SELECT * FROM table_info WHERE tableId = ? ORDER BY createdAt ASC LIMIT 1', [tableId])[0],
-            'datasets': [],
+            'datasets': {},
         }
+        main_portal = dt.execute('SELECT portal FROM table_info WHERE tableId = ? group by tableId order by count(*) desc limit 1', [tableId])[0]['portal']
         for dataset in dt.execute('SELECT * FROM table_info WHERE tableId = ?', [tableId]):
-            if dataset['has_viewFilters']:
-                result['datasets'].append(dataset)
+            if dataset['id'] not in result['datasets']:
+                result['datasets'][dataset['id']] = {'other_portals': []}
 
+            if dataset['portal'] == main_portal:
+                result['datasets'][dataset['id']].update(dataset)
+            else:
+                result['datasets'][dataset['id']]['other_portals'].append(dataset['portal'])
+
+        result['datasets'] = result['datasets'].values()
         json.dump(result, open(os.path.join('geneology', '%d.json' % tableId), 'w'))

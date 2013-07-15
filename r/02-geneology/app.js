@@ -1,69 +1,23 @@
-function Dataset(params) {
-  this.portal = params.portal
-  this.id = params.id
-  this.name = params.name
-  this.description = params.description
-  this.nrow = params.nrow
-  this.ncol = params.ncol
-  this.createdAt = params.createdAt
-  this.modifyingViewUid = params.modifyingViewUid
-  this.viewCount = params.viewCount
-
-  this.portals = []
-  this.filtered_views = []
-  this.url = function(){
-    return 'https://' + this.portal + '/-/-/' + this.id
-  }
-
-  this.update = function(new_params){
-    for (param in {"portal":null, "id":null, "name":null, "description":null, "nrow":null, "ncol":null, "createdAt":null, "viewCount":null}){
-      if (typeof(this[param]) !== 'undefined'){
-        this[param] = new_params[param]
-      }
-    }
-    for (list in {"portals":null, "filtered_views":null}) {
-      if (typeof(this[list]) !== 'undefined'){
-        this[list] = this[list].concat(new_params[list])
-      }
-    }
-  }
-
-  this.add_derived_dataset = function(derived_params) {
-    var dataset = new Dataset(derived_params)
-
-    // Add the portal if it isn't already there.
-    if (this.portals.map(function(portal){return portal.portal}).indexOf(dataset.portal) === -1){
-      this.portals.push(dataset)
-    }
-
-    for (var i = 0; i < this.portals.length; i++) {
-      if (this.portals[i].portal == this.portal) {
-        if (derived_params.is_filtered_view) {
-          // Add the dataset as a filtered view if it is a filtered view.
-          this.portals[i].filtered_views.push(dataset)
-        } else {
-          // Set the portal properties to this one if it is the data portal root
-          this.portals[i].update(derived_params)
-        }
-        break
-      }
-    }
-  }
+// http://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects
+var sortBy = function(field, reverse, primer){
+   var key = function (x) {return primer ? primer(x[field]) : x[field]};
+   return function (a,b) {
+       var A = key(a), B = key(b);
+       return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+   }
 }
-
 
 function GeneologyCtrl($scope, $http) {
   // Buttons
   _load = function() {
     $http.get('geneology/' + $scope.tableIds[$scope.i] + '.json').then(function(res){
-      // Make Dataset objects
-      var canonical_dataset = new Dataset(res.data.source)
-      for (var i = 0; i < res.data.datasets.length; i++) {
-        canonical_dataset.add_derived_dataset(res.data.datasets[i])
-      }
-      $scope.canonical_dataset = canonical_dataset
+      $scope.table = res.data
+      $scope.table.datasets = $scope.table.datasets.sort(sortBy($scope.sortField, $scope.sortReverse))
     })
   }
+
+  $scope.sortField = 'downloadCount'
+  $scope.sortReverse = false
 
   $scope.next = function() {
     $scope.i++
