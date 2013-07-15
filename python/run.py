@@ -151,6 +151,15 @@ def _dataset_table_info(portal, viewid):
         'modifyingViewUid': dataset.get('modifyingViewUid'),
         'has_viewFilters': 'viewFilters' in dataset,
     }
+    return dataset_info
+
+def extract_dataset_table_info():
+    dt = DumpTruck(dbname = 'table_info.db')
+    dt.create_table({'portal': 'abc', 'id': 'abcd-efgh'}, 'table_info')
+    dt.create_index(['portal', 'id'], 'table_info', unique = True)
+    for portal in portals:
+        for viewid in os.listdir(os.path.join('data', portal, 'views')):
+            dt.upsert(_dataset_table_info(portal, viewid), 'table_info')
 
 def build_one_table(sourceportal, sourceid, portals = os.listdir('data')):
     result = {
