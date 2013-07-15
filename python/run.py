@@ -4,6 +4,8 @@ import json
 import csv, codecs, cStringIO
 from collections import OrderedDict
 
+from dumptruck import DumpTruck
+
 import socrata
 
 class UnicodeDictWriter:
