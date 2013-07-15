@@ -165,7 +165,7 @@ def extract_dataset_table_info():
             if (portal, viewid) in done:
                 continue
             dt.upsert(_dataset_table_info(portal, viewid), 'table_info', commit = False)
-    dt.commit()
+        dt.commit()
 
 def build_one_table(sourceportal, sourceid, portals = os.listdir('data')):
     result = {
