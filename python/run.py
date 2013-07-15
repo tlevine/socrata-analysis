@@ -81,14 +81,14 @@ def build_csv():
 
 def build_tables():
     result = {}
-    for portal in os.listdir('data'):
+    for portal in ['data.cityofnewyork.us']:# os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
+            dataset_flat = socrata.load('data', portal, viewid)
+            if dataset_flat == None:
+                continue
             handle = open(os.path.join('data', portal, 'views', viewid), 'r')
             dataset = json.load(handle)
-            dataset_flat = socrata.load('data', portal, viewid)
             handle.close()
-            if dataset == None:
-                continue
 
             if dataset['tableId'] not in result:
                 result[dataset['tableId']] = {
@@ -96,22 +96,23 @@ def build_tables():
                     'datasets': {},
                 }
 
-            result[dataset['tableId']]['datasets'][dataset['id']] = {
+            dataset_info = {
                 'portal':        portal,
-                'id':            dataset['id'],
-                'name':          dataset['name'],
+                'id':            dataset_flat['id'],
+                'name':          dataset_flat['name'],
                 'description':   dataset_flat['description'],
                 'nrow':          dataset_flat['nrow'],
                 'ncol':          dataset_flat['ncol'],
-                'createdAt':     dataset['createdAt'],
-                'viewCount':     dataset['viewCount'],
-                'downloadCount': dataset['downloadCount'],
+                'createdAt':     dataset_flat['createdAt'],
+                'viewCount':     dataset_flat['viewCount'],
+                'downloadCount': dataset_flat['downloadCount'],
                 'modifyingViewUid': dataset.get('modifyingViewUid'),
                 'has_viewFilters': 'viewFilters' in dataset,
             }
 
+            result[dataset['tableId']]['datasets'][dataset['id']] = dataset_info
             if 'viewFilters' not in dataset:
-                result[dataset['tableId']]['source'] = dataset
+                result[dataset['tableId']]['source'] = dataset_info
 
     for tableId in result:
         result[tableId]['datasets'] = result[tableId]['datasets'].values()
@@ -120,6 +121,49 @@ def build_tables():
         os.mkdir('geneology')
     except OSError:
         pass
-    for tableId, tableData in result.items():
-        json.dump(tableData, open(os.path.join('geneology', tableId + '.json'), 'w'))
-    json.dump(result.keys(), open(os.path.join('geneology', 'index.json'), 'w'))
+
+
+    json.dump(result[908693], open(os.path.join('geneology', '908693.json'), 'w'))
+
+#   for tableId, tableData in result.items():
+#       json.dump(tableData, open(os.path.join('geneology', tableId + '.json'), 'w'))
+#   json.dump(result.keys(), open(os.path.join('geneology', 'index.json'), 'w'))
+
+
+def _dataset_table_info(portal, viewid):
+    dataset_flat = socrata.load('data', portal, viewid)
+    if dataset_flat == None:
+        return None
+    handle = open(os.path.join('data', portal, 'views', viewid), 'r')
+    dataset = json.load(handle)
+    handle.close()
+    dataset_info = {
+        'portal':        portal,
+        'id':            dataset_flat['id'],
+        'name':          dataset_flat['name'],
+        'description':   dataset_flat['description'],
+        'tableId':       dataset['tableId'],
+        'nrow':          dataset_flat['nrow'],
+        'ncol':          dataset_flat['ncol'],
+        'createdAt':     dataset_flat['createdAt'],
+        'viewCount':     dataset_flat['viewCount'],
+        'downloadCount': dataset_flat['downloadCount'],
+        'modifyingViewUid': dataset.get('modifyingViewUid'),
+        'has_viewFilters': 'viewFilters' in dataset,
+    }
+
+def build_one_table(sourceportal, sourceid, portals = os.listdir('data')):
+    result = {
+        'source': _dataset_table_info(sourceportal, sourceid),
+        'datasets': [],
+    }
+    for portal in portals:
+        for viewid in os.listdir(os.path.join('data', portal, 'views')):
+            result['datasets'].append(_dataset_table_info(portal, viewid))
+
+    try:
+        os.mkdir('geneology')
+    except OSError:
+        pass
+
+    json.dump(result, open(os.path.join('geneology', '%d.json' % result['source']['tableId']), 'w'))
