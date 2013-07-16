@@ -22,7 +22,7 @@ var MONTHS = [
   'December'
 ]
 
-angular.module('geneology', ['angular-table', '$strap.directives'])
+angular.module('geneology', ['angular-table'])
   .controller('GeneologyCtrl', ['$scope', '$http', function($scope, $http) {
   // Buttons
   _load = function(i) {
@@ -44,6 +44,10 @@ angular.module('geneology', ['angular-table', '$strap.directives'])
   $http.get('geneology/index.json').then(function(res){
     // Choose the current dataset
     $scope.tableIds = res.data
+    $scope.tableIdIndices = []
+    for (var i = 0; i < $scope.tableIds.length; i++) {
+      $scope.tableIdIndices.push(i)
+    }
     $scope.dropdown = $scope.tableIds.map(function(tableId) {
       return {
         "text": tableId[2],
