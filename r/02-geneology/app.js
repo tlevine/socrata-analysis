@@ -28,16 +28,21 @@ angular.module('geneology', ['angular-table'])
   _load = function() {
     $http.get('geneology/' + $scope.tableIds[$scope.i][0] + '.json').then(function(res){
       $scope.table = res.data
-      $scope.mainPortal = $scope.tableIds[$scope.i][1]
       $scope.table.datasets = $scope.table.datasets.map(function(dataset) {
+      $scope.mainPortal = $scope.tableIds[$scope.i][1]
         var d = new Date()
         d.setTime(1000 * dataset.createdAt)
         dataset.prettyDate = MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
         dataset.ncell = dataset.nrow * dataset.ncol
         dataset.ncopies = dataset.portals.length
+        dataset.mainPortal = $scope.tableIds[$scope.i][1] // Redundant but it works
         return dataset
       })
     })
+  }
+
+  $scope.handleRowSelection = function(row) {
+    row.selected = true
   }
 
   $scope.next = function() {

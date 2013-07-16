@@ -61,14 +61,25 @@
 
         </header-row>
 
-        <row even-color="#ffffff" odd-color="#eeeeee">
-          <column><a href="https://{{row.portal}}/-/-/{{row.id}}">{{row.id}}</a></column>
+        <row on-selected="handleRowSelection(row)" selected-color="#87cefa" even-color="#ffffff" odd-color="#eeeeee">
+          <column><a href="https://{{row.mainPortal}}/-/-/{{row.id}}">{{row.id}}</a></column>
           <column>{{row.name}}</column>
           <column>{{row.prettyDate}}</column>
           <column>{{row.viewCount}}</column>
           <column>{{row.downloadCount}}</column>
-          <column>{{row.ncell}}</column>
-          <column>{{row.ncopies}}</column>
+          <column>
+            {{row.ncell}} cells
+            <ul style="list-style: none; padding-left: 1em;">
+              <li>{{row.ncol}} variables</li>
+              <li>{{row.nrow}} records</li>
+            </ul>
+          </column>
+          <!--<column>{{row.ncopies}}</column>-->
+          <column>
+            <ul>
+              <li ng-repeat="portal in row.portals">{{portal}}</li>
+            </ul>
+          </column>
         </row>
       </angular-table>
     </div>
