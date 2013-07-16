@@ -177,7 +177,7 @@ SELECT tableId, count(*)
 FROM table_info
 GROUP BY tableId
 ORDER BY count(*) DESC
-limit 2;
+limit 10;
 ''')]
 
     try:
