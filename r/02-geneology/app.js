@@ -29,7 +29,6 @@ angular.module('geneology', ['angular-table'])
     $http.get('geneology/' + $scope.tableIds[$scope.i][0] + '.json').then(function(res){
       $scope.table = res.data
       $scope.mainPortal = $scope.tableIds[$scope.i][1]
-      $scope.sort('downloadCount', false)
       $scope.table.datasets = $scope.table.datasets.map(function(dataset) {
         var d = new Date()
         d.setTime(1000 * dataset.createdAt)
@@ -39,12 +38,6 @@ angular.module('geneology', ['angular-table'])
         return dataset
       })
     })
-  }
-
-  $scope.sort = function(field, reverse) {
-    $scope.sortField = field
-    $scope.sortReverse = reverse
-    $scope.table.datasets = $scope.table.datasets.sort(sortBy(field, reverse))
   }
 
   $scope.next = function() {

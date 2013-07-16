@@ -6,7 +6,6 @@
     <script src="app.js"></script>
     <link rel="stylesheet" href="angular-table.css">
     <link rel="stylesheet" href="app.css">
-    <style>.angularTableTableContainer { height: auto !important; }</style>
   </head>
   <body>
     <div ng-controller="GeneologyCtrl">
@@ -63,7 +62,7 @@
         </header-row>
 
         <row even-color="#ffffff" odd-color="#eeeeee">
-          <column>{{row.id}}</column>
+          <column><a href="https://{{row.portal}}/-/-/{{row.id}}">{{row.id}}</a></column>
           <column>{{row.name}}</column>
           <column>{{row.prettyDate}}</column>
           <column>{{row.viewCount}}</column>
