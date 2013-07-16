@@ -11,10 +11,11 @@
     <div ng-controller="GeneologyCtrl">
       <h2>Original dataset</h2>
       <div>
-        <a href="" ng-click="prev()">&lt;</a>
+        <a href="" ng-click="prev()">Previous</a>
         {{table.source.name}} (<a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{mainPortal}}</a>)
-        <a href="" ng-click="next()">&gt;</a>
+        <a href="" ng-click="next()">Next</a>
       </div>
+      <p>{{table.source.description}}</p>
       <h2>Derived datasets</h2>
       <angular-table model="table.datasets" default-sort-column="createdAt">
         <header-row>
@@ -61,7 +62,9 @@
 
         </header-row>
 
-        <row on-selected="handleRowSelection(row)" selected-color="#87cefa" even-color="#ffffff" odd-color="#eeeeee">
+        <row
+          on-selected="handleRowSelection(row)"
+          selected-color="#87cefa" even-color="#ffffff" odd-color="#eeeeee">
           <column><a href="https://{{row.mainPortal}}/-/-/{{row.id}}">{{row.id}}</a></column>
           <column>{{row.name}}</column>
           <column>{{row.prettyDate}}</column>
