@@ -1,8 +1,10 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="geneology">
   <head>
     <script src="angular.min.js"></script>
+    <script src="angular-table.js"></script>
     <script src="app.js"></script>
+    <link rel="stylesheet" href="angular-table.css">
     <link rel="stylesheet" href="app.css">
   </head>
   <body>
@@ -14,36 +16,61 @@
         <a href="" ng-click="next()">&gt;</a>
       </div>
       <h2>Derived datasets</h2>
-      <table class="derived">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Created At</th>
-            <th>Views</th>
-            <th>Downloads</th>
-            <th>Size</th>
-            <th>Copies</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="dataset in table.datasets">
-            <td><a href="https://{{mainPortal}}/-/-/{{dataset.id}}">{{dataset.id}}</a></td>
-            <td>{{dataset.name}}</td>
-            <td>{{dataset.prettyDate}}</td>
-            <td>{{dataset.downloadCount}}</td>
-            <td>{{dataset.viewCount}}</td>
-            <td title="{{dataset.nrow}} rows by {{dataset.ncol}} columns">{{dataset.ncell}} cells</td>
-            <td ng-controller="CopiesCtrl">
-              <a href="" ng-show="!showCopies" ng-click="expand()">{{dataset.portals.length}}</a>
-              <ul ng-click="unexpand()" ng-show="showCopies">
-                <li ng-repeat="portal in dataset.portals">
-                  {{portal}}
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <angular-table model="table.datasets" default-sort-column="createdAt">
+        <header-row>
+
+          <header-column sortable="false" sort-field-name="id">
+            <div style="display: inline-block;">Id</div>
+            <sort-arrow-ascending></sort-arrow-ascending>
+            <sort-arrow-descending></sort-arrow-descending>
+          </header-column>
+
+          <header-column sortable="true" sort-field-name="name">
+            <div style="display: inline-block;">Name</div>
+          </header-column>
+
+          <header-column sortable="true" sort-field-name="createdAt">
+            <div style="display: inline-block;">Created</div>
+            <sort-arrow-ascending></sort-arrow-ascending>
+            <sort-arrow-descending></sort-arrow-descending>
+          </header-column>
+
+          <header-column sortable="true" sort-field-name="viewCount">
+            <div style="display: inline-block;">Views</div>
+            <sort-arrow-ascending></sort-arrow-ascending>
+            <sort-arrow-descending></sort-arrow-descending>
+          </header-column>
+
+          <header-column sortable="true" sort-field-name="downloadCount">
+            <div style="display: inline-block;">Downloads</div>
+            <sort-arrow-ascending></sort-arrow-ascending>
+            <sort-arrow-descending></sort-arrow-descending>
+          </header-column>
+
+          <header-column sortable="true" sort-field-name="ncell">
+            <div style="display: inline-block;">Size</div>
+            <sort-arrow-ascending></sort-arrow-ascending>
+            <sort-arrow-descending></sort-arrow-descending>
+          </header-column>
+
+          <header-column sortable="true" sort-field-name="ncopies">
+            <div style="display: inline-block;">Copies</div>
+            <sort-arrow-ascending></sort-arrow-ascending>
+            <sort-arrow-descending></sort-arrow-descending>
+          </header-column>
+
+        </header-row>
+
+        <row even-color="#ffffff" odd-color="#eeeeee">
+          <column>{{row.id}}</column>
+          <column>{{row.name}}</column>
+          <column>{{row.prettyDate}}</column>
+          <column>{{row.viewCount}}</column>
+          <column>{{row.downloadCount}}</column>
+          <column>{{row.ncell}}</column>
+          <column>{{row.ncopies}}</column>
+        </row>
+      </angular-table>
+    </div>
   </body>
 </html>

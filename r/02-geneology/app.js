@@ -22,7 +22,8 @@ var MONTHS = [
   'December'
 ]
 
-function GeneologyCtrl($scope, $http) {
+angular.module('geneology', ['angular-table'])
+  .controller('GeneologyCtrl', ['$scope', '$http', function($scope, $http) {
   // Buttons
   _load = function() {
     $http.get('geneology/' + $scope.tableIds[$scope.i][0] + '.json').then(function(res){
@@ -34,6 +35,7 @@ function GeneologyCtrl($scope, $http) {
         d.setTime(1000 * dataset.createdAt)
         dataset.prettyDate = MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
         dataset.ncell = dataset.nrow * dataset.ncol
+        dataset.ncopies = dataset.portals.length
         return dataset
       })
     })
@@ -60,13 +62,4 @@ function GeneologyCtrl($scope, $http) {
     $scope.i = 2 // Current dataset
     _load()
   })
-}
-
-function CopiesCtrl($scope) {
-  $scope.expand = function() {
-    $scope.showCopies = true
-  }
-  $scope.unexpand = function() {
-    $scope.showCopies = false
-  }
-}
+}])
