@@ -7,6 +7,21 @@ var sortBy = function(field, reverse, primer){
    }
 }
 
+var MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
+
 function GeneologyCtrl($scope, $http) {
   // Buttons
   _load = function() {
@@ -14,6 +29,12 @@ function GeneologyCtrl($scope, $http) {
       $scope.table = res.data
       $scope.mainPortal = $scope.tableIds[$scope.i][1]
       $scope.table.datasets = $scope.table.datasets.sort(sortBy($scope.sortField, $scope.sortReverse))
+      $scope.table.datasets = $scope.table.datasets.map(function(dataset) {
+        var d = new Date()
+        d.setTime(1000 * dataset.createdAt)
+        dataset.prettyDate = MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+        return dataset
+      })
     })
   }
 

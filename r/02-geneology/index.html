@@ -17,20 +17,32 @@
       <table class="derived">
         <thead>
           <tr>
+            <th>Id</th>
             <th>Name</th>
             <th>Created At</th>
-            <th>Download Count</th>
-            <th></th>
+            <th>Views</th>
+            <th>Downloads</th>
+            <th>Size</th>
             <th>Copies</th>
           </tr>
         </thead>
         <tbody>
-
           <tr ng-repeat="dataset in table.datasets">
-            <a href="https://{{mainPortal}}/-/-/{{dataset.id}}">{{dataset.name}}</a>
-            (also provided to <ul style="list-style: none; display: inline; padding: 0;">
-              <li style="display: inline;" ng-repeat="portal in dataset.portals">
-                {{portal}}
-    </div>
+            <td><a href="https://{{mainPortal}}/-/-/{{dataset.id}}">{{dataset.id}}</a></td>
+            <td>{{dataset.name}}</td>
+            <td>{{dataset.prettyDate}}</td>
+            <td>{{dataset.downloadCount}}</td>
+            <td>{{dataset.viewCount}}</td>
+            <td title="{{dataset.nrow}} rows by {{dataset.ncol}} columns">{{dataset.nrow * dataset.ncol}} cells</td>
+            <td>
+              <ul style="display: none;">
+                <li ng-repeat="portal in dataset.portals">
+                  {{portal}}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
   </body>
 </html>
