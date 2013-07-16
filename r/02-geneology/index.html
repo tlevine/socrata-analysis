@@ -14,16 +14,23 @@
         <a href="" ng-click="next()">&gt;</a>
       </div>
       <h2>Derived datasets</h2>
-      <ul class="derived">
-        <li ng-repeat="dataset in table.datasets">
-          <a href="https://{{mainPortal}}/-/-/{{dataset.id}}">{{dataset.name}}</a>
-          (also provided to <ul style="list-style: none; display: inline; padding: 0;">
-            <li style="display: inline;" ng-repeat="portal in dataset.portals">
-              {{portal}}
-            </li>, 
-          </ul>)
-        </li>
-      </ul>
+      <table class="derived">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Created At</th>
+            <th>Download Count</th>
+            <th></th>
+            <th>Copies</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr ng-repeat="dataset in table.datasets">
+            <a href="https://{{mainPortal}}/-/-/{{dataset.id}}">{{dataset.name}}</a>
+            (also provided to <ul style="list-style: none; display: inline; padding: 0;">
+              <li style="display: inline;" ng-repeat="portal in dataset.portals">
+                {{portal}}
     </div>
   </body>
 </html>
