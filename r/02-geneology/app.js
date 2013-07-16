@@ -28,18 +28,22 @@ function GeneologyCtrl($scope, $http) {
     $http.get('geneology/' + $scope.tableIds[$scope.i][0] + '.json').then(function(res){
       $scope.table = res.data
       $scope.mainPortal = $scope.tableIds[$scope.i][1]
-      $scope.table.datasets = $scope.table.datasets.sort(sortBy($scope.sortField, $scope.sortReverse))
+      $scope.sort('downloadCount', false)
       $scope.table.datasets = $scope.table.datasets.map(function(dataset) {
         var d = new Date()
         d.setTime(1000 * dataset.createdAt)
         dataset.prettyDate = MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+        dataset.ncell = dataset.nrow * dataset.ncol
         return dataset
       })
     })
   }
 
-  $scope.sortField = 'downloadCount'
-  $scope.sortReverse = false
+  $scope.sort = function(field, reverse) {
+    $scope.sortField = field
+    $scope.sortReverse = reverse
+    $scope.table.datasets = $scope.table.datasets.sort(sortBy(field, reverse))
+  }
 
   $scope.next = function() {
     $scope.i++
