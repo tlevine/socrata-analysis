@@ -57,3 +57,12 @@ function GeneologyCtrl($scope, $http) {
     _load()
   })
 }
+
+function CopiesCtrl($scope) {
+  $scope.expand = function() {
+    $scope.showCopies = true
+  }
+  $scope.unexpand = function() {
+    $scope.showCopies = false
+  }
+}

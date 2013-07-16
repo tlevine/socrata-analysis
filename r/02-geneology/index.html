@@ -34,8 +34,9 @@
             <td>{{dataset.downloadCount}}</td>
             <td>{{dataset.viewCount}}</td>
             <td title="{{dataset.nrow}} rows by {{dataset.ncol}} columns">{{dataset.nrow * dataset.ncol}} cells</td>
-            <td>
-              <ul style="display: none;">
+            <td ng-controller="CopiesCtrl">
+              <a href="" ng-show="!showCopies" ng-click="expand()">{{dataset.portals.length}}</a>
+              <ul ng-click="unexpand()" ng-show="showCopies">
                 <li ng-repeat="portal in dataset.portals">
                   {{portal}}
                 </li>
