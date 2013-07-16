@@ -10,8 +10,9 @@ var sortBy = function(field, reverse, primer){
 function GeneologyCtrl($scope, $http) {
   // Buttons
   _load = function() {
-    $http.get('geneology/' + $scope.tableIds[$scope.i] + '.json').then(function(res){
+    $http.get('geneology/' + $scope.tableIds[$scope.i][0] + '.json').then(function(res){
       $scope.table = res.data
+      $scope.mainPortal = $scope.tableIds[$scope.i][1]
       $scope.table.datasets = $scope.table.datasets.sort(sortBy($scope.sortField, $scope.sortReverse))
     })
   }
@@ -31,7 +32,7 @@ function GeneologyCtrl($scope, $http) {
   $http.get('geneology/index.json').then(function(res){
     // Choose the current dataset
     $scope.tableIds = res.data
-    $scope.i = 0 // Current dataset
+    $scope.i = 2 // Current dataset
     _load()
   })
 }

@@ -1,1 +1,12 @@
-[908693, 891456, 293185, 856612, 925629, 930136, 918106, 226578, 236210, 337824]
+[
+  [908693, "data.cityofnewyork.us"],
+  [891456, "explore.data.gov"],
+  [293185, "opendata.socrata.com"],
+  [856612, "explore.data.gov"],
+  [925629, "finances.worldbank.org"],
+  [930136, "finances.worldbank.org"],
+  [918106, "finances.worldbank.org"],
+  [226578, "opendata.socrata.com"],
+  [236210, "data.cityofchicago.org"],
+  [337824, "data.cityofchicago.org"]
+]
