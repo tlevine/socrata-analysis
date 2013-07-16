@@ -13,6 +13,7 @@
       <h2>Choose a dataset</h2>
       <ul>
         <li ng-repeat="i in tableIdIndices">
+          <!-- fix this to use routes or a dropdown with a model -->
           <a href="" ng-click="_load({{i}})">{{tableIds[i][2]}}</a>
         </li>
       </ul>
