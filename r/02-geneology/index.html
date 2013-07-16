@@ -3,6 +3,7 @@
   <head>
     <script src="angular.min.js"></script>
     <script src="angular-table.js"></script>
+    <script src="angular-strap.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="angular-table.css">
     <link rel="stylesheet" href="app.css">
@@ -15,6 +16,8 @@
         {{table.source.name}} (<a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{mainPortal}}</a>)
         <a href="" ng-click="next()">Next</a>
       </div>
+{{dropdown}}
+      <button type="button" class="btn" bs-dropdown="dropdown">...</button>
       <p>{{table.source.description}}</p>
       <h2>Derived datasets</h2>
       <angular-table model="table.datasets" default-sort-column="createdAt">
