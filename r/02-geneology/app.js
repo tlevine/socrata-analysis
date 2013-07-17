@@ -18,6 +18,10 @@ angular.module('geneology', ['angular-table'])
   // Buttons
   $http.get('geneology.json').then(function(res){
     $scope.tables = res.data.map(function(table){
+      table.totals = {}
+      for (key in {"downloadCount":null,"viewCount":null}) {
+        table.totals[key] = table.datasets.map(function(d){return d[key]}).reduce(function(a,b){return a+b})
+      }
       table.datasets = table.datasets.map(function(dataset) {
         var d = new Date()
         d.setTime(1000 * dataset.createdAt)

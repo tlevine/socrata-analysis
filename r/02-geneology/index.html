@@ -14,10 +14,13 @@
       <select ng-model="table" ng-options="t.source.name for t in tables"></select>
       <div ng-show="table">
         <h2>Description of the dataset</h2>
-        <div>
-          {{table.source.name}} (<a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{table.source.portal}}</a>)
-        </div>
-        <p>{{table.source.description}}</p>
+        <ul>
+          <li><strong>Original source</strong>: <a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{table.source.portal}}</a></li>
+          <li><strong>Number of children</strong>: {{table.datasets.length}}</li>
+          <li><strong>Total downloads</strong>: {{ table.totals.downloadCount }}</li>
+          <li><strong>Total views</strong>: {{ table.totals.viewCount }}</li>
+        </ul>
+        <p><strong>Description</strong>: {{table.source.description}}</p>
         <h2>Derived datasets</h2>
         <angular-table model="table.datasets" default-sort-column="createdAt">
           <header-row>
