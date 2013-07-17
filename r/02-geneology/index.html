@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="geneology">
+<html>
   <head>
     <script src="angular.min.js"></script>
     <script src="angular-table.js"></script>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="angular-table.css">
     <link rel="stylesheet" href="app.css">
   </head>
-  <body>
+  <body ng-app="geneology">
     <div ng-controller="GeneologyCtrl">
       <h2>Choose a dataset</h2>
       <select ng-model="table" ng-options="t.source.name for t in tables"></select>
@@ -67,7 +67,7 @@
           <row
             on-selected="handleRowSelection(row)"
             selected-color="#87cefa" even-color="#ffffff" odd-color="#eeeeee">
-            <column><a href="https://{{row.mainPortal}}/-/-/{{row.id}}">{{row.id}}</a></column>
+            <column><a href="https://{{table.source.portal}}/-/-/{{row.id}}">{{row.id}}</a></column>
             <column>{{row.name}}</column>
             <column>{{row.prettyDate}}</column>
             <column>{{row.viewCount}}</column>
