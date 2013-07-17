@@ -28,6 +28,7 @@ angular.module('geneology', ['angular-table'])
         dataset.prettyDate = MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
         dataset.ncell = dataset.nrow * dataset.ncol
         dataset.ncopies = dataset.portals.length
+        dataset.source_portal_hack = table.source.portal
         return dataset
       })
       return table
