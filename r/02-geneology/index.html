@@ -9,19 +9,25 @@
     <link rel="stylesheet" href="app.css">
   </head>
   <body ng-app="geneology">
+    <h1>Ancestry of Nine Socrata datasets</h1>
+    <p>I downloaded all of the metadata about all of the Socrata datasets during the week of ...</p>
+    <p>Explain viewFilters and provisions to other data portals</p>
+    <p>Out of these datasets, I took out nine of the top ten (Explain the weird one.) datasets, and here I show their families.</p>
+    <p>Explain the quirk about redirects that I didn't handle</p>
     <div ng-controller="GeneologyCtrl">
-      <h2>Choose a dataset</h2>
-      <select ng-model="table" ng-options="t.source.name for t in tables"></select>
+      <select ng-model="table" ng-options="t.source.name for t in tables">
+        <option value="">Choose a dataset</option>
+      </select>
       <div ng-show="table">
-        <h2>Description of the dataset</h2>
+        <h3>The family</h3>
         <ul>
           <li><strong>Original source</strong>: <a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{table.source.portal}}</a></li>
           <li><strong>Number of children</strong>: {{table.datasets.length}}</li>
           <li><strong>Total downloads</strong>: {{ table.totals.downloadCount }}</li>
           <li><strong>Total views</strong>: {{ table.totals.viewCount }}</li>
+          <li><strong>Description</strong>: {{table.source.description}}</li>
         </ul>
-        <p><strong>Description</strong>: {{table.source.description}}</p>
-        <h2>Derived datasets</h2>
+        <h3>Its members</h3>
         <angular-table model="table.datasets" default-sort-column="createdAt">
           <header-row>
 
