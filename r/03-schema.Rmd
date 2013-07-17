@@ -1,5 +1,5 @@
 ---
-title: Geneology of dataset
+title: Decoding Socrata's metadata schema:
 ---
 
 
@@ -28,7 +28,8 @@ https://dati.lombardia.it/Cultura/Musei/3syc-54zf?
 
 
 
-## Figuring out the metadata schema
+
+
 Socrata documents how to search for [data within a dataset](https://opendata.socrata.com/api/docs/),
 and it releases a bunch of examples [on GitHub](https://github.com/socrata). It also has a bunch of
 cool-looking projects that seem to be parts of their infrastructure. (I'm referring to all of the
@@ -38,6 +39,9 @@ But I didn't find a great codebook/dictionary/schema for the dataset metadata.
 ([This](https://opendata.socrata.com/api/docs/views) is all I found.)
 The genealogical information must be in there somewhere, so I'm gonna figure
 it out and document it. And then I'll write about the geneology of datasets.
+
+## Inspecting the fields
+I manually looked around at a bunch of the fields and tried to figure out what they meant.
 
 ### `rowsUpdatedBy`?
 ```{r select.rowsUpdatedBy}
@@ -94,9 +98,9 @@ subset(socrata[c('portal', 'id', 'oid', 'name')], oid == 309331)
 
 This is because `data.oregon.gov/views/22u2-apnq` just redirects to
 `explore.data.gov/views/22u2-apnq`; I conflated redirects and ordinary
-responses in my data collection.
+HTTP responses in my data collection. Oops.
 
-### Finding the original dataset
+### Dataset owners?
 So how do we tell which portal is the original source?
 
 There are a bunch of "owner" fields. I doubt that this owner is tied to a
@@ -113,7 +117,8 @@ owner.counts <- ddply(socrata[c('owner.id', 'owner.displayName')], c('owner.id',
 max(owner.counts$n)
 ```
 
-Okay, so owner might tell us something about data portal.
+So owner might tell us something about data portal, but I'd like something
+more automatic and consistent.
 
 ### Filtered views
 Socrata has a [language for building filters](http://dev.socrata.com/deprecated/querying-datasets).
@@ -141,7 +146,7 @@ Connecting everything that I discussed above and adding a few other
 points, I think I have figured out how to assemble the full family
 tree of datasets.
 
-Many different datasets may descent from one dataset.
+Many different datasets may descend from one dataset.
 I'm pretty sure that this entire family of views/datasets,
 across portals, is defined by a `tableId`.
 
