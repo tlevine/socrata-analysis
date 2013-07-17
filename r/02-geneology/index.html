@@ -11,86 +11,83 @@
   <body>
     <div ng-controller="GeneologyCtrl">
       <h2>Choose a dataset</h2>
-      <ul>
-        <li ng-repeat="i in tableIdIndices">
-          <!-- fix this to use routes or a dropdown with a model -->
-          <a href="" ng-click="_load({{i}})">{{tableIds[i][2]}}</a>
-        </li>
-      </ul>
-      <h2>About the original dataset</h2>
-      <div>
-        {{table.source.name}} (<a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{mainPortal}}</a>)
+      <select ng-model="table" ng-options="t.source.name for t in tables"></select>
+      <div ng-show="table">
+        <h2>Description of the dataset</h2>
+        <div>
+          {{table.source.name}} (<a href="https://{{table.source.portal}}/-/-/{{table.source.id}}">{{table.source.portal}}</a>)
+        </div>
+        <p>{{table.source.description}}</p>
+        <h2>Derived datasets</h2>
+        <angular-table model="table.datasets" default-sort-column="createdAt">
+          <header-row>
+
+            <header-column sortable="false" sort-field-name="id">
+              <div style="display: inline-block;">Id</div>
+              <sort-arrow-ascending></sort-arrow-ascending>
+              <sort-arrow-descending></sort-arrow-descending>
+            </header-column>
+
+            <header-column sortable="true" sort-field-name="name">
+              <div style="display: inline-block;">Name</div>
+            </header-column>
+
+            <header-column sortable="true" sort-field-name="createdAt">
+              <div style="display: inline-block;">Created</div>
+              <sort-arrow-ascending></sort-arrow-ascending>
+              <sort-arrow-descending></sort-arrow-descending>
+            </header-column>
+
+            <header-column sortable="true" sort-field-name="viewCount">
+              <div style="display: inline-block;">Views</div>
+              <sort-arrow-ascending></sort-arrow-ascending>
+              <sort-arrow-descending></sort-arrow-descending>
+            </header-column>
+
+            <header-column sortable="true" sort-field-name="downloadCount">
+              <div style="display: inline-block;">Downloads</div>
+              <sort-arrow-ascending></sort-arrow-ascending>
+              <sort-arrow-descending></sort-arrow-descending>
+            </header-column>
+
+            <header-column sortable="true" sort-field-name="ncell">
+              <div style="display: inline-block;">Size</div>
+              <sort-arrow-ascending></sort-arrow-ascending>
+              <sort-arrow-descending></sort-arrow-descending>
+            </header-column>
+
+            <header-column sortable="true" sort-field-name="ncopies">
+              <div style="display: inline-block;">Copies</div>
+              <sort-arrow-ascending></sort-arrow-ascending>
+              <sort-arrow-descending></sort-arrow-descending>
+            </header-column>
+
+          </header-row>
+
+          <row
+            on-selected="handleRowSelection(row)"
+            selected-color="#87cefa" even-color="#ffffff" odd-color="#eeeeee">
+            <column><a href="https://{{row.mainPortal}}/-/-/{{row.id}}">{{row.id}}</a></column>
+            <column>{{row.name}}</column>
+            <column>{{row.prettyDate}}</column>
+            <column>{{row.viewCount}}</column>
+            <column>{{row.downloadCount}}</column>
+            <column>
+              {{row.ncell}} cells
+              <ul style="list-style: none; padding-left: 1em;">
+                <li>{{row.ncol}} variables</li>
+                <li>{{row.nrow}} records</li>
+              </ul>
+            </column>
+            <!--<column>{{row.ncopies}}</column>-->
+            <column>
+              <ul>
+                <li ng-repeat="portal in row.portals">{{portal}}</li>
+              </ul>
+            </column>
+          </row>
+        </angular-table>
       </div>
-      <p>{{table.source.description}}</p>
-      <h2>Derived datasets</h2>
-      <angular-table model="table.datasets" default-sort-column="createdAt">
-        <header-row>
-
-          <header-column sortable="false" sort-field-name="id">
-            <div style="display: inline-block;">Id</div>
-            <sort-arrow-ascending></sort-arrow-ascending>
-            <sort-arrow-descending></sort-arrow-descending>
-          </header-column>
-
-          <header-column sortable="true" sort-field-name="name">
-            <div style="display: inline-block;">Name</div>
-          </header-column>
-
-          <header-column sortable="true" sort-field-name="createdAt">
-            <div style="display: inline-block;">Created</div>
-            <sort-arrow-ascending></sort-arrow-ascending>
-            <sort-arrow-descending></sort-arrow-descending>
-          </header-column>
-
-          <header-column sortable="true" sort-field-name="viewCount">
-            <div style="display: inline-block;">Views</div>
-            <sort-arrow-ascending></sort-arrow-ascending>
-            <sort-arrow-descending></sort-arrow-descending>
-          </header-column>
-
-          <header-column sortable="true" sort-field-name="downloadCount">
-            <div style="display: inline-block;">Downloads</div>
-            <sort-arrow-ascending></sort-arrow-ascending>
-            <sort-arrow-descending></sort-arrow-descending>
-          </header-column>
-
-          <header-column sortable="true" sort-field-name="ncell">
-            <div style="display: inline-block;">Size</div>
-            <sort-arrow-ascending></sort-arrow-ascending>
-            <sort-arrow-descending></sort-arrow-descending>
-          </header-column>
-
-          <header-column sortable="true" sort-field-name="ncopies">
-            <div style="display: inline-block;">Copies</div>
-            <sort-arrow-ascending></sort-arrow-ascending>
-            <sort-arrow-descending></sort-arrow-descending>
-          </header-column>
-
-        </header-row>
-
-        <row
-          on-selected="handleRowSelection(row)"
-          selected-color="#87cefa" even-color="#ffffff" odd-color="#eeeeee">
-          <column><a href="https://{{row.mainPortal}}/-/-/{{row.id}}">{{row.id}}</a></column>
-          <column>{{row.name}}</column>
-          <column>{{row.prettyDate}}</column>
-          <column>{{row.viewCount}}</column>
-          <column>{{row.downloadCount}}</column>
-          <column>
-            {{row.ncell}} cells
-            <ul style="list-style: none; padding-left: 1em;">
-              <li>{{row.ncol}} variables</li>
-              <li>{{row.nrow}} records</li>
-            </ul>
-          </column>
-          <!--<column>{{row.ncopies}}</column>-->
-          <column>
-            <ul>
-              <li ng-repeat="portal in row.portals">{{portal}}</li>
-            </ul>
-          </column>
-        </row>
-      </angular-table>
     </div>
   </body>
 </html>
