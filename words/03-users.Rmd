@@ -1,0 +1,21 @@
+---
+title: Who uses Socrata?
+tweet_text: When I downloaded all of the @socrata datasets, I also downloaded all of the users.
+---
+
+(Introduction here)
+
+The view's metadata files contain two fields related to the people
+who interacted with that view. These fields are the `table
+
+One of the fields that comes with the view metadata files is the 
+
+
+
+
+
+
+
+
+In case a view was federated, only one copy is counted, so this doesn't
+have the duplication issues that some people were concerned about.

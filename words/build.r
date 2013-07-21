@@ -9,6 +9,11 @@ if (!('socrata' %in% ls())) {
   socrata$createdAt <- as.Date(as.POSIXct(socrata$createdAt, origin = '1970-01-01'))
 }
 
+if (!('users' %in% ls())) {
+  users <- read.csv('../users.csv', stringsAsFactors = F)
+  users$profileLastModified <- as.Date(as.POSIXct(users$profileLastModified, origin = '1970-01-01'))
+}
+
 # Helpers
 listify <- function(datasets) {
   cat(paste(
