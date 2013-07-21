@@ -10,7 +10,7 @@ class Graph:
 
     def add(self, view):
         "Given a view's metadata, add the necessary things to the graph."
-        view.get('displayType')
+        view.get('displayType', 'table')
         view['owner']['id']
         view['tableId']
         view['id']
