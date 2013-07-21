@@ -44,18 +44,24 @@ class TestGraph(unittest.TestCase):
         n.assert_list_equal(self.graph.view_types.keys(), ['abcd-efgh'])
 
     def test_add_edge(self):
-        self.graph.add_edge('user', 'xxxx-xxxx', 'view', 'yyyy-yyyy')
-        n.assert_equal(self.graph['users']['xxxx-xxxx']['views'], Counter({'yyyy-yyyy': 1}))
-        n.assert_equal(self.graph['views']['yyyy-yyyy']['users'], Counter({'yyyy-yyyy': 1}))
-        self.graph.add_edge('user', 'xxxx-xxxx', 'view', 'yyyy-yyyy')
-        n.assert_equal(self.graph['users']['xxxx-xxxx']['views'], Counter({'yyyy-yyyy': 2}))
-        n.assert_equal(self.graph['views']['yyyy-yyyy']['users'], Counter({'yyyy-yyyy': 2}))
+        with n.assert_raises(IndexError):
+            self.graph._add_edge('user', 'xxxx-xxxx', 'view', 'yyyy-yyyy')
+
+        self.graph._add_user({'id': 'xxxx-xxxx'})
+        self.graph._add_view({'id': 'yyyy-yyyy'})
+
+        self.graph._add_edge('user', 'xxxx-xxxx', 'view', 'yyyy-yyyy')
+        n.assert_equal(self.graph.users['xxxx-xxxx']['views'], Counter({'yyyy-yyyy': 1}))
+        n.assert_equal(self.graph.views['yyyy-yyyy']['users'], Counter({'xxxx-xxxx': 1}))
+        self.graph._add_edge('user', 'xxxx-xxxx', 'view', 'yyyy-yyyy')
+        n.assert_equal(self.graph.users['xxxx-xxxx']['views'], Counter({'yyyy-yyyy': 2}))
+        n.assert_equal(self.graph.views['yyyy-yyyy']['users'], Counter({'xxxx-xxxx': 2}))
 
         with n.assert_raises(TypeError):
-            self.graph.add_edge('user', 'xxxx-xxxx', 'user', 'yyyy-yyyy')
+            self.graph._add_edge('user', 'xxxx-xxxx', 'user', 'yyyy-yyyy')
 
         with n.assert_raises(TypeError):
-            self.graph.add_edge('not-an-entity-type', 'xxxx-xxxx', 'user', 'yyyy-yyyy')
+            self.graph._add_edge('not-an-entity-type', 'xxxx-xxxx', 'user', 'yyyy-yyyy')
 
 class TestNodeFactories(unittest.TestCase):
     def test_user(self):

@@ -34,8 +34,13 @@ class Graph:
         if view_type not in self.view_types:
             self.view_types.update(NodeFactories._view_type(view_type))
 
-    def _add_edge(nodetypea, nodea, nodetypeb, nodeb):
-        getattr(self.graph, nodetypea + 's')[nodea][nodetypeb + 's'].update([nodeb])
+    def _add_edge(self, nodetypea, nodea, nodetypeb, nodeb):
+        if nodea not in getattr(self, nodetypea + 's'):
+            raise IndexError('You need to add the A node before creating the edge.')
+        elif nodeb not in getattr(self, nodetypeb + 's'):
+            raise IndexError('You need to add the A node before creating the edge.')
+        getattr(self, nodetypea + 's')[nodea][nodetypeb + 's'].update([nodeb])
+        getattr(self, nodetypeb + 's')[nodeb][nodetypea + 's'].update([nodea])
 
 class NodeFactories:
     @staticmethod
