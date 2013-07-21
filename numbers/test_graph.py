@@ -325,7 +325,7 @@ class TestGraph(unittest.TestCase):
         n.assert_equal(self.graph.tables[933163]['users'], Counter({'txun-eb7e': 1}))
         n.assert_equal(self.graph.view_types["table"]['users'], Counter({'txun-eb7e': 1}))
 
-        n.assert_equal(self.graph.views['u3bu-v2bf']['tables'], Counter({933163: 1}))
+        n.assert_not_in('tables', self.graph.views['u3bu-v2bf'])
         n.assert_equal(self.graph.users['txun-eb7e']['tables'], Counter({933163: 1}))
         n.assert_equal(self.graph.view_types["table"]['tables'], Counter({933163: 1}))
 
@@ -344,7 +344,7 @@ class TestGraph(unittest.TestCase):
         n.assert_equal(self.graph.tables[933163]['users'], Counter({'txun-eb7e': 1}))
         n.assert_equal(self.graph.view_types["table"]['users'], Counter({'txun-eb7e': 1}))
 
-        n.assert_equal(self.graph.views['u3bu-v2bf']['tables'], Counter({933163: 1}))
+        n.assert_not_in('tables', self.graph.views['u3bu-v2bf'])
         n.assert_equal(self.graph.users['txun-eb7e']['tables'], Counter({933163: 1}))
         n.assert_equal(self.graph.view_types["table"]['tables'], Counter({933163: 1}))
 

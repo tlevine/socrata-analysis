@@ -30,6 +30,7 @@ class Graph:
             self._add_edge('user', user['id'], 'view_type', view_type)
 
             self._add_edge('table', table, 'view_type', view_type)
+            del self.views[view['id']]['tables']
 
     def _add_table(self, tableId):
         'Add a table (a family of views)'
