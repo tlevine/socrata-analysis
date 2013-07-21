@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 from collections import Counter
 from copy import copy
 
@@ -109,3 +111,10 @@ class NodeFactories:
                 'views': Counter(),
             }
         }
+
+if __name__ == '__main__':
+    import os, json
+    g = Graph()
+    portal = os.path.join('data', 'data.austintexas.gov', 'views')
+    for viewid in os.listdir(portal):
+        g.add(json.load(open(os.path.join(portal, viewid))))
