@@ -22,6 +22,10 @@ class Graph:
         if owner['id'] not in self.users:
             self.users.update(NodeFactories._user(owner))
 
+    def _add_view(self, view):
+        if view['id'] not in self.views:
+            self.views.update(NodeFactories._view(view))
+
     def _add_view_type(self, view_type):
         'Add a view type'
         if view_type not in self.view_types:
