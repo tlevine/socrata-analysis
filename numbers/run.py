@@ -213,7 +213,11 @@ def users():
     for portal in os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
             handle = open(os.path.join('data', portal, 'views', viewid), 'r')
-            view = json.load(handle)
+            try:
+                view = json.load(handle)
+            except:
+                # *cringe*
+                continue
             handle.close()
 
             if view['owner']['id'] in _users:
@@ -225,7 +229,10 @@ def users():
     _users_table = copy(_users)
     for uid in _users_table.keys():
         _users_table[uid]['n_owns'] = len(_users[uid]['owns'])
-        del _users_table[uid]['owns']
-        del _users_table[uid]['rights']
+        for key in ['owns', 'rights']:
+            if key in _users_table[uid]:
+                del _users_table[uid][key]
+
+    dt.insert(_users_table.values(), 'user')
 
     return _users
