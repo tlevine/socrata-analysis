@@ -24,9 +24,22 @@ class TestGraph(unittest.TestCase):
             "roleName" : "administrator",
             "screenName" : "Matt Smith",
             "rights" : [ "create_datasets", "edit_others_datasets", "edit_sdp", "edit_site_theme", "moderate_comments", "manage_users", "chown_datasets", "edit_nominations", "approve_nominations", "feature_items", "federations", "manage_stories", "manage_approval", "change_configurations", "view_domain", "view_others_datasets", "edit_pages", "create_pages" ]
-          }
+        }
+
         self.graph._add_user(owner)
-#       n.assert_dict_equal(self.graph.users, Counter({owner['id']: 1}))
+        n.assert_list_equal(self.graph.users.keys(), [owner['id']])
+
+    def test_add_view(self):
+        self.graph._add_view({'id': 'abcd-efgh'})
+        n.assert_list_equal(self.graph.views.keys(), ['abcd-efgh'])
+
+    def test_add_table(self):
+        self.graph._add_table('abcd-efgh')
+        n.assert_list_equal(self.graph.tables.keys(), ['abcd-efgh'])
+
+    def test_add_view_type(self):
+        self.graph._add_view_type('abcd-efgh')
+        n.assert_list_equal(self.graph.view_types.keys(), ['abcd-efgh'])
 
 class TestNodeFactories(unittest.TestCase):
     def test_user(self):
