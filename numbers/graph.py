@@ -14,26 +14,20 @@ class Graph:
         table = view['tableId']
         view_type = view.get('displayType', 'table')
 
-        self._add_user(user)
-        self._add_view(view)
-        self._add_table(table)
-        self._add_view_type(view_type)
+        if view['id'] not in self.views:
+            self._add_user(user)
+            self._add_view(view)
+            self._add_table(table)
+            self._add_view_type(view_type)
 
-        self._add_edge('view', view['id'], 'user', user['id'])
-        self._add_edge('view', view['id'], 'table', table)
-        self._add_edge('view', view['id'], 'view_type', view_type)
+            self._add_edge('view', view['id'], 'user', user['id'])
+            self._add_edge('view', view['id'], 'table', table)
+            self._add_edge('view', view['id'], 'view_type', view_type)
 
-        self._add_edge('user', user['id'], 'view', view['id'])
-        self._add_edge('user', user['id'], 'table', table)
-        self._add_edge('user', user['id'], 'view_type', view_type)
+            self._add_edge('user', user['id'], 'table', table)
+            self._add_edge('user', user['id'], 'view_type', view_type)
 
-        self._add_edge('table', table, 'user', user['id'])
-        self._add_edge('table', table, 'view', view['id'])
-        self._add_edge('table', table, 'view_type', view_type)
-
-        self._add_edge('view_type', view_type, 'user', user['id'])
-        self._add_edge('view_type', view_type, 'view', view['id'])
-        self._add_edge('view_type', view_type, 'table', table)
+            self._add_edge('table', table, 'view_type', view_type)
 
     def _add_table(self, tableId):
         'Add a table (a family of views)'
