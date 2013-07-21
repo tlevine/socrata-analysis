@@ -18,7 +18,7 @@
 			var labelAnchorLinks = [];
 			var links = [];
 
-			for(var i = 0; i < 30; i++) {
+			for(var i = 0; i < 5; i++) {
 				var node = {
 					label : "node " + i
 				};
@@ -33,7 +33,7 @@
 
 			for(var i = 0; i < nodes.length; i++) {
 				for(var j = 0; j < i; j++) {
-					if(Math.random() > .95)
+					if(Math.random() > .5)
 						links.push({
 							source : i,
 							target : j,
