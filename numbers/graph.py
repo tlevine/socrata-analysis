@@ -35,10 +35,17 @@ class Graph:
             self.view_types.update(NodeFactories._view_type(view_type))
 
     def _add_edge(self, nodetypea, nodea, nodetypeb, nodeb):
-        if nodea not in getattr(self, nodetypea + 's'):
+        NODETYPES = {'user', 'view', 'table', 'view_type'}
+        if nodetypea not in NODETYPES:
+            raise TypeError('"%s" is not a valid node type' % nodetypea)
+        elif nodetypeb not in NODETYPES:
+            raise TypeError('"%s" is not a valid node type' % nodetypeb)
+        elif nodetypea == nodetypeb:
+            raise TypeError('The two node types must be different.')
+        elif nodea not in getattr(self, nodetypea + 's'):
             raise IndexError('You need to add the A node before creating the edge.')
         elif nodeb not in getattr(self, nodetypeb + 's'):
-            raise IndexError('You need to add the A node before creating the edge.')
+            raise IndexError('You need to add the B node before creating the edge.')
         getattr(self, nodetypea + 's')[nodea][nodetypeb + 's'].update([nodeb])
         getattr(self, nodetypeb + 's')[nodeb][nodetypea + 's'].update([nodea])
 
