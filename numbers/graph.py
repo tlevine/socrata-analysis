@@ -10,10 +10,30 @@ class Graph:
 
     def add(self, view):
         "Given a view's metadata, add the necessary things to the graph."
-        view.get('displayType', 'table')
-        view['owner']['id']
-        view['tableId']
-        view['id']
+        user = view['owner']
+        table = view['tableId']
+        view_type = view.get('displayType', 'table')
+
+        self._add_user(user)
+        self._add_view(view)
+        self._add_table(table)
+        self._add_view_type(view_type)
+
+        self._add_edge('view', view['id'], 'user', user['id'])
+        self._add_edge('view', view['id'], 'table', table)
+        self._add_edge('view', view['id'], 'view_type', view_type)
+
+        self._add_edge('user', user['id'], 'view', view['id'])
+        self._add_edge('user', user['id'], 'table', table)
+        self._add_edge('user', user['id'], 'view_type', view_type)
+
+        self._add_edge('table', table, 'user', user['id'])
+        self._add_edge('table', table, 'view', view['id'])
+        self._add_edge('table', table, 'view_type', view_type)
+
+        self._add_edge('view_type', view_type, 'user', user['id'])
+        self._add_edge('view_type', view_type, 'view', view['id'])
+        self._add_edge('view_type', view_type, 'table', table)
 
     def _add_table(self, tableId):
         'Add a table (a family of views)'
@@ -69,7 +89,7 @@ class NodeFactories:
             view['id']: {
                 'profile': copy(view),
                 'users': Counter(),
-                'views': Counter(),
+                'tables': Counter(),
                 'view_types': Counter(),
             }
         }
@@ -80,7 +100,7 @@ class NodeFactories:
     def _table(table_id):
         return {
             table_id: {
-                'tables': Counter(),
+                'views': Counter(),
                 'users': Counter(),
                 'view_types': Counter(),
             }
