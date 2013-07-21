@@ -203,22 +203,29 @@ limit 10;
             del dataset['portal']
         json.dump(result, open(os.path.join('geneology', '%d.json' % tableId), 'w'))
 
+from copy import copy
 def users():
     dt = DumpTruck(dbname = '/tmp/socrata.db')
     dt.create_table({'id': 'abcd-efgh'}, 'user')
     dt.create_index(['id'], 'user', unique = True)
 
-    u = {}
+    _users = {}
     for portal in os.listdir('data'):
         for viewid in os.listdir(os.path.join('data', portal, 'views')):
             handle = open(os.path.join('data', portal, 'views', viewid), 'r')
             view = json.load(handle)
             handle.close()
 
-            owns = view['owner']['id']['owns'] if view['owner']['id'] in u else []
-            owns.append(view['owner']['id'])
+            if view['owner']['id'] in _users:
+                _users[view['owner']['id']]['owns'].add(view['id'])
+            else:
+                _users[view['owner']['id']] = view['owner']
+                _users[view['owner']['id']]['owns'] = {view['id']}
 
-            u[view['owner']['id']] = view['owner']
-            u[view['owner']['id']]['owns'] = owns
-        break
-    return u
+    _users_table = copy(_users)
+    for uid in _users_table.keys():
+        _users_table[uid]['n_owns'] = len(_users[uid]['owns'])
+        del _users_table[uid]['owns']
+        del _users_table[uid]['rights']
+
+    return _users
