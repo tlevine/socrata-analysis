@@ -24,9 +24,10 @@ class TestGraph(unittest.TestCase):
 
 class TestNodeFactories(unittest.TestCase):
     def test_user(self):
-        observed = NodeFactories._user('abcd-efhg')
+        observed = NodeFactories._user({'id': 'abcd-efhg'})
         expected = {
             'abcd-efhg': {
+                'profile': {},
                 'tables': Counter(),
                 'views': Counter(),
                 'view_types': Counter(),
@@ -35,9 +36,10 @@ class TestNodeFactories(unittest.TestCase):
         n.assert_dict_equal(observed, expected)
 
     def test_view(self):
-        observed = NodeFactories._view('abcd-efhg')
+        observed = NodeFactories._view({'id': 'abcd-efhg', 'foo': 'bar'})
         expected = {
             'abcd-efgh': {
+                'profile': {'foo': 'bar'},
                 'users': Counter(),
                 'views': Counter(),
                 'view_types': Counter(),
