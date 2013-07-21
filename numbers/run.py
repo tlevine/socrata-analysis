@@ -221,20 +221,23 @@ def users():
             handle.close()
 
             if view['owner']['id'] in _users:
-                _users[view['owner']['id']]['owns'].add(view['id'])
-                _users[view['owner']['id']]['tables'].add(view['tableId'])
+                _users[view['owner']['id']]['views'].add(view['id'])
             else:
                 _users[view['owner']['id']] = view['owner']
-                _users[view['owner']['id']]['owns'] = {view['id']}
-                _users[view['owner']['id']]['tables'] = {view['tableId']}
+                _users[view['owner']['id']]['views'] = {view['id']}
+                _users[view['owner']['id']]['tables'] = set()
 
-    _users_table = copy(_users)
-    for uid in _users_table.keys():
-        for key in ['owns', 'rights', 'tables']:
-            if key in _users_table[uid]:
-                _users_table[uid]['n_' + key] = len(_users[uid][key])
-                del _users_table[uid][key]
+            if view['tableAuthor']['id'] in _users:
+                _users[view['tableAuthor']['id']]['tables'].add(view['tableId'])
+            else:
+                _users[view['tableAuthor']['id']] = view['tableAuthor']
+                _users[view['tableAuthor']['id']]['views'] = set()
+                _users[view['tableAuthor']['id']]['tables'] = {view['tableId']}
 
-    dt.insert(_users_table.values(), 'user')
+    for uid in _users.keys():
+        for key in ['views', 'rights', 'tables']:
+            if key in _users[uid]:
+                _users[uid]['n_' + key] = len(_users[uid][key])
+                del _users[uid][key]
 
     return _users
