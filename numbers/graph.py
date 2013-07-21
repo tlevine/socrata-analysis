@@ -2,7 +2,10 @@ from collections import Counter
 
 class Graph:
     def __init__(self):
-        pass
+        self.users = {}
+        self.views = {}
+        self.tables = {}
+        self.view_types = {}
 
     def add(self, view):
         "Given a view's metadata, add the necessary things to the graph."

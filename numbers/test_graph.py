@@ -8,6 +8,12 @@ class TestGraph(unittest.TestCase):
     def setUp(self):
         self.graph = Graph()
 
+    def test_init(self):
+        n.assert_dict_equal(self.graph.users, {})
+        n.assert_dict_equal(self.graph.views, {})
+        n.assert_dict_equal(self.graph.tables, {})
+        n.assert_dict_equal(self.graph.view_types, {})
+
     def test_add_user(self):
         owner = {
             "id" : "xbqz-g2u5",
