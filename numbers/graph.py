@@ -1,4 +1,5 @@
 from collections import Counter
+from copy import copy
 
 class Graph:
     def __init__(self):
@@ -14,8 +15,10 @@ class Graph:
         view['tableId']
         view['id']
 
-    def _add_table(self, tableId, tableAuthor):
+    def _add_table(self, tableId):
         'Add a table (a family of views)'
+        if tableId not in self.tables:
+            self.tables.update(NodeFactories._table(tableId))
 
     def _add_user(self, owner):
         'Add a user (taken from the `owner` field)'
@@ -39,7 +42,7 @@ class NodeFactories:
     def _user(user):
         result = {
             user['id']: {
-                'profile': user,
+                'profile': copy(user),
                 'tables': Counter(),
                 'views': Counter(),
                 'view_types': Counter(),
@@ -52,7 +55,7 @@ class NodeFactories:
     def _view(view):
         result = {
             view['id']: {
-                'profile': view,
+                'profile': copy(view),
                 'users': Counter(),
                 'views': Counter(),
                 'view_types': Counter(),

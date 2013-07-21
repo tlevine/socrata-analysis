@@ -36,7 +36,7 @@ class TestGraph(unittest.TestCase):
     #   n.assert_list_equal(self.graph.tables['xxxx-xxxx']['tables'].keys(), ['abcd-efgh'])
 
     def test_add_table(self):
-        self.graph._add_table('abcd-efgh', {'id': 'xxxx-xxxx'})
+        self.graph._add_table('abcd-efgh')
         n.assert_list_equal(self.graph.tables.keys(), ['abcd-efgh'])
 
     def test_add_view_type(self):
