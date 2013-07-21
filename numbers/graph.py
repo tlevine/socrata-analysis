@@ -19,24 +19,30 @@ class Graph:
 
 class NodeFactories:
     @staticmethod
-    def _user(user_id):
-        return {
-            user_id: {
+    def _user(user):
+        result = {
+            user['id']: {
+                'profile': user,
                 'tables': Counter(),
                 'views': Counter(),
                 'view_types': Counter(),
             }
         }
+        del result[user['id']]['profile']['id']
+        return result
 
     @staticmethod
-    def _view(view_id):
-        return {
-            view_id: {
+    def _view(view):
+        result = {
+            view['id']: {
+                'profile': view,
                 'users': Counter(),
                 'views': Counter(),
                 'view_types': Counter(),
             }
         }
+        del result[view['id']]['profile']['id']
+        return result
 
     @staticmethod
     def _table(table_id):
