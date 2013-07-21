@@ -32,9 +32,11 @@ class TestGraph(unittest.TestCase):
     def test_add_view(self):
         self.graph._add_view({'id': 'abcd-efgh'})
         n.assert_list_equal(self.graph.views.keys(), ['abcd-efgh'])
+    #   n.assert_list_equal(self.graph.tables['abcd-efgh']['users'].keys(), ['xxxx-xxxx'])
+    #   n.assert_list_equal(self.graph.tables['xxxx-xxxx']['tables'].keys(), ['abcd-efgh'])
 
     def test_add_table(self):
-        self.graph._add_table('abcd-efgh')
+        self.graph._add_table('abcd-efgh', {'id': 'xxxx-xxxx'})
         n.assert_list_equal(self.graph.tables.keys(), ['abcd-efgh'])
 
     def test_add_view_type(self):
@@ -42,8 +44,6 @@ class TestGraph(unittest.TestCase):
         n.assert_list_equal(self.graph.view_types.keys(), ['abcd-efgh'])
 
     def test_add_edge(self):
-        # nodetypea, nodea, nodetypeb, nodeb
-        # getattr(self.graph, nodetypea)[nodetypeb + 's']
         self.graph.add_edge('user', 'xxxx-xxxx', 'view', 'yyyy-yyyy')
         n.assert_equal(self.graph['users']['xxxx-xxxx']['views'], Counter({'yyyy-yyyy': 1}))
         n.assert_equal(self.graph['views']['yyyy-yyyy']['users'], Counter({'yyyy-yyyy': 1}))

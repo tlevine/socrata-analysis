@@ -19,6 +19,16 @@ class Graph:
 
     def _add_user(self, owner):
         'Add a user (taken from the `owner` field)'
+        if owner['id'] not in self.users:
+            self.users.update(NodeFactories._user(owner))
+
+    def _add_view_type(self, view_type):
+        'Add a view type'
+        if view_type not in self.view_types:
+            self.view_types.update(NodeFactories._view_type(view_type))
+
+    def _add_edge(nodetypea, nodea, nodetypeb, nodeb):
+        getattr(self.graph, nodetypea + 's')[nodea][nodetypeb + 's'].update([nodeb])
 
 class NodeFactories:
     @staticmethod
