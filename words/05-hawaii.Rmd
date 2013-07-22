@@ -1,0 +1,1 @@
+hawaii <- sqldf("select * from socrata where portal = 'data.hawaii.gov' and id not in (select id from socrata where portal = 'explore.data.gov')")
