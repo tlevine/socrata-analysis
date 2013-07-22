@@ -203,6 +203,9 @@ data publishers.
 subset(users, n_tables > 0 & n_views == 0)[c('displayName', 'roleName', 'flags', 'n_tables')]
 ```
 
+I looked up a few of them with a search engine, and they seem to be all
+city employees.
+
 ```{r socrata.employees}
 subset(users, !is.na(flags))['displayName']
 ```
