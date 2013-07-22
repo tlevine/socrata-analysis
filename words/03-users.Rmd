@@ -173,6 +173,34 @@ for data publishers.
 
 ```{r data.publishers}
 subset(users, !is.na(roleName))
+users$has.role <- !is.na(users$roleName)
+users$has.flag <- !is.na(users$flags)
+users$prop.tables <- users$n_tables / users$n_views
+# ggplot(users) + aes(x = has.role, y = prop.tables) + geom_violin() + scale_y_sqrt('Proportion of views that are datasets (sort of)') + geom_hline(y = 1)
+
+m <- glm(n_tables ~ has.role * has.flag, data = users, family = 'poisson')
+par(mfrow=c(2,2))
+print(summary(aov(m)))
+par(mfrow=c(1,1))
+```
+
+This sort of says that people with roles tend to upload more tables than people
+with neither a role nor a flag.
+
+But the variance of the residuals of that model is not consistant, so I wouldn't
+put too much faith in it. Let's make a graph instead.
+
+```{r data.publishers}
+ggplot(subset(users, id != 'e8ug-wzay')) + aes(x = n_tables, group = paste(has.role, has.flag), fill = paste(has.role, has.flag)) + geom_bar() + scale_x_log10('Number of tables uploaded to the portal')
+```
+
+Hmm not that helpful. Let's go back to looking at the individual people.
+Here are people with tables but no views. (As I mentioned earlier, I didn't
+realize that this was possible!) I figure that these people are probably
+data publishers.
+
+```{r data.publishers.2}
+subset(users, n_tables > 0 & n_views == 0)[c('displayName', 'roleName', 'flags', 'n_tables')]
 ```
 
 ```{r socrata.employees}
