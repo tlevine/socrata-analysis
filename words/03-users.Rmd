@@ -100,10 +100,7 @@ text(x = 2500, y = 14, labels = 'Missing data', col = 2)
 text(x = 10000, y = 3, labels = 'Complete data', col = 2)
 ```
 
-### Summary statistics
-Let's start by looking at those variables for which no data are missing.
-
-How many views do people have?
+### How many views do people have?
 
 ```{r n.views}
 plot.count(users$n_views, 'views', col = (users$id == 'e8ug-wzay') + 1)
@@ -116,6 +113,30 @@ Actually, there are probably even more with no views, but I don't have the
 data on them.
 
 That one way off to the side is the Data.gov Program Management Office,
-with ``users['e8ug-wzay','n_views']``.
+with ``users['e8ug-wzay','n_views']``. 
 
-#### profileLastModified
+### How many tables?
+
+Let's make that same plot, but for the number of tables. (A table is a raw
+uploaded dataset, before any view filtering. A table can have many views,
+and a view has only one table.)
+
+```{r n.tables}
+plot.count(users$n_tables, 'tables', col = (users$id == 'e8ug-wzay') + 1)
+text(x = 0.2, y = 1.2, labels = 'Most users\nhave one table', pos = 4, col = 2)
+text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
+```
+
+That point off to the right is again the Data.gov Program Management Office.
+
+### How many derived views?
+When you upload a tabular data file to Socrata, Socrata creates a table and
+a "dataset" view on that table. When you filter a view inside Socrata, Socrata
+creates a new view but no new table. Thus, the difference between number of
+tables and number of views tells us how many derived views people have made.
+
+```{r n.derived}
+plot.count(users$n_views - users$n_tables, 'derived views', col = (users$id == 'e8ug-wzay') + 1)
+```
+
+### profileLastModified
