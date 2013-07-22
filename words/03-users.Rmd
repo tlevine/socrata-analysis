@@ -76,8 +76,12 @@ barplot(
   (missingness$present.value),
   names.arg = missingness$variable,
   border = NA, col = 'grey', axes = F, horiz = T, las = 1,
-  xlim = c(0, 12000)
+  xlim = c(0, 12000),
+  main = 'How complete is the user profile metadata?',
+  xlab = 'Number of users with the field',
+  ylab = 'Field'
 )
 axis(1, at = seq(0, 12000, 2000))
 abline(v = nrow(users), col = 2, lty = 2)
 text(x = nrow(users), y = 15, labels = paste(nrow(users), 'total users'), col = 2, pos = 2)
+text(x = 2500, y = 14, labels = 'Missing data', col = 2)
