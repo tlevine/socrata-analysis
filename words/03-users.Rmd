@@ -65,7 +65,7 @@ table(is.na(users$profileImageUrlLarge))
 ```
 
 ```{r missingness}
-a <- t(as.data.frame(lapply(users, function(variable){ sum(is.na(variable)) } )))
+a <- t(as.data.frame(lapply(users, function(variable){ sum(!is.na(variable)) } )))
 missingness <- data.frame(
   variable = rownames(a),
   present.value = a[,1]
