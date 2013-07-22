@@ -3,6 +3,7 @@ library(plyr)
 library(knitr)
 library(scales)
 library(reshape2)
+library(grDevices)
 
 if (!('socrata' %in% ls())) {
   socrata <- read.csv('../socrata.csv', stringsAsFactors = F)
@@ -31,6 +32,16 @@ listify <- function(datasets) {
   ))
 }
 
+plot.count <- function(variable, label, col = 1, ...) {
+  log.max <- ceiling(log10(max(variable)))
+  stripchart(log10(variable), method = 'jitter',
+    pch = 21, col = NA, bg = adjustcolor(col, alpha.f = 0.2), xlim = c(0,log.max),
+    axes = F, xlab = paste('Number of', label, 'owned by the user'),
+    main = 'Each dot is a user', jitter = 1, ylim = c(0,2)
+  )
+  axis(1, at = c(0, 1:log.max), labels = c(0, 10^(1:log.max)))
+}
+
 build <- function() {
   for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
     md <- sub('Rmd$', 'md', Rmd)
@@ -46,3 +57,4 @@ build <- function() {
     file.rename('figure', figure)
   }
 }
+

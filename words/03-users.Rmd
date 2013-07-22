@@ -3,19 +3,6 @@ title: Who uses Socrata?
 tweet_text: When I downloaded all of the @socrata datasets, I also downloaded all of the users.
 ---
 
-```{r configure}
-library(grDevices)
-plot.count <- function(variable, label, col = 1, ...) {
-  log.max <- ceiling(log10(max(variable)))
-  stripchart(log10(variable), method = 'jitter',
-    pch = 21, col = NA, bg = adjustcolor(col, alpha.f = 0.2), xlim = c(0,log.max),
-    axes = F, xlab = paste('Number of', label, 'owned by the user'),
-    main = 'Each dot is a user', jitter = 1, ylim = c(0,2)
-  )
-  axis(1, at = c(0, 1:log.max), labels = c(0, 10^(1:log.max)))
-}
-```
-
 (Introduction here)
 
 ## The user data
@@ -181,13 +168,19 @@ ggplot(subset(users, n_views >= n_tables & id != 'e8ug-wzay')) +
 Not that interesting either. Hmm. Let's try this a different way.
 
 ### Aside from data publishers and Socrata employees, who uses Socrata a lot?
+I have a hunch that the `roleName` field is only populated for people who work
+for data publishers.
 
-```{r abc}
-subset(users, !is.na(flags) & !is.na(roleName))
+```{r data.publishers}
+subset(users, !is.na(roleName))
 ```
 
 ```{r socrata.employees}
 subset(users, !is.na(flags))['displayName']
+```
+
+```{r rolename.and.flag}
+subset(users, !is.na(roleName) & !is.na(flags))
 ```
 
 ### profileLastModified
