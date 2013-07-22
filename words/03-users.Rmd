@@ -388,6 +388,7 @@ to just one portal.
 I think that all of the different Socrata portals are served from the
 same web application and that this is why you can use the same credentials.)
 
+<!-- discussion -->
 Part of the issue might be that it is difficult to search across portals.
 
 ### These figures seem low.
@@ -405,6 +406,7 @@ hist(citizens$n_views[citizens$n_views < 10],
 )
 ```
 
+<!-- discussion -->
 That's a bit worrysome to me. I hope I just made a mistake or missed something,
 but if I didn't, this means that only ``nrow(citizens)`` people are using Socrata
 to create their own views of open data, that most of those people only ever create
