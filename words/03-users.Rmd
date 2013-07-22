@@ -236,11 +236,13 @@ users.roleNames <- ddply(users, 'more.tables', function(df) {
     )
   )
 })
-ggplot(users.roleNames) + aes(x = more.tables, group = has.role, fill = has.role) + geom_bar()
+barplot(users.roleNames$prop[users.roleNames$more.tables],
+  names.arg = c('Has a roleName', 'No roleName'),
+  ylim = 0:1, border = NA, las = 1,
+  ylab = 'Proportion of users with more tables than views',
+  xlab = 'User group', main = 'Are roleNames for data publisher employees?'
+)
 ```
-
-             
-
 
 And if we want to get all statistical about it, we can run
 Fisher's Exact test on that table.
@@ -249,7 +251,7 @@ Fisher's Exact test on that table.
 fisher.test(table(users$n_tables > users$n_views, users$has.role))
 ```
 
-and find that these counts are indeed disproportionate; 
+and find that these counts are indeed disproportionate. 
 
 ```{r data.publishers}
 subset(users, !is.na(roleName))
