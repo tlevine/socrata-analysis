@@ -115,13 +115,12 @@ data on them.
 That one way off to the side is the Data.gov Program Management Office,
 with ``users['e8ug-wzay','n_views']``. 
 
-Let's try that again, but I'm going to color the plot by whether the user is
-an administrator, designer, editor, publisher or viewer.
+Let's try that again, but I'm going to color the plot by whether the user's role
+is "administrator" or "publisher". (Other possibilities are "designer", "editor",
+"publisher", "viewer" and a missing value.)
 
 ```{r n.views.byrole}
-plot.count(users$n_views, 'views',
-  col = as.numeric(factor(users$roleName, levels =
-    c(NA, 'administrator', 'designer', 'editor', 'publisher', 'viewer'))))
+plot.count(users$n_views, 'views', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
 ```
 
 ### How many tables?
