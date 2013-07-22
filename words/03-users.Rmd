@@ -178,7 +178,9 @@ ggplot(subset(users, n_views >= n_tables & id != 'e8ug-wzay')) +
   geom_point() + scale_y_log10('Number of tables') + scale_x_log10('Number of derived views')
 ```
 
-Not that interesting either. Hmm.
+Not that interesting either. Hmm. Let's try this a different way.
+
+### Aside from data publishers and Socrata employees, who uses Socrata a lot?
 
 
 ### profileLastModified
