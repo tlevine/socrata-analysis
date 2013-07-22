@@ -51,7 +51,6 @@ Rather than remembering which tables and datasets everyone owned, that function
 just remembers how many. Maybe I'll do something with the links later.
 
 ## Analysis
-
 The table schema looks like this.
 
 ```{r schema}
@@ -85,4 +84,8 @@ axis(1, at = seq(0, 12000, 2000))
 abline(v = nrow(users), col = 2, lty = 2)
 text(x = nrow(users), y = 15, labels = paste(nrow(users), 'total users'), col = 2, pos = 2)
 text(x = 2500, y = 14, labels = 'Missing data', col = 2)
+text(x = 10000, y = 3, labels = 'Complete data', col = 2)
 ```
+
+### Summary statistics
+Let's start by looking at those fields that we have complete or 
