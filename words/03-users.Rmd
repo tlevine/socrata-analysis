@@ -5,10 +5,10 @@ tweet_text: When I downloaded all of the @socrata datasets, I also downloaded al
 
 ```{r configure}
 library(grDevices)
-plot.count <- function(variable, label) {
+plot.count <- function(variable, label, col = 1, ...) {
   log.max <- ceiling(log10(max(variable)))
   stripchart(log10(variable), method = 'jitter',
-    pch = 21, col = NA, bg = rgb(0,0,0,0.2, max = 1), xlim = c(0,log.max),
+    pch = 21, col = NA, bg = adjustcolor(col, alpha.f = 0.2), xlim = c(0,log.max),
     axes = F, xlab = paste('Number of', label, 'owned by the user'),
     main = 'Each dot is a user', jitter = 1, ylim = c(0,2)
   )
@@ -106,8 +106,9 @@ Let's start by looking at those variables for which no data are missing.
 How many views do people have?
 
 ```{r n.views}
-plot.count(users$n_views, 'views')
+plot.count(users$n_views, 'views', col = (users$id == 'e8ug-wzay') + 1)
 text(x = 0.2, y = 1.2, labels = 'Most users\nhave one view', pos = 4, col = 2)
+text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
 
 Most users (``sum(users$n_views == 1)`` to be exact) have exactly one view.
