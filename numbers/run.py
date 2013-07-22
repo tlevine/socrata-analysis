@@ -240,4 +240,5 @@ def users():
                 _users[uid]['n_' + key] = len(_users[uid][key])
                 del _users[uid][key]
 
+    dt.insert(_users.values(), 'user')
     return _users
