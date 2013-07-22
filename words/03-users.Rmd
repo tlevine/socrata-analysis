@@ -175,6 +175,47 @@ for data publishers.
 subset(users, !is.na(roleName))
 users$has.role <- !is.na(users$roleName)
 users$has.flag <- !is.na(users$flags)
+```
+
+Here are people with tables but no views. (As I mentioned earlier, I didn't
+realize that this was possible!) I figure that these people are probably
+data publishers.
+
+```{r data.publishers.2}
+subset(users, n_tables > 0 & n_views == 0)[c('displayName', 'roleName', 'flags', 'n_tables')]
+```
+
+I looked up a few of them with a search engine, and they mostly
+[seem](http://www.linkedin.com/in/jkray)
+[to](http://www.imaginaryrobots.net/resumes/Jesse_van_Herk_resume.pdf)
+[be](http://www.linkedin.com/in/debraagagne)
+[city]()
+[employees]().
+
+One exception is [Waldo Jaquith](http://waldo.jaquith.org/).
+He authored the tables behind
+[three](https://explore.data.gov/Contributors/FEC-Committees/fpyy-vyfb?)
+[popular](https://explore.data.gov/Federal-Government-Finances-and-Employment/Lobbying-Disclosure-Reports/aqdm-v85k?)
+[datasets](https://explore.data.gov/Contributors/FEC-Candidates/wuxv-c8xz?)
+on data.explore.gov, but they don't show up in his
+[profile](https://explore.data.gov/profile/foo/6q59-uqyb).
+
+I emailed him...
+
+
+<!-- grep -r '"6q59-uqyb"' .|grep explore -->
+
+```{r socrata.employees}
+subset(users, !is.na(flags))['displayName']
+```
+
+```{r rolename.and.flag}
+subset(users, !is.na(roleName) & !is.na(flags))
+```
+
+
+
+
 users$prop.tables <- users$n_tables / users$n_views
 # ggplot(users) + aes(x = has.role, y = prop.tables) + geom_violin() + scale_y_sqrt('Proportion of views that are datasets (sort of)') + geom_hline(y = 1)
 
@@ -195,23 +236,7 @@ ggplot(subset(users, id != 'e8ug-wzay')) + aes(x = n_tables, group = paste(has.r
 ```
 
 Hmm not that helpful. Let's go back to looking at the individual people.
-Here are people with tables but no views. (As I mentioned earlier, I didn't
-realize that this was possible!) I figure that these people are probably
-data publishers.
 
-```{r data.publishers.2}
-subset(users, n_tables > 0 & n_views == 0)[c('displayName', 'roleName', 'flags', 'n_tables')]
-```
 
-I looked up a few of them with a search engine, and they seem to be all
-city employees.
-
-```{r socrata.employees}
-subset(users, !is.na(flags))['displayName']
-```
-
-```{r rolename.and.flag}
-subset(users, !is.na(roleName) & !is.na(flags))
-```
 
 ### profileLastModified
