@@ -115,6 +115,15 @@ data on them.
 That one way off to the side is the Data.gov Program Management Office,
 with ``users['e8ug-wzay','n_views']``. 
 
+Let's try that again, but I'm going to color the plot by whether the user is
+an administrator, designer, editor, publisher or viewer.
+
+```{r n.views.byrole}
+plot.count(users$n_views, 'views',
+  col = as.numeric(factor(users$roleName, levels =
+    c(NA, 'administrator', 'designer', 'editor', 'publisher', 'viewer'))))
+```
+
 ### How many tables?
 
 Let's make that same plot, but for the number of tables. (A table is a raw
@@ -127,7 +136,7 @@ text(x = 0.2, y = 1.2, labels = 'Most users\nhave one table', pos = 4, col = 2)
 text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
 
-That point off to the right is again the Data.gov Program Management Office.
+That point off to the right is again the Data.gov Program Management Office.o
 
 ### How many derived views?
 When you upload a tabular data file to Socrata, Socrata creates a table and
@@ -137,6 +146,16 @@ tables and number of views tells us how many derived views people have made.
 
 ```{r n.derived}
 plot.count(users$n_views - users$n_tables, 'derived views', col = (users$id == 'e8ug-wzay') + 1)
+```
+
+I suspect that open data departments upload lots of raw datasets but don't
+create very many filters on them; other people do that when they're analyzing
+the data. So what happens if we compare the number of derived views that a
+user has to the number of tables that she has?
+
+```{r derivedness}
+users$n.derived <- users$n_views - users$n_tables
+
 ```
 
 ### profileLastModified
