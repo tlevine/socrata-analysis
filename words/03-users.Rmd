@@ -182,5 +182,12 @@ Not that interesting either. Hmm. Let's try this a different way.
 
 ### Aside from data publishers and Socrata employees, who uses Socrata a lot?
 
+```{r abc}
+subset(users, !is.na(flags) & !is.na(roleName))
+```
+
+```{r socrata.employees}
+subset(users, !is.na(flags))['displayName']
+```
 
 ### profileLastModified
