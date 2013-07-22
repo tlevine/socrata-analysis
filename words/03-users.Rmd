@@ -319,7 +319,32 @@ made a bunch of charts on a few different datasets.
 These charts are quite popular, and they account for a quarter of Kenya's open data portal.
 
 Anyway, I see a pattern here: Users with the most views
-just made different filters on the same dataset
+just made different filters on the same dataset.
+
+Let's try this yet again, but this time, let's look only at people with profile images.
+
+```{r citizens}
+citizens <- subset(users, !has.flag & !has.role & n_tables == 0 & !is.na(profileImageUrlLarge))
+columns <- c('displayName', 'n_tables', 'n_views', 'profileImageUrlLarge')
+head(citizens[order(citizens$n_views, decreasing = T),columns], 20)
+```
+
+#### not The White House
+[not The White House](https://explore.data.gov/profile/not-The-White-House/732w-crxq)
+is "[w]ay more open and transparent than the official White House website."
+It's another account that's just making filters on one dataset, but they're a bit more
+creative, diverse and involved. Here are some of her popular views.
+
+* [People who went on the West Wing tour](https://explore.data.gov/dataset/West-Wing-Tour/e8wt-55cb)
+* [People who played basketball at the White House](https://explore.data.gov/dataset/People-who-played-basketball-at-the-White-House/a4h3-3v3x)
+* [Secret Service BBQ](https://explore.data.gov/dataset/Secret-Service-BBQ/tgmj-eaig)
+
+not The White House also has its own separate website, 
+[whitehouse.gov1.info](http://whitehouse.gov1.info/),
+which is a parody of the [official White House website](http://www.whitehouse.gov/).
+
+#### NL
+https://databox.worldbank.org/profile/NL/aeze-ppu4
 
 ###
 
