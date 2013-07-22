@@ -299,6 +299,13 @@ appears to be [recovery.gov](http://www.recovery.gov)'s open data initiative,
 which is running on [opendata.socrata.com](https://opendata.socrata.com)
 rather than on a separate portal.
 
+Maybe we should also expect citizens not to have uploaded any tables.
+
+```{r citizens}
+citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
+head(citizens[order(citizens$n_views, decreasing = T),columns])
+```
+
 ###
 
 
