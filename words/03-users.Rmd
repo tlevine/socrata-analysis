@@ -167,11 +167,11 @@ ggplot(subset(users, n_views >= n_tables & id != 'e8ug-wzay')) +
 
 Not that interesting either. Hmm. Let's try this a different way.
 
-### Aside from data publishers and Socrata employees, who uses Socrata a lot?
+## Aside from data publishers and Socrata employees, who uses Socrata a lot?
 I have a hunch that the `roleName` field is only populated for people who work
 for data publishers.
 
-#### More tables than views
+### More tables than views
 Here are people with tables but no views. (As I mentioned earlier, I didn't
 realize that this was possible!) I figure that these people are probably
 data publishers.
@@ -213,7 +213,7 @@ on data.explore.gov, but they don't show up in his
     grep -r '"6q59-uqyb"' .|grep explore
 -->
 
-#### `roleName`
+### `roleName`
 You may have noticed that most of the people in the above tables have
 `roleName` fields. I think that people tend to have a `roleName` field
 if and only if they work for data publishers. To make that more clear,
@@ -259,7 +259,7 @@ and find that these counts are indeed disproportionate.
 
 This is all to say that **`roleName` appears to be a decent proxy for "data publisher"**.
 
-#### `flags`
+### `flags`
 In a similar vein, I looked at Socrata users with a `flags` field.
 
 ```{r socrata.employees}
@@ -280,6 +280,13 @@ and [Bryant](www.linkedin.com/in/bryantlau) are both
 Socrata employees. I don't know why they have `roleName` fields.
 
 Anyway, it looks like the `flags` field is a decent proxy for "Socrata employee"
+
+### Heavy users who work neither for government nor Socrata
+If having a `flags` field means you work for Socrata and
+having a `roleName` means you work for a data publisher (a government, usually),
+then people with neither `flags` nor a `roleName` are the
+citizens that Socrata is trying to empower.
+
 
 ###
 
