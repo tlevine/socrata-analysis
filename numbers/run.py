@@ -218,7 +218,7 @@ def users():
             owns = view['owner']['id']['owns'] if view['owner']['id'] in u else []
             owns.append(view['owner']['id'])
 
-            u[view['owner']]['id'] = view['owner']
-            u[view['owner']]['id']['owns'] = owns
+            u[view['owner']['id']] = view['owner']
+            u[view['owner']['id']]['owns'] = owns
         break
     return u
