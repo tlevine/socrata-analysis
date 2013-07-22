@@ -287,6 +287,17 @@ having a `roleName` means you work for a data publisher (a government, usually),
 then people with neither `flags` nor a `roleName` are the
 citizens that Socrata is trying to empower.
 
+```{r citizens}
+citizens <- subset(users, !has.flag & !has.role)
+columns <- c('displayName', 'n_tables', 'n_views')
+head(citizens[order(citizens$n_views, decreasing = T),columns])
+```
+
+Hmm okay they're not all citizens. For example,
+"[Public Datasets](https://opendata.socrata.com/profile/Public-Datasets/vc35-nh3p)"
+appears to be [recovery.gov](http://www.recovery.gov)'s open data initiative,
+which is running on [opendata.socrata.com](https://opendata.socrata.com)
+rather than on a separate portal.
 
 ###
 
