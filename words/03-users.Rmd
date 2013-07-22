@@ -391,32 +391,37 @@ same web application and that this is why you can use the same credentials.)
 <!-- discussion -->
 Part of the issue might be that it is difficult to search across portals.
 
-### These figures seem low.
-Using my most recent rule for selecting citizens from the user table,
-I only see ``nrow(citizens)`` citizens. The few that I discussed above
-have dozens of views, but most people have 1. The histogram below shows
-how many views users have created. To make it easier to read, I left out
-the top five users; they each have more than 20 views.
+### Everyone else
+I looked at a few specific Socrata users who are doing interesting things,
+but let's look a bit more broadly. The histogram below shows how many views
+users have created. Here, I'm including people without profile pictures.
 
-```{r citizen.views}
-hist(citizens$n_views[citizens$n_views < 10],
+```{r citizen.views.1}
+citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
+hist(citizens$n_views,
   col = 1, border = NA,
   xlab = 'Number of Socrata views created by the user',
   ylab = 'Number of users', main = 'How many views do Socrata users make?'
 )
 ```
 
-<!-- discussion -->
-That's a bit worrysome to me. I hope I just made a mistake or missed something,
-but if I didn't, this means that only ``nrow(citizens)`` people are using Socrata
-to create their own views of open data, that most of those people only ever create
-one view, and that citizens have created only ``sum(citizens$n_views)`` views in
-total. Keep in mind that these figures are totals across 
+Here it is again, but leaving out the top ten users to make it easier to see.
 
-It could be that people are using these datasets a lot but that they're just
-downloading spreadsheets and analyzing them in Excel (or R, as I'm doing),
-and that's great. But that's the less interesting part about the Socrata
-Open Data Portal software. Socrata is trying to "consumerize" data analysis,
-to empower citizens to conduct their own analysis rather than relying on
-external skilled data scientists.
+```{r citizen.views.2}
+citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
+hist(citizens$n_views[citizens$n_views < 30],
+  col = 1, border = NA,
+  xlab = 'Number of Socrata views created by the user',
+  ylab = 'Number of users', main = 'How many views do Socrata users make?'
+)
+```
 
+As you might expect, most people make only one view.
+In fact, there are probably even more users with no views.
+
+```{r one.view}
+table(citizens$n_views == 1)
+```
+
+In total, that's ``sum(citizens$n_views)``. That seems like a decent amount.
+Cool.
