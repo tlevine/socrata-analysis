@@ -3,6 +3,10 @@ title: Who uses Socrata?
 tweet_text: When I downloaded all of the @socrata datasets, I also downloaded all of the users.
 ---
 
+```{r configure}
+library(grDevices)
+```
+
 (Introduction here)
 
 ## The user data
@@ -89,3 +93,16 @@ text(x = 10000, y = 3, labels = 'Complete data', col = 2)
 
 ### Summary statistics
 Let's start by looking at those variables for which no data are missing.
+
+How many views do people have?
+
+```{r n.views}
+stripchart(log10(users$n_views), method = 'jitter',
+  pch = 21, col = NA, bg = rgb(0,0,0,0.2, max = 1), xlim = c(0,4),
+  axes = F, xlab = 'Number of views owned by the user',
+  main = 'Each dot is a user'
+)
+axis(1, at = c(0, 1:4), labels = c(0, 10^(1:4)))
+```
+
+#### profileLastModified
