@@ -146,7 +146,15 @@ creates a new view but no new table. Thus, the difference between number of
 tables and number of views tells us how many derived views people have made.
 
 ```{r n.derived}
-plot.count(users$n_views - users$n_tables, 'derived views', col = (users$id == 'e8ug-wzay') + 1)
+plot.count(users$n_views - users$n_tables, 'derived views', col = 1 + ((!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator'))))
+```
+
+It turns out that 65 users have more tables than views. This appears to be mostly
+publishers. Maybe this is something about how the import API works that I don't
+understand.
+
+```{r publishers}
+users[users$n_views < users$n_tables,]
 ```
 
 I suspect that open data departments upload lots of raw datasets but don't
@@ -156,7 +164,21 @@ user has to the number of tables that she has?
 
 ```{r derivedness}
 users$n.derived <- users$n_views - users$n_tables
-
+users$prop.derived <- users$n.derived/users$n_views
+ggplot(subset(users, n_views >= n_tables)) +
+  aes(x = n_tables, y = prop.derived, color = roleName) +
+  geom_point() + scale_x_log10('Number of tables')
 ```
+
+Not that interesting. Let's try a different one.
+
+```{r derivedness.2}
+ggplot(subset(users, n_views >= n_tables & id != 'e8ug-wzay')) +
+  aes(x = n.derived, y = n_tables, color = roleName) +
+  geom_point() + scale_y_log10('Number of tables') + scale_x_log10('Number of derived views')
+```
+
+Not that interesting either. Hmm.
+
 
 ### profileLastModified
