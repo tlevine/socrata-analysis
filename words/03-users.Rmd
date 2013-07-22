@@ -51,11 +51,30 @@ Rather than remembering which tables and datasets everyone owned, that function
 just remembers how many. Maybe I'll do something with the links later.
 
 ## Analysis
-### Summary
+
 The table schema looks like this.
 
-```r
+```{r schema}
 str(users)
 ```
 
-Not everyone had all of the fields.
+### Missing data
+Not everyone had all of the fields. For example, hardly anyone has a profile image.
+
+```{r profile.image}
+table('' == users$profileImageUrlLarge)
+```
+
+```{r missingness}
+a <- t(as.data.frame(lapply(users, function(variable){ sum(nchar(variable) > 0) } )))
+missingness <- data.frame(
+  variable = rownames(a),
+  present.value = a[,1]
+)
+barplot(
+  log10(missingness$present.value),
+  names.arg = missingness$variable,
+  border = NA, col = 'grey', axes = F, horiz = T, las = 1,
+  xlim = c(0, ceiling(log10(nrow(users))))
+)
+axis(1, at = c(0, 1:4), labels = c(0, 10^(1:4))) 
