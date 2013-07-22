@@ -1,1 +1,2 @@
-hawaii <- sqldf("select * from socrata where portal = 'data.hawaii.gov' and id not in (select id from socrata where portal = 'explore.data.gov')")
+hawaii <- subset(socrata, portal == 'data.hawaii.gov' & tableAuthor.id != 'e8ug-wzay' & owner.id != 'e8ug-wzay' & tableAuthor.id != 'bhnt-uir2' & tableAuthor.id != 'c9zm-usrt')
+p <- ggplot(hawaii) + aes(x = createdAt, fill = ) + geom_bar()
