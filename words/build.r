@@ -27,17 +27,18 @@ listify <- function(datasets) {
   ))
 }
 
-for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
-  md <- sub('Rmd$', 'md', Rmd)
-  figure <- sub('.Rmd$', '-figure', Rmd)
+build <- function() {
+  for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
+    md <- sub('Rmd$', 'md', Rmd)
+    figure <- sub('.Rmd$', '-figure', Rmd)
 
-  # Remove the old figures.
-  file.remove(c(paste(figure, list.files(figure), sep = '/'), figure))
+    # Remove the old figures.
+    file.remove(c(paste(figure, list.files(figure), sep = '/'), figure))
 
-  # Compile the markdown and the figures.
-  knit(Rmd, md)
+    # Compile the markdown and the figures.
+    knit(Rmd, md)
 
-  # Rename the figure directory so we separate different figure directories.
-  file.rename('figure', figure)
-  break
+    # Rename the figure directory so we separate different figure directories.
+    file.rename('figure', figure)
+  }
 }
