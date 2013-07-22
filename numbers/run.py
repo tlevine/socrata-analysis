@@ -202,3 +202,23 @@ limit 10;
         for dataset in result['datasets']:
             del dataset['portal']
         json.dump(result, open(os.path.join('geneology', '%d.json' % tableId), 'w'))
+
+def users():
+    dt = DumpTruck(dbname = '/tmp/socrata.db')
+    dt.create_table({'id': 'abcd-efgh'}, 'user')
+    dt.create_index(['id'], 'user', unique = True)
+
+    u = {}
+    for portal in os.listdir('data'):
+        for viewid in os.listdir(os.path.join('data', portal, 'views')):
+            handle = open(os.path.join('data', portal, 'views', viewid), 'r')
+            view = json.load(handle)
+            handle.close()
+
+            owns = view['owner']['id']['owns'] if view['owner']['id'] in u else []
+            owns.append(view['owner']['id'])
+
+            u[view['owner']]['id'] = view['owner']
+            u[view['owner']]['id']['owns'] = owns
+        break
+    return u
