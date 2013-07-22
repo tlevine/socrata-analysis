@@ -15,6 +15,7 @@ if (!('users' %in% ls())) {
   for (variable in names(users)) {
     users[nchar(users[,variable]) == 0,variable] <- NA
   }
+  rownames(users) <- users$id
 }
 
 # Helpers
