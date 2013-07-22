@@ -5,6 +5,15 @@ tweet_text: When I downloaded all of the @socrata datasets, I also downloaded al
 
 ```{r configure}
 library(grDevices)
+plot.count <- function(variable, label) {
+  log.max <- ceiling(log10(max(variable)))
+  stripchart(log10(variable), method = 'jitter',
+    pch = 21, col = NA, bg = rgb(0,0,0,0.2, max = 1), xlim = c(0,log.max),
+    axes = F, xlab = paste('Number of', label, 'owned by the user'),
+    main = 'Each dot is a user', jitter = 1, ylim = c(0,2)
+  )
+  axis(1, at = c(0, 1:log.max), labels = c(0, 10^(1:log.max)))
+}
 ```
 
 (Introduction here)
@@ -97,12 +106,7 @@ Let's start by looking at those variables for which no data are missing.
 How many views do people have?
 
 ```{r n.views}
-stripchart(log10(users$n_views), method = 'jitter',
-  pch = 21, col = NA, bg = rgb(0,0,0,0.2, max = 1), xlim = c(0,4),
-  axes = F, xlab = 'Number of views owned by the user',
-  main = 'Each dot is a user', jitter = 1, ylim = c(0,2)
-)
-axis(1, at = c(0, 1:4), labels = c(0, 10^(1:4)))
+plot.count(users$n_views, 'views')
 text(x = 0.2, y = 1.2, labels = 'Most users\nhave one view', pos = 4, col = 2)
 ```
 
@@ -111,6 +115,6 @@ Actually, there are probably even more with no views, but I don't have the
 data on them.
 
 That one way off to the side is the Data.gov Program Management Office,
-with ``e8ug-wzay
+with ``users['e8ug-wzay','n_views']``.
 
 #### profileLastModified
