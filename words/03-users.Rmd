@@ -171,12 +171,7 @@ Not that interesting either. Hmm. Let's try this a different way.
 I have a hunch that the `roleName` field is only populated for people who work
 for data publishers.
 
-```{r data.publishers}
-subset(users, !is.na(roleName))
-users$has.role <- !is.na(users$roleName)
-users$has.flag <- !is.na(users$flags)
-```
-
+#### More tables than views
 Here are people with tables but no views. (As I mentioned earlier, I didn't
 realize that this was possible!) I figure that these people are probably
 data publishers.
@@ -193,6 +188,20 @@ I looked up a few of them with a search engine, and they mostly
 [employees]().
 
 
+An interesting case is
+[rseel](https://data.oregon.gov/profile/rseel/izyb-s78c?category=Recreation&utf8=%E2%9C%93&view_type=table).
+He is the author behind a private table, and 
+[Cam Caldwell](), a Socrata employee, made 
+[this view](https://data.oregon.gov/Health-Human-Services/WIC-Authorized-Vendors/5ew8-h6d9?)
+based on that table. So some of the situations where people have tables but no views might
+occur because of private views.
+
+This also pointed out to me that I should adjust my query above.
+
+```{r tables.v.views}
+subset(users, n_tables > n_views)[c('displayName', 'roleName', 'flags', 'n_tables', 'n_views')]
+```
+
 <!-- One example: [Waldo Jaquith](http://waldo.jaquith.org/).
 He authored the tables behind
 [three](https://explore.data.gov/Contributors/FEC-Committees/fpyy-vyfb?)
@@ -203,6 +212,41 @@ on data.explore.gov, but they don't show up in his
 
     grep -r '"6q59-uqyb"' .|grep explore
 -->
+
+#### `roleName` and `flags`
+You may have noticed that most of the people in the above tables have
+`roleName` fields. I think that people tend to have a `roleName` field
+if and only if they work for data publishers. To make that more clear,
+here's a table.
+
+```{r roleName.for.govt}
+table(users$n_tables > users$n_views, users$has.role)
+```
+
+Here's a plot.
+
+```{r roleName.plot}
+.t <- table(users$n_tables > users$n_views, users$has.role)
+barplot(.t / rowSums(.t), border = NA, 
+barplot(a / rowSums(a), col = c('grey', '#dddddd'), border = NA, legend = c('Has roleName', 'No roleName'))
+
+             
+
+
+And if we want to get all statistical about it, we can run
+Fisher's Exact test on that table.
+
+```{r fisher.test}
+fisher.test(table(users$n_tables > users$n_views, users$has.role))
+```
+
+and find that these counts are indeed disproportionate; 
+
+```{r data.publishers}
+subset(users, !is.na(roleName))
+users$has.role <- !is.na(users$roleName)
+users$has.flag <- !is.na(users$flags)
+```
 
 
 ```{r socrata.employees}
