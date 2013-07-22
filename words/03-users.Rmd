@@ -351,7 +351,7 @@ not The White House also has its own separate website,
 which is a parody of the [official White House website](http://www.whitehouse.gov/).
 
 #### NL
-![NL](<%= @item.identifier %>NL.jpg)
+![Picture of NL](<%= @item.identifier %>NL.jpg)
 
 [NL](https://finances.worldbank.org/profile/NL/aeze-ppu4)
 used to do a lot with World Bank data, though she hasn't for a few months.
@@ -362,7 +362,7 @@ Interestingly, that portal didn't show up in my list of Socrata portals.
 
 
 #### VinylFox
-![VinylFox](<%= @item.identifier %>VinylFox.jpg)
+![Picture of VinylFox](<%= @item.identifier %>VinylFox.jpg)
 
 [VinylFox](https://data.baltimorecity.gov/profile/VinylFox/86yi-jydw?)
 has also made a bunch of interesting filters on Baltimore data.
@@ -370,7 +370,7 @@ His website discusses this [a bit more](http://www.vinylfox.com/about/).
 <!-- Talk to him. -->
 
 #### Dave Francis Rodrigues
-![Dave Francis Rodrigues](<%= @item.identifier %>Dave Francis Rodrigues.jpg)
+![Picture of Dave Francis Rodrigues](<%= @item.identifier %>Dave Francis Rodrigues.jpg)
 
 [Dave](https://finances.worldbank.org/profile/Dave-Francis-Rodrigues/ef7y-9vvy?)
 has made a lot of filters and charts about India.
