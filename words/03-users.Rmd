@@ -5,15 +5,41 @@ tweet_text: When I downloaded all of the @socrata datasets, I also downloaded al
 
 (Introduction here)
 
-The view's metadata files contain two fields related to the people
-who interacted with that view. These fields are the `table
+## The user data
+I'm still using the same 80,000 JSON files that I downloaded last month.
+Each of these metadata files describes a Socrata view. Among their many
+fields are two fields related to the people who interacted with that view.
+These fields are the `owner` and  `tableAuthor` fields. These fields are
+both hashes/dictionaries/arrays with user information. For example, here's
+mine.
 
-One of the fields that comes with the view metadata files is the 
-`tableAuthor`, and another is the `owner`.
+    {
+        "id" : "x73b-9d8f",
+        "displayName" : "Thomas Levine",
+        "emailUnsubscribed" : false,
+        "privacyControl" : "login",
+        "profileLastModified" : 1371141485,
+        "screenName" : "Thomas Levine"
+    }
 
-(show examples)
+### `owner`
+The `owner` field is quite straightforward; it's simply the person who
+created the view, be it a dataset, chart, map or whatever.
 
+### `tableAuthor`
+The `tableAuthor` field is the person who uploaded the dataset associated
+with the view. For datasets, this is the same as the owner, but for charts,
+maps and filtered views, it might be different; one person may have uploaded
+the data, and another person might have made the chart. "view", "dataset",
+"map", "chart", "filtered view" and "table" all have rather special meanings
+inside Socrata, so you should read my [post on that](/!/socrata-genealogies)
+if the previous sentence didn't make sense.
 
+## Extracting the user data
+I already had a system for storing all of the Socrata metadata, so I just needed to write a
+[sloppy function](https://github.com/tlevine/socrata-analysis/blob/e3d12254e928f986f1a83ed2099577e289048b94/numbers/run.py#L207)
+to query it. This resulted in an SQLite3 database, which I converted to a
+[CSV file](https://raw.github.com/tlevine/socrata-analysis/e3d12254e928f986f1a83ed2099577e289048b94/users.csv)
 
 
 
