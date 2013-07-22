@@ -123,6 +123,8 @@ is "administrator" or "publisher". (Other possibilities are "designer", "editor"
 plot.count(users$n_views, 'views', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
 ```
 
+It looks like publishers and administrators make more views. Big surprize.
+
 ### How many tables?
 
 Let's make that same plot, but for the number of tables. (A table is a raw
@@ -130,7 +132,7 @@ uploaded dataset, before any view filtering. A table can have many views,
 and a view has only one table.)
 
 ```{r n.tables}
-plot.count(users$n_tables, 'tables', col = (users$id == 'e8ug-wzay') + 1)
+plot.count(users$n_tables, 'tables', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
 text(x = 0.2, y = 1.2, labels = 'Most users\nhave one table', pos = 4, col = 2)
 text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
