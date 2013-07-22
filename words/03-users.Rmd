@@ -306,6 +306,21 @@ citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 head(citizens[order(citizens$n_views, decreasing = T),columns])
 ```
 
+[Njbate](https://explore.data.gov/profile/Njbate/jyr3-c2kp?)
+made a bunch of filtered views on the
+[FEC Contributions dataset](https://explore.data.gov/Contributors/FEC-Contributions/4dkz-64bn).
+
+[CPHA](https://data.baltimorecity.gov/profile/CPHA/cif6-aywu?)
+made a bunch of filtered views on the
+[Baltimore 311 request dataset](https://data.baltimorecity.gov/Community/311-Customer-Service-Requests/9agw-sxsr).
+
+The [Kenya Open Data Bot](https://opendata.go.ke/profile/Kenya-Open-Data-Bot/teh5-ns3w?)
+made a bunch of charts on a few different datasets.
+These charts are quite popular, and they account for a quarter of Kenya's open data portal.
+
+Anyway, I see a pattern here: Users with the most views
+just made different filters on the same dataset
+
 ###
 
 
