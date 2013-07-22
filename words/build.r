@@ -12,6 +12,9 @@ if (!('socrata' %in% ls())) {
 if (!('users' %in% ls())) {
   users <- read.csv('../users.csv', stringsAsFactors = F)
   users$profileLastModified <- as.Date(as.POSIXct(users$profileLastModified, origin = '1970-01-01'))
+  for (variable in names(users)) {
+    users[nchar(users[,variable]) == 0,variable] <- NA
+  }
 }
 
 # Helpers

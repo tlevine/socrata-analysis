@@ -61,11 +61,11 @@ str(users)
 Not everyone had all of the fields. For example, hardly anyone has a profile image.
 
 ```{r profile.image}
-table('' == users$profileImageUrlLarge)
+table(is.na(users$profileImageUrlLarge))
 ```
 
 ```{r missingness}
-a <- t(as.data.frame(lapply(users, function(variable){ sum(nchar(variable) > 0) } )))
+a <- t(as.data.frame(lapply(users, function(variable){ sum(is.na(variable)) } )))
 missingness <- data.frame(
   variable = rownames(a),
   present.value = a[,1]
@@ -88,4 +88,4 @@ text(x = 10000, y = 3, labels = 'Complete data', col = 2)
 ```
 
 ### Summary statistics
-Let's start by looking at those fields that we have complete or 
+Let's start by looking at those variables for which no data are missing.
