@@ -40,15 +40,22 @@ I already had a system for storing all of the Socrata metadata, so I just needed
 [sloppy function](https://github.com/tlevine/socrata-analysis/blob/e3d12254e928f986f1a83ed2099577e289048b94/numbers/run.py#L207)
 to query it. This resulted in an SQLite3 database, which I converted to a
 [CSV file](https://raw.github.com/tlevine/socrata-analysis/e3d12254e928f986f1a83ed2099577e289048b94/users.csv)
+and read into R.
 
-
-
-
-
-
-
-
-
-
+<!--
 In case a view was federated, only one copy is counted, so this doesn't
 have the duplication issues that some people were concerned about.
+-->
+
+Rather than remembering which tables and datasets everyone owned, that function
+just remembers how many. Maybe I'll do something with the links later.
+
+## Analysis
+### Summary
+The table schema looks like this.
+
+```r
+str(users)
+```
+
+Not everyone had all of the fields.
