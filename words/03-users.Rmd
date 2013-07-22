@@ -226,9 +226,18 @@ table(users$n_tables > users$n_views, users$has.role)
 Here's a plot.
 
 ```{r roleName.plot}
-.t <- table(users$n_tables > users$n_views, users$has.role)
-barplot(.t / rowSums(.t), border = NA, 
-barplot(a / rowSums(a), col = c('grey', '#dddddd'), border = NA, legend = c('Has roleName', 'No roleName'))
+users$more.tables <- users$n_tables > users$n_views
+users.roleNames <- ddply(users, 'more.tables', function(df) {
+  out <- data.frame(
+    has.role = c(T,F),
+    prop = c(
+      mean(df$has.role),
+      1 - mean(df$has.role)
+    )
+  )
+})
+ggplot(users.roleNames) + aes(x = more.tables, group = has.role, fill = has.role) + geom_bar()
+```
 
              
 
