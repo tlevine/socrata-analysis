@@ -189,10 +189,11 @@ I looked up a few of them with a search engine, and they mostly
 [seem](http://www.linkedin.com/in/jkray)
 [to](http://www.imaginaryrobots.net/resumes/Jesse_van_Herk_resume.pdf)
 [be](http://www.linkedin.com/in/debraagagne)
-[city]()
+[government](http://www.whitehouse.gov/champions/technology-and-innovation/waldo-jaquith)
 [employees]().
 
-One exception is [Waldo Jaquith](http://waldo.jaquith.org/).
+
+<!-- One example: [Waldo Jaquith](http://waldo.jaquith.org/).
 He authored the tables behind
 [three](https://explore.data.gov/Contributors/FEC-Committees/fpyy-vyfb?)
 [popular](https://explore.data.gov/Federal-Government-Finances-and-Employment/Lobbying-Disclosure-Reports/aqdm-v85k?)
@@ -200,10 +201,9 @@ He authored the tables behind
 on data.explore.gov, but they don't show up in his
 [profile](https://explore.data.gov/profile/foo/6q59-uqyb).
 
-I emailed him...
+    grep -r '"6q59-uqyb"' .|grep explore
+-->
 
-
-<!-- grep -r '"6q59-uqyb"' .|grep explore -->
 
 ```{r socrata.employees}
 subset(users, !is.na(flags))['displayName']
