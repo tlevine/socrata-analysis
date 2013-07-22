@@ -378,7 +378,19 @@ He also names his views really well. In particular, I like his hack of prefixing
 all of the titles with "Dave_"; this gets around how Socrata doesn't make it particularly
 clear who created the view that you are looking at.
 
-#### Everyone else
+### People mostly use one portal.
+When you make an account on any Socrata portal, you can use it to log in to
+any of the other portals. Although this makes it easier for people to use
+different portals, people don't seem to be doing that; people seem to stick
+to just one portal.
+
+(As I mentioned [previously](),
+I think that all of the different Socrata portals are served from the
+same web application and that this is why you can use the same credentials.)
+
+Part of the issue might be that it is difficult to search across portals.
+
+### These figures seem low.
 Using my most recent rule for selecting citizens from the user table,
 I only see ``nrow(citizens)`` citizens. The few that I discussed above
 have dozens of views, but most people have 1. The histogram below shows
@@ -392,3 +404,17 @@ hist(citizens$n_views[citizens$n_views < 10],
   ylab = 'Number of users', main = 'How many views do Socrata users make?'
 )
 ```
+
+That's a bit worrysome to me. I hope I just made a mistake or missed something,
+but if I didn't, this means that only ``nrow(citizens)`` people are using Socrata
+to create their own views of open data, that most of those people only ever create
+one view, and that citizens have created only ``sum(citizens$n_views)`` views in
+total. Keep in mind that these figures are totals across 
+
+It could be that people are using these datasets a lot but that they're just
+downloading spreadsheets and analyzing them in Excel (or R, as I'm doing),
+and that's great. But that's the less interesting part about the Socrata
+Open Data Portal software. Socrata is trying to "consumerize" data analysis,
+to empower citizens to conduct their own analysis rather than relying on
+external skilled data scientists.
+
