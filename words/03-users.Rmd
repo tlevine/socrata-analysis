@@ -442,4 +442,6 @@ FROM socrata
 LEFT JOIN users
 ON socrata.owner_id = users.id
 GROUP BY socrata.id')
+user.views$date <- user.views$createdAt
+user.views[is.na(user.views$date),'date'] <- user.views[is.na(user.views$createdAt),'publicationDate']
 ```
