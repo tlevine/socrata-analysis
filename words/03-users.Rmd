@@ -428,13 +428,16 @@ Cool.
 
 ### More about views
 I remembered that I had the whole views dataset as well, so I connected the user
-data back to that
+data back to that. In the following plot, each dot is a view. The location along
+the Y axis indicates the user that created it, the location along the X axis
+indicates the date of publication, and the color indicates the type of view.
 
-```{r user.views}
+```{r user.views.1}
 user.views <- sqldf('
 SELECT
   users.id AS userid,
   socrata.id as viewid,
+  nrow, ncol,
   viewType,
   createdAt,
   publicationDate
@@ -444,7 +447,18 @@ ON socrata.owner_id = users.id
 GROUP BY socrata.id')
 user.views$date <- user.views$createdAt
 user.views[is.na(user.views$date),'date'] <- user.views[is.na(user.views$createdAt),'publicationDate']
+
 ggplot(user.views) + aes(x = date, y = userid, color = viewType) + geom_point() +
-  theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view')) +
+  theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
   scale_x_date('View publication date')
 ```
+
+```{r user.views.2}
+ggplot(user.views) + aes(x = date, y = userid, color = viewType) + geom_point() +
+  theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
+  scale_x_date('View publication date')
+```
+
+The horizontal lines are users who have consistently created views for a while.
+The vertical bands are situations when lots of different users created views all
+around the same date.
