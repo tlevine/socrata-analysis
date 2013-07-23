@@ -222,12 +222,15 @@ def users():
 
             if view['owner']['id'] in _users:
                 _users[view['owner']['id']]['views'].add(view['id'])
-                _users[view['owner']['id']]['createdViewsAt'].add((view['id'], view['createdAt']))
+                try:
+                    _users[view['owner']['id']]['publicationDates'].add((view['id'], view['publicationDate']))
+                except:
+                    return view
             else:
                 _users[view['owner']['id']] = view['owner']
                 _users[view['owner']['id']]['views'] = {view['id']}
                 _users[view['owner']['id']]['tables'] = set()
-                _users[view['owner']['id']]['createdViewsAt'] = set()
+                _users[view['owner']['id']]['publicationDates'] = set()
 
             if view['tableAuthor']['id'] in _users:
                 _users[view['tableAuthor']['id']]['tables'].add(view['tableId'])
@@ -235,7 +238,7 @@ def users():
                 _users[view['tableAuthor']['id']] = view['tableAuthor']
                 _users[view['tableAuthor']['id']]['views'] = set()
                 _users[view['tableAuthor']['id']]['tables'] = {view['tableId']}
-                _users[view['tableAuthor']['id']]['createdViewsAt'] = set()
+                _users[view['tableAuthor']['id']]['publicationDates'] = set()
 
     for uid in _users.keys():
         for key in ['views', 'rights', 'tables']:
@@ -245,7 +248,7 @@ def users():
 
     dt.insert(_users.values(), 'user')
     for uid, user in _users.items():
-        for viewid, createdAt in user['createdViewsAt']:
-            dt.insert({'userid': user['id'], 'viewid': viewid, 'createdAt': createdAt}, 'creations', commit = False)
+        for viewid, publicationDate in user['publicationDates']:
+            dt.insert({'userid': user['id'], 'viewid': viewid, 'publicationDate': publicationDate}, 'creations', commit = False)
     dt.commit()
     return _users
