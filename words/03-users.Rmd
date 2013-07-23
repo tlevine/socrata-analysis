@@ -425,3 +425,21 @@ table(citizens$n_views == 1)
 
 In total, that's ``sum(citizens$n_views)``. That seems like a decent amount.
 Cool.
+
+### More about views
+I remembered that I had the whole views dataset as well, so I connected the user
+data back to that
+
+```{r user.views}
+user.views <- sqldf('
+SELECT
+  users.id AS userid,
+  socrata.id as viewid,
+  viewType,
+  createdAt,
+  publicationDate
+FROM socrata
+LEFT JOIN users
+ON socrata.owner_id = users.id
+GROUP BY socrata.id')
+```
