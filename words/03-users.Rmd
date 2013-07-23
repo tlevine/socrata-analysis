@@ -444,4 +444,7 @@ ON socrata.owner_id = users.id
 GROUP BY socrata.id')
 user.views$date <- user.views$createdAt
 user.views[is.na(user.views$date),'date'] <- user.views[is.na(user.views$createdAt),'publicationDate']
+ggplot(user.views) + aes(x = date, y = userid, color = viewType) + geom_point() +
+  theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view')) +
+  scale_x_date('View publication date')
 ```
