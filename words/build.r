@@ -21,6 +21,7 @@ if (!('users' %in% ls())) {
     users[nchar(users[,variable]) == 0,variable] <- NA
   }
   rownames(users) <- users$id
+  users$has.flag <- !is.na(users$flags)
 }
 
 if (!('user.views' %in% ls())) {
@@ -32,7 +33,7 @@ if (!('user.views' %in% ls())) {
     viewType,
     createdAt,
     publicationDate,
-    "has.flag"
+    has_flag
   FROM socrata
   LEFT JOIN users
   ON socrata.owner_id = users.id

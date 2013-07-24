@@ -494,7 +494,7 @@ is a [DC newspaper](http://washingtonexaminer.com/).
 
 ```{r user.views.3}
 ggplot(user.views) +
-  aes(x = date, y = userid, color = has.flag) + 
+  aes(x = date, y = userid, color = has_flag) + 
   theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
   scale_x_date('View publication date') + geom_point(alpha = 1/10)
 ```
