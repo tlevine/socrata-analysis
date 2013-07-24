@@ -457,7 +457,9 @@ ggplot(intense.users.views) + aes(y = date, x = userid, label = name) +
 
 They mostly seem to be playing with Socrata and making views as tests.
 
-Here are some users who made views far apart from each other.
+Here are some users who have been making views for a really long time.
+Specifically, they're the ten users with the longest time difference
+between the publication dates of their most recent and first views.
 
 ```{r 
 intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
