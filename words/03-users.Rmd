@@ -417,10 +417,34 @@ p + geom_point(alpha = 1/20) +
 -->
 
 ```{r late.2011}
-late.2011 <- subset(socrata, createdAt >= '2011-06-01' & createdAt < '2012-01-01')
+socrata$month <- factor(strftime(socrata$date, '%B'), levels =
+  c('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'))
+late.2011 <- subset(socrata, date >= '2011-06-01' & date < '2012-01-01')
+ggplot(ddply(late.2011, c('portal', 'month'), function(x) {c(count = nrow(x))})) +
+  aes(x = month, y = count, group = portal, fill = portal) + geom_area()
 ```
 
+Hmm. No single portal seems to be responsible. My guess is that
+it has something to do with the
+[release of the API foundry](http://www.socrata.com/newsroom-article/socrata-introduces-api-foundry-and-ushers-in-the-era-of-api-enabled-data-ecosystems/).
+
+#### Early 2008 and early 2009
 Before late 2009, [opendata.socrata.com](https://opendata.socrata.com) was the only
 data portal. That is all of the views that were created before late 2009 are on
-opendata.socrata.com.
+opendata.socrata.com. So here, too, it's not like a new portal was created.
+I don't really know what was going on here either.
 <!-- table(subset(socrata, createdAt < '2009-05-01')$portal) -->
+
+### Horizontal bands
+A few users made many rather consistent uploads, some for rather sustained periods of time.
+Let's take a look at some of them.
+
+```{r 
+user.intensity <- ddply(user.views, 'userid', function(df){
+  c(n = nrow(df),
+    first = min(df$date),
+    last = max(df$date)
+  )
+})
+
+```
