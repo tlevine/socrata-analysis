@@ -65,8 +65,8 @@ plot.count <- function(variable, label, col = 1, ...) {
   axis(1, at = c(0, 1:log.max), labels = c(0, 10^(1:log.max)))
 }
 
-build <- function() {
-  for (Rmd in grep('[.]Rmd$', list.files(), value = T)){
+build <- function(files = list.files()) {
+  for (Rmd in grep('[.]Rmd$', files, value = T)){
     md <- sub('Rmd$', 'md', Rmd)
     figure <- sub('.Rmd$', '-figure', Rmd)
 
