@@ -522,7 +522,7 @@ is a [DC newspaper](http://washingtonexaminer.com/).
 
 And here's a plot of their activity.
 
-```{r user_intensity_1, fig.height = 10}
+```{r user_intensity_2, fig.height = 10}
 intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
 intense.users.ids$username <- users[as.character(intense.users.ids$userid),'displayName']
 intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
