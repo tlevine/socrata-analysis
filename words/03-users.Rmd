@@ -401,3 +401,11 @@ p + aes(color = viewType, size = nrow * ncol) + scale_size_continuous('Number of
 ```
 
 Now we can also see when the larger datasets and the non-tabular datasets were created.
+
+#### What are those vertical bands?
+We see vertical bands at early 2008, early 2009 and late 2011. What's going on there?
+
+Before late 2009, [opendata.socrata.com](https://opendata.socrata.com) was the only
+data portal. That is all of the views that were created before late 2009 are on
+opendata.socrata.com.
+<!-- table(subset(socrata, createdAt < '2009-05-01')$portal) -->
