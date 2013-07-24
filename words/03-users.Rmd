@@ -471,5 +471,20 @@ ggplot(intense.users.views) + aes(y = date, x = username, label = name) +
 
 This looks a bit more interesting.
 
-* Chris Metcalf, Clint Tseng and Kevin Merritt work for Socrata.
-[https://opendata.socrata.com/profile/New-York-State-Senate/7f5i-r9x4]
+Chris Metcalf, Clint Tseng, Jeff Sherpelz, Paul Paradise and Kevin Merritt work for Socrata.
+
+[David Beard](https://opendata.socrata.com/profile/David-Beard/re3b-zge9)
+has [ten datasets](https://opendata.socrata.com/profile/David-Beard/re3b-zge9?limitTo=datasets)
+and a bunch of filters on those datasets.
+
+The [White House](https://opendata.socrata.com/profile/whitehouse/bhnt-uir2)
+has a bunch of datasets on opendata.socrata.com.
+
+The [New York State Senate](https://opendata.socrata.com/profile/New-York-State-Senate/7f5i-r9x4)
+releases a payroll dataset each week.
+
+The Seattle [Department of Information Technology](https://data.seattle.gov/profile/Department-of-Information-Technology/pfbu-yuv5)
+manages Seattle's portal.
+
+The [Washington Examiner](https://opendata.socrata.com/profile/Washington-Examiner/uqfw-aksw)
+is a [DC newspaper](http://washingtonexaminer.com/).
