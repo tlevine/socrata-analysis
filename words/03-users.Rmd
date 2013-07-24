@@ -6,13 +6,20 @@ tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I downlo
 (Introduction here)
 
 
-My [first post] looked at popular datasets
-[second post] looked at big dataset families
-now I look at heavy and otherwise interesting users.
+My [first post](/!/socrata-summary) looked at popular datasets, and
+my [second post](/!/socrata-genealogies) looked at big dataset families.
+In this third post, I look at heavy and otherwise interesting users.
 
-## The user data
+## The user data format
+![Diagram indicating that each view has one owner and one table author](<%= @item.identifier %>format-sketch.jpg)
+
 I'm still using the same 80,000 JSON files that I downloaded last month.
-Each of these metadata files describes a Socrata view. Among their many
+Each of these metadata files describes a Socrata [view](/!/socrata-genealogies#term-view).
+Some of these JSON files are duplicates (because of
+[federation](/!/socrata-genealogies#term-federation)),
+so there are only about 50,000 unique views.
+
+Among their many
 fields are two fields related to the people who interacted with that view.
 These fields are the `owner` and  `tableAuthor` fields. These fields are
 both hashes/dictionaries/arrays with user information. For example, here's
@@ -29,10 +36,15 @@ mine.
 
 ### `owner`
 The `owner` field is quite straightforward; it's simply the person who
-created the view, be it a dataset, chart, map or whatever.
+created the view, be it a
+[dataset](/!/socrata-genealogies#term-dataset),
+[chart](/!/socrata-genealogies#term-chart),
+[map](/!/socrata-genealogies#term-map) or
+[whatever](/!/socrata-genealogies#term-other-view-types).
 
 ### `tableAuthor`
-The `tableAuthor` field is the person who uploaded the dataset associated
+The `tableAuthor` field is the person who uploaded the
+[table](/!/socrata-genealogies#term-table) (source data) associated
 with the view. For datasets, this is the same as the owner, but for charts,
 maps and filtered views, it might be different; one person may have uploaded
 the data, and another person might have made the chart. "view", "dataset",
@@ -47,16 +59,11 @@ to query it. This resulted in an SQLite3 database, which I converted to a
 [CSV file](https://raw.github.com/tlevine/socrata-analysis/e3d12254e928f986f1a83ed2099577e289048b94/users.csv)
 and read into R.
 
-<!--
-In case a view was federated, only one copy is counted, so this doesn't
-have the duplication issues that some people were concerned about.
--->
-
 Rather than remembering which tables and datasets everyone owned, that function
 just remembers how many. Maybe I'll do something with the links later.
 
 ## Analysis
-The table schema looks like this.
+The user data frame schema looks like this.
 
 ```{r schema}
 str(users)
