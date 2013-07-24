@@ -134,7 +134,7 @@ Let's try that again, but I'm going to color the plot by whether the user's role
 is "administrator" or "publisher". (Other possibilities are "designer", "editor",
 "publisher", "viewer" and a missing value.)
 
-```{r n.views.byrole}
+```{r n_views_byrole}
 plot.count(users$n_views, 'views', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
 ```
 
@@ -146,7 +146,7 @@ Let's make that same plot but for the number of tables. (A table is a raw
 uploaded dataset, before any view filtering. A table can have many views,
 and a view has only one table.)
 
-```{r n.tables}
+```{r n_tables}
 plot.count(users$n_tables, 'tables', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
 text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
@@ -160,7 +160,7 @@ creates a new view but no new table. Thus, the difference between number of
 tables and number of views tells us how many derived views people have made.
 I think.
 
-```{r n.derived}
+```{r n_derived}
 plot.count(users$n_views - users$n_tables, 'derived views', col = 1 + ((!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator'))))
 ```
 
@@ -175,7 +175,7 @@ Here are people with tables but no views. (As I mentioned earlier, I didn't
 realize that this was possible!) I figure that these people are probably
 data publishers.
 
-```{r data.publishers.2}
+```{r data_publishers_2}
 subset(users, n_tables > n_views)[c('displayName', 'roleName', 'flags', 'n_tables', 'n_views')]
 ```
 
@@ -203,17 +203,17 @@ You may have noticed that most of the people in the above tables have
 if and only if they work for data publishers. To make that more clear,
 here's a table.
 
-```{r data.publishers}
+```{r data_publishers}
 users$has.role <- !is.na(users$roleName)
 ```
 
-```{r roleName.for.govt}
+```{r roleName_for_govt}
 table(users$n_tables > users$n_views, users$has.role)
 ```
 
 Here's a plot.
 
-```{r roleName.plot}
+```{r roleName_plot}
 users$more.tables <- users$n_tables > users$n_views
 users.roleNames <- ddply(users, 'more.tables', function(df) {
   out <- data.frame(
@@ -235,7 +235,7 @@ barplot(users.roleNames$prop[users.roleNames$more.tables],
 And if we want to get all statistical about it, we can run
 Fisher's Exact test on that table.
 
-```{r fisher.test}
+```{r fisher_test}
 fisher.test(table(users$n_tables > users$n_views, users$has.role))
 ```
 
@@ -246,7 +246,7 @@ This is all to say that **`roleName` appears to be a decent proxy for "data publ
 #### `flags`
 In a similar vein, I looked at Socrata users with a `flags` field.
 
-```{r socrata.employees}
+```{r socrata_employees}
 users$has.flag <- !is.na(users$flags)
 subset(users, has.flag)['displayName']
 ```
@@ -255,7 +255,7 @@ These appear to all be Socrata employees.
 
 Hmm. Does anyone have both a `roleName` and a flag?
 
-```{r rolename.and.flag}
+```{r rolename_and_flag}
 subset(users, has.flag & has.role)[c('displayName', 'roleName')]
 ```
 
@@ -285,7 +285,7 @@ rather than on a separate portal.
 
 Maybe we should also expect citizens not to have uploaded any tables.
 
-```{r citizens.2}
+```{r citizens_2}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 head(citizens[order(citizens$n_views, decreasing = T),columns])
 ```
@@ -309,7 +309,7 @@ just made different filters on the same dataset.
 
 Let's try this yet again, but this time, let's look only at people with profile images.
 
-```{r citizens.3}
+```{r citizens_3}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0 & !is.na(profileImageUrlLarge))
 columns <- c('displayName', 'n_tables', 'n_views', 'profileImageUrlLarge')
 head(citizens[order(citizens$n_views, decreasing = T),columns], 10)
@@ -384,7 +384,7 @@ I looked at a few specific Socrata users who are doing interesting things,
 but let's look a bit more broadly. The histogram below shows how many views
 users have created. Here, I'm including people without profile pictures.
 
-```{r citizen.views.1}
+```{r citizen_views_1}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 hist(citizens$n_views,
   col = 1, border = NA,
@@ -395,7 +395,7 @@ hist(citizens$n_views,
 
 Here it is again, but leaving out the top ten users to make it easier to see.
 
-```{r citizen.views.2}
+```{r citizen_views_2}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 hist(citizens$n_views[citizens$n_views < 30],
   col = 1, border = NA,
@@ -457,7 +457,7 @@ p + geom_point(alpha = 1/20) +
   geom_vline(xintercept = as.numeric(as.Date('2011-10-01')))
 -->
 
-```{r late.2011}
+```{r late_2011}
 socrata$month <- factor(strftime(socrata$date, '%B'), levels =
   c('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'))
 late.2011 <- subset(socrata, date >= '2011-06-01' & date < '2012-01-01')
