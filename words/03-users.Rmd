@@ -439,6 +439,8 @@ I don't really know what was going on here either.
 A few users made many rather consistent uploads, some for rather sustained periods of time.
 Let's take a look at some of them.
 
+Here are some users who made a lot of views in a really short time.
+
 ```{r 
 user.intensity <- subset(ddply(user.views, 'userid', function(df){
   c(n = nrow(df),
@@ -449,6 +451,19 @@ user.intensity <- subset(ddply(user.views, 'userid', function(df){
 
 intense.users.ids <- data.frame(userid = user.intensity[order((user.intensity$last - user.intensity$first) / user.intensity$n, decreasing=T),'userid'][1:10])
 intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
-ggplot(intense.users.views) + aes(x = date, y = userid) + 
-  scale_x_date('View publication date') + geom_point(alpha = 1/20)
+ggplot(intense.users.views) + aes(y = date, x = userid, label = name) +
+  scale_y_date('View publication date') + geom_text()
 ```
+
+They mostly seem to be playing with Socrata and making views as tests.
+
+Here are some users who made views far apart from each other.
+
+```{r 
+intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
+intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
+ggplot(intense.users.views) + aes(y = date, x = userid, label = name) +
+  scale_y_date('View publication date') + geom_text()
+```
+
+This looks a bit more interesting.
