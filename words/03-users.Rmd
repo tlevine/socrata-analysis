@@ -499,7 +499,7 @@ but it's sort of annoying with the way I'm making the graph. I could use one of
 the interactive graphics R packages, but I think it's easier to make a webby
 thing. Maybe some other time.
 
-## Conclusions, lessons, &c.
+## Conclusions, lessons, ideas, &c.
 
 ### API documentation
 Most of my work on this is still just in figuring out what the API fields mean.
