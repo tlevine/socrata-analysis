@@ -432,10 +432,15 @@ p + aes(color = viewType, size = nrow * ncol) + scale_size_continuous('Number of
 
 Now we can also see when the larger datasets and the non-tabular datasets were created.
 
-By the way, this is wonderful example of where not to use R. I want to be able to click
-on all of these points and see the specific user. I could use one of the
-interactive graphics R packages, but I think it's easier to make a web thing.
-Maybe some other time. For now, I'll see how far I can get with the static graph before I get bored.
+I want to be able to click on all of these points and see the specific views
+in these horizontal and vertical bands. I tried using `playwith`.
+
+    library(playwith)
+    playwith(print(p + geom_point(alpha = 1/20))
+
+But when I started selecting things, my window manager crashed.
+I'm assembling a new computer as soon as the motherboard arrives, so maybe I'll try it again next week. (Or you can try it!)
+For now, I'll see how far I can get with the static graph before I get bored.
 
 ### What are those vertical bands?
 We see vertical bands at early 2008, early 2009 and late 2011. What's going on there?
@@ -534,13 +539,18 @@ on the same dataset. These accounts might be bots; one of them is even called
 the "Kenya Open Data Bot".
 
 I found some accounts (not The White House, NL, VinylFox and Dave Francis
-Rodrigues) that seem to be using Socrata's filtering, mapping and
-charting tools to relate different datasets to a particular research topic.
+Rodrigues) that are making lots of diverse filters and maps with Socrata
+in study of a particular topic. Are these the prime examples of "consumer"
+data analysts, as Socrata aims to create? I'm gonna try to get in touch
+with them to see how they use Socrata in their research.
+
+On the other hand, maybe view count isn't the best metric of how intensely
+people use Socrata.
 
 ### Bursts of activity, and merits of dynamic visuals
 I sort of identified dates and users that had unusual activity, but I didn't
-really look at them, partly because I was using a static plot. I could use the
-`grid.locator` function in `ggplot`....
+really look at them, partly because I was using a static plot. Maybe I'll
+find out more once I assemble my new, better computer.
 
 ### One portal
 Very few of the big users that I discuss above uses more than one Socrata portal.
