@@ -510,12 +510,6 @@ I'm sort of surprised that people are using opendata.socrata.com so consistently
 
 ## Conclusions, lessons, ideas, &c.
 
-### API documentation
-Most of my work on this is still just in figuring out what the API fields mean.
-Some of you reading this are probably building developer APIs, so keep this in
-mind: If you don't document your API fully, some random person might come along
-and document it for you, which might be both highly embarassing and highly convenient.
-
 ### Big users
 Unsurprisingly, data publishers create lots of views. And Data.gov is crazy.
 Aside from data publishers, there are a few accounts that make lots of filters
@@ -547,3 +541,9 @@ differently if they could easiy collect and analyze data from all of the portals
 On the other hand, maybe it wouldn't matter. A couple of the bigger users I found
 were using World Bank data. It's quite possible that the data in the other portals
 aren't that relevant to them.
+
+### API documentation
+Most of my work on this is still just in figuring out what the API fields mean and documenting them.
+Some of you reading this are probably building developer APIs, so keep this in
+mind: If you don't document your API fully, some random person might come along
+and document it for you, which might be highly embarassing and/or highly convenient.
