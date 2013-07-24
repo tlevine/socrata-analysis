@@ -230,7 +230,7 @@ subset(users, has.flag & has.role)[c('displayName', 'roleName')]
 and [Bryant](www.linkedin.com/in/bryantlau) are both
 Socrata employees. I don't know why they have `roleName` fields.
 
-Anyway, it looks like the `flags` field is a decent proxy for "Socrata employee"
+Anyway, it looks like the **`flags` field is a decent proxy for "Socrata employee"**.
 
 ### Heavy users who work neither for government nor Socrata
 If having a `flags` field means you work for Socrata and
@@ -257,6 +257,8 @@ citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 head(citizens[order(citizens$n_views, decreasing = T),columns])
 ```
 
+Now we're getting somewhere.
+
 [Njbate](https://explore.data.gov/profile/Njbate/jyr3-c2kp?)
 made a bunch of filtered views on the
 [FEC Contributions dataset](https://explore.data.gov/Contributors/FEC-Contributions/4dkz-64bn).
@@ -280,10 +282,12 @@ columns <- c('displayName', 'n_tables', 'n_views', 'profileImageUrlLarge')
 head(citizens[order(citizens$n_views, decreasing = T),columns], 10)
 ```
 
-Then I ran queries like this to find what portals and data they used.
+I ran queries like this to find what portals and data they used.
 
     subset(socrata, owner.id == 'aeze-ppu4')[c('portal', 'id', 'tableId', 'name', 'viewCount')]
     table(subset(socrata, owner.id == 'aeze-ppu4')$portal)
+
+They look more like real people doing real analysis.
 
 #### not The White House
 ![not The White House](images/not The White House.jpg)
