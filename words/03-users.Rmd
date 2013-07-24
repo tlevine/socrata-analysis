@@ -1,14 +1,31 @@
 ---
 title: Who uses Socrata?
-tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I downloaded the 10,000 users.
+tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I also downloaded the 10,000 users.
 ---
-
-(Introduction here)
-
+As you may have read, I recently downloaded the metadata files for all
+of the datasets on all of the Socrata portals (for a particular definition
+of "all").
 
 My [first post](/!/socrata-summary) looked at popular datasets, and
 my [second post](/!/socrata-genealogies) looked at big dataset families.
-In this third post, I look at heavy and otherwise interesting users.
+
+Through doing this, I've learned that Socrata is much more than a website
+for converting datasets into different formats and serving them on the web.
+Socrata "[consumerizes the data experience](http://www.socrata.com/open-innovation/)"
+with web-based mapping and charting tools.
+
+<video controls="" id="wistia_1" preload="none" poster="http://embed.wistia.com/deliveries/d86ff91b0a3b280ee4fd5fea9b65993d1b250340.jpg?image_crop_resized=640x360" style="width: 100%; height: 100%; position: relative; display: block;"><source src="http://embed.wistia.com/deliveries/37d0ddf8aeb21db020b1059c10c62373c9140734/file.mp4" type="video/mp4"></video>
+
+These tools seem really clunky and stupid to me, but I live in this bubble
+of people who know how to use computers. [Nicole Neditch](https://twitter.com/nneditch)
+explained to me that this is outrageously useful people who aren't strange like me.
+She told me of one instance where someone in the Oakland government made a pie chart in
+the Socrata data portal and embedded that in a blog. If Oakland hadn't been using Socrata,
+the result probably would have been less exciting; Nicole said that the person probably
+would have made a chart in Excel, exported that to a PDF and added a download link.
+
+I wanted to find people like this, who are 
+So in this third post, I look at heavy and otherwise interesting users.
 
 ## The user data format
 ![Diagram indicating that each view has one owner and one table author](<%= @item.identifier %>format-sketch.jpg)
@@ -520,9 +537,10 @@ I found some accounts (not The White House, NL, VinylFox and Dave Francis
 Rodrigues) that seem to be using Socrata's filtering, mapping and
 charting tools to relate different datasets to a particular research topic.
 
-I started looking into accounts that had been consistently active and trying
-to figure out why jumps in activity happened at certain times. I didn't get
-very far with either of these, so it would be interested to look more closely.
+### Bursts of activity, and merits of dynamic visuals
+I sort of identified dates and users that had unusual activity, but I didn't
+really look at them, partly because I was using a static plot. I could use the
+`grid.locator` function in `ggplot`....
 
 ### One portal
 Very few of the big users that I discuss above uses more than one Socrata portal.
@@ -541,6 +559,17 @@ differently if they could easiy collect and analyze data from all of the portals
 On the other hand, maybe it wouldn't matter. A couple of the bigger users I found
 were using World Bank data. It's quite possible that the data in the other portals
 aren't that relevant to them.
+
+### We need to study usage more.
+I managed to find a few interesting users, but I'm somewhat disappointed.
+The available data are quite coarse, few variables are exposed. There's apparently
+more in the administrator dashboard, like historical download counts and logs of
+when a person accessed a view that was embedded in another website.
+
+But portal administrators have do have access to these data! If you run a portal,
+you should be studying this in order to understand what data people are using,
+how people are using it and how you can improve your open data offerings. Actually,
+even better, you should just release the usage data publically so I can do this for you.
 
 ### API documentation
 Most of my work on this is still just in figuring out what the API fields mean and documenting them.
