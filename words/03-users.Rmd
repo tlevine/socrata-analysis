@@ -58,11 +58,7 @@ str(users)
 ```
 
 ### Missing data
-Not everyone had all of the fields. For example, hardly anyone has a profile image.
-
-```{r profile.image}
-table(is.na(users$profileImageUrlLarge))
-```
+Not everyone had all of the fields.
 
 ```{r missingness}
 a <- t(as.data.frame(lapply(users, function(variable){ sum(!is.na(variable)) } )))
@@ -127,26 +123,21 @@ text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 That point off to the right is again the Data.gov Program Management Office.o
 
 ### How many derived views?
-When you upload a tabular data file to Socrata, Socrata creates a table and
+When you upload a tabular data file to Socrata, Socrata creates a "table" and
 a "dataset" view on that table. When you filter a view inside Socrata, Socrata
 creates a new view but no new table. Thus, the difference between number of
 tables and number of views tells us how many derived views people have made.
+I think.
 
 ```{r n.derived}
 plot.count(users$n_views - users$n_tables, 'derived views', col = 1 + ((!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator'))))
 ```
 
-It turns out that 65 users have more tables than views. This appears to be mostly
-publishers. Maybe this is something about how the import API works that I don't
-understand.
-
-```{r publishers}
-users[users$n_views < users$n_tables,]
-```
+It also turns out that 65 users have more tables than views. This appears to be
+mostly publishers. Maybe this is something about how the import API works that I
+don't understand.
 
 ## Aside from data publishers and Socrata employees, who uses Socrata a lot?
-I have a hunch that the `roleName` field is only populated for people who work
-for data publishers.
 
 ### More tables than views
 Here are people with tables but no views. (As I mentioned earlier, I didn't
@@ -154,7 +145,7 @@ realize that this was possible!) I figure that these people are probably
 data publishers.
 
 ```{r data.publishers.2}
-subset(users, n_tables > 0 & n_views == 0)[c('displayName', 'roleName', 'flags', 'n_tables')]
+subset(users, n_tables > n_views)[c('displayName', 'roleName', 'flags', 'n_tables', 'n_views')]
 ```
 
 I looked up a few of them with a search engine, and they mostly
@@ -162,9 +153,9 @@ I looked up a few of them with a search engine, and they mostly
 [to](http://www.imaginaryrobots.net/resumes/Jesse_van_Herk_resume.pdf)
 [be](http://www.linkedin.com/in/debraagagne)
 [government](http://www.whitehouse.gov/champions/technology-and-innovation/waldo-jaquith)
-[employees]().
+[employees](http://waldo.jaquith.org/).
 
-
+#### Private data
 An interesting case is
 [rseel](https://data.oregon.gov/profile/rseel/izyb-s78c?category=Recreation&utf8=%E2%9C%93&view_type=table).
 He is the author behind a private table, and 
@@ -172,23 +163,6 @@ He is the author behind a private table, and
 [this view](https://data.oregon.gov/Health-Human-Services/WIC-Authorized-Vendors/5ew8-h6d9?)
 based on that table. So some of the situations where people have tables but no views might
 occur because of private views.
-
-This also pointed out to me that I should adjust my query above.
-
-```{r tables.v.views}
-subset(users, n_tables > n_views)[c('displayName', 'roleName', 'flags', 'n_tables', 'n_views')]
-```
-
-<!-- One example: [Waldo Jaquith](http://waldo.jaquith.org/).
-He authored the tables behind
-[three](https://explore.data.gov/Contributors/FEC-Committees/fpyy-vyfb?)
-[popular](https://explore.data.gov/Federal-Government-Finances-and-Employment/Lobbying-Disclosure-Reports/aqdm-v85k?)
-[datasets](https://explore.data.gov/Contributors/FEC-Candidates/wuxv-c8xz?)
-on data.explore.gov, but they don't show up in his
-[profile](https://explore.data.gov/profile/foo/6q59-uqyb).
-
-    grep -r '"6q59-uqyb"' .|grep explore
--->
 
 ### `roleName`
 You may have noticed that most of the people in the above tables have
@@ -278,7 +252,7 @@ rather than on a separate portal.
 
 Maybe we should also expect citizens not to have uploaded any tables.
 
-```{r citizens}
+```{r citizens.2}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 head(citizens[order(citizens$n_views, decreasing = T),columns])
 ```
@@ -300,7 +274,7 @@ just made different filters on the same dataset.
 
 Let's try this yet again, but this time, let's look only at people with profile images.
 
-```{r citizens}
+```{r citizens.3}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0 & !is.na(profileImageUrlLarge))
 columns <- c('displayName', 'n_tables', 'n_views', 'profileImageUrlLarge')
 head(citizens[order(citizens$n_views, decreasing = T),columns], 10)
