@@ -462,8 +462,8 @@ Specifically, they're the ten users with the longest time difference
 between the publication dates of their most recent and first views.
 
 ```{r 
-intense.users.ids <- data.frame(userid = as.character(user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'])[1:10])
-intense.users.ids$username <- users[intense.users.ids$userid,'displayName']
+intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
+intense.users.ids$username <- users[as.character(intense.users.ids$userid),'displayName']
 intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
 ggplot(intense.users.views) + aes(y = date, x = username, label = name) +
   scale_y_date('View publication date') + geom_text()
@@ -471,4 +471,5 @@ ggplot(intense.users.views) + aes(y = date, x = username, label = name) +
 
 This looks a bit more interesting.
 
-`7f5i-r9x4` is the [][https://opendata.socrata.com/profile/New-York-State-Senate/7f5i-r9x4]
+* Chris Metcalf, Clint Tseng and Kevin Merritt work for Socrata.
+[https://opendata.socrata.com/profile/New-York-State-Senate/7f5i-r9x4]
