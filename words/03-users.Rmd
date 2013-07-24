@@ -1,9 +1,12 @@
 ---
 title: Who uses Socrata?
-tweet_text: When I downloaded all of the @socrata datasets, I also downloaded all of the users.
+tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I downloaded the 10,000 users.
 ---
 
 (Introduction here)
+
+
+My [first post]
 
 ## The user data
 I'm still using the same 80,000 JSON files that I downloaded last month.
@@ -490,7 +493,7 @@ The [Washington Examiner](https://opendata.socrata.com/profile/Washington-Examin
 is a [DC newspaper](http://washingtonexaminer.com/).
 
 ```{r user.views.3}
-p <- ggplot(sqldf('SELECT userid, "user.views".date, "has.flag" FROM "user.views" JOIN socrata WHERE "user.views".userid = socrata.owner_id;')) +
+ggplot(user.views) +
   aes(x = date, y = userid, color = has.flag) + 
   theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
   scale_x_date('View publication date') + geom_point(alpha = 1/10)

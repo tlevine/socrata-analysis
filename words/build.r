@@ -31,7 +31,8 @@ if (!('user.views' %in% ls())) {
     nrow, ncol,
     viewType,
     createdAt,
-    publicationDate
+    publicationDate,
+    "has.flag"
   FROM socrata
   LEFT JOIN users
   ON socrata.owner_id = users.id
