@@ -408,6 +408,11 @@ p + aes(color = viewType, size = nrow * ncol) + scale_size_continuous('Number of
 
 Now we can also see when the larger datasets and the non-tabular datasets were created.
 
+By the way, this is wonderful example of where not to use R. I want to be able to click
+on all of these points and see the specific user. I could use one of the
+interactive graphics R packages, but I think it's easier to make a web thing.
+Maybe some other time. For now, I'll see how far I can get with the static graph before I get bored.
+
 ### What are those vertical bands?
 We see vertical bands at early 2008, early 2009 and late 2011. What's going on there?
 
@@ -466,16 +471,6 @@ Here are some users who have been making views for a really long time.
 Specifically, they're the ten users with the longest time difference
 between the publication dates of their most recent and first views.
 
-```{r user.intensity.3}
-intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
-intense.users.ids$username <- users[as.character(intense.users.ids$userid),'displayName']
-intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
-ggplot(intense.users.views) + aes(y = date, x = username, label = name) +
-  scale_y_date('View publication date') + geom_text()
-```
-
-This looks a bit more interesting.
-
 Chris Metcalf, Clint Tseng, Jeff Sherpelz, Paul Paradise and Kevin Merritt work for Socrata.
 
 [David Beard](https://opendata.socrata.com/profile/David-Beard/re3b-zge9)
@@ -494,10 +489,17 @@ manages Seattle's portal.
 The [Washington Examiner](https://opendata.socrata.com/profile/Washington-Examiner/uqfw-aksw)
 is a [DC newspaper](http://washingtonexaminer.com/).
 
-I could go on with looking at the people associated with the specific points,
-but it's sort of annoying with the way I'm making the graph. I could use one of
-the interactive graphics R packages, but I think it's easier to make a webby
-thing. Maybe some other time.
+And here's a plot of their activity.
+
+```{r user.intensity.3}
+intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
+intense.users.ids$username <- users[as.character(intense.users.ids$userid),'displayName']
+intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
+ggplot(intense.users.views) + aes(y = date, x = username, label = name) +
+  scale_y_date('View publication date') + geom_text()
+```
+
+I'm sort of surprised that people are using opendata.socrata.com so consistently.
 
 ## Conclusions, lessons, ideas, &c.
 
