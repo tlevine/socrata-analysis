@@ -498,3 +498,43 @@ I could go on with looking at the people associated with the specific points,
 but it's sort of annoying with the way I'm making the graph. I could use one of
 the interactive graphics R packages, but I think it's easier to make a webby
 thing. Maybe some other time.
+
+## Conclusions, lessons, &c.
+
+### API documentation
+Most of my work on this is still just in figuring out what the API fields mean.
+Some of you reading this are probably building developer APIs, so keep this in
+mind: If you don't document your API fully, some random person might come along
+and document it for you, which might be both highly embarassing and highly convenient.
+
+### Big users
+Unsurprisingly, data publishers create lots of views. And Data.gov is crazy.
+Aside from data publishers, there are a few accounts that make lots of filters
+on the same dataset. These accounts might be bots; one of them is even called
+the "Kenya Open Data Bot".
+
+I found some accounts (not The White House, NL, VinylFox and Dave Francis
+Rodrigues) that seem to be using Socrata's filtering, mapping and
+charting tools to relate different datasets to a particular research topic.
+
+I started looking into accounts that had been consistently active and trying
+to figure out why jumps in activity happened at certain times. I didn't get
+very far with either of these, so it would be interested to look more closely.
+
+### One portal
+Very few of the big users that I discuss above uses more than one Socrata portal.
+This certainly makes sense as Socrata open data portals are presented as if they're
+separate installations of the software. You can use the same account for all of the
+portals, but there's no obvious way to search across portals or get a list of all
+of the portals.
+
+As I've discussed earlier, I think that all Socrata sites are served from the same
+instance of a web application, so I think it wouldn't be too difficult technically
+to make it easier for people to use data from different portals. A particularly
+simple approach would be to create a separate Socrata instance that federates all
+of the others. I wonder whether people would use the Socrata Open Data Portal
+differently if they could easiy collect and analyze data from all of the portals.
+
+On the other hand, maybe it wouldn't matter. A couple of the bigger users I found
+were using World Bank data. It's quite possible that the data in the other portals
+aren't that relevant to them.
