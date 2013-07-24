@@ -164,7 +164,9 @@ He is the author behind a private table, and
 based on that table. So some of the situations where people have tables but no views might
 occur because of private views.
 
-### `roleName`
+### How can we find ordinary citizens?
+
+#### `roleName`
 You may have noticed that most of the people in the above tables have
 `roleName` fields. I think that people tend to have a `roleName` field
 if and only if they work for data publishers. To make that more clear,
@@ -210,7 +212,7 @@ and find that these counts are indeed disproportionate.
 
 This is all to say that **`roleName` appears to be a decent proxy for "data publisher"**.
 
-### `flags`
+#### `flags`
 In a similar vein, I looked at Socrata users with a `flags` field.
 
 ```{r socrata.employees}
@@ -373,13 +375,6 @@ hist(citizens$n_views[citizens$n_views < 30],
 
 As you might expect, most people make only one view.
 In fact, there are probably even more users with no views.
-
-```{r one.view}
-table(citizens$n_views == 1)
-```
-
-In total, that's ``sum(citizens$n_views)``. That seems like a decent amount.
-Cool.
 
 ### More about views
 I remembered that I had the whole views dataset as well, so I connected the user

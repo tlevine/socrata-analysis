@@ -4,6 +4,7 @@ library(knitr)
 library(scales)
 library(reshape2)
 library(grDevices)
+library(sqldf)
 
 if (!('socrata' %in% ls())) {
   socrata <- read.csv('../socrata.csv', stringsAsFactors = F)
@@ -18,6 +19,23 @@ if (!('users' %in% ls())) {
     users[nchar(users[,variable]) == 0,variable] <- NA
   }
   rownames(users) <- users$id
+}
+
+if (!('user.views' %in% ls())) {
+  user.views <- sqldf('
+  SELECT
+    users.id AS userid,
+    socrata.id as viewid,
+    nrow, ncol,
+    viewType,
+    createdAt,
+    publicationDate
+  FROM socrata
+  LEFT JOIN users
+  ON socrata.owner_id = users.id
+  GROUP BY socrata.id')
+  user.views$date <- user.views$createdAt
+  user.views[is.na(user.views$date),'date'] <- user.views[is.na(user.views$createdAt),'publicationDate']
 }
 
 # Helpers
