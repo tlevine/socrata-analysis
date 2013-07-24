@@ -383,26 +383,15 @@ the Y axis indicates the user that created it, the location along the X axis
 indicates the date of publication.
 
 ```{r user.views.1}
-user.views <- sqldf('
-SELECT
-  users.id AS userid,
-  socrata.id as viewid,
-  nrow, ncol,
-  viewType,
-  createdAt,
-  publicationDate
-FROM socrata
-LEFT JOIN users
-ON socrata.owner_id = users.id
-GROUP BY socrata.id')
-user.views$date <- user.views$createdAt
-user.views[is.na(user.views$date),'date'] <- user.views[is.na(user.views$createdAt),'publicationDate']
-
 p <- ggplot(user.views) + aes(x = date, y = userid) + geom_point(alpha = 1/10) +
   theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
   scale_x_date('View publication date')
 p
 ```
+
+The horizontal lines are users who have consistently created views for a while.
+The vertical bands are situations when lots of different users created views all
+around the same date.
 
 Let's add some more variables. In this next one, color is the type of view
 and size is the number of cells.
@@ -411,6 +400,4 @@ and size is the number of cells.
 p + aes(color = viewType, size = nrow * ncol) + scale_size_continuous('Number of cells', labels = comma)
 ```
 
-The horizontal lines are users who have consistently created views for a while.
-The vertical bands are situations when lots of different users created views all
-around the same date.
+Now we can also see when the larger datasets and the non-tabular datasets were created.
