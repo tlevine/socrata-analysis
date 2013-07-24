@@ -110,7 +110,7 @@ is "administrator" or "publisher". (Other possibilities are "designer", "editor"
 plot.count(users$n_views, 'views', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
 ```
 
-It looks like publishers and administrators (red) make more views. Big surprize.
+It looks like publishers and administrators (red) make more views. Big surprise.
 
 ### How many tables?
 
