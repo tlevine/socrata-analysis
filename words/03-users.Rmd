@@ -6,7 +6,9 @@ tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I downlo
 (Introduction here)
 
 
-My [first post]
+My [first post] looked at popular datasets
+[second post] looked at big dataset families
+now I look at heavy and otherwise interesting users.
 
 ## The user data
 I'm still using the same 80,000 JSON files that I downloaded last month.
@@ -444,7 +446,7 @@ Let's take a look at some of them.
 
 Here are some users who made a lot of views in a really short time.
 
-```{r 
+```{r user.intensity.2}
 user.intensity <- subset(ddply(user.views, 'userid', function(df){
   c(n = nrow(df),
     first = min(df$date),
@@ -464,7 +466,7 @@ Here are some users who have been making views for a really long time.
 Specifically, they're the ten users with the longest time difference
 between the publication dates of their most recent and first views.
 
-```{r 
+```{r user.intensity.3}
 intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
 intense.users.ids$username <- users[as.character(intense.users.ids$userid),'displayName']
 intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
@@ -492,10 +494,7 @@ manages Seattle's portal.
 The [Washington Examiner](https://opendata.socrata.com/profile/Washington-Examiner/uqfw-aksw)
 is a [DC newspaper](http://washingtonexaminer.com/).
 
-```{r user.views.3}
-ggplot(user.views) +
-  aes(x = date, y = userid, color = has_flag) + 
-  theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
-  scale_x_date('View publication date') + geom_point(alpha = 1/10)
-```
-
+I could go on with looking at the people associated with the specific points,
+but it's sort of annoying with the way I'm making the graph. I could use one of
+the interactive graphics R packages, but I think it's easier to make a webby
+thing. Maybe some other time.
