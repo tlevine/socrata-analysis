@@ -488,3 +488,11 @@ manages Seattle's portal.
 
 The [Washington Examiner](https://opendata.socrata.com/profile/Washington-Examiner/uqfw-aksw)
 is a [DC newspaper](http://washingtonexaminer.com/).
+
+```{r user.views.3}
+p <- ggplot(sqldf('SELECT userid, date, "has.flag" FROM "user.views" JOIN socrata WHERE "user.views".userid = socrata."owner.id";')) +
+  aes(x = date, y = userid, color = has.flag) + 
+  theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
+  scale_x_date('View publication date') + geom_point(alpha = 1/10)
+```
+
