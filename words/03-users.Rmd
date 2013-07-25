@@ -449,7 +449,10 @@ and document it for you, which might be highly embarrassing and/or highly conven
 Now on to some more serious conclusions.
 
 ### Big users
+I looked for users that published a lot of views.
+
 Unsurprisingly, data publishers create lots of views. And Data.gov is crazy.
+
 Aside from data publishers, there are a few accounts that make lots of filters
 on the same dataset. These accounts might be bots; one of them is even called
 the "Kenya Open Data Bot".
@@ -457,11 +460,10 @@ the "Kenya Open Data Bot".
 I found some accounts (not The White House, NL, VinylFox and Dave Francis
 Rodrigues) that are making lots of diverse filters and maps with Socrata
 in study of a particular topic. Are these the prime examples of "consumer"
-data analysts, as Socrata aims to create? I'm gonna try to get in touch
-with them to see how they use Socrata in their research.
+data analysts, as Socrata aims to create?
 
-On the other hand, maybe view count isn't the best metric of how intensely
-people use Socrata.
+On the other hand, publishing a lot of views isn't the only thing that means
+that you use Socrata a lot.
 
 ### One portal
 Very few of the big users that I discuss above uses more than one Socrata portal.
