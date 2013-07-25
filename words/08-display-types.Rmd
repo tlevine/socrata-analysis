@@ -197,16 +197,27 @@ It comes with automatic [documentation](https://data.energystar.gov/developers/d
 
 
 
-## 
+## Prevent data from becoming closed
 There are a bunch of other services that make better forms, calendars,
 charts, &c. than Socrata. On the other hand, most services don't concern
 themselves so strongly with the opening of the data they collect.
+I want both!
 
-This reminds me of Tim Berners-Lee's
-[five stars of open data](http://www.w3.org/DesignIssues/LinkedData.html).
-Socrata is currently being used more to move data from private silos
-(zero stars) to open formats on the web that machines can read easily
-(three stars). The fourth and fifth stars involving implementing
-linked-data standards so that we can have this magical data graph.
+Typical services for hosting calendars, forms and ordinary websites make
+data private by default. That is, I want good software that happens to
+keep my data open. How can we make this happen?
+I think part of the issue is that people don't see everything as data.
 
-This five-stars model 
+Socrata is mostly being used to help governments open data that they've
+held for years in private silos. It is thus natural that Socrata would represent
+calendars as tables on the open data portal, just like any other table, so you
+can easily send calendar data through standard table-based analysis tools.
+
+At the other end of the spectrum are things like Google Calendar. You can
+export your data if you log in and manage to find the button, and then you
+get an HTML file that looks pretty or an XML or iCal file that other calendar
+software could read. But I want a CSV that I can open in R!
+
+There's lots of siloed data in government, and we need better software and
+methods for opening that up. But let's also make tools that prevent data from
+becoming siloed in the first place.
