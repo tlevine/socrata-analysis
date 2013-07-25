@@ -64,7 +64,7 @@ plot.count <- function(variable, label, col = 1, ...) {
     axes = F, xlab = paste('Number of', label, 'owned by the user'),
     main = 'Each dot is a user', jitter = 1, ylim = c(0,2)
   )
-  axis(1, at = c(0, 1:log.max), labels = c(0, 10^(1:log.max)))
+  axis(1, at = c(0:log.max), labels = 10^(0:log.max))
 }
 
 build <- function(files = list.files()) {

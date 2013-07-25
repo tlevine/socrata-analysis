@@ -132,7 +132,7 @@ par(mar = old.mar)
 
 ```{r n.views}
 plot.count(users$n_views, 'views', col = (users$id == 'e8ug-wzay') + 1)
-text(x = 0.2, y = 1.2, labels = 'Most users\nhave one view', pos = 4, col = 2)
+text(x = 0, y = 1.2, labels = 'Most users\nhave one view', pos = 4, col = 2)
 text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
 
