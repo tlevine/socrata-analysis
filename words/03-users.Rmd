@@ -249,7 +249,7 @@ barplot(users.roleNames$prop[users.roleNames$more.tables],
 
 People with roles tend to have more data than people without roles.
 If most data are published by data publishers, this also supports my
-suspician that people with `roleName` fields are data publishers.
+suspicion that people with `roleName` fields are data publishers.
 
 If we want to get all statistical about it, we can run
 Fisher's Exact test on that table.
@@ -479,11 +479,11 @@ open it. What if there were an Excel macro that would synchronize a table in Exc
 with a view in Socrata? Or a plugin that would let you upload reports from Excel back
 to Socrata?
 
-If people are analyzing open data in Excel and then disseminnating the findings as
+If people are analyzing open data in Excel and then disseminating the findings as
 paper documents, then we're not maintaining the openness of the data.
 There are a lot of situations where the analyst wants the analysis to stay private,
 but there are also a lot of situations where the analyst would love to share the
-analysis publically if only it were easier.
+analysis publicly if only it were easier.
 
 ### One portal
 Very few of the big users that I discuss above uses more than one Socrata portal.
@@ -495,7 +495,7 @@ of the portals.
 I wonder whether people would use data from multiple portals if it were easier to
 search across portals. I think someone should set up a Socrata portal that
 federates all of the other portals; maybe people would use Socrata Open Data Portal
-software differently if they could easiy collect and analyze data from all of the portals.
+software differently if they could easily collect and analyze data from all of the portals.
 
 On the other hand, maybe they wouldn't. A couple of the bigger users I found
 were using World Bank data, and it's quite possible that the data in the other portals
@@ -510,11 +510,11 @@ when a person accessed a view that was embedded in another website.
 But portal administrators have do have access to these data! If you run a portal,
 you should be studying this in order to understand what data people are using,
 how people are using it and how you can improve your open data offerings. Actually,
-even better, you should just release the usage data publically so I can do this for you.
+even better, you should just release the usage data publicly so I can do this for you.
 Socrata even has a feature that lets you do that automatically!
 
 ### API documentation
 Most of my work on this is still just in figuring out what the API fields mean and documenting them.
 Some of you reading this are probably building developer APIs, so keep this in
 mind: If you don't document your API fully, some random person might come along
-and document it for you, which might be highly embarassing and/or highly convenient.
+and document it for you, which might be highly embarrassing and/or highly convenient.
