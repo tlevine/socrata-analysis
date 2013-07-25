@@ -12,6 +12,8 @@ if (!('socrata' %in% ls())) {
   socrata$publicationDate <- as.Date(as.POSIXct(socrata$publicationDate, origin = '1970-01-01'))
   socrata$date <- socrata$createdAt
   socrata[is.na(socrata$date),'date'] <- socrata[is.na(socrata$createdAt),'publicationDate']
+
+  socrata.distinct <- sqldf('select * from socrata group by id')
 }
 
 if (!('users' %in% ls())) {
