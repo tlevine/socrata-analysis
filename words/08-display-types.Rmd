@@ -123,40 +123,22 @@ ggplot(subset(socrata.distinct, displayType == 'page')) + aes(x = viewCount) + g
 
 No, not really. Though that was more than I'd expected.
 
-### Calendar
-The [calendar](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?)
-is what it sounds like. People do use these.
+### Fat row
+A [fatrow](https://electionsdata.kingcounty.gov/dataset/Attorney-General-table-General-Election-2012/2y5z-ffa8?)
+is something between a table and a page.
 
-```{r calendar_use}
-ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount) + geom_histogram() +
-  scale_x_continuous('Hits per calendar', labels = comma) +
-  scale_y_continuous('Frequency', labels = comma) +
-  ggtitle("Someone likes her calendar.")
-```
+### API
+Here's an [api](https://data.energystar.gov/Government/ENERGY-STAR-Certified-Geothermal-Heatpumps/2f83-p388?).
+I think it's an API built with the [API foundry](http://www.socrata.com/api-foundry/).
+It comes with automatic [documentation](https://data.energystar.gov/developers/docs/energy-star-certified-geothermal-heatpumps).
 
-```{r calendar_use_2}
-calendar.use <- subset(socrata, displayType == 'calendar')[c('portal', 'id', 'viewCount')]
-calendar.use[order(calendar.use$viewCount, decreasing = T),][1:5,c('portal', 'id', 'viewCount')]
-```
 
-Check out Missouri's [open meetings calendar](https://data.mo.gov/Government-Administration/Open-Meetings-Calendar/mahp-izvx?).
-They also have a different view of the calendar [outside the portal](http://www.mo.gov/meetings/),
-with an RSS feed from the Socrata portal. But I don't know how the calendar on Socrata got so many views.
-
-It looks like some other portals are using calendars a lot too,
-but usually with several separate calendars instead of one huge one.
-
-```{r calendar_use_3}
-ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.calendars" FROM "calendar.use" GROUP BY portal;')) +
-  aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
-  scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
-  scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6))
-```
-
-Check out [Oregon's calendars](https://data.oregon.gov/browse?limitTo=calendars).
+## Things that you might not think of as open data
+I was somewhat surprised to see forms and calendars in the portals.
 
 ### Form
-It seems that a [form](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?)
+Much of the goal of these portals is to open up existing government data, but
+[forms](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?) provide a way for citizens to create data.
 lets you enter data. A bunch of people have implemented them, but none seems to get accessed much.
 
 ```{r form_use_3}
@@ -186,15 +168,43 @@ World Bank Open Finances made a
 that populates an
 [open data events calendar](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar/g4sx-dwxc).
 
-### Fat row
-A [fatrow](https://electionsdata.kingcounty.gov/dataset/Attorney-General-table-General-Election-2012/2y5z-ffa8?)
-is something between a table and a page.
 
-### API
-Here's an [api](https://data.energystar.gov/Government/ENERGY-STAR-Certified-Geothermal-Heatpumps/2f83-p388?).
-I think it's an API built with the [API foundry](http://www.socrata.com/api-foundry/).
-It comes with automatic [documentation](https://data.energystar.gov/developers/docs/energy-star-certified-geothermal-heatpumps).
+### Calendar
+The [calendar](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?)
+is what it sounds like. I'm quite excited that Socrata presents calendars as data.
+To me, anything could be turned into data, and data could be turned into
+[anything](http://csvsoundsystem.com). But a lot of people don't realize this,
+and I see calendars as one of those things that people don't see as data.
 
+I'm also excited about Socrata calendars because people use them. A lot.
+
+```{r calendar_use}
+ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount) + geom_histogram() +
+  scale_x_continuous('Hits per calendar', labels = comma) +
+  scale_y_continuous('Frequency', labels = comma) +
+  ggtitle("Someone likes her calendar.")
+```
+
+```{r calendar_use_2}
+calendar.use <- subset(socrata, displayType == 'calendar')[c('portal', 'id', 'viewCount')]
+calendar.use[order(calendar.use$viewCount, decreasing = T),][1:5,c('portal', 'id', 'viewCount')]
+```
+
+Check out Missouri's [open meetings calendar](https://data.mo.gov/Government-Administration/Open-Meetings-Calendar/mahp-izvx?).
+They also have a different view of the calendar [outside the portal](http://www.mo.gov/meetings/),
+with an RSS feed from the Socrata portal. But I don't know how the calendar on Socrata got so many views.
+
+It looks like some other portals are using calendars a lot too,
+but usually with several separate calendars instead of one huge one.
+
+```{r calendar_use_3}
+ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.calendars" FROM "calendar.use" GROUP BY portal;')) +
+  aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
+  scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
+  scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6))
+```
+
+Check out [Oregon's calendars](https://data.oregon.gov/browse?limitTo=calendars).
 
 
 ## Prevent data from becoming closed
