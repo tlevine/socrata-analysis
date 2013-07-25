@@ -1,5 +1,6 @@
 ---
 title: Who uses Socrata's analysis tools?
+description: That time I downloaded all of the 80,000 Socrata datasets, I also downloaded the 10,000 users.
 tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I also downloaded the 10,000 users.
 twitter_title: People actually use @socrata's web-based analysis tools!
 twitter_description: "not The White House" discovered a @SecretService barbecue!
@@ -91,9 +92,6 @@ I already had a system for storing all of the Socrata metadata, so I just needed
 to query it. This resulted in an SQLite3 database, which I converted to a
 [CSV file](https://raw.github.com/tlevine/socrata-analysis/e3d12254e928f986f1a83ed2099577e289048b94/users.csv)
 and read into R.
-
-Rather than remembering which tables and datasets everyone owned, that function
-just remembers how many. Maybe I'll do something with the links later.
 
 ## Data summary
 The user data frame schema looks like this.
