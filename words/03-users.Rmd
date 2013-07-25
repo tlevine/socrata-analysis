@@ -20,25 +20,27 @@ with web-based mapping and charting tools. Here's a sexy video they made.
 
 <video controls="" id="wistia_1" preload="none" poster="http://embed.wistia.com/deliveries/d86ff91b0a3b280ee4fd5fea9b65993d1b250340.jpg?image_crop_resized=640x360" style="width: 100%; height: 100%; position: relative; display: block;"><source src="http://embed.wistia.com/deliveries/37d0ddf8aeb21db020b1059c10c62373c9140734/file.mp4" type="video/mp4"></video>
 
-These charting tools seem really clunky and stupid to me, but I live in this bubble
-of people who know how to use computers. [Nicole Neditch](https://twitter.com/nneditch)
-explained to me that this is outrageously useful people who aren't strange like me.
-She told me of one instance where someone in the Oakland government made a pie chart in
+
+I live in this bubble of people who know how to use computers, so Socrata's
+charting tools seem really clunky and stupid to me, but it turns out that
+these clunky tools can be outrageously useful people who aren't strange like me.
+
+[Nicole Neditch](https://twitter.com/nneditch) told me of one instance where someone in the Oakland government made a pie chart in
 the Socrata data portal and embedded that in a blog. If Oakland hadn't been using Socrata,
 the result probably would have been less exciting; Nicole said that the person probably
 would have made a chart in Excel, exported that to a PDF and added a download link.
 
-I wanted to find people like this, that is, people whose approach to analysis and
-reporting changes because of these web-based analysis tools that are strongly integrated
+I wanted to find more people like this. That is, I want to see how people's approach to analysis
+changes because of these web-based analysis tools that are strongly integrated
 with both the data being analyzed and with web-based presentation formats.
 So in this third post, I look at people who use Socrata's analysis tools substantially
 and otherwise interestingly.
 
 ## The user data format
-But before I do that, I need to get the user data, which involves learning more about
-Socrata's API.
+In order to do this analysis, I'm going to take user data from Socrata, and this
+involves learning more about Socrata's API.
 
-I'm still using the same 80,000 JSON files that I downloaded last month.
+I'm still using the same 80,000 JSON files that I [downloaded](/!/socrata-summary) last month.
 Each of these metadata files describes a Socrata [view](/!/socrata-genealogies#term-view).
 Some of these JSON files are duplicates (because of
 [federation](/!/socrata-genealogies#term-federation)),
