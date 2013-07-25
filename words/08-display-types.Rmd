@@ -136,8 +136,21 @@ ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount)
 
 ```{r calendar_use_2}
 calendar.use <- subset(socrata, displayType == 'calendar')[c('portal', 'id', 'viewCount')]
-calendar.use[order(calendar.use$viewCount, decreasing = T),][1:10,c('portal', 'id', 'viewCount')]
+calendar.use[order(calendar.use$viewCount, decreasing = T),][1:5,c('portal', 'id', 'viewCount')]
 ```
+
+Check out Missouri's [open meetings calendar](https://data.mo.gov/Government-Administration/Open-Meetings-Calendar/mahp-izvx?).
+They also have a different view of the calendar [outside the portal](http://www.mo.gov/meetings/),
+with an RSS feed from the Socrata portal. But I don't know how the calendar on Socrata got so many views.
+
+It looks like some other portals are using calendars a lot too,
+but usually with several separate calendars instead of one huge one.
+
+```{r calendar_use_3}
+ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.calendars" FROM "calendar.use" GROUP BY portal;')) +
+  aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
+  scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
+  scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6))
 
 ### Form
 It seems that a [form](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?)
