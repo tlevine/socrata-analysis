@@ -195,3 +195,18 @@ Here's an [api](https://data.energystar.gov/Government/ENERGY-STAR-Certified-Geo
 I think it's an API built with the [API foundry](http://www.socrata.com/api-foundry/).
 It comes with automatic [documentation](https://data.energystar.gov/developers/docs/energy-star-certified-geothermal-heatpumps).
 
+
+
+## 
+There are a bunch of other services that make better forms, calendars,
+charts, &c. than Socrata. On the other hand, most services don't concern
+themselves so strongly with the opening of the data they collect.
+
+This reminds me of Tim Berners-Lee's
+[five stars of open data](http://www.w3.org/DesignIssues/LinkedData.html).
+Socrata is currently being used more to move data from private silos
+(zero stars) to open formats on the web that machines can read easily
+(three stars). The fourth and fifth stars involving implementing
+linked-data standards so that we can have this magical data graph.
+
+This five-stars model 
