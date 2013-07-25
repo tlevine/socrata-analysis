@@ -48,7 +48,19 @@ ggplot(sqldf('select displayType, viewType from socrata group by id')) + aes(x =
 ```
 
 Apparently not. Even though there's an href display type and a tabular
-view type, we still find href and tabular data in the 
+display type, we still find data with href and tabular view types and
+empty display types. I looked at a few of these datasets to see what
+was going on. It turned out that a bunch of them had no records.
 
+```{r empty_display_type}
+subset(socrata, displayType == '')[1:10,c('portal', 'id', 'viewType', 'nrow')]
+```
+
+```{r 
+empty.views <- sqldf('select displayType = "" as emptyDisplayType, viewType, nrow from socrata group by id')
+empty.views$emptyDisplayType <- as.logical(empty.views$emptyDisplayType)
+ggplot(empty.views) + aes(x = nrow, color = emptyDisplayType, y = viewType) +
+  geom_jitter() + scale_x_log10('Number of records', labels = comma)
+```
 
 [view](/!/socrata-genealogies#term-view)

@@ -1,0 +1,36 @@
+---
+title: Fun Socrata Facts
+---
+
+##  views are empty
+
+```{r distinct}
+distinct <- sqldf('select * from socrata group by id')
+ggplot(distinct) + aes(x = viewType == 'tabular') + geom_bar()
+```
+
+Socrata's `nrow(distinct)` datasets. Of these,
+`sum(distinct$viewType == 'tabular')`
+are tabular. And of those, 
+`sum((distinct$ncol == 0 | distinct$nrow == 0) & distinct$viewType == 'tabular')`
+are empty.
+
+```{r emptiness}
+shape <- sqldf("
+SELECT
+  nrow > 0 AS has_rows,
+  ncol > 0 AS has_cols,
+  viewType
+FROM socrata
+WHERE viewType = 'tabular'
+GROUP BY id
+")
+shape$has_rows <- as.logical(shape$has_rows)
+shape$has_cols <- as.logical(shape$has_cols)
+
+shape$has <- factor('Neither', levels = c('Rows and columns', 'Only rows', 'Only columns', 'Neither'))
+shape$has[shape$has_rows] <- 'Only rows'
+shape$has[shape$has_cols] <- 'Only columns'
+shape$has[shape$has_rows & shape$has_cols] <- 'Rows and columns'
+ggplot(shape) + aes(x = has) + geom_bar() + scale_x_discrete(drop = F)
+```
