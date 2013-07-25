@@ -24,6 +24,7 @@ if (!('users' %in% ls())) {
   }
   rownames(users) <- users$id
   users$has.flag <- !is.na(users$flags)
+  users$has.role <- !is.na(users$roleName)
 }
 
 if (!('user.views' %in% ls())) {

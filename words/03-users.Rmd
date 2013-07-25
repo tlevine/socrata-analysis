@@ -179,7 +179,7 @@ employees of Socrata and data-publishers from everyone else. That was a bit
 harder than you might expect.
 
 ### More tables than views
-As I mentioned earlier, I didn't realize that this was possible to have more
+As I mentioned earlier, I didn't realize that it was possible to have more
 tables than views. How does that happen?
 
 #### An example
@@ -219,15 +219,25 @@ let's look at the number of views that each person owns by the different
 roles of user.
 
 ```{r views_by_role}
-user.views.by.role <- ddply(users, 'roleName', function(users.role) {
+user.by.role <- ddply(users, 'roleName', function(users.role) {
   c(
     mean.number.of.views = mean(users.role$n_views),
+    mean.number.of.tables = mean(users.role$n_tables),
     number.of.users = nrow(users.role)
   )
 })
+user.by.role[is.na(user.by.role$roleName),'roleName'] <- 'No role name'
+ggplot(user.by.role) +
+  aes(x = mean.number.of.views, y = mean.number.of.tables) +
+  geom_point(aes(size = number.of.users)) +
+  geom_text(aes(label = roleName), hjust = -0.2) +
+  scale_size_continuous('Number of users', labels = comma) +
+  scale_x_continuous('Mean number of views each user owns', limits = c(0, 100)) +
+  scale_y_continuous('Mean number of tables each user owns') +
+  ggtitle('Which roles have more data?')
 ```
 
-It looks like publishers and administrators (red) make more views. Big surprise.
+It looks like publishers and administrators make more views. Big surprise.
 Moreover, few people have roles, and people with roles tend to have more data
 than people without roles. This supports my suspicion that people with roles
 are data publishers. To test that a bit more precisely, let's compare that to
@@ -262,7 +272,7 @@ fisher.test(table(users$n_tables > users$n_views, users$has.role))
 
 and find that these counts are indeed disproportionate. 
 
-This is all to say that **`roleName` appears to be a decent proxy for "data publisher"**.
+This is all to say that `roleName` appears to be a **decent indicator for "data publisher"**.
 
 ### Flags
 In a similar vein, I looked at Socrata users with a `flags` field.
