@@ -288,10 +288,10 @@ Socrata employees. I don't know why they have `roleName` fields.
 
 Anyway, it looks like the **`flags` field is a decent proxy for "Socrata employee"**.
 
-### Users who work neither for government nor Socrata
+### Ordinary citizens
 If having a `flags` field means you work for Socrata and
 having a `roleName` means you work for a data publisher (a government, usually),
-then people with neither `flags` nor a `roleName` are the
+then maybe people with neither `flags` nor a `roleName` are the
 citizens that Socrata is trying to empower.
 
 #### No flags, no roles
@@ -425,7 +425,7 @@ all of the users who have made a public view on any of the
 Also keep in mind that that's *all* of the users with at least 10 views;
 if we look at only the users whom I've identified as citizens, it drops
 to `r sum(is.na(users$flags) & is.na(users$roleName) & users$n_tables == 0 & users$n_views >= 10)`,
-or fewer than one user per portal.
+or fewer than one user per portal. Quite low.
 
 ## Conclusions, lessons, ideas, &c.
 
