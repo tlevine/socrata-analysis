@@ -136,12 +136,12 @@ text(x = 0.2, y = 1.2, labels = 'Most users\nhave one view', pos = 4, col = 2)
 text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
 
-Most users (`sum(users$n_views == 1)` to be exact) have exactly one view.
+Most users (`r sum(users$n_views == 1)` to be exact) have exactly one view.
 Actually, there are probably even more with no views, but I don't have the
 data on them.
 
 That one way off to the right is the Data.gov Program Management Office,
-with `users['e8ug-wzay','n_views']`. 
+with `r users['e8ug-wzay','n_views']`. 
 
 I'm going to make the same plot, except I'm going to color the plot by whether the
 user's role is "administrator" or "publisher". (Other possibilities are "designer",
@@ -269,7 +269,7 @@ This is all to say that **`roleName` appears to be a decent proxy for "data publ
 
 ### Flags
 In a similar vein, I looked at Socrata users with a `flags` field.
-`sum(!is.na(users$flags))` users have a non-empty `flags` field, and
+`r sum(!is.na(users$flags))` users have a non-empty `flags` field, and
 the value of that field is `["admin"]` for all of these users.
 Here are those users.
 
@@ -421,14 +421,14 @@ In fact, there are probably even more users with no views.
 
 I'm more concerned with the right side of the graph.
 As we should expect, far fewer people have made 10 views than 1 view.
-But look at the absolute counts. Only `sum(users$n_views >= 10)`
+But look at the absolute counts. Only `r sum(users$n_views >= 10)`
 users have made at least 10 views. Keep in mind that this includes
 all of the users who have made a public view on any of the
-`length(unique(socrata$portal))` portals; this number seems quite low.
+`r length(unique(socrata$portal))` portals; this number seems quite low.
 
 Also keep in mind that that's *all* of the users with at least 10 views;
 if we look at only the users whom I've identified as citizens, it drops
-to `sum(is.na(users$flags) & is.na(users$roleName) & users$n_tables == 0 & users$n_views >= 10)`,
+to `r sum(is.na(users$flags) & is.na(users$roleName) & users$n_tables == 0 & users$n_views >= 10)`,
 or fewer than one user per portal.
 
 ## Conclusions, lessons, ideas, &c.
