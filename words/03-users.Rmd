@@ -143,16 +143,6 @@ data on them.
 That one way off to the right is the Data.gov Program Management Office,
 with `r users['e8ug-wzay','n_views']`. 
 
-I'm going to make the same plot, except I'm going to color the plot by whether the
-user's role is "administrator" or "publisher". (Other possibilities are "designer",
-"editor", "publisher", "viewer" and a missing value.)
-
-```{r n_views_byrole}
-plot.count(users$n_views, 'views', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
-```
-
-It looks like publishers and administrators (red) make more views. Big surprise.
-
 ### How many tables?
 
 Let's make that same plot but for the number of tables. (A table is a raw
@@ -223,15 +213,25 @@ if they have more tables than views.
 I noticed that most of the people in the above list have
 `roleName` fields. Very few people have `roleName` fields, so
 I think that people tend to have a `roleName` field
-if and only if they work for data publishers. To investigate that, I made
-this table
+if and only if they work for data publishers. To investigate that,
+let's look at the number of views that each person owns by the different
+roles of user.
 
-```{r data_publishers}
-users$has.role <- !is.na(users$roleName)
-table(users$n_tables > users$n_views, users$has.role)
+```{r views_by_role}
+user.views.by.role <- ddply(users, 'roleName', function(users.role) {
+  c(
+    mean.number.of.views = mean(users.role$n_views),
+    number.of.users = nrow(users.role)
+  )
+})
 ```
 
-and this plot of the same data.
+It looks like publishers and administrators (red) make more views. Big surprise.
+Moreover, few people have roles, and people with roles tend to have more data
+than people without roles. This supports my suspicion that people with roles
+are data publishers. To test that a bit more precisely, let's compare that to
+my other suspected indicator of data-publisher-ness: Whether people have more
+tables than views. Here's a plot of that.
 
 ```{r roleName_plot}
 users$more.tables <- users$n_tables > users$n_views
@@ -252,12 +252,8 @@ barplot(users.roleNames$prop[users.roleNames$more.tables],
 )
 ```
 
-People with roles tend to have more data than people without roles.
-If most data are published by data publishers, this also supports my
-suspicion that people with `roleName` fields are data publishers.
-
 If we want to get all statistical about it, we can run
-Fisher's Exact test on that table.
+Fisher's Exact test.
 
 ```{r fisher_test}
 fisher.test(table(users$n_tables > users$n_views, users$has.role))
