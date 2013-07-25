@@ -109,6 +109,8 @@ missingness <- data.frame(
   present.value = a[,1]
 )
 missingness <- missingness[order(missingness$present.value, decreasing = T),]
+old.mar <- par()$mar
+par(mar = c(5, 12, 4, 2))
 barplot(
   (missingness$present.value),
   names.arg = missingness$variable,
@@ -116,13 +118,14 @@ barplot(
   xlim = c(0, 12000),
   main = 'How complete is the user profile metadata?',
   xlab = 'Number of users with the field',
-  ylab = 'Field'
+  ylab = ''
 )
 axis(1, at = seq(0, 12000, 2000))
 abline(v = nrow(users), col = 2, lty = 2)
 text(x = nrow(users), y = 15, labels = paste(nrow(users), 'total users'), col = 2, pos = 2)
 text(x = 2500, y = 14, labels = 'Missing data', col = 2)
 text(x = 10000, y = 3, labels = 'Complete data', col = 2)
+par(mar = old.mar)
 ```
 
 ### How many views do people have?
