@@ -91,7 +91,16 @@ and a [linechart](https://opendata.socrata.com/dataset/Num-employees-by-sector-t
 
 ### Page
 A [page](https://explore.data.gov/dataset/OlaSW_WH/4yyz-msx7?)
-lets you look at one record at a time.
+lets you look at one record at a time. People actually use this!
+Especially in Oregon.
+
+```{r page}
+ggplot(subset(socrata, displayType == 'page')) + aes(x = portal) + geom_bar() + coord_flip()
+```
+
+ggplot(subset(socrata, displayType == 'page')) + aes(x = owner.displayName) + geom_bar() + coord_flip()
+
+    subset(socrata, displayType == 'page')[c('portal', 'owner.id')]
 
 ### Calendar
 The [calendar](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?)
