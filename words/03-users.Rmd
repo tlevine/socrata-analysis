@@ -64,7 +64,7 @@ mine.
         "screenName" : "Thomas Levine"
     }
 
-### `owner`
+### Owner
 The `owner` field is quite straightforward; it's simply the person who
 created the view, be it a
 [dataset](/!/socrata-genealogies#term-dataset),
@@ -72,7 +72,7 @@ created the view, be it a
 [map](/!/socrata-genealogies#term-map) or
 [whatever](/!/socrata-genealogies#term-other-view-types).
 
-### `tableAuthor`
+### Table Author
 The `tableAuthor` field is the person who uploaded the
 [table](/!/socrata-genealogies#term-table) (source data) associated
 with the view. For datasets, this is the same as the owner, but for charts,
