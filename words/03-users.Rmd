@@ -508,7 +508,10 @@ But portal administrators have do have access to these data! If you run a portal
 you should be studying this in order to understand what data people are using,
 how people are using it and how you can improve your open data offerings.
 
-Actually, even better, you should just release the usage data publicly
-[like Oregon did]()
-so I can do this for you.
-Socrata even has a feature that lets you do that automatically!
+Actually, even better, you should just open the usage data
+[like Oregon did](https://data.oregon.gov/analytics) so I can do this for you.
+If you administrate a portal makes your analytics page public. And if you don't
+administrate a portal, convince your local portal administrator to. It's just
+one box in administrator dashboard that you need to click.
+
+Open data!
