@@ -151,6 +151,9 @@ ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "
   aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
   scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
   scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6))
+```
+
+Check out [Oregon's calendars](https://data.oregon.gov/browse?limitTo=calendars).
 
 ### Form
 It seems that a [form](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?)
