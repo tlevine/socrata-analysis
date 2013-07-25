@@ -3,7 +3,7 @@ title: Who uses Socrata's analysis tools?
 description: That time I downloaded all of the 80,000 Socrata datasets, I also downloaded the 10,000 users.
 tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I also downloaded the 10,000 users.
 twitter_title: People actually use @socrata's web-based analysis tools!
-twitter_description: "not The White House" discovered a @SecretService barbecue!
+twitter_description: '"not The White House" discovered a @SecretService barbecue!'
 ---
 
 ```{r configure, echo = F}
@@ -403,7 +403,7 @@ I looked at a few specific Socrata users who are doing interesting things,
 but let's look a bit more broadly. The histogram below shows how many views
 users have created. Here, I'm including people without profile pictures.
 
-```{r citizen_views_1}
+```{r citizen_views1}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 hist(citizens$n_views,
   col = 1, border = NA,
@@ -414,7 +414,7 @@ hist(citizens$n_views,
 
 Here it is again, but leaving out the top ten users to make it easier to see.
 
-```{r citizen_views_2}
+```{r citizen_views2}
 citizens <- subset(users, !has.flag & !has.role & n_tables == 0)
 hist(citizens$n_views[citizens$n_views < 30],
   col = 1, border = NA,
