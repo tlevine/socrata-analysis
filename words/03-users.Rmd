@@ -159,7 +159,7 @@ plot.count(users$n_tables, 'tables', col = 1 + (!is.na(users$roleName) & (users$
 text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
 
-That point off to the right is again the Data.gov Program Management Office.o
+That point off to the right is again the Data.gov Program Management Office.
 
 ### How many derived views?
 When you upload a tabular data file to Socrata, Socrata creates a "table" and
@@ -177,15 +177,19 @@ mostly publishers. Maybe this is something about how the import API works that I
 don't understand.
 
 ## Aside from data publishers and Socrata employees, who uses Socrata a lot?
+I wanted to find people who have used Socrata a lot without being employed by
+Socrata or data-publishing governments. I started out by trying to separate
+employees of Socrata and data-publishers from everyone else. That was a bit
+harder than you might expect.
 
 ### More tables than views
-Here are people with tables but no views. (As I mentioned earlier, I didn't
-realize that this was possible!) I figure that these people are probably
-data publishers.
+As I mentioned earlier, I didn't realize that this was possible to have more
+tables than views. I suspect that this means that the original dataset is private
+and that some views on that dataset are public. So these might be data publishers.
 
-```{r data_publishers_2}
-subset(users, n_tables > n_views)[c('displayName', 'roleName', 'flags', 'n_tables', 'n_views')]
-```
+I looked at the users who had more tables than views.
+
+    subset(users, n_tables > n_views)[c('displayName', 'roleName', 'flags', 'n_tables', 'n_views')]
 
 I looked up a few of them with a search engine, and they mostly
 [seem](http://www.linkedin.com/in/jkray)
