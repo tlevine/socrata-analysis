@@ -421,6 +421,10 @@ users have made at least 10 views. Keep in mind that this includes
 all of the users who have made a public view on any of the
 `length(unique(socrata$portal))` portals; this number seems quite low.
 
+Also keep in mind that that's *all* of the users with at least 10 views;
+if we look at only the users whom I've identified as citizens, it drops
+to `sum(is.na(users$flags) & is.na(users$roleName) & users$n_tables == 0 & users$n_views >= 10)`,
+or fewer than one user per portal.
 
 
 
@@ -428,22 +432,8 @@ all of the users who have made a public view on any of the
 
 
 
-### People don't use it much
-the thing about 400 users in 60 protals with at least 10 views
 
 
-### People mostly use one portal.
-When you make an account on any Socrata portal, you can use it to log in to
-any of the other portals. Although this makes it easier for people to use
-different portals, people don't seem to be doing that; people seem to stick
-to just one portal.
-
-(As I mentioned [previously](),
-I think that all of the different Socrata portals are served from the
-same web application and that this is why you can use the same credentials.)
-
-<!-- discussion -->
-Part of the issue might be that it is difficult to search across portals.
 
 ## Conclusions, lessons, ideas, &c.
 
@@ -462,6 +452,39 @@ with them to see how they use Socrata in their research.
 On the other hand, maybe view count isn't the best metric of how intensely
 people use Socrata.
 
+### People don't use Socrata that much. Or do they?
+If people are using Socrata's data analysis tools, we should expect lots of
+views to be created.
+Searching across all of the portals, I found fewer than 500 users with at
+least 10 views. This is less than ten such users per portal, which doesn't
+seem like a lot. And almost all of these users are data publishers or Socrata
+employees, so hardly any citizens seem to be analyzing Socrata data.
+
+Or maybe they're just not using using Socrata's analysis tools.
+I think that people get good at one way of using computers and then never learn other ways.
+(I credit this theory to [Alec Story](https://plus.google.com/116070987814199239957/posts).)
+This applies for my former neighbor who could check her email just fine with the old
+email software but got confused when she got a new computer with a new version of the email software.
+This also applies for people like me who are stuck using R because they know all sorts of
+[magical R incantations](/!/r-spells-for-data-wizards) even though they know that
+[R is completely insensible](https://stat.ethz.ch/pipermail/r-help/2010-September/252618.html).
+
+Getting back to Socrata, I suspect that people are using the Socrata data to some
+degree but that they're downloading the dataset manually analyzing it in Excel.
+(And it would be cool to test this suspicion, but I haven't yet come up with a good way of doing that.)
+
+If this is what is happening, it would be really cool to have stronger integrations
+between Excel and Socrata. Currently, you just download a view in Excel format and then
+open it. What if there were an Excel macro that would synchronize a table in Excel
+with a view in Socrata? Or a plugin that would let you upload reports from Excel back
+to Socrata?
+
+If people are analyzing open data in Excel and then disseminnating the findings as
+paper documents, then we're not maintaining the openness of the data.
+There are a lot of situations where the analyst wants the analysis to stay private,
+but there are also a lot of situations where the analyst would love to share the
+analysis publically if only it were easier.
+
 ### One portal
 Very few of the big users that I discuss above uses more than one Socrata portal.
 This certainly makes sense as Socrata open data portals are presented as if they're
@@ -469,15 +492,13 @@ separate installations of the software. You can use the same account for all of 
 portals, but there's no obvious way to search across portals or get a list of all
 of the portals.
 
-As I've discussed earlier, I think that all Socrata sites are served from the same
-instance of a web application, so I think it wouldn't be too difficult technically
-to make it easier for people to use data from different portals. A particularly
-simple approach would be to create a separate Socrata instance that federates all
-of the others. I wonder whether people would use the Socrata Open Data Portal
-differently if they could easiy collect and analyze data from all of the portals.
+I wonder whether people would use data from multiple portals if it were easier to
+search across portals. I think someone should set up a Socrata portal that
+federates all of the other portals; maybe people would use Socrata Open Data Portal
+software differently if they could easiy collect and analyze data from all of the portals.
 
-On the other hand, maybe it wouldn't matter. A couple of the bigger users I found
-were using World Bank data. It's quite possible that the data in the other portals
+On the other hand, maybe they wouldn't. A couple of the bigger users I found
+were using World Bank data, and it's quite possible that the data in the other portals
 aren't that relevant to them.
 
 ### We need to study usage more.
