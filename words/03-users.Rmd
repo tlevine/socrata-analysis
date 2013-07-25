@@ -468,7 +468,7 @@ On the other hand, maybe they wouldn't. A couple of the bigger users I found
 were using World Bank data, and it's quite possible that the data in the other portals
 aren't that relevant to them.
 
-### People don't use Socrata that much. Or do they?
+### People don't use Socrata that much.
 If people are using Socrata's data analysis tools, we should expect lots of
 views to be created.
 Searching across all of the portals, I found fewer than 500 users with at
@@ -476,7 +476,9 @@ least 10 views. This is less than ten such users per portal, which doesn't
 seem like a lot. And almost all of these users are data publishers or Socrata
 employees, so hardly any citizens seem to be analyzing Socrata data.
 
-Or maybe they're just not using using Socrata's analysis tools.
+### Or do they?
+Maybe they're using the data and just not using Socrata's analysis tools.
+
 I think that people get good at one way of using computers and then never learn other ways.
 (I credit this theory to [Alec Story](https://plus.google.com/116070987814199239957/posts).)
 This applies for my former neighbor who could check her email just fine with the old
@@ -495,24 +497,28 @@ open it. What if there were an Excel macro that would synchronize a table in Exc
 with a view in Socrata? Or a plugin that would let you upload reports from Excel back
 to Socrata?
 
+### Maintaining the openness of data
 If people are analyzing open data in Excel and then disseminating the findings as
 paper documents, then we're not maintaining the openness of the data.
 There are a lot of situations where the analyst wants the analysis to stay private,
 but there are also a lot of situations where the analyst would love to share the
 analysis publicly if only it were easier.
 
+Much focus in open data is on opening existing silos on data. Let's also think about
+how we can **prevent data from becoming siloed** in the first place.
+
 ## A request for data
 I managed to find a few interesting users, but I'm somewhat disappointed.
-The available data are quite coarse, few variables are exposed.
+The available data are quite coarse, and few variables are exposed.
 
 On the other hand, portal administrators have do have access to these data! If you run a portal,
 you should be studying these usage data in order to understand what data people are using,
 how people are using it and how you can improve your open data offerings.
-
-Actually, even better, you should just open the usage data
+Even better, you should just open the usage data
 [like Oregon did](https://data.oregon.gov/analytics) so I can do this for you.
-If you administrate a portal makes your analytics page public. And if you don't
-administrate a portal, convince your local portal administrator to. It's just
-one box in administrator dashboard that you need to click.
+
+If you administrate a portal, I want you to make your analytics page public.
+And if you don't administrate a portal, I want you convince your local portal
+administrator to. It's just one box in administrator dashboard that you need to click.
 
 Open data!
