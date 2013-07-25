@@ -5,6 +5,7 @@ tweet_text: That time I downloaded all of the 80,000 @socrata datasets, I also d
 twitter_title: People actually use @socrata's web-based analysis tools!
 twitter_description: '"not The White House" discovered a @SecretService barbecue!'
 tags: ['socrata']
+created_at: 2013-07-25
 ---
 
 ```{r configure, echo = F}
