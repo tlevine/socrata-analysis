@@ -90,7 +90,7 @@ and read into R.
 Rather than remembering which tables and datasets everyone owned, that function
 just remembers how many. Maybe I'll do something with the links later.
 
-## Analysis
+## Data summary
 The user data frame schema looks like this.
 
 ```{r schema}
@@ -386,26 +386,7 @@ He also names his views really well. In particular, I like his hack of prefixing
 all of the titles with "Dave_"; this gets around how Socrata doesn't make it particularly
 clear who created the view that you are looking at.
 
-
-
-
-
-
-
-### People mostly use one portal.
-When you make an account on any Socrata portal, you can use it to log in to
-any of the other portals. Although this makes it easier for people to use
-different portals, people don't seem to be doing that; people seem to stick
-to just one portal.
-
-(As I mentioned [previously](),
-I think that all of the different Socrata portals are served from the
-same web application and that this is why you can use the same credentials.)
-
-<!-- discussion -->
-Part of the issue might be that it is difficult to search across portals.
-
-### Everyone else
+#### Everyone else
 I looked at a few specific Socrata users who are doing interesting things,
 but let's look a bit more broadly. The histogram below shows how many views
 users have created. Here, I'm including people without profile pictures.
@@ -432,6 +413,37 @@ hist(citizens$n_views[citizens$n_views < 30],
 
 As you might expect, most people make only one view.
 In fact, there are probably even more users with no views.
+
+I'm more concerned with the right side of the graph.
+As we should expect, far fewer people have made 10 views than 1 view.
+But look at the absolute counts. Only `sum(users$n_views >= 10)`
+users have made at least 10 views. Keep in mind that this includes
+all of the users who have made a public view on any of the
+`length(unique(socrata$portal))` portals; this number seems quite low.
+
+
+
+
+
+
+
+
+### People don't use it much
+the thing about 400 users in 60 protals with at least 10 views
+
+
+### People mostly use one portal.
+When you make an account on any Socrata portal, you can use it to log in to
+any of the other portals. Although this makes it easier for people to use
+different portals, people don't seem to be doing that; people seem to stick
+to just one portal.
+
+(As I mentioned [previously](),
+I think that all of the different Socrata portals are served from the
+same web application and that this is why you can use the same credentials.)
+
+<!-- discussion -->
+Part of the issue might be that it is difficult to search across portals.
 
 ### More about views
 I remembered that I had the whole views dataset as well, so I connected the user
