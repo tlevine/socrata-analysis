@@ -157,7 +157,28 @@ Check out [Oregon's calendars](https://data.oregon.gov/browse?limitTo=calendars)
 
 ### Form
 It seems that a [form](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?)
-lets you enter data.
+lets you enter data. A bunch of people have implemented them, but none seems to get accessed much.
+
+```{r form_use_3}
+forms <- sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.forms" FROM socrata where displayType = "form" group by portal')
+ggplot(forms) +
+  aes(x = number.of.forms, y = total.view.count, label = portal) + geom_text() +
+```
+I'm gonna remove opendata.socrata.com to make that easier to read.
+
+```{r form_use_4}
+forms <- sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.forms" FROM socrata where displayType = "form" and portal != "opendata.socrata.com" group by portal')
+ggplot(forms) +
+  aes(x = number.of.forms, y = total.view.count, label = portal) + geom_text() +
+  scale_x_continuous('Number of forms in the portal') +
+  scale_y_continuous('Total hits across all forms', labels = comma)
+```
+
+I hadn't seen [nmfs.socrata.com](https://nmfs.socrata.com) before.
+It belongs to the [National Oceanic and Atmospheric Administration Fisheries Service](http://www.nmfs.noaa.gov),
+which apparently used [a Socrata form](https://nmfs.socrata.com/Government/2011-Aquaculture-Public-Comments-Form/u5id-8nqp) to power a
+[policy comments website](http://www.nmfs.noaa.gov/aquaculture/policy2/).
+
 
 ### Fat row
 A [fatrow](https://electionsdata.kingcounty.gov/dataset/Attorney-General-table-General-Election-2012/2y5z-ffa8?)
