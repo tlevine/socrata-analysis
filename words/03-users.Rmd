@@ -504,8 +504,8 @@ analysis publicly if only it were easier.
 I managed to find a few interesting users, but I'm somewhat disappointed.
 The available data are quite coarse, few variables are exposed.
 
-But portal administrators have do have access to these data! If you run a portal,
-you should be studying this in order to understand what data people are using,
+On the other hand, portal administrators have do have access to these data! If you run a portal,
+you should be studying these usage data in order to understand what data people are using,
 how people are using it and how you can improve your open data offerings.
 
 Actually, even better, you should just open the usage data
