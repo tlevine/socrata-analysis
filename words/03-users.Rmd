@@ -7,7 +7,8 @@ opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 5)
 ```
 I recently downloaded the metadata files for all
 of the datasets on all of the Socrata portals (for a particular definition
-of "all").
+of "all"). And then I remembered that these datasets don't just float in
+space; people use them.
 
 My [first post](/!/socrata-summary) looked at popular datasets, and
 my [second post](/!/socrata-genealogies) looked at big dataset families.
@@ -15,11 +16,11 @@ my [second post](/!/socrata-genealogies) looked at big dataset families.
 Through doing this, I've learned that Socrata is much more than a website
 for converting datasets into different formats and serving them on the web.
 Socrata "[consumerizes the data experience](http://www.socrata.com/open-innovation/)"
-with web-based mapping and charting tools.
+with web-based mapping and charting tools. Here's a sexy video they made.
 
 <video controls="" id="wistia_1" preload="none" poster="http://embed.wistia.com/deliveries/d86ff91b0a3b280ee4fd5fea9b65993d1b250340.jpg?image_crop_resized=640x360" style="width: 100%; height: 100%; position: relative; display: block;"><source src="http://embed.wistia.com/deliveries/37d0ddf8aeb21db020b1059c10c62373c9140734/file.mp4" type="video/mp4"></video>
 
-These tools seem really clunky and stupid to me, but I live in this bubble
+These charting tools seem really clunky and stupid to me, but I live in this bubble
 of people who know how to use computers. [Nicole Neditch](https://twitter.com/nneditch)
 explained to me that this is outrageously useful people who aren't strange like me.
 She told me of one instance where someone in the Oakland government made a pie chart in
@@ -27,19 +28,26 @@ the Socrata data portal and embedded that in a blog. If Oakland hadn't been usin
 the result probably would have been less exciting; Nicole said that the person probably
 would have made a chart in Excel, exported that to a PDF and added a download link.
 
-I wanted to find people like this, who are 
-So in this third post, I look at heavy and otherwise interesting users.
+I wanted to find people like this, that is, people whose approach to analysis and
+reporting changes because of these web-based analysis tools that are strongly integrated
+with both the data being analyzed and with web-based presentation formats.
+So in this third post, I look at people who use Socrata's analysis tools substantially
+and otherwise interestingly.
 
 ## The user data format
-![Diagram indicating that each view has one owner and one table author](<%= @item.identifier %>format-sketch.jpg)
+But before I do that, I need to get the user data, which involves learning more about
+Socrata's API.
 
 I'm still using the same 80,000 JSON files that I downloaded last month.
 Each of these metadata files describes a Socrata [view](/!/socrata-genealogies#term-view).
 Some of these JSON files are duplicates (because of
 [federation](/!/socrata-genealogies#term-federation)),
 so there are only about 50,000 unique views.
+(And the other 30,000 are exact duplicates, so deduplicating was easy.)
 
-Among their many
+![Diagram indicating that each view has one owner and one table author](<%= @item.identifier %>format-sketch.jpg)
+
+Among the many fields in each JSON file are
 fields are two fields related to the people who interacted with that view.
 These fields are the `owner` and  `tableAuthor` fields. These fields are
 both hashes/dictionaries/arrays with user information. For example, here's
@@ -123,16 +131,16 @@ text(x = 0.2, y = 1.2, labels = 'Most users\nhave one view', pos = 4, col = 2)
 text(x = 3.5, y = 1.5, labels = 'Data.gov Program\nManagement Office', col = 2)
 ```
 
-Most users (``sum(users$n_views == 1)`` to be exact) have exactly one view.
+Most users (`sum(users$n_views == 1)` to be exact) have exactly one view.
 Actually, there are probably even more with no views, but I don't have the
 data on them.
 
-That one way off to the side is the Data.gov Program Management Office,
-with ``users['e8ug-wzay','n_views']``. 
+That one way off to the right is the Data.gov Program Management Office,
+with `users['e8ug-wzay','n_views']`. 
 
-Let's try that again, but I'm going to color the plot by whether the user's role
-is "administrator" or "publisher". (Other possibilities are "designer", "editor",
-"publisher", "viewer" and a missing value.)
+I'm going to make the same plot, except I'm going to color the plot by whether the
+user's role is "administrator" or "publisher". (Other possibilities are "designer",
+"editor", "publisher", "viewer" and a missing value.)
 
 ```{r n_views_byrole}
 plot.count(users$n_views, 'views', col = 1 + (!is.na(users$roleName) & (users$roleName == 'publisher' | users$roleName == 'administrator')))
