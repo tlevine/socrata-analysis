@@ -23,7 +23,8 @@ ggplot(sqldf('select displayType from socrata group by id')) + aes(x = displayTy
 ### View Types
 Socrata is primarily used for storing tabular data,
 but it can do a lot of other things too. It has four
-view types, one for each of four different internal
+[view](/!/socrata-genealogies#term-view)
+types, one for each of four different internal
 representations of the data.
 
 * **tabular** is for tabular data, like a spreadsheet.
@@ -50,17 +51,28 @@ ggplot(sqldf('select displayType, viewType from socrata group by id')) + aes(x =
 Apparently not. Even though there's an href display type and a tabular
 display type, we still find data with href and tabular view types and
 empty display types. I looked at a few of these datasets to see what
-was going on. It turned out that a bunch of them had no records.
+was going on but didn't come up with any satisfactory answer.
 
-```{r empty_display_type}
-subset(socrata, displayType == '')[1:10,c('portal', 'id', 'viewType', 'nrow')]
+So I don't really know why some views don't have view types.
+
+## Popular view types
+Let's focus on the things that are neither tables nor external links.
+
+```{r not_boring}
+not.boring <- subset(socrata.distinct, displayType != '' & displayType != 'table' & displayType != 'href' & displayType != 'blob')
+not.boring$displayType <- factor(not.boring$displayType, levels = names(sort(table(not.boring$displayType), decreasing = T)))
+ggplot(not.boring) + aes(x = displayType) + geom_bar() + coord_flip()
 ```
 
-```{r 
-empty.views <- sqldf('select displayType = "" as emptyDisplayType, viewType, nrow from socrata group by id')
-empty.views$emptyDisplayType <- as.logical(empty.views$emptyDisplayType)
-ggplot(empty.views) + aes(x = nrow, color = emptyDisplayType, y = viewType) +
-  geom_jitter() + scale_x_log10('Number of records', labels = comma)
-```
+What are all of these types? Here are some examples.
 
-[view](/!/socrata-genealogies#term-view)
+* [intensitymap](https://opendata.socrata.com/dataset/Statewise-Prison-Population/dud8-q2qd?) (the only one)
+* [calendar](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?)
+* [form](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?)
+* [fatrow](https://electionsdata.kingcounty.gov/dataset/Attorney-General-table-General-Election-2012/2y5z-ffa8?)
+* [api](https://data.energystar.gov/Government/ENERGY-STAR-Certified-Geothermal-Heatpumps/2f83-p388?)
+    (documentation is [here](https://data.energystar.gov/developers/docs/energy-star-certified-geothermal-heatpumps))
+
+With so many types, I'm surprised that map and chart are pretty much the only ones that get used.
+I can see why few people would make APIs, but you'd think people would want to try making pie charts
+instead of the normal "chart".
