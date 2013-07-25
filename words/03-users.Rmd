@@ -52,7 +52,7 @@ Some of these JSON files are duplicates (because of
 so there are only about 50,000 unique views.
 (And the other 30,000 are exact duplicates, so deduplicating was easy.)
 
-![Diagram indicating that each view has one owner and one table author](<%= @item.identifier %>format-sketch.jpg)
+![Diagram indicating that each view has one owner and one table author](<%= @item.identifier %>user-model.jpg)
 
 Among the many fields in each JSON file are
 fields are two fields related to the people who interacted with that view.
