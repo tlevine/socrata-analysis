@@ -445,131 +445,6 @@ same web application and that this is why you can use the same credentials.)
 <!-- discussion -->
 Part of the issue might be that it is difficult to search across portals.
 
-### More about views
-I remembered that I had the whole views dataset as well, so I connected the user
-data back to that. In the following plot, each dot is a view. The location along
-the Y axis indicates the user that created it, the location along the X axis
-indicates the date of publication.
-
-```{r user_views_1}
-p <- ggplot(user.views) + aes(x = date, y = userid) + 
-  theme(axis.text.y=element_blank(), axis.title.y = element_text('User creating the view'), axis.ticks.y = element_blank()) +
-  scale_x_date('View publication date')
-p + geom_point(alpha = 1/20)
-```
-
-The horizontal lines are users who have consistently created views for a while.
-The vertical bands are situations when lots of different users created views all
-around the same date.
-
-Let's add some more variables. In this next one, color is the type of view
-and size is the number of cells.
-
-```{r user_views_2}
-p + aes(color = viewType, size = nrow * ncol) + scale_size_continuous('Number of cells', labels = comma) +
- geom_point(alpha = 1/10)
-```
-
-Now we can also see when the larger datasets and the non-tabular datasets were created.
-
-I want to be able to click on all of these points and see the specific views
-in these horizontal and vertical bands. I tried using `playwith`.
-
-    library(playwith)
-    playwith(print(p + geom_point(alpha = 1/20))
-
-But when I started selecting things, my window manager crashed.
-I'm assembling a new computer as soon as the motherboard arrives, so maybe I'll try it again next week. (Or you can try it!)
-For now, I'll see how far I can get with the static graph before I get bored.
-
-### What are those vertical bands?
-We see vertical bands at early 2008, early 2009 and late 2011. What's going on there?
-
-#### Late 2011
-The late 2011 band happened right at the beginning of October.
-Maybe it was a new portal getting online?
-
-<!-- 
-p + geom_point(alpha = 1/20) +
-  geom_vline(xintercept = as.numeric(as.Date('2011-09-01'))) +
-  geom_vline(xintercept = as.numeric(as.Date('2011-10-01')))
--->
-
-```{r late_2011}
-socrata$month <- factor(strftime(socrata$date, '%B'), levels =
-  c('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'))
-late.2011 <- subset(socrata, date >= '2011-06-01' & date < '2012-01-01')
-ggplot(ddply(late.2011, c('portal', 'month'), function(x) {c(count = nrow(x))})) +
-  aes(x = month, y = count, group = portal, fill = portal) + geom_area()
-```
-
-Hmm. No single portal seems to be responsible. My guess is that
-it has something to do with the
-[release of the API foundry](http://www.socrata.com/newsroom-article/socrata-introduces-api-foundry-and-ushers-in-the-era-of-api-enabled-data-ecosystems/).
-
-#### Early 2008 and early 2009
-Before late 2009, [opendata.socrata.com](https://opendata.socrata.com) was the only
-data portal. That is all of the views that were created before late 2009 are on
-opendata.socrata.com. So here, too, it's not like a new portal was created.
-I don't really know what was going on here either.
-<!-- table(subset(socrata, createdAt < '2009-05-01')$portal) -->
-
-### Horizontal bands
-A few users made many rather consistent uploads, some for rather sustained periods of time.
-Let's take a look at some of them.
-
-Here are some users who made a lot of views in a really short time.
-
-```{r user_intensity_1, fig.height = 10}
-user.intensity <- subset(ddply(user.views, 'userid', function(df){
-  c(n = nrow(df),
-    first = min(df$date),
-    last = max(df$date)
-  )
-}), n > 10)
-
-intense.users.ids <- data.frame(userid = user.intensity[order((user.intensity$last - user.intensity$first) / user.intensity$n, decreasing=T),'userid'][1:10])
-intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
-ggplot(intense.users.views) + aes(y = date, x = userid, label = name) +
-  scale_y_date('View publication date') + geom_text()
-```
-
-They mostly seem to be playing with Socrata and making views as tests.
-
-Here are some users who have been making views for a really long time.
-Specifically, they're the ten users with the longest time difference
-between the publication dates of their most recent and first views.
-
-Chris Metcalf, Clint Tseng, Jeff Sherpelz, Paul Paradise and Kevin Merritt work for Socrata.
-
-[David Beard](https://opendata.socrata.com/profile/David-Beard/re3b-zge9)
-has [ten datasets](https://opendata.socrata.com/profile/David-Beard/re3b-zge9?limitTo=datasets)
-and a bunch of filters on those datasets.
-
-The [White House](https://opendata.socrata.com/profile/whitehouse/bhnt-uir2)
-has a bunch of datasets on opendata.socrata.com.
-
-The [New York State Senate](https://opendata.socrata.com/profile/New-York-State-Senate/7f5i-r9x4)
-releases a payroll dataset each week.
-
-The Seattle [Department of Information Technology](https://data.seattle.gov/profile/Department-of-Information-Technology/pfbu-yuv5)
-manages Seattle's portal.
-
-The [Washington Examiner](https://opendata.socrata.com/profile/Washington-Examiner/uqfw-aksw)
-is a [DC newspaper](http://washingtonexaminer.com/).
-
-And here's a plot of their activity.
-
-```{r user_intensity_2, fig.height = 10}
-intense.users.ids <- data.frame(userid = user.intensity[order(user.intensity$last - user.intensity$first, decreasing=T),'userid'][1:10])
-intense.users.ids$username <- users[as.character(intense.users.ids$userid),'displayName']
-intense.users.views <- sqldf('select * from "user.views" join "intense.users.ids" join socrata where "user.views".userid = "intense.users.ids".userid and "user.views".viewid = socrata.id')
-ggplot(intense.users.views) + aes(y = date, x = username, label = name) +
-  scale_y_date('View publication date') + geom_text()
-```
-
-I'm sort of surprised that people are using opendata.socrata.com so consistently.
-
 ## Conclusions, lessons, ideas, &c.
 
 ### Big users
@@ -586,11 +461,6 @@ with them to see how they use Socrata in their research.
 
 On the other hand, maybe view count isn't the best metric of how intensely
 people use Socrata.
-
-### Bursts of activity, and merits of dynamic visuals
-I sort of identified dates and users that had unusual activity, but I didn't
-really look at them, partly because I was using a static plot. Maybe I'll
-find out more once I assemble my new, better computer.
 
 ### One portal
 Very few of the big users that I discuss above uses more than one Socrata portal.
@@ -620,6 +490,7 @@ But portal administrators have do have access to these data! If you run a portal
 you should be studying this in order to understand what data people are using,
 how people are using it and how you can improve your open data offerings. Actually,
 even better, you should just release the usage data publically so I can do this for you.
+Socrata even has a feature that lets you do that automatically!
 
 ### API documentation
 Most of my work on this is still just in figuring out what the API fields mean and documenting them.
