@@ -1,0 +1,21 @@
+```r
+subset(socrata, viewType == 'blobby' & !grepl('(KML|Shapefile)', name, ignore.case = T))[1:100,c('portal', 'id', 'name')]
+```
+
+```r
+subset(socrata, viewType == 'blobby' & grepl('strategic', name, ignore.case = T))[c('portal', 'id', 'name', 'viewCount')]
+```
+
+```r
+subset(socrata, viewType == 'href' & !grepl('(KML|Shapefile)', name, ignore.case = T))[1:100,c('portal', 'id', 'name', 'viewCount')]
+subset(socrata, viewType == 'href')[1:100,c('portal', 'id', 'name', 'viewCount')]
+```
+
+
+From https://data.colorado.gov/Mobile-Applications/State-government-mobile-applications/sa4x-har6?
+
+    "availableDisplayTypes" : [ "href" ],
+    "accessPoints" : {
+      "html" : "http://www.nascio.org/Apps/browse.cfm?State=Colorado"
+    }
+
