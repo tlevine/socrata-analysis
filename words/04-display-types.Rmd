@@ -74,11 +74,29 @@ http://www.zimbra.com/desktop/help/en_US/Calendar/Exporting_your_iCal_calendar.h
 http://office.microsoft.com/en-us/outlook-help/transfer-calendars-between-outlook-and-google-calendar-HA010167495.aspx
 -->
 
-At the other end of the spectrum are things like Google Calendar. You can
-export your data if you log in and manage to find the button, and then you
-get an HTML file that looks pretty or an XML or iCal file that other calendar
-software could read. But I want a CSV that I can open in R!
+With Socrata, I can download Missouri's calendar as CSV and load it into R,
 
+
+
+
+
+
+I can also look up all of Oregon's calendars,
+
+```r
+oregon.calendars <- subset(socrata, portal == 'data.oregon.gov' & displayType == 'calendar')
+```
+
+find out that most of them
+
+```r
+oregon.calendars$url <- paste0(
+  'http://data.oregon.gov/api/views/',
+  oregon.calendars$id,
+  '/rows.csv?accessType=DOWNLOAD'
+)
+oregon.calendar <- ddply(oregon.calendars[c('id', 'name', 'url')], 'id', function(cal) { read.csv(cal$url[1]) })
+```
 
 On the other hand, most services don't concern
 themselves so strongly with the opening of the data they collect.
