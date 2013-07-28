@@ -74,12 +74,14 @@ http://www.zimbra.com/desktop/help/en_US/Calendar/Exporting_your_iCal_calendar.h
 http://office.microsoft.com/en-us/outlook-help/transfer-calendars-between-outlook-and-google-calendar-HA010167495.aspx
 -->
 
+### Analyzing Missouri's calendar
 With Socrata, I can download Missouri's calendar as CSV and load it into R,
 
 
 
 
 
+### Finding other visualizations of the same data
 You can even find examples of this within Socrata.
 Look up all of Oregon's calendars,
 
@@ -96,7 +98,6 @@ barplot(sort(table(oregon.calendars$tableId), decreasing = T),
   xlab = 'Number of calendars visualizing the table'
 )
 ```
-
 look up one of the tables,
 
 ```r
@@ -104,12 +105,18 @@ table.429573 <- subset(socrata, tableId == 429573)[c('id', 'name', 'displayType'
 listify(table.429573)
 ```
 
-and find that the calendar was just one visualization of the same dataset!
+and find that the calendar was just one of many visualizations of the same dataset!
 
-On the other hand, most services don't concern
-themselves so strongly with the opening of the data they collect.
-I want both!
+### Combining calendars
+I can also combine Oregon's and Missouri's public meetings calendars.
 
+```r
+oregon <- read.csv('http://data.oregon.gov/api/views/gs36-7t8m/rows.csv?accessType=DOWNLOAD', stringsAsFactors = F)
+missouri <- read.csv('http://data.mo.gov/api/views/au6r-w9n3/rows.csv?accessType=DOWNLOAD', stringsAsFactors = F)
+public.meetings <- rbind(
+  missouri[c('Meeting.Body.Name', 'Committee', 'Begin.Date.Time', 'End.Date.Time', 'Address', 'City', 'State', 'Zip')],
+  oregon[c('Agency..Board..Commission..Branch', 'Meeting.Title', 'Start.Date...Time', 'End.Date...Time', 'Meeting.Location', 'City', 'State')]
+)
 
 I'm quite excited that Socrata presents calendars as data.
 To me, anything could be turned into data, and data could be turned into
