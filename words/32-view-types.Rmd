@@ -1,0 +1,34 @@
+
+Socrata is primarily used for storing tabular data,
+but it can do a lot of other things too. It has four
+[view](/!/socrata-genealogies#term-view)
+types, one for each of four different internal
+representations of the data.
+
+* **tabular** is for tabular data, like a spreadsheet.
+* **geo** is for map data. It's pretty similar to **tabular**,
+    except that it has a special geospatial column type.
+* **blobby** is for arbitrary files. You could put PDF files
+    up if you want.
+* **href** is for links to external files.
+
+The most common view type is tabular.
+
+```{r view_types}
+ggplot(sqldf('select viewType from socrata group by id')) + aes(x = viewType) + geom_bar() + coord_flip()
+```
+
+### Those views with no view type
+Above, you may have notice that lots of views have no view type.
+At first, I thought they might just all be hrefs (external datasets).
+
+```{r display_and_view_types}
+ggplot(sqldf('select displayType, viewType from socrata group by id')) + aes(x = displayType, group = viewType, fill = viewType) + geom_bar() + coord_flip()                                                                                
+```
+
+Apparently not. Even though there's an href display type and a tabular
+display type, we still find data with href and tabular view types and
+empty display types. I looked at a few of these datasets to see what
+was going on but didn't come up with any satisfactory answer.
+
+So I don't really know why some views don't have view types.

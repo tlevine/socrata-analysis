@@ -1,0 +1,152 @@
+
+## Hip display types
+Let's focus on the things that are neither tables nor external links.
+
+```{r not_boring}
+not.boring <- subset(socrata.distinct, displayType != '' & displayType != 'table' & displayType != 'href' & displayType != 'blob')
+not.boring$displayType <- factor(not.boring$displayType, levels = names(sort(table(not.boring$displayType), decreasing = T)))
+ggplot(not.boring) + aes(x = displayType) + geom_bar() + coord_flip()
+```
+
+What are all of these types? Here are some examples.
+
+With so many types, I'm surprised that map and chart are pretty much the only ones that get used.
+I can see why few people would make APIs, but you'd think people would want to try making pie charts
+instead of the normal "chart".
+
+In hipster fashion, I think that maps and charts are overused, so
+I'm going to look at the cool ones that nobody has heard about.
+
+### Intensity map
+There is only one [intensitymap](https://opendata.socrata.com/dataset/Statewise-Prison-Population/dud8-q2qd?)
+among all of the views on all of the Socrata portals. I have no idea what it is, nor how to create one.
+I tried making a [heat map](https://opendata.socrata.com/Government/Tom-made-a-heat-map/h4cx-3gq9), but that
+gets the type "map" rather than "intensitymap". I guess they don't make these anymore.
+
+### Various charts
+The "*chart" types all seem to be real things.
+Here's a [piechart](https://opendata.socrata.com/dataset/By-County-Chart/66gq-2hse?).
+Look at my [area chart](https://opendata.socrata.com/dataset/Tom-makes-an-area-chart-/45sn-pggi)!
+I'm sure you can guess what the rest look like.
+
+One funny thing: I can't tell the difference between an
+[imagesparkline](https://opendata.socrata.com/Business/growth-chart-2/kefb-jf8u?)
+and a [linechart](https://opendata.socrata.com/dataset/Num-employees-by-sector-trend-chart/zwsx-hn97?).
+
+### Page
+A [page](https://explore.data.gov/dataset/OlaSW_WH/4yyz-msx7?)
+lets you look at one record at a time. People actually use this!
+Especially in Oregon.
+
+```{r page_portal}
+ggplot(subset(socrata, displayType == 'page')) + aes(x = portal) + geom_bar() + coord_flip()
+```
+
+Who's dwiese?
+
+```{r page_owner}
+ggplot(subset(socrata.distinct, displayType == 'page')) + aes(x = owner_displayName) + geom_bar() + coord_flip()
+```
+
+It seems that he made a few pages on explore.data.gov that were federated.
+
+    subset(socrata, displayType == 'page' & owner.displayName == 'dwiese')[c('portal', 'id')]
+
+Like [this one](https://explore.data.gov/dataset/OlaSW_WH/4yyz-msx7?)
+
+I'm still totally confused; I don't see why you would ever want one of these.
+Maybe it would be useful if you could get a URL for a particular page, but you
+can't even do that. Do people really use these?
+
+```{r page_use}
+ggplot(subset(socrata.distinct, displayType == 'page')) + aes(x = viewCount) + geom_histogram() +
+  scale_x_continuous('Hits per "page" (paginated dataset view type)') +
+  scale_y_continuous('Frequency', breaks = seq(0, 12, 4)) +
+  ggtitle("People don't really look at data in the \"page\" view.")
+```
+
+No, not really. Though that was more than I'd expected.
+
+### Fat row
+A [fatrow](https://electionsdata.kingcounty.gov/dataset/Attorney-General-table-General-Election-2012/2y5z-ffa8?)
+is something between a table and a page.
+
+### API
+Here's an [api](https://data.energystar.gov/Government/ENERGY-STAR-Certified-Geothermal-Heatpumps/2f83-p388?).
+I think it's an API built with the [API foundry](http://www.socrata.com/api-foundry/).
+It comes with automatic [documentation](https://data.energystar.gov/developers/docs/energy-star-certified-geothermal-heatpumps).
+
+
+## Things that you might not think of as open data
+I was somewhat surprised to see forms and calendars in the portals.
+
+### Form
+Much of the goal of these portals is to open up existing government data, but
+[forms](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?) provide a way for citizens to create data.
+lets you enter data. A bunch of people have implemented them, but none seems to get accessed much.
+
+```{r form_use_3}
+forms <- sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.forms" FROM socrata where displayType = "form" group by portal')
+ggplot(forms) +
+  aes(x = number.of.forms, y = total.view.count, label = portal) + geom_text() +
+```
+I'm gonna remove opendata.socrata.com to make that easier to read.
+
+```{r form_use_4}
+forms <- sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.forms" FROM socrata where displayType = "form" and portal != "opendata.socrata.com" group by portal')
+ggplot(forms) +
+  aes(x = number.of.forms, y = total.view.count, label = portal) + geom_text() +
+  scale_x_continuous('Number of forms in the portal') +
+  scale_y_continuous('Total hits across all forms', labels = comma)
+```
+
+I hadn't seen [nmfs.socrata.com](https://nmfs.socrata.com) before.
+It belongs to the [National Oceanic and Atmospheric Administration Fisheries Service](http://www.nmfs.noaa.gov),
+which apparently used [a Socrata form](https://nmfs.socrata.com/Government/2011-Aquaculture-Public-Comments-Form/u5id-8nqp) to power a
+[policy comments website](http://www.nmfs.noaa.gov/aquaculture/policy2/).
+
+New York made a form for [feedback on the portal](https://data.ny.gov/dataset/Give-Feedback/fq3e-q75i?).
+
+World Bank Open Finances made a
+[form](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar-Entry-Form/qdbh-rfd3?)
+that populates an
+[open data events calendar](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar/g4sx-dwxc).
+
+
+### Calendar
+The [calendar](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?)
+is what it sounds like. I'm quite excited that Socrata presents calendars as data.
+To me, anything could be turned into data, and data could be turned into
+[anything](http://csvsoundsystem.com). But a lot of people don't realize this,
+and I see calendars as one of those things that people don't see as data.
+
+I'm also excited about Socrata calendars because people use them. A lot.
+
+```{r calendar_use}
+ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount) + geom_histogram() +
+  scale_x_continuous('Hits per calendar', labels = comma) +
+  scale_y_continuous('Frequency', labels = comma) +
+  ggtitle("Someone likes her calendar.")
+```
+
+```{r calendar_use_2}
+calendar.use <- subset(socrata, displayType == 'calendar')[c('portal', 'id', 'viewCount')]
+calendar.use[order(calendar.use$viewCount, decreasing = T),][1:5,c('portal', 'id', 'viewCount')]
+```
+
+Check out Missouri's [open meetings calendar](https://data.mo.gov/Government-Administration/Open-Meetings-Calendar/mahp-izvx?).
+They also have a different view of the calendar [outside the portal](http://www.mo.gov/meetings/),
+with an RSS feed from the Socrata portal. But I don't know how the calendar on Socrata got so many views.
+
+It looks like some other portals are using calendars a lot too,
+but usually with several separate calendars instead of one huge one.
+
+```{r calendar_use_3}
+ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.calendars" FROM "calendar.use" GROUP BY portal;')) +
+  aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
+  scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
+  scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6))
+```
+
+Check out [Oregon's calendars](https://data.oregon.gov/browse?limitTo=calendars).
+
