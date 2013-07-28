@@ -17,17 +17,12 @@ socrata$displayType <- factor(socrata$displayType, levels = names(sort(table(soc
 ggplot(socrata) + aes(x = displayType) + geom_bar() + coord_flip()
 ```
 
+(A lot of them are empty, and I don't know what's up with that.)
 
-World Bank Open Finances made a
-[form](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar-Entry-Form/qdbh-rfd3?)
-that populates an
-[open data events calendar](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar/g4sx-dwxc).
-
-## Calendars: The coolest visualization type
+## People actually use calendars
 The calendar is
 [what it sounds like](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?).
-
-People actually use them.
+And people actually use them.
 
 ```{r calendar_use}
 ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount) + geom_histogram() +
@@ -35,17 +30,15 @@ ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount)
   scale_y_continuous('Frequency', labels = comma) +
   ggtitle("Someone likes her calendar.")
 ```
-I'm quite excited that Socrata presents calendars as data.
-To me, anything could be turned into data, and data could be turned into
-[anything](http://csvsoundsystem.com). But a lot of people don't realize this,
-and I see calendars as one of those things that people don't see as data.
+
+Let's look at some specific calendars.
 
 ```{r calendar_use_2}
 calendar.use <- subset(socrata, displayType == 'calendar')[c('portal', 'id', 'viewCount')]
 calendar.use[order(calendar.use$viewCount, decreasing = T),][1:5,c('portal', 'id', 'viewCount')]
 ```
 
-Check out Missouri's [open meetings calendar](https://data.mo.gov/Government-Administration/Open-Meetings-Calendar/mahp-izvx?).
+The biggest one is Missouri's [open meetings calendar](https://data.mo.gov/Government-Administration/Open-Meetings-Calendar/mahp-izvx?).
 They also have a different view of the calendar [outside the portal](http://www.mo.gov/meetings/),
 with an RSS feed from the Socrata portal. But I don't know how the calendar on Socrata got so many views.
 
@@ -61,13 +54,48 @@ ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "
 
 (Like [Oregon](https://data.oregon.gov/browse?limitTo=calendars))
 
-## Calendars as data
+## The cool thing about calendars
+The cool thing about Socrata calendars is that you can download them
+as a spreadsheet.
 
-## Prevent data from becoming closed
-There are a bunch of other services that make better forms, calendars,
-charts, &c. than Socrata. On the other hand, most services don't concern
+There are lots of different calendar programs. Most of them are way
+better for calendaring than Socrata. They also typically have import
+and export tools for transferring your calendar between different
+calendar tools.
+
+But as far as I can tell, none of the main calendar programs lets
+you export to a format that isn't special to. As far as I can tell,
+Outlook, iCal and Google Calendar can import and export iCal files (`.ics`).
+This lets you move your data among calendar programs, but it's
+harder 
+
+<!--
+http://www.zimbra.com/desktop/help/en_US/Calendar/Exporting_your_iCal_calendar.htm
+http://office.microsoft.com/en-us/outlook-help/transfer-calendars-between-outlook-and-google-calendar-HA010167495.aspx
+-->
+
+At the other end of the spectrum are things like Google Calendar. You can
+export your data if you log in and manage to find the button, and then you
+get an HTML file that looks pretty or an XML or iCal file that other calendar
+software could read. But I want a CSV that I can open in R!
+
+
+On the other hand, most services don't concern
 themselves so strongly with the opening of the data they collect.
 I want both!
+
+
+I'm quite excited that Socrata presents calendars as data.
+To me, anything could be turned into data, and data could be turned into
+[anything](http://csvsoundsystem.com). But a lot of people don't realize this,
+and I see calendars as one of those things that people don't see as data.
+
+## Prevent data from becoming closed
+
+World Bank Open Finances made a
+[form](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar-Entry-Form/qdbh-rfd3?)
+that populates an
+[open data events calendar](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar/g4sx-dwxc).
 
 Typical services for hosting calendars, forms and ordinary websites make
 data private by default. That is, I want good software that happens to
@@ -79,11 +107,12 @@ held for years in private silos. It is thus natural that Socrata would represent
 calendars as tables on the open data portal, just like any other table, so you
 can easily send calendar data through standard table-based analysis tools.
 
-At the other end of the spectrum are things like Google Calendar. You can
-export your data if you log in and manage to find the button, and then you
-get an HTML file that looks pretty or an XML or iCal file that other calendar
-software could read. But I want a CSV that I can open in R!
 
 There's lots of siloed data in government, and we need better software and
 methods for opening that up. But let's also make tools that prevent data from
 becoming siloed in the first place.
+
+
+
+
+I don't really know why people choose to use Socrata's calendars.
