@@ -128,34 +128,67 @@ holidays <- as.Date(c(
 	'20120102', '20120116', '20120220', '20120528', '20120704', '20120903', '20121008', '20121112', '20121122', '20121225',
 	'20130101', '20130121', '20130218', '20130527', '20130704', '20131014', '20131111', '20131128', '20131225'))
 
-I'm quite excited that Socrata presents calendars as data.
-To me, anything could be turned into data, and data could be turned into
-[anything](http://csvsoundsystem.com). But a lot of people don't realize this,
-and I see calendars as one of those things that people don't see as data.
 
-## Prevent data from becoming closed
+## Thoughts
 
-World Bank Open Finances made a
+### Prevent data from becoming closed
+Typical calendar software can import and export only from other calendar
+software. If Socrata's calendar software were actually good, it would be
+an example of calendar software that integrate with standard data analysis
+software.
+
+World Bank Open Finances seems to be trying this. They made a
 [form](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar-Entry-Form/qdbh-rfd3?)
 that populates an
 [open data events calendar](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar/g4sx-dwxc).
-
-Typical services for hosting calendars, forms and ordinary websites make
-data private by default. That is, I want good software that happens to
-keep my data open. How can we make this happen?
-I think part of the issue is that people don't see everything as data.
-
-Socrata is mostly being used to help governments open data that they've
-held for years in private silos. It is thus natural that Socrata would represent
-calendars as tables on the open data portal, just like any other table, so you
-can easily send calendar data through standard table-based analysis tools.
-
+This way, any data that is sent into the calendar immediately made available
+to the public in various formats that can be used a wide variety of programs.
 
 There's lots of siloed data in government, and we need better software and
 methods for opening that up. But let's also make tools that prevent data from
 becoming siloed in the first place.
 
+We are producing much rich information when we do ordinary word processing,
+scheduling, emailing, &c. The written documents themselves tell us quite a
+bit, but so do simple things like the dates at which we were editing the
+documents, the people we sent them to and just the number of documents we have.
+You might not have realized it about it, but all of our software could export
+this sort of information to standard tabular formats (for some concept of tabular).
+If we want to embrace open data fully, we should be using programs that make data
+open at their sources.
 
+### Anything could be data, and data could be anything
+For someone like me, it's not a big deal if standard calendar software
+does not allow CSV export; I could easily have done the same analysis I did
+above from iCal files, though it would have taken a bit longer. My larger
+concern is that people don't think of calendars and other "apps" as data.
 
+To me, anything could be turned into data, and data could be turned into
+anything. For example, treasury cash flows that start
+out as [nonstandard text files]() can be
+turned into [tabular data](http://treasury.io) and then
+[music](http://fms.csvsoundsystem.com).
+Turns of a turnstile can recorded, stored in a
+[really strange format](http://www.mta.info/developers/turnstile.html),
+[parsed into a nicer format]()
+and turned into [music](/!/ridership-rachenitsa).
+And we could collect some information about a bunch of parking lots,
+put it in a [data table]() and turn that into
+[food]().
 
-I don't really know why people choose to use Socrata's calendars.
+Much of our statistical
+knowledge is based around a concept of a table, with columns as
+variables (like "eye color") and rows as observations. (So each row might
+be a different person.) This conceptual tabular representation is what
+I think of as "data".
+
+If we can represent the world as data, we can apply many quantitative
+analytical methods to the data. First, we can convert data into other
+data by combining datasets, building models, &c. And then we can convert
+data back into real-world representations, like charts, apps, music and food.
+
+But a lot of people don't realize this. I see this concept is a major part of
+what I'll call "data literacy". That is, this is one fundamental thing
+that [data scientists]() bizarrely understand. I propose that a lack of
+understanding of this concept contributes to the siloing of data; teaching
+this concept is an important part of the advance of open data.
