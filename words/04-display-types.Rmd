@@ -80,23 +80,31 @@ With Socrata, I can download Missouri's calendar as CSV and load it into R,
 
 
 
-
-I can also look up all of Oregon's calendars,
+You can even find examples of this within Socrata.
+Look up all of Oregon's calendars,
 
 ```r
 oregon.calendars <- subset(socrata, portal == 'data.oregon.gov' & displayType == 'calendar')
 ```
 
-find out that most of them
+find out what datasets they visualize,
 
 ```r
-oregon.calendars$url <- paste0(
-  'http://data.oregon.gov/api/views/',
-  oregon.calendars$id,
-  '/rows.csv?accessType=DOWNLOAD'
+barplot(sort(table(oregon.calendars$tableId), decreasing = T),
+  horiz = T, las = 1, border = NA, col = 1,
+  main = 'Oregon data tables that are visualized by calendars', ylab = '',
+  xlab = 'Number of calendars visualizing the table'
 )
-oregon.calendar <- ddply(oregon.calendars[c('id', 'name', 'url')], 'id', function(cal) { read.csv(cal$url[1]) })
 ```
+
+look up one of the tables,
+
+```r
+table.429573 <- subset(socrata, tableId == 429573)[c('id', 'name', 'displayType')]
+listify(table.429573)
+```
+
+and find that the calendar was just one visualization of the same dataset!
 
 On the other hand, most services don't concern
 themselves so strongly with the opening of the data they collect.

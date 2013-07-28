@@ -46,12 +46,12 @@ if (!('user.views' %in% ls())) {
 }
 
 # Helpers
-listify <- function(datasets) {
+listify <- function(datasets, show.downloadCount = T) {
   cat(paste(
     paste(
       '* `', datasets$portal, '`: [', datasets$name, ']',
       '(https://', datasets$portal, '/-/-/', datasets$id, ')',
-      ' (', datasets$downloadCount, ' downloads)',
+      ifelse(rep(show.downloadCount, nrow(datasets)), ' (', datasets$downloadCount, ' downloads)', ''),
       sep = ''
     ),
     collapse = '\n'
