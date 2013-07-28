@@ -67,7 +67,7 @@ But as far as I can tell, none of the main calendar programs lets
 you export to a format that isn't special to. As far as I can tell,
 Outlook, iCal and Google Calendar can import and export iCal files (`.ics`).
 This lets you move your data among calendar programs, but it's
-harder 
+harder to connect them to non-calendar datasets.
 
 <!--
 http://www.zimbra.com/desktop/help/en_US/Calendar/Exporting_your_iCal_calendar.htm
