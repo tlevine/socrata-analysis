@@ -1,8 +1,10 @@
 ---
 title: Maps, charts and other possibilities
 ---
+My new favorite Socrata visualization is the calendar.
 
 
+## Socrata visualizations
 Socrata is more than a place to dump raw tables, or at least
 it tries to be; you can make various charts and maps, and you
 can serve non-tabular information to some degree. I'm wondering,
