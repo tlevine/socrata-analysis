@@ -12,7 +12,7 @@ There are many ways that a particular dataset could be visualized.
 Socrata has `length(unique(socrata$displayType))` ways.
 Here they are.
 
-```{r display_types}
+```{r display-types}
 socrata$displayType <- factor(socrata$displayType, levels = names(sort(table(socrata$displayType), decreasing = T)))
 ggplot(socrata) + aes(x = displayType) + geom_bar() + coord_flip()
 ```
@@ -24,7 +24,7 @@ The calendar is
 [what it sounds like](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?).
 And people actually use them.
 
-```{r calendar_use}
+```{r calendar-use}
 ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount) + geom_histogram() +
   scale_x_continuous('Hits per calendar', labels = comma) +
   scale_y_continuous('Frequency', labels = comma) +
@@ -33,7 +33,7 @@ ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount)
 
 Let's look at some specific calendars.
 
-```{r calendar_use_2}
+```{r calendar-use-2}
 calendar.use <- subset(socrata, displayType == 'calendar')[c('portal', 'id', 'viewCount')]
 calendar.use[order(calendar.use$viewCount, decreasing = T),][1:5,c('portal', 'id', 'viewCount')]
 ```
@@ -45,7 +45,7 @@ with an RSS feed from the Socrata portal. But I don't know how the calendar on S
 It looks like some other portals are using calendars a lot too,
 but usually with several separate calendars instead of one huge one.
 
-```{r calendar_use_3}
+```{r calendar-use-3}
 ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.calendars" FROM "calendar.use" GROUP BY portal;')) +
   aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
   scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
@@ -80,13 +80,13 @@ it in any number of ways. For a very rough example, we can search Socrata.
 
 Look up all of Oregon's calendars,
 
-```r
+```{r search-1}
 oregon.calendars <- subset(socrata, portal == 'data.oregon.gov' & displayType == 'calendar')
 ```
 
 find out what datasets they visualize,
 
-```r
+```{r search-2}
 barplot(sort(table(oregon.calendars$tableId), decreasing = T),
   horiz = T, las = 1, border = NA, col = 1,
   main = 'Oregon data tables that are visualized by calendars', ylab = '',
@@ -95,12 +95,13 @@ barplot(sort(table(oregon.calendars$tableId), decreasing = T),
 ```
 look up one of the tables.
 
-```r
+```{r search-3}
 table.429573 <- subset(socrata, tableId == 429573)[c('id', 'name', 'displayType')]
 listify(table.429573)
 ```
 
-The calendar was just one of many visualizations of the same dataset.
+And here we have an example of how the calendar is just one of many possible
+visualizations of the same dataset.
 
 ## Analysis of a Socrata calendar
 Socrata's representation of a calendar as a table with easy importing and
@@ -111,7 +112,7 @@ to be desired. So I downloaded the calendars and played with them in R.
 I downloaded Oregon's and Missouri's public meetings calendars and combined
 them into one data frame.
 
-```r
+```{r combine-calendars}
 oregon <- read.csv('http://data.oregon.gov/api/views/gs36-7t8m/rows.csv?accessType=DOWNLOAD', stringsAsFactors = F)
 missouri <- read.csv('http://data.mo.gov/api/views/au6r-w9n3/rows.csv?accessType=DOWNLOAD', stringsAsFactors = F)
 
@@ -131,7 +132,7 @@ Now I can have fun.
 ### Who has more meetings?
 Oregon. Oregon even has one meeting in Washington.
 
-```{r 
+```{r more-meetings}
 ggplot(public.meetings) + aes(x = State) + geom_bar()
 ```
 
@@ -148,7 +149,7 @@ ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar()
 ### Range of meeting durations
 Let's see how long the meetings are.
 
-```{r meeting-length}
+```{r meeting-length-1}
 public.meetings$Start <- strptime(public.meetings$Start, format = '%m/%d/%Y %I:%M:00 %p')
 public.meetings$End <- strptime(public.meetings$End, format = '%m/%d/%Y %I:%M:00 %p')
 public.meetings$Duration <- as.numeric(public.meetings$End - public.meetings$Start) / 3600 # hours
@@ -161,7 +162,7 @@ A bunch of the meetings have end times before their start times. We could take a
 
 But rather than figuring out what's wrong, let's live life on the edge and ignore them.
 
-```{r meeting-length}
+```{r meeting-length-2}
 ggplot(subset(public.meetings, Duration > 0)) + aes(x = Start, y = Duration, color = State) +
   geom_jitter(alpha = 0.2)  + scale_y_log10('Duration (hours)', breaks = 10^(0:3))
 ```
@@ -203,8 +204,14 @@ So the meeting durations seem clustered around these durations.
 7. A month (714.32 hours)
 
 ## Thoughts
+My aimless exploration of Oregon's and Missouri's public meetings isn't
+outrageously interesting, but it demonstrates what is possible when a
+calendar's data is fundamentally open. Along these lines, I have two thoughts.
 
-### Prevent data from becoming closed
+1. Prevent data from becoming closed by opening them at their sources.
+2. Anything could be data, and data could be anything.
+
+### Opening data at their sources
 Typical calendar software can import and export only from other calendar
 software. If Socrata's calendar software were actually good, it would be
 an example of calendar software that integrate with standard data analysis
