@@ -74,17 +74,10 @@ http://www.zimbra.com/desktop/help/en_US/Calendar/Exporting_your_iCal_calendar.h
 http://office.microsoft.com/en-us/outlook-help/transfer-calendars-between-outlook-and-google-calendar-HA010167495.aspx
 -->
 
-### Analyzing Missouri's calendar
-With Socrata, I can download Missouri's calendar as CSV and load it into R,
+### The calendar is just one possible visualization of the same data
+Because calendar data is data just like any other data, you can visualize
+it in any number of ways. For a very rough example, we can search Socrata.
 
-
-meetings <- read.csv('http://data.mo.gov/api/views/au6r-w9n3/rows.csv?accessType=DOWNLOAD', stringsAsFactors = F)
-meetings$Begin.Date.Time <- strptime(meetings$Begin.Date.Time, format = '%m/%d/%Y %I:%M:00 %p')
-
-
-
-### Finding other visualizations of the same data
-You can even find examples of this within Socrata.
 Look up all of Oregon's calendars,
 
 ```r
@@ -100,17 +93,23 @@ barplot(sort(table(oregon.calendars$tableId), decreasing = T),
   xlab = 'Number of calendars visualizing the table'
 )
 ```
-look up one of the tables,
+look up one of the tables.
 
 ```r
 table.429573 <- subset(socrata, tableId == 429573)[c('id', 'name', 'displayType')]
 listify(table.429573)
 ```
 
-and find that the calendar was just one of many visualizations of the same dataset!
+The calendar was just one of many visualizations of the same dataset.
+
+## Analysis of a Socrata calendar
+Socrata's representation of a calendar as a table with easy importing and
+exporting is really cool. But Socrata's data analysis tools are leave much
+to be desired. So I downloaded the calendars and played with them in R.
 
 ### Combining calendars
-I can also combine Oregon's and Missouri's public meetings calendars.
+I downloaded Oregon's and Missouri's public meetings calendars and combined
+them into one data frame.
 
 ```r
 oregon <- read.csv('http://data.oregon.gov/api/views/gs36-7t8m/rows.csv?accessType=DOWNLOAD', stringsAsFactors = F)
@@ -127,11 +126,23 @@ public.meetings <- rbind(oregon.standard, missouri.standard)
 public.meetings$State <- factor(public.meetings$State, levels = c('OR', 'WA', 'MO'))
 ```
 
+Now I can have fun.
+
 ### Who has more meetings?
-Oregon has more meetings.
+Oregon. Oregon even has one meeting in Washington.
 
 ```{r 
 ggplot(public.meetings) + aes(x = State) + geom_bar()
+```
+
+### Day of week
+What days of the week are the meetings usually on?
+
+```{r day-of-week}
+public.meetings$Day <- factor(
+  strftime(public.meetings$Start, '%A'),
+  levels = c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'))
+ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar()
 ```
 
 ### Range of meeting durations
@@ -148,7 +159,7 @@ A bunch of the meetings have end times before their start times. We could take a
 
     subset(public.meetings, Duration < 0)
 
-But rather than figuring out what's wrong, let's just ignore them.
+But rather than figuring out what's wrong, let's live life on the edge and ignore them.
 
 ```{r meeting-length}
 ggplot(subset(public.meetings, Duration > 0)) + aes(x = Start, y = Duration, color = State) +
@@ -162,6 +173,7 @@ subset(public.meetings, Duration > 400)[c('Group', 'Meeting', 'Start', 'End')]
 ```
 
 ### Typical meeting durations
+Those three longest meetings got me thinking:
 Maybe there are clusters of durations. Like maybe they're either an hour or two,
 a day, a week or a month. I didn't look very hard, but seven clusters seems okay.
 
@@ -183,22 +195,12 @@ So the meeting durations seem clustered around these durations.
 <!-- sort(10^clusterings[[7]]$centers) -->
 
 1. An hour (1.03 hours)
-2. Two and a half hours (2.41 hours)
+2. Half a workday (2.41 hours)
 3. A workday (5.89 hours)
 4. Two workdays (32.44 hours)
 5. A work week (119.92 hours)
 6. Two weeks (322.59 hours)
 7. A month (714.32 hours)
-
-### Day of week
-What days of the week do the meetings usually on?
-
-```{r day-of-week}
-public.meetings$Day <- factor(
-  strftime(public.meetings$Start, '%A'),
-  levels = c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'))
-ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar()
-```
 
 ## Thoughts
 
