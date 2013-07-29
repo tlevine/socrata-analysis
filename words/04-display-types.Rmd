@@ -18,10 +18,17 @@ Here they are.
 
 ```{r display-types}
 socrata$displayType <- factor(socrata$displayType, levels = names(sort(table(socrata$displayType), decreasing = T)))
-ggplot(socrata) + aes(x = displayType) + geom_bar() + coord_flip()
+ggplot(socrata) + aes(x = displayType) + geom_bar() + coord_flip() +
+  labs(title = 'Popularity of different visualizations on Socrata data portals') +
+  scale_y_discrete('Type of visualization') +
+  scale_y_discrete('How many are on the portals')
 ```
 
-(A lot of them are empty, and I don't know what's up with that.)
+There are a lot of Socrata [views](/!/socrata-genealogies#term-view) that don't
+have display types listed. I don't know what's up with that.
+
+I looked through the different visualization types and became quite interested
+in calendars.
 
 ## People actually use calendars
 The calendar is
@@ -80,15 +87,14 @@ http://office.microsoft.com/en-us/outlook-help/transfer-calendars-between-outloo
 
 ### The calendar is just one possible visualization of the same data
 Because calendar data is data just like any other data, you can visualize
-it in any number of ways. For a very rough example, we can search Socrata.
-
-Look up all of Oregon's calendars,
+it in any number of ways. For a very rough example, we search Socrata for
+Oregon's calendars,
 
 ```{r search-1}
 oregon.calendars <- subset(socrata, portal == 'data.oregon.gov' & displayType == 'calendar')
 ```
 
-find out what datasets they visualize,
+we find out what datasets they visualize,
 
 ```{r search-2}
 barplot(sort(table(oregon.calendars$tableId), decreasing = T),
@@ -97,7 +103,7 @@ barplot(sort(table(oregon.calendars$tableId), decreasing = T),
   xlab = 'Number of calendars visualizing the table'
 )
 ```
-look up one of the tables.
+and we look up one of the tables.
 
 ```{r search-3}
 table.429573 <- subset(socrata, tableId == 429573)[c('id', 'name', 'displayType')]
@@ -136,10 +142,12 @@ public.meetings$End <- strptime(public.meetings$End, format = '%m/%d/%Y %I:%M:00
 Now I can have fun.
 
 ### Who has more meetings?
-Oregon. Oregon even has one meeting in Washington.
+Oregon. Oregon even has one meeting in Washington!
 
 ```{r more-meetings}
-ggplot(public.meetings) + aes(x = State) + geom_bar()
+ggplot(public.meetings) + aes(x = State) + geom_bar() +
+  scale_y_continuous('Number of meetings') +
+  ggtitle('Oregon has a lot of meetings.')
 ```
 
 ### Day of week
@@ -161,7 +169,8 @@ Let's clean up the dates so we can look at when meetings happen and how long the
 
 ```{r meeting-length-1}
 public.meetings$Duration <- as.numeric(public.meetings$End - public.meetings$Start) / 3600 # hours
-ggplot(public.meetings) + aes(x = Start, y = Duration, color = State) + geom_jitter(alpha = 0.2)
+ggplot(public.meetings) + aes(x = Start, y = Duration, color = State) + geom_jitter(alpha = 0.2) +
+  scale_x_date('Start date') + ggtitle('Meeting dates and durations')
 ```
 
 (About a third of the meetings don't have end times, and those aren't displayed on the plot.)
@@ -174,7 +183,8 @@ But rather than figuring out what's wrong, let's live life on the edge and just 
 
 ```{r meeting-length-2}
 ggplot(subset(public.meetings, Duration > 0)) + aes(x = Start, y = Duration, color = State) +
-  geom_jitter(alpha = 0.2)  + scale_y_log10('Duration (hours)', breaks = 10^(0:3))
+  geom_jitter(alpha = 0.2)  + scale_y_log10('Duration (hours)', breaks = 10^(0:3)) +
+  scale_x_date('Start date') + ggtitle('Meeting dates and durations')
 ```
 
 A meeting has already been planned for 2020!
