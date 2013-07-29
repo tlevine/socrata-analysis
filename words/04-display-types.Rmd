@@ -1,5 +1,6 @@
 ---
 title: Open Calendars
+tweet_text: Oregon's open calendar is a 3436-row spreadsheet. #opendata
 ---
 My new favorite Socrata visualization is the calendar.
 
