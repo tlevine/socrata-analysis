@@ -51,7 +51,7 @@ listify <- function(datasets, show.downloadCount = T) {
     paste(
       '* `', datasets$portal, '`: [', datasets$name, ']',
       '(https://', datasets$portal, '/-/-/', datasets$id, ')',
-      ifelse(rep(show.downloadCount, nrow(datasets)), ' (', datasets$downloadCount, ' downloads)', ''),
+      ifelse(rep(show.downloadCount, nrow(datasets)), paste0(' (', datasets$downloadCount, ' downloads)'), ''),
       sep = ''
     ),
     collapse = '\n'
