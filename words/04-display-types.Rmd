@@ -245,16 +245,16 @@ concern is that people don't think of calendars and other "apps" as data.
 
 To me, anything could be turned into data, and data could be turned into
 anything. For example, treasury cash flows that start
-out as [nonstandard text files]() can be
+out as [nonstandard text files](https://www.fms.treas.gov/dts) can be
 turned into [tabular data](http://treasury.io) and then
 [music](http://fms.csvsoundsystem.com).
 Turns of a turnstile can recorded, stored in a
 [really strange format](http://www.mta.info/developers/turnstile.html),
-[parsed into a nicer format]()
+[parsed into a nicer format](https://github.com/ajschumacher/datathon)
 and turned into [music](/!/ridership-rachenitsa).
 And we could collect some information about a bunch of parking lots,
-put it in a [data table]() and turn that into
-[food]().
+put it in a [data table](https://data.sfgov.org/Transportation/Off-Street-parking-lots-and-parking-garages/uupn-yfaw?)
+and turn that into [cookies](https://twitter.com/internetrebecca/status/352955293291913217).
 
 Much of our statistical
 knowledge is based around a concept of a table, with columns as
@@ -268,7 +268,6 @@ data by combining datasets, building models, &c. And then we can convert
 data back into real-world representations, like charts, apps, music and food.
 
 But a lot of people don't realize this. I see this concept is a major part of
-what I'll call "data literacy". That is, this is one fundamental thing
-that [data scientists]() bizarrely understand. I propose that a lack of
-understanding of this concept contributes to the siloing of data; teaching
-this concept is an important part of the advance of open data.
+what I'll call "data literacy". I propose that a lack of understanding of this
+concept contributes to the siloing of data and that teaching this concept is
+an important part of the advance of open data.
