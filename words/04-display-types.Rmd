@@ -13,7 +13,7 @@ it tries to be; you can make various charts and maps, and you
 can serve non-tabular information to some degree.
 
 There are many ways that a particular dataset could be visualized.
-Socrata has `length(unique(socrata$displayType))` ways.
+Socrata has `r length(unique(socrata$displayType))` ways.
 Here they are.
 
 ```{r display-types}
