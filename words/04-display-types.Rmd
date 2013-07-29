@@ -2,6 +2,9 @@
 title: Open Calendars
 tweet_text: Oregon's open calendar is a 3436-row spreadsheet. #opendata
 ---
+```{r configure, echo = F}
+opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 5)
+```
 My new favorite Socrata visualization is the calendar.
 
 ## Socrata visualization types
@@ -140,17 +143,21 @@ ggplot(public.meetings) + aes(x = State) + geom_bar()
 ```
 
 ### Day of week
-What days of the week are the meetings usually on?
+Meetings are usually in the middle of the week.
 
 ```{r day-of-week}
 public.meetings$Day <- factor(
   strftime(public.meetings$Start, format = '%A'),
   levels = c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'))
-ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar()
+ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar() +
+  labs(title = 'What days of the week are the meetings usually on?') +
+  scale_y_continuous('Number of meetings')
 ```
 
-### Range of meeting durations
-Let's see how long the meetings are.
+(More precisely, most meetings start in the middle of the week and last less than a day.)
+
+### Date cleaning
+Let's clean up the dates so we can look at when meetings happen and how long they are.
 
 ```{r meeting-length-1}
 public.meetings$Duration <- as.numeric(public.meetings$End - public.meetings$Start) / 3600 # hours
@@ -170,13 +177,22 @@ ggplot(subset(public.meetings, Duration > 0)) + aes(x = Start, y = Duration, col
   geom_jitter(alpha = 0.2)  + scale_y_log10('Duration (hours)', breaks = 10^(0:3))
 ```
 
+A meeting has already been planned for 2020!
+
+```{r meeting-2020}
+subset(public.meetings, Start > as.POSIXlt(as.Date('2015-01-01')))
+```
+
+(I think that's an accident.)
+
+### Meeting durations
+
 Some of these meetings are pretty long. The three longest are each a month long.
 
 ```{r longest}
 subset(public.meetings, Duration > 400)[c('Group', 'Meeting', 'Start', 'End')]
 ```
 
-### Typical meeting durations
 Those three longest meetings got me thinking:
 Maybe there are clusters of durations. Like maybe they're either an hour or two,
 a day, a week or a month. I didn't look very hard, but seven clusters seems okay.
@@ -191,7 +207,10 @@ for (n in 1:10) {
 }
 
 ggplot(public.meetings.clean) + aes(color = cluster7, x = 1, y = Duration) + geom_jitter(alpha = 0.2) +
-  scale_y_log10() + scale_x_continuous("", breaks = c()) 
+  scale_y_log10('Duration (hours)', breaks = 10^(0:3)) +
+  scale_x_continuous("", breaks = c()) +
+  scale_color_discrete('Cluster') +
+  labs(title = 'Clusters of public meeting durations')
 ```
 
 So the meeting durations seem clustered around these durations.
