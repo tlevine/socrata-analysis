@@ -19,9 +19,9 @@ Here they are.
 ```{r display-types}
 socrata$displayType <- factor(socrata$displayType, levels = names(sort(table(socrata$displayType), decreasing = T)))
 ggplot(socrata) + aes(x = displayType) + geom_bar() + coord_flip() +
-  labs(title = 'Popularity of different visualizations on Socrata data portals') +
-  scale_y_discrete('Type of visualization') +
-  scale_y_discrete('How many are on the portals')
+  ggtitle('Popularity of different visualizations on Socrata data portals') +
+  scale_x_discrete('Type of visualization') +
+  scale_y_continuous('How many are on the portals')
 ```
 
 There are a lot of Socrata [views](/!/socrata-genealogies#term-view) that don't
