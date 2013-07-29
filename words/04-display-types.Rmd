@@ -126,6 +126,8 @@ missouri.standard$State <- 'MO'
 names(oregon.standard) <- names(missouri.standard) <- c('Group', 'Meeting', 'Start', 'End', 'Street', 'City', 'State')
 public.meetings <- rbind(oregon.standard, missouri.standard)
 public.meetings$State <- factor(public.meetings$State, levels = c('OR', 'WA', 'MO'))
+public.meetings$Start <- strptime(public.meetings$Start, format = '%m/%d/%Y %I:%M:00 %p')
+public.meetings$End <- strptime(public.meetings$End, format = '%m/%d/%Y %I:%M:00 %p')
 ```
 
 Now I can have fun.
@@ -142,7 +144,7 @@ What days of the week are the meetings usually on?
 
 ```{r day-of-week}
 public.meetings$Day <- factor(
-  strftime(public.meetings$Start, '%A'),
+  strftime(public.meetings$Start, format = '%A'),
   levels = c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'))
 ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar()
 ```
@@ -151,17 +153,17 @@ ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar()
 Let's see how long the meetings are.
 
 ```{r meeting-length-1}
-public.meetings$Start <- strptime(public.meetings$Start, format = '%m/%d/%Y %I:%M:00 %p')
-public.meetings$End <- strptime(public.meetings$End, format = '%m/%d/%Y %I:%M:00 %p')
 public.meetings$Duration <- as.numeric(public.meetings$End - public.meetings$Start) / 3600 # hours
 ggplot(public.meetings) + aes(x = Start, y = Duration, color = State) + geom_jitter(alpha = 0.2)
 ```
+
+(About a third of the meetings don't have end times, and those aren't displayed on the plot.)
 
 A bunch of the meetings have end times before their start times. We could take a look at them like so.
 
     subset(public.meetings, Duration < 0)
 
-But rather than figuring out what's wrong, let's live life on the edge and ignore them.
+But rather than figuring out what's wrong, let's live life on the edge and just ignore them.
 
 ```{r meeting-length-2}
 ggplot(subset(public.meetings, Duration > 0)) + aes(x = Start, y = Duration, color = State) +
