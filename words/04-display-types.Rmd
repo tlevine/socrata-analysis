@@ -117,8 +117,11 @@ oregon <- read.csv('http://data.oregon.gov/api/views/gs36-7t8m/rows.csv?accessTy
 missouri <- read.csv('http://data.mo.gov/api/views/au6r-w9n3/rows.csv?accessType=DOWNLOAD', stringsAsFactors = F)
 
 oregon.standard   <-   oregon[c('Agency..Board..Commission..Branch', 'Meeting.Title', 'Start.Date...Time', 'End.Date...Time', 'Meeting.Location', 'City', 'State')]
+oregon.standard$State[oregon.standard$State == ''] <- 'OR'
+
 missouri.standard <- missouri[c('Meeting.Body.Name', 'Committee', 'Begin.Date.Time', 'End.Date.Time', 'Address', 'City', 'State')]
-missouri$State <- 'MO'
+missouri.standard$State <- 'MO'
+
 names(oregon.standard) <- names(missouri.standard) <- c('Group', 'Meeting', 'Start', 'End', 'Street', 'City', 'State')
 public.meetings <- rbind(oregon.standard, missouri.standard)
 public.meetings$State <- factor(public.meetings$State, levels = c('OR', 'WA', 'MO'))
@@ -138,7 +141,7 @@ Let's see how long the meetings are.
 public.meetings$Start <- strptime(public.meetings$Start, format = '%m/%d/%Y %I:%M:00 %p')
 public.meetings$End <- strptime(public.meetings$End, format = '%m/%d/%Y %I:%M:00 %p')
 public.meetings$Duration <- as.numeric(public.meetings$End - public.meetings$Start) / 3600 # hours
-ggplot(public.meetings) + aes(x = Start, y = Duration, color = State) + geom_point(alpha = 0.2)
+ggplot(public.meetings) + aes(x = Start, y = Duration, color = State) + geom_jitter(alpha = 0.2)
 ```
 
 A bunch of the meetings have end times before their start times. We could take a look at them like so.
@@ -149,7 +152,7 @@ But rather than figuring out what's wrong, let's just ignore them.
 
 ```{r meeting-length}
 ggplot(subset(public.meetings, Duration > 0)) + aes(x = Start, y = Duration, color = State) +
-  geom_point(alpha = 0.2)  + scale_y_log10('Duration (hours)', breaks = 10^(0:3))
+  geom_jitter(alpha = 0.2)  + scale_y_log10('Duration (hours)', breaks = 10^(0:3))
 ```
 
 Some of these meetings are pretty long. The three longest are each a month long.
@@ -158,11 +161,45 @@ Some of these meetings are pretty long. The three longest are each a month long.
 subset(public.meetings, Duration > 400)[c('Group', 'Meeting', 'Start', 'End')]
 ```
 
+Maybe there are clusters of durations. Like maybe they're either an hour or two,
+a day, a week or a month. I didn't look very hard, but seven clusters seems okay.
+
+```{r clusters}
+public.meetings.clean <- subset(public.meetings, !is.na(Duration) & Duration > 0)
+clusterings <- list()
+for (n in 1:10) {
+  clustering <- kmeans(log10(public.meetings.clean$Duration), n)
+  clusterings[[n]] <- clustering
+  public.meetings.clean[paste0('cluster',n)] <- factor(clustering$cluster)
+}
+
+ggplot(public.meetings.clean) + aes(color = cluster7, x = 1, y = Duration) + geom_jitter(alpha = 0.2) +
+  scale_y_log10() + scale_x_continuous("", breaks = c()) 
+```
+
+So the meeting durations seem clustered around these durations.
+(The paranthetical duration is the mean duration for the cluster.)
+<!-- sort(10^clusterings[[7]]$centers) -->
+
+1. An hour (1.03 hours)
+2. Two and a half hours (2.41 hours)
+3. A workday (5.89 hours)
+4. Two workdays (32.44 hours)
+5. A work week (119.92 hours)
+6. Two weeks (322.59 hours)
+7. A month (714.32 hours)
+
+
+
 ### Day of week
 What days of the week do they start usually on?
 
-strftime(public.meetings$Start, '%A')
-
+```{r day-of-week}
+public.meetings$Day <- factor(
+  strftime(public.meetings$Start, '%A'),
+  levels = c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'))
+ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar()
+```
 
 holidays <- as.Date(c(
 	'2005-01-17', '2005-02-21', '2005-05-30', '2005-07-04', '2005-09-05', '2005-10-10', '2005-11-11', '2005-11-24', '2005-12-26',
