@@ -27,13 +27,13 @@ ggplot(socrata) + aes(x = displayType) + geom_bar() + coord_flip() +
 There are a lot of Socrata [views](/!/socrata-genealogies#term-view) that don't
 have display types listed. I don't know what's up with that.
 
-I looked through the different visualization types and became quite interested
+Anyway, I looked through the different visualization types and became quite interested
 in calendars.
 
 ## People actually use calendars
 The calendar is
 [what it sounds like](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?).
-And people actually use them.
+Some of them are reasonably popular.
 
 ```{r calendar-use}
 ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount) + geom_histogram() +
@@ -60,10 +60,9 @@ but usually with several separate calendars instead of one huge one.
 ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.calendars" FROM "calendar.use" GROUP BY portal;')) +
   aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
   scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
-  scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6))
+  scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6)) +
+  ggtitle('How much do different portals use calendars?')
 ```
-
-(Like [Oregon](https://data.oregon.gov/browse?limitTo=calendars))
 
 ## The cool thing about Socrata calendars
 The cool thing about Socrata calendars is that you can download them
@@ -142,7 +141,8 @@ public.meetings$End <- strptime(public.meetings$End, format = '%m/%d/%Y %I:%M:00
 Now I can have fun.
 
 ### Who has more meetings?
-Oregon. Oregon even has one meeting in Washington!
+Oregon has `r nrow(oregon)` meetings.
+Oregon even has one meeting in Washington!
 
 ```{r more-meetings}
 ggplot(public.meetings) + aes(x = State) + geom_bar() +
@@ -162,7 +162,8 @@ ggplot(public.meetings) + aes(x = Day, fill = State) + geom_bar() +
   scale_y_continuous('Number of meetings')
 ```
 
-(More precisely, most meetings start in the middle of the week and last less than a day.)
+More precisely, most meetings start in the middle of the week, and
+you'll see later that most meetings last less than a day.
 
 ### Date cleaning
 Let's clean up the dates so we can look at when meetings happen and how long they are.
