@@ -266,7 +266,7 @@ scheduling, emailing, &c. The written documents themselves tell us quite a
 bit, but so do simple things like the dates at which we were editing the
 documents, the people we sent them to and just the number of documents we have.
 You might not have realized it about it, but all of our software could export
-this sort of information to standard tabular formats (for some concept of tabular).
+this sort of information to standard tabular formats.
 If we want to embrace open data fully, we should be using programs that make data
 open at their sources.
 
