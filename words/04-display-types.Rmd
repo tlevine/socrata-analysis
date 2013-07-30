@@ -171,7 +171,7 @@ Let's clean up the dates so we can look at when meetings happen and how long the
 ```{r meeting-length-1}
 public.meetings$Duration <- as.numeric(public.meetings$End - public.meetings$Start) / 3600 # hours
 ggplot(public.meetings) + aes(x = Start, y = Duration, color = State) + geom_jitter(alpha = 0.2) +
-  scale_x_date('Start date') + ggtitle('Meeting dates and durations')
+  xlab('Start date') + ggtitle('Meeting dates and durations')
 ```
 
 (About a third of the meetings don't have end times, and those aren't displayed on the plot.)
@@ -185,7 +185,7 @@ But rather than figuring out what's wrong, let's live life on the edge and just 
 ```{r meeting-length-2}
 ggplot(subset(public.meetings, Duration > 0)) + aes(x = Start, y = Duration, color = State) +
   geom_jitter(alpha = 0.2)  + scale_y_log10('Duration (hours)', breaks = 10^(0:3)) +
-  scale_x_date('Start date') + ggtitle('Meeting dates and durations')
+  xlab('Start date') + ggtitle('Meeting dates and durations')
 ```
 
 A meeting has already been planned for 2020!
