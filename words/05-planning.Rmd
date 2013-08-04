@@ -1,0 +1,8 @@
+I didn't find a list of manually tagged dataset topics,
+but it did occur to me that the attribution field is
+something like a topic. I decided to predict whether a
+dataset was released by a planning department.
+
+attr <- sort(table(socrata$attribution), decreasing = T)
+attr[grepl('lanning', names(attr)) & attr > 1]
+
