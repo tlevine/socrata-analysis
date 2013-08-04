@@ -249,6 +249,6 @@ def users():
     dt.insert(_users.values(), 'user')
     for uid, user in _users.items():
         for viewid, publicationDate in user['publicationDates']:
-            dt.insert({'userid': user['id'], 'viewid': viewid, 'publicationDate': publicationDate}, 'creations', commit = False)
+            dt.insert({'userid': user['id'], 'viewid': viewid, 'publicationDate': publicationDate}, 'publications', commit = False)
     dt.commit()
     return _users
