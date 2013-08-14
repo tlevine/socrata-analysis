@@ -1,7 +1,8 @@
-Some portals expose an analytics page
+Some portals expose an analytics page.
+It turns out its data come from a reasonably straightforward JSON API.
 Let's see what we can get from that.
 
-## AJAX requests on the analytics page
+## AJAX requests on the analytics page (Don't put this in the blog post.)
 [This page](https://data.oregon.gov/analytics) makes a bunch
 of AJAX requests, including
 
