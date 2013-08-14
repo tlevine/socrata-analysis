@@ -42,6 +42,9 @@ This endpoint exposes three methods.
 * no method.
 
 ### Site-wide statistics (no method)
+
+    GET /api/site_metrics.json
+
 If you specify no method argument, you'll get some statistics
 about the entire portal, such as the total number of datasets
 created since the beginning of time (`datasets-created-total`),
@@ -96,5 +99,43 @@ range (`rows-accessed-api`).
     }
 
 ### Site-wide statistics by time interval (`series`)
+
+    GET /api/site_metrics.json?method=series
+
+If you want to get site-wide statistics by day, you could
+use no method (above) and vary the start and end dates.
+The series method lets you do something equivalent in one
+HTTP request.
+
+This method requires an additional parameter, `slice`.
+Valid values include
+
+* `DAILY`
+* `WEEKLY`
+* `MONTHLY`
+* `YEARLY`
+
+The result is a list of associative arrays, each one
+corresponding to a time interval and containing the same
+metrics that we would see with no method.
+
+    curl 'https://data.oregon.gov/api/site_metrics.json?start=1375315200000&end=1376438399999&method=series&slice=WEEKLY'
+    [ {
+      "__start__" : 1374969600000,
+      "metrics" : {
+        ...
+      },
+      "__end__" : 1375574399999
+    }, {
+      "__start__" : 1375574400000,
+      "metrics" : {
+        ...
+      },
+      "__end__" : 1376179199999
+    }, {
+      ...
+    } ]
+
+
 
 ### Most popular (`top`)
