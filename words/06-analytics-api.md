@@ -41,9 +41,60 @@ This endpoint exposes three methods.
 * `series`
 * no method.
 
+### Site-wide statistics (no method)
+If you specify no method argument, you'll get some statistics
+about the entire portal, such as the total number of datasets
+created since the beginning of time (`datasets-created-total`),
+the number of datasets created within the date range specified
+by `start` and `end` (`datasets-created`), and the number of
+rows of data that were accessed via the API within the date
+range (`rows-accessed-api`).
+
+    curl https://data.oregon.gov/api/site_metrics.json?start=1375315200000&end=1376438399999
+    {
+      "datasets-created-total" : 5623,
+      "datasets-deleted-total" : 4801,
+      "datasets-created-blobby-total" : 113,
+      "datasets-deleted-blobby-total" : 4,
+      "datasets-created-href-total" : 13,
+      "datasets-deleted-href-total" : 10,
+      "rows-created-total" : 40757082,
+      "rows-deleted-total" : 25546425,
+      "page-views-total" : 2599228,
+      "embeds-total" : 489504,
+      "embeds" : 12094,
+      "maps-created" : 99,
+      "bytes-out" : 112213178897,
+      "page-views" : 74530,
+      "rows-loaded-api" : 20272,
+      "rows-accessed-website" : 59636,
+      "rows-loaded-download" : 8771634,
+      "rows-accessed-api" : 611,
+      "rows-loaded-website" : 778954,
+      "rows-deleted" : 628998,
+      "rows-accessed-rss" : 610,
+      "maps-deleted" : 99,
+      "filters-created" : 4995,
+      "rows-loaded-widget" : 1347648,
+      "rows-accessed-widget" : 67687,
+      "geocoding-requests" : 10009,
+      "users-created" : 645,
+      "datasets-created" : 147,
+      "js-page-view" : 68095,
+      "datasets-deleted" : 122,
+      "rows-accessed-download" : 379,
+      "view-loaded" : 16599,
+      "app-token-created" : 1,
+      "charts-deleted" : 17,
+      "shares" : 1,
+      "rows-loaded-rss" : 26698,
+      "bytes-in" : 658003507,
+      "filters-deleted" : 4985,
+      "charts-created" : 16,
+      "rows-created" : 1040389,
+      "comments" : 2
+    }
+
+### Site-wide statistics by time interval (`series`)
+
 ### Most popular (`top`)
-
-### Site-wide statistics
-
-### Site-wide statistics by time interval
-
