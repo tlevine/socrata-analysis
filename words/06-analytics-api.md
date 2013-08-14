@@ -1,6 +1,7 @@
 Some portals expose an analytics page
 Let's see what we can get from that.
 
+## AJAX requests on the analytics page
 [This page](https://data.oregon.gov/analytics) makes a bunch
 of AJAX requests, including
 
@@ -10,3 +11,9 @@ of AJAX requests, including
     https://data.oregon.gov/api/site_metrics.json?start=1375315200000&end=1376438399999&method=top&top=REFERRERS&_=1376438538397
     https://data.oregon.gov/api/site_metrics.json?start=1375315200000&end=1376438399999&method=top&top=SEARCHES&_=1376438538402
     https://data.oregon.gov/api/site_metrics.json?start=1375315200000&end=1376438399999&method=top&top=EMBEDS&_=1376438538409
+
+There's also a mechanism for batch requests. Some of the above methods
+return 4x4 ids, and the page seems to use the batch endpoint to get the
+metadata for multiple datasets in one request.
+
+    https://data.oregon.gov/api/batches
