@@ -136,6 +136,46 @@ metrics that we would see with no method.
       ...
     } ]
 
-
-
 ### Most popular (`top`)
+
+    GET /api/site_metrics.json?method=top
+
+Return the most common entities of a particular type.
+You specify the entity type with the required argument `top`;
+it can be any of the following.
+
+* `DATASETS`
+* `REFERRERS`
+* `SEARCHES`
+* `EMBEDS`
+
+The output is always an associative array, but the schema
+depends on the type of entity.
+
+#### Top datasets
+
+    GET /api/site_metrics.json?method=top&top=DATASETS
+
+This returns a mapping from 4x4 ids to some sort of count.
+I presume that it's a view count, but it might be something
+else, like a download count.
+
+#### Top Referrers
+
+    GET /api/site_metrics.json?method=top&top=REFERRERS
+
+#### Top Searches
+
+    GET /api/site_metrics.json?method=top&top=SEARCHES
+
+Searches are separated into dataset searches and user searches.
+Within each, a mapping from search terms to counts is returned.
+
+#### Top Embeds
+
+    GET /api/site_metrics.json?method=top&top=EMBEDS
+
+This also returns counts of some sort. The root associative array
+maps an origin (like `http://thomaslevine.com`) to an associative
+array, and that child associative array maps the rest of the url
+(like `<%= @item.identifier %>?foo=bar`) to a count.
