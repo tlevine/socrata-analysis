@@ -1,0 +1,71 @@
+
+
+What are all of these types? Here are some examples.
+
+With so many types, I'm surprised that map and chart are pretty much the only ones that get used.
+I can see why few people would make APIs, but you'd think people would want to try making pie charts
+instead of the normal "chart".
+
+In hipster fashion, I think that maps and charts are overused, so
+I'm going to look at the cool ones that nobody has heard about.
+
+### Intensity map
+There is only one [intensitymap](https://opendata.socrata.com/dataset/Statewise-Prison-Population/dud8-q2qd?)
+among all of the views on all of the Socrata portals. I have no idea what it is, nor how to create one.
+I tried making a [heat map](https://opendata.socrata.com/Government/Tom-made-a-heat-map/h4cx-3gq9), but that
+gets the type "map" rather than "intensitymap". I guess they don't make these anymore.
+
+### Various charts
+The "*chart" types all seem to be real things.
+Here's a [piechart](https://opendata.socrata.com/dataset/By-County-Chart/66gq-2hse?).
+Look at my [area chart](https://opendata.socrata.com/dataset/Tom-makes-an-area-chart-/45sn-pggi)!
+I'm sure you can guess what the rest look like.
+
+One funny thing: I can't tell the difference between an
+[imagesparkline](https://opendata.socrata.com/Business/growth-chart-2/kefb-jf8u?)
+and a [linechart](https://opendata.socrata.com/dataset/Num-employees-by-sector-trend-chart/zwsx-hn97?).
+
+### Page
+A [page](https://explore.data.gov/dataset/OlaSW_WH/4yyz-msx7?)
+lets you look at one record at a time. People actually use this!
+Especially in Oregon.
+
+```{r page_portal}
+ggplot(subset(socrata, displayType == 'page')) + aes(x = portal) + geom_bar() + coord_flip()
+```
+
+Who's dwiese?
+
+```{r page_owner}
+ggplot(subset(socrata.distinct, displayType == 'page')) + aes(x = owner_displayName) + geom_bar() + coord_flip()
+```
+
+It seems that he made a few pages on explore.data.gov that were federated.
+
+    subset(socrata, displayType == 'page' & owner.displayName == 'dwiese')[c('portal', 'id')]
+
+Like [this one](https://explore.data.gov/dataset/OlaSW_WH/4yyz-msx7?)
+
+I'm still totally confused; I don't see why you would ever want one of these.
+Maybe it would be useful if you could get a URL for a particular page, but you
+can't even do that. Do people really use these?
+
+```{r page_use}
+ggplot(subset(socrata.distinct, displayType == 'page')) + aes(x = viewCount) + geom_histogram() +
+  scale_x_continuous('Hits per "page" (paginated dataset view type)') +
+  scale_y_continuous('Frequency', breaks = seq(0, 12, 4)) +
+  ggtitle("People don't really look at data in the \"page\" view.")
+```
+
+No, not really. Though that was more than I'd expected.
+
+### Fat row
+A [fatrow](https://electionsdata.kingcounty.gov/dataset/Attorney-General-table-General-Election-2012/2y5z-ffa8?)
+is something between a table and a page.
+
+### API
+Here's an [api](https://data.energystar.gov/Government/ENERGY-STAR-Certified-Geothermal-Heatpumps/2f83-p388?).
+I think it's an API built with the [API foundry](http://www.socrata.com/api-foundry/).
+It comes with automatic [documentation](https://data.energystar.gov/developers/docs/energy-star-certified-geothermal-heatpumps).
+
+
