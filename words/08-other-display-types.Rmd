@@ -1,3 +1,4 @@
+Look at number 1: http://sunlightfoundation.com/opendataguidelines/
 
 ## Hip display types
 Let's focus on the things that are neither tables nor external links.
