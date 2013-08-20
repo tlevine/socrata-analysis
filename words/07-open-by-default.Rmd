@@ -25,10 +25,11 @@ not.boring$displayType <- factor(not.boring$displayType, levels = names(sort(tab
 ggplot(not.boring) + aes(x = displayType) + geom_bar() + coord_flip()
 ```
 
-## Surprising display types
 I was somewhat surprised to see forms and calendars in the portals.
+I've [previously](/!/open-calendars) written about why I think Socrata calendars are cool,
+so now I'm just going to talk about forms.
 
-### Form
+## Forms
 Much of the goal of these portals is to open up existing government data, but
 [forms](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?) provide a way for citizens to create data.
 lets you enter data. A bunch of people have implemented them, but none seems to get accessed much.
@@ -48,6 +49,7 @@ ggplot(forms) +
   scale_y_continuous('Total hits across all forms', labels = comma)
 ```
 
+### Feedback
 I hadn't seen [nmfs.socrata.com](https://nmfs.socrata.com) before.
 It belongs to the [National Oceanic and Atmospheric Administration Fisheries Service](http://www.nmfs.noaa.gov),
 which apparently used [a Socrata form](https://nmfs.socrata.com/Government/2011-Aquaculture-Public-Comments-Form/u5id-8nqp) to power a
@@ -55,46 +57,34 @@ which apparently used [a Socrata form](https://nmfs.socrata.com/Government/2011-
 
 New York made a form for [feedback on the portal](https://data.ny.gov/dataset/Give-Feedback/fq3e-q75i?).
 
+### Calendar
 World Bank Open Finances made a
 [form](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar-Entry-Form/qdbh-rfd3?)
 that populates an
 [open data events calendar](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar/g4sx-dwxc).
 
+## Relevance to software
+I see data portal software as sending data from publisher silos to an open, magical website.
+How about about prevending data from being siloed in the first place? I previously
+[hinted](http://thomaslevine.com/!/socrata-calendars#opening-data-at-their-sources) at this,
+but now I have some clear ideas.
 
-### Calendar
-The [calendar](https://data.oregon.gov/dataset/Public-Meetings-3-Month-View-/4775-yg3b?)
-is what it sounds like. I'm quite excited that Socrata presents calendars as data.
-To me, anything could be turned into data, and data could be turned into
-[anything](http://csvsoundsystem.com). But a lot of people don't realize this,
-and I see calendars as one of those things that people don't see as data.
+The three examples of Socrata forms show us how we can turn user input on a website into
+open data automatically. Using a Socrata form to compose a dataset is quite inconvenient,
+unreliable, limited, and other bad things, but we can apply this concept with other software.
 
-I'm also excited about Socrata calendars because people use them. A lot.
+### Imports to data portals
+A major part of data portal software and data analysis software is the integrations
+with data standard data sources, like relational databases, Google Analytics, &c.
 
-```{r calendar_use}
-ggplot(subset(socrata.distinct, displayType == 'calendar')) + aes(x = viewCount) + geom_histogram() +
-  scale_x_continuous('Hits per calendar', labels = comma) +
-  scale_y_continuous('Frequency', labels = comma) +
-  ggtitle("Someone likes her calendar.")
-```
+If you have a website that stores information in a standard database and you separate
+the private information from the public information, it shouldn't be too hard to send
+it to an open data portal. At worst, you'll need to think a little bit about performance
+and about denormalizing the data.
 
-```{r calendar_use_2}
-calendar.use <- subset(socrata, displayType == 'calendar')[c('portal', 'id', 'viewCount')]
-calendar.use[order(calendar.use$viewCount, decreasing = T),][1:5,c('portal', 'id', 'viewCount')]
-```
+It's great if you build a special API too, but the API is likely to have a less standard
+format and query language that than a simple database dump.
 
-Check out Missouri's [open meetings calendar](https://data.mo.gov/Government-Administration/Open-Meetings-Calendar/mahp-izvx?).
-They also have a different view of the calendar [outside the portal](http://www.mo.gov/meetings/),
-with an RSS feed from the Socrata portal. But I don't know how the calendar on Socrata got so many views.
-
-It looks like some other portals are using calendars a lot too,
-but usually with several separate calendars instead of one huge one.
-
-```{r calendar_use_3}
-ggplot(sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.calendars" FROM "calendar.use" GROUP BY portal;')) +
-  aes(x = number.of.calendars, y = total.view.count, label = portal) + geom_text() +
-  scale_x_log10('Number of calendars in the portal', breaks = c(1,5,25)) +
-  scale_y_log10('Total hits across all calendars', labels = comma, breaks = 10^(2:6))
-```
-
-Check out [Oregon's calendars](https://data.oregon.gov/browse?limitTo=calendars).
+### Other standard formats
+Loads of people use the same 
 
