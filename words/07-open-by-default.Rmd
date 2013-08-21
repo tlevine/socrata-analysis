@@ -1,3 +1,8 @@
+---
+title: Open by default
+description: How can software encourage that its data be open by default?
+tweet_text: A discovery on a @socrata data portal got me thinking about how software can encourage data to be open by default.
+---
 ```{r configure, echo = F}
 opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 5)
 ```
@@ -111,7 +116,7 @@ of data, just like when you fill out a form on an open data portal.
 If you have purchased a software service, you might not have access to the
 underlying database, but you can still send it to a data portal.
 
-When a lot of people use services like these, the services' protocals naturally
+When a lot of people use services like these, the services' protocols naturally
 become standard, so it becomes worthwhile to write tools that pull data from these
 services into some standard place like a data portal. Using a standard service
 with lots of users and integrations should make it easier for you to get the data
