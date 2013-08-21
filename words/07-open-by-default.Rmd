@@ -1,3 +1,6 @@
+```{r configure, echo = F}
+opts_chunk$set(fig.width=10, fig.height=5, dpi = 42 * 5)
+```
 The first of Sunlight Foundation's 32
 [Open Data Policy Guidelines](http://sunlightfoundation.com/opendataguidelines/)
 is to "Set The Default To Open".
@@ -30,7 +33,7 @@ I was somewhat surprised to see forms and calendars in the portals.
 I've [previously](/!/open-calendars) written about why I think Socrata calendars are cool,
 so now I'm just going to talk about forms.
 
-### Forms
+### Popularity of forms
 Much of the goal of these portals is to open up existing government data, but
 [forms](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?) provide a way for citizens to create data.
 lets you enter data. A bunch of people have implemented them, but none seems to get accessed much.
@@ -52,7 +55,7 @@ ggplot(forms) +
   scale_y_continuous('Total hits across all forms', labels = comma)
 ```
 
-### Feedback
+### Cool Forms
 I hadn't seen [nmfs.socrata.com](https://nmfs.socrata.com) before.
 It belongs to the [National Oceanic and Atmospheric Administration Fisheries Service](http://www.nmfs.noaa.gov),
 which apparently used [a Socrata form](https://nmfs.socrata.com/Government/2011-Aquaculture-Public-Comments-Form/u5id-8nqp) to power a
@@ -60,22 +63,18 @@ which apparently used [a Socrata form](https://nmfs.socrata.com/Government/2011-
 
 New York made a form for [feedback on the portal](https://data.ny.gov/dataset/Give-Feedback/fq3e-q75i?).
 
-### Calendar
 World Bank Open Finances made a
 [form](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar-Entry-Form/qdbh-rfd3?)
 that populates an
 [open data events calendar](https://finances.worldbank.org/dataset/Global-Open-Data-Calendar/g4sx-dwxc).
 
 ## Relevance to software
-I see data portal software as sending data from publisher silos to an open, magical website.
-How about about prevending data from being siloed in the first place? I previously
-[hinted](http://thomaslevine.com/!/socrata-calendars#opening-data-at-their-sources) at this,
-but now I have some clear ideas.
-
 The three examples of Socrata forms show us how we can turn user input on a website into
 open data automatically. Using a Socrata form to compose a dataset is quite inconvenient,
 unreliable, limited, and other bad things, but I see this as a nice example of how software
-can encourage that data be open by default. Let's look at some other ways that can happen.
+can encourage that data be open by default. I previously
+[hinted](http://thomaslevine.com/!/socrata-calendars#opening-data-at-their-sources) at this,
+but now I have some more ideas as to how software can encourage that data be open by default.
 
 ### Free access and standard formats
 If you run any sort of involved website, you are probably already storing data in some
@@ -118,7 +117,7 @@ services into some standard place like a data portal. Using a standard service
 with lots of users and integrations should make it easier for you to get the data
 into a data portal.
 
-### Explicit separating between public and private data
+### Explicit separation between public and private data
 With a questionnaire, you might be able to just say that all of the responses are
 private or that all are public. With other datasets, you might be able to say that
 certain fields are private and others are public; in a database of employees, name
