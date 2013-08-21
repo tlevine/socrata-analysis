@@ -71,46 +71,60 @@ but now I have some clear ideas.
 
 The three examples of Socrata forms show us how we can turn user input on a website into
 open data automatically. Using a Socrata form to compose a dataset is quite inconvenient,
-unreliable, limited, and other bad things, but we can apply this concept with other software.
+unreliable, limited, and other bad things, but I see this as a nice example of how software
+can encourage that data be open by default. Let's look at some other ways that can happen.
 
-### Opening user-entered data on your website
+### Storing user-entered application data directly in a data portal
+If you have a simple website, maybe you don't have to run your own database
+and write your own web APIs. You could store the data directly in the data portal
+and query it from the data portal. If this is powerful enough for you, it
+simplifies your database management, and it naturally makes your data open by default.
+
+### Opening user-entered application data on your website's database
 If you have a website that stores information in a standard database (like MySQL) and
 you separate the private information from the public information, you can quite safely
 and easily have it sent to a data portal.
 
-### Storing application data directly in a data portal
-If you have a simple website, maybe you don't have to run your own database
-and write your own web APIs. You could store the data directly in the data portal
-and query it from the data portal. If this is powerful enough for you, it
-simplifies both your database management and your opening of data.
-
-### Opening data from some other web service
-If you want to avoid managing your own database and web APIs,
-you'll probably find
-[some](http://keen.io)
-[other](https://www.parse.com)
-[service](http://stormpath.com/)
-[that](http://www.google.com/analytics/)
-[does](www.iriscouch.com)
-[this](https://scraperwiki.com/)
-better than data portal software does.
-And even if you aren't running something that you think of as a "website",
-you are probably storing some sort of data in
-[some](https://www.google.com/calendar)
-[web](https://www.salesforce.com/)
-[service](http://mailchimp.com).
-
-The various services I just mentioned are great ways of collecting data, but they
-tend not to focus on cataloging disparate datasets, converting them to different
-formats, &c. Said otherwise, they don't open data. It's not like they're particularly
-trying to keep the data closed either; it's probably more that their customers
-haven't asked them for open data features.
-
+### Opening data from some other software
 Every time you save something in a computer program, you are creating some sort
-of data. If 
+of data, just like when you fill out a form on an open data portal. If you and
+others in your organization do this a lot and the dataset doesn't contain private
+information, you have already assembled a large dataset that could be open.
 
-When a lot of people use services like these, the services' protocals
-naturally become standard, so it becomes worthwhile to write tools that pull
-data from these services into some standard place like a data portal.
+If you have purchased a software service, you might not have access to the
+underlying database, but you can still send it to a data portal. When a lot of
+people use services like these, the services' protocals naturally become standard,
+so it becomes worthwhile to write tools that pull data from these services into
+some standard place like a data portal.
+(And this will be even better we have something like [dat](https://github.com/maxogden/dat).)
 
-Let's hope that something like [dat](https://github.com/maxogden/dat) 
+### Explicit separating between public and private data
+Project management software, email clients, calendars, web browsers and image
+editors all contain rich data that can help people understand how government
+and other organizations work. They also contain a lot of private information,
+so opening them is hard.
+
+With a questionnaire, you might be able to just say that all of the responses are
+private or that all are public. With other datasets, you might be able to say that
+certain fields are private and others are public; in a database of employees, name
+and salary can be public, but Social Security number can't.
+
+This gets a bit more complicated with something like project management software,
+where some records/documents should be private and others should be public.
+Many of the entries in project management software are probably safe for public
+disclosure, but there might be some private information; for example, I've put
+credentials for related accounts inside project management software before.
+Separate public information and private information from the beginning, and it
+should be easier to open the data that is behind all of these applications.
+
+## Brainstorm data sources
+Think about what programs you and others are already using, especially if you
+don't think of them as data programs, and think about how you can open the data.
+
+A program's will be easy to open if it already stores its data on the internet
+("software as a service") and it clearly separates public data from private data.
+
+In the longer term, think about how we can make software that encourages that
+its data be open by default. I've proposed that clear separations between public
+and private data is part of this and that standard storage methods is another,
+but there are probably other relevant features.
