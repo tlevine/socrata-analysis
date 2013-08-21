@@ -73,7 +73,33 @@ The three examples of Socrata forms show us how we can turn user input on a webs
 open data automatically. Using a Socrata form to compose a dataset is quite inconvenient,
 unreliable, limited, and other bad things, but we can apply this concept with other software.
 
-### Imports to data portals
+### Opening user-entered data on your website
+If you have a website that stores information in a standard database (like MySQL) and
+you separate the private information from the public information, you can quite safely
+and easily have it sent to a data portal.
+
+### Storing application data directly in a portal
+If you have a simple website, maybe you don't have to run your own database
+and write your own web APIs. You could store the data in a data portal, but
+if your data have any sort of typical schema, you'll
+[find](https://scraperwiki.com/)
+[some](http://keen.io)
+[other](https://www.parse.com)
+[service](http://stormpath.com/)
+that does it better.
+
+
+Unlike data portals, these other services tend not to focus on opening the data
+
+But you
+can also do better than 
+
+
+could use a data portal for this
+A bunch
+of services
+
+
 A major part of data portal software and data analysis software is the integrations
 with data standard data sources, like relational databases, Google Analytics, &c.
 
