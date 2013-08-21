@@ -97,14 +97,17 @@ better than data portal software does.
 And even if you aren't running something that you think of as a "website",
 you are probably storing some sort of data in
 [some](https://www.google.com/calendar)
-[web](http://www.salesforce.com/)
-[service](http://mailchimp.com)
+[web](https://www.salesforce.com/)
+[service](http://mailchimp.com).
 
-But these other services tend not to focus on cataloging disparate datasets,
-converting them to different formats, &c. Said otherwise, they don't try to
-open the data. It's not like they're particularly trying to keep the data
-closed either; it's probably more that their customers haven't asked them for
-open data features.
+The various services I just mentioned are great ways of collecting data, but they
+tend not to focus on cataloging disparate datasets, converting them to different
+formats, &c. Said otherwise, they don't open data. It's not like they're particularly
+trying to keep the data closed either; it's probably more that their customers
+haven't asked them for open data features.
+
+Every time you save something in a computer program, you are creating some sort
+of data. If 
 
 When a lot of people use services like these, the services' protocals
 naturally become standard, so it becomes worthwhile to write tools that pull
