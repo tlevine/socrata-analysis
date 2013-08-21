@@ -74,23 +74,35 @@ open data automatically. Using a Socrata form to compose a dataset is quite inco
 unreliable, limited, and other bad things, but I see this as a nice example of how software
 can encourage that data be open by default. Let's look at some other ways that can happen.
 
-### Storing user-entered application data directly in a data portal
+### Free access and standard formats
+If you run any sort of involved website, you are probably already storing data in some
+reasonably standard way, and you probably could open it already, given the right tools.
+
+#### Opening user-entered application data on your website's database
+One advantage of the Socrata form approach is that the data go automatically into a
+reasonably standard format (a Socrata dataset). It happens that most websites work this
+way, except that the standard format is something like MySQL.
+
+A notable difference is that database software generally doesn't concern itself as
+strongly with opening the data. Many websites have HTTP APIs, but few will give out
+direct access to their databases. And even if they did this, it wouldn't provide the
+various cataloging and format conversion features that people expect of data portals.
+This is why we make data portals that import from these databases and provide all the
+fancy features.
+
+If you have a website that stores information in a standard database (like MySQL) and
+you separate the private information from the public information, you already can quite
+safely and easily have it sent to a data portal.
+
+#### Storing user-entered application data directly in a data portal
 If you have a simple website, maybe you don't have to run your own database
 and write your own web APIs. You could store the data directly in the data portal
 and query it from the data portal. If this is powerful enough for you, it
 simplifies your database management, and it naturally makes your data open by default.
 
-### Opening user-entered application data on your website's database
-If you have a website that stores information in a standard database (like MySQL) and
-you separate the private information from the public information, you can quite safely
-and easily have it sent to a data portal.
-
-### Opening data from some other software
+#### Opening data from some other software
 Every time you save something in a computer program, you are creating some sort
-of data, just like when you fill out a form on an open data portal. If you and
-others in your organization do this a lot and the dataset doesn't contain private
-information, you have already assembled a large dataset that could be open.
-
+of data, just like when you fill out a form on an open data portal.
 If you have purchased a software service, you might not have access to the
 underlying database, but you can still send it to a data portal. When a lot of
 people use services like these, the services' protocals naturally become standard,
@@ -102,7 +114,7 @@ some standard place like a data portal.
 Project management software, email clients, calendars, web browsers and image
 editors all contain rich data that can help people understand how government
 and other organizations work. They also contain a lot of private information,
-so opening them is hard.
+so opening them is hard. Software can help with this.
 
 With a questionnaire, you might be able to just say that all of the responses are
 private or that all are public. With other datasets, you might be able to say that
@@ -117,14 +129,13 @@ credentials for related accounts inside project management software before.
 Separate public information and private information from the beginning, and it
 should be easier to open the data that is behind all of these applications.
 
-## Brainstorm data sources
+## Things to think about
 Think about what programs you and others are already using, especially if you
 don't think of them as data programs, and think about how you can open the data.
+A program's will be easy to open if it already stores its data in a standard
+format on the internet and it clearly separates public data from private data.
 
-A program's will be easy to open if it already stores its data on the internet
-("software as a service") and it clearly separates public data from private data.
-
-In the longer term, think about how we can make software that encourages that
-its data be open by default. I've proposed that clear separations between public
-and private data is part of this and that standard storage methods is another,
-but there are probably other relevant features.
+Also think about how we can make software that follows the policy guideline of
+open data by default. I've proposed that clear separations between public and
+private data is part of this and that standard storage methods is another, but
+there are probably other relevant features.
