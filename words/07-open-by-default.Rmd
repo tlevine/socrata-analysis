@@ -10,7 +10,8 @@ is to "Set The Default To Open".
 >
 > Usually, for information to be defined as public, important restrictions have already been applied. Therefore, policy language can be used to outline that "all public data and information must be considered open and accessible." Whether listed as part of a statement of intent (as Austin, Texas does; a concept explored more in Provision 21), as direction to a new oversight authority (Provision 22), or as the underlying aim of new data guidance (Provision 20), openness by default is a critical tool in crafting open data policies that are both ambitious and sustainable.
 
-Software can encourage this practice of making data open by default.
+After discovering something on Socrata data portals, I remarked that
+software can encourage this practice of making data open by default.
 
 ## Display types on Socrata portals
 I previously [downloaded](/!/socrata-summary) metadata about all of
@@ -38,6 +39,8 @@ lets you enter data. A bunch of people have implemented them, but none seems to 
 forms <- sqldf('select portal, sum(viewCount) AS "total.view.count", count(*) AS "number.of.forms" FROM socrata where displayType = "form" group by portal')
 ggplot(forms) +
   aes(x = number.of.forms, y = total.view.count, label = portal) + geom_text() +
+  scale_x_continuous('Number of forms in the portal') +
+  scale_y_continuous('Total hits across all forms', labels = comma)
 ```
 I'm gonna remove opendata.socrata.com to make that easier to read.
 
