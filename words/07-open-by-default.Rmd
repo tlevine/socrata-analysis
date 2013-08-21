@@ -78,39 +78,36 @@ If you have a website that stores information in a standard database (like MySQL
 you separate the private information from the public information, you can quite safely
 and easily have it sent to a data portal.
 
-### Storing application data directly in a portal
+### Storing application data directly in a data portal
 If you have a simple website, maybe you don't have to run your own database
-and write your own web APIs. You could store the data in a data portal, but
-if your data have any sort of typical schema, you'll
-[find](https://scraperwiki.com/)
+and write your own web APIs. You could store the data directly in the data portal
+and query it from the data portal. If this is powerful enough for you, it
+simplifies both your database management and your opening of data.
+
+### Opening data from some other web service
+If you want to avoid managing your own database and web APIs,
+you'll probably find
 [some](http://keen.io)
 [other](https://www.parse.com)
 [service](http://stormpath.com/)
-that does it better.
+[that](http://www.google.com/analytics/)
+[does](www.iriscouch.com)
+[this](https://scraperwiki.com/)
+better than data portal software does.
+And even if you aren't running something that you think of as a "website",
+you are probably storing some sort of data in
+[some](https://www.google.com/calendar)
+[web](http://www.salesforce.com/)
+[service](http://mailchimp.com)
 
+But these other services tend not to focus on cataloging disparate datasets,
+converting them to different formats, &c. Said otherwise, they don't try to
+open the data. It's not like they're particularly trying to keep the data
+closed either; it's probably more that their customers haven't asked them for
+open data features.
 
-Unlike data portals, these other services tend not to focus on opening the data
+When a lot of people use services like these, the services' protocals
+naturally become standard, so it becomes worthwhile to write tools that pull
+data from these services into some standard place like a data portal.
 
-But you
-can also do better than 
-
-
-could use a data portal for this
-A bunch
-of services
-
-
-A major part of data portal software and data analysis software is the integrations
-with data standard data sources, like relational databases, Google Analytics, &c.
-
-If you have a website that stores information in a standard database and you separate
-the private information from the public information, it shouldn't be too hard to send
-it to an open data portal. At worst, you'll need to think a little bit about performance
-and about denormalizing the data.
-
-It's great if you build a special API too, but the API is likely to have a less standard
-format and query language that than a simple database dump.
-
-### Other standard formats
-Loads of people use the same 
-
+Let's hope that something like [dat](https://github.com/maxogden/dat) 
