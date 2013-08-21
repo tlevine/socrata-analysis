@@ -30,7 +30,7 @@ I was somewhat surprised to see forms and calendars in the portals.
 I've [previously](/!/open-calendars) written about why I think Socrata calendars are cool,
 so now I'm just going to talk about forms.
 
-## Forms
+### Forms
 Much of the goal of these portals is to open up existing government data, but
 [forms](https://data.wa.gov/Economics/Broadband-Project-Data-Entry/38rz-krmg?) provide a way for citizens to create data.
 lets you enter data. A bunch of people have implemented them, but none seems to get accessed much.
@@ -79,7 +79,7 @@ can encourage that data be open by default. Let's look at some other ways that c
 
 ### Free access and standard formats
 If you run any sort of involved website, you are probably already storing data in some
-reasonably standard way, and you probably could open it already, given the right tools.
+reasonably standard way, and you probably could send it to a data portal somewhat easily.
 
 #### Opening user-entered application data on your website's database
 One advantage of the Socrata form approach is that the data go automatically into a
@@ -97,6 +97,9 @@ If you have a website that stores information in a standard database (like MySQL
 you separate the private information from the public information, you already can quite
 safely and easily have it sent to a data portal.
 
+If you are making a new website and care about open data, try to choose a common
+database for which integrations will already exist.
+
 #### Storing user-entered application data directly in a data portal
 If you have a simple website, maybe you don't have to run your own database
 and write your own web APIs. You could store the data directly in the data portal
@@ -107,36 +110,42 @@ simplifies your database management, and it naturally makes your data open by de
 Every time you save something in a computer program, you are creating some sort
 of data, just like when you fill out a form on an open data portal.
 If you have purchased a software service, you might not have access to the
-underlying database, but you can still send it to a data portal. When a lot of
-people use services like these, the services' protocals naturally become standard,
-so it becomes worthwhile to write tools that pull data from these services into
-some standard place like a data portal.
-(And this will be even better we have something like [dat](https://github.com/maxogden/dat).)
+underlying database, but you can still send it to a data portal.
+
+When a lot of people use services like these, the services' protocals naturally
+become standard, so it becomes worthwhile to write tools that pull data from these
+services into some standard place like a data portal. Using a standard service
+with lots of users and integrations should make it easier for you to get the data
+into a data portal.
 
 ### Explicit separating between public and private data
-Project management software, email clients, calendars, web browsers and image
-editors all contain rich data that can help people understand how government
-and other organizations work. They also contain a lot of private information,
-so opening them is hard. Software can help with this.
-
 With a questionnaire, you might be able to just say that all of the responses are
 private or that all are public. With other datasets, you might be able to say that
 certain fields are private and others are public; in a database of employees, name
 and salary can be public, but Social Security number can't.
 
-This gets a bit more complicated with something like project management software,
-where some records/documents should be private and others should be public.
-Many of the entries in project management software are probably safe for public
-disclosure, but there might be some private information; for example, I've put
-credentials for related accounts inside project management software before.
+Things aren't always this simple. With something like project management software,
+some records/documents should be private and others should be public. Many of the
+entries in project management software are probably safe for public disclosure,
+but there might be some private information; for example, I've put credentials
+for related accounts inside project management software before.
+
+Project management software, email clients, calendars, web browsers and image
+editors all contain rich data that can help people understand how government
+and other organizations work, so we should find ways of separating the public
+information and opening that. Software can help with this.
+
 Separate public information and private information from the beginning, and it
 should be easier to open the data that is behind all of these applications.
+The user interface can expose the separation between public and private and
+encourage that information public by default.
 
 ## Things to think about
 Think about what programs you and others are already using, especially if you
 don't think of them as data programs, and think about how you can open the data.
-A program's will be easy to open if it already stores its data in a standard
-format on the internet and it clearly separates public data from private data.
+A program's data will be easy to open if the program already stores its data in
+a standard format on the internet and it clearly separates public data from
+private data.
 
 Also think about how we can make software that follows the policy guideline of
 open data by default. I've proposed that clear separations between public and
