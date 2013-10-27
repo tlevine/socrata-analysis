@@ -39,6 +39,7 @@ p1 <- ggplot(s.molten) +
   scale_color_continuous('Publication group number', labels = comma) +
   ggtitle('How up-to-date are the datasets?')
 
+"
 s.molten$one.year <- difftime(s.molten$update.date, s.molten$publicationDate, units = 'weeks') > 52
 p2 <- ggplot(s.molten) +
   aes(x = publicationDate, color = one.year,
@@ -55,10 +56,11 @@ s.daily$prop.up.to.date <- factor(s.daily$prop.up.to.date,
 
 p3 <- ggplot(s.daily) +
   aes(x = update.date, group = portal, y = prop.up.to.date) + geom_point()
+"
 
-
-s.window <- adply(0:52, 1, function(weeks) {
-  df <- subset(s.molten, difftime(TODAY, s.molten$publicationDate, units = 'weeks') > weeks)
-  df$up.to.date <- difftime(TODAY, df$update.date, units = 'weeks') < weeks
+s.window <- ddply(data.frame(weeks = 0:52), 'weeks', function(nweeks) {
+  df <- subset(s.molten, difftime(TODAY, s.molten$publicationDate, units = 'weeks') > nweeks)
+  df$up.to.date <- difftime(TODAY, df$update.date, units = 'weeks') < nweeks
+  df$up.to.date[is.na(df$up.to.date)] <- FALSE
   c(prop = sum(df$up.to.date) / nrow(df))
 })
