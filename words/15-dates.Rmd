@@ -1,0 +1,12 @@
+---
+title: How up-to-date are data portal datasets?
+tags: ['open-data']
+---
+```{r configure, echo = F}
+source('15-dates.r')
+opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
+```
+
+```{r up_to_date}
+print(p1)
+```
