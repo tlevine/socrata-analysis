@@ -8,6 +8,7 @@ TODAY <- as.Date(Sys.time())
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 if (!('socrata.deduplicated' %in% ls())) {
   socrata.deduplicated <- read.csv('../socrata-deduplicated.csv')
+  socrata.deduplicated <- subset(socrata.deduplicated, portal != 'opendata.socrata.com')
 
   .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
   s <- socrata.deduplicated[.columns]
@@ -61,20 +62,18 @@ p3 <- ggplot(s.daily) +
 s.window <- ddply(data.frame(weeks = 52:0), 'weeks', function(nweeks.df) {
   nweeks <- nweeks.df$weeks[1]
 
-  ddply(s.molten, 'portal', function(df.full) {
+  ddply(s.molten, c('portal','update.type'), function(df.full) {
     df <- subset(df.full, difftime(TODAY, df.full$publicationDate, units = 'weeks') > nweeks)
     df$up.to.date <- difftime(TODAY, df$update.date, units = 'weeks') < nweeks
     df$up.to.date[is.na(df$up.to.date)] <- FALSE
     c(prop = sum(df$up.to.date) / nrow(df), count = nrow(df))
   })
 })
-p4 <- ggplot(s.window) + aes(x = weeks, y = prop, group = portal, size = count) + geom_line() +
+p4 <- ggplot(s.window) + aes(x = weeks, y = prop, group = update.type, size = count) + geom_line() +
   ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
   scale_size_continuous('Number of datasets in the portal') +
   ggtitle('How many old datasets have been updated recently, by portal?') +
-  xlab('Cutoff (number of weeks before today)')
-
-p5 <- p4 + facet_wrap(~ portal)
+  xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
 # p6 <- ggplot(s.window[order(s.window$weeks, decreasing = TRUE),]) +
 #   aes(x = count, y = prop, group = portal) + geom_path()
@@ -82,6 +81,7 @@ p5 <- p4 + facet_wrap(~ portal)
 p6 <- ggplot(subset(s.window, weeks == 52)) +
   aes(x = count, y = prop, label = portal) + geom_text(alpha = 0.2) +
   xlab('Number of datasets on the portal') +
-  ylab('Proportion of datasets older than a year that have been updated within the year')
+  ylab('Proportion of datasets older than a year that have been updated within the year') +
+  facet_wrap(~ update.type)
 
 p7 <- p6 + xlim(c(1,2000))
