@@ -28,7 +28,7 @@ s.molten$update.type <- factor(s.molten$update.type,
   levels = c('rowsUpdatedAt', 'viewLastModified'))
 levels(s.molten$update.type) <- c('rows','view')
 
-p1 <- ggplot(s.molten[1:1000,]) +
+p1 <- ggplot(s.molten) +
   aes(x = publicationDate, y = days.since.update, group = update.type,
     shape = update.type, color = publicationGroup) +
   facet_wrap(~ portal) + geom_point() +
