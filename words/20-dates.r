@@ -1,7 +1,9 @@
+date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 if (!('socrata.deduplicated' %in% ls())) {
   socrata.deduplicated <- read.csv('../socrata-deduplicated.csv')
 
-  s <- socrata.deduplicated[c('portal','id','createdAt','publicationDate','publicationStage', 'publicationGroup', 'rowsUpdatedAt', 'viewLastModified')]
+  .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
+  s <- socrata.deduplicated[.columns]
   s$createdAt <- as.Date(as.POSIXct(s$createdAt, origin = '1970-01-01'))
   s$publicationDate <- as.Date(as.POSIXct(s$publicationDate, origin = '1970-01-01'))
   s$rowsUpdatedAt <- as.Date(as.POSIXct(s$rowsUpdatedAt, origin = '1970-01-01'))
