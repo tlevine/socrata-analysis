@@ -58,10 +58,13 @@ p3 <- ggplot(s.daily) +
   aes(x = update.date, group = portal, y = prop.up.to.date) + geom_point()
 "
 
-s.window <- ddply(data.frame(weeks = 0:52), 'weeks', function(df) {
-  nweeks <- df$weeks[1]
-  df <- subset(s.molten, difftime(TODAY, s.molten$publicationDate, units = 'weeks') > nweeks)
-  df$up.to.date <- difftime(TODAY, df$update.date, units = 'weeks') < nweeks
-  df$up.to.date[is.na(df$up.to.date)] <- FALSE
-  c(prop = sum(df$up.to.date) / nrow(df))
+s.window <- ddply(data.frame(weeks = 0:52), 'weeks', function(nweeks.df) {
+  nweeks <- nweeks.df$weeks[1]
+
+  ddply(s.molten, 'portal', function(df.full) {
+    df <- subset(df.full, difftime(TODAY, df.full$publicationDate, units = 'weeks') > nweeks)
+    df$up.to.date <- difftime(TODAY, df$update.date, units = 'weeks') < nweeks
+    df$up.to.date[is.na(df$up.to.date)] <- FALSE
+    c(prop = sum(df$up.to.date) / nrow(df))
+  })
 })
