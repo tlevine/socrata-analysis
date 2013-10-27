@@ -2,6 +2,8 @@ library(ggplot2)
 library(reshape2)
 library(lubridate)
 library(scales)
+library(plyr)
+TODAY <- as.Date(Sys.time())
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 if (!('socrata.deduplicated' %in% ls())) {
@@ -23,7 +25,7 @@ s$has.been.updated <- !is.na(s$rowsUpdatedAt) & s$publicationDate < s$rowsUpdate
 s.molten <- melt(s, measure.vars = c('rowsUpdatedAt','viewLastModified'), variable.name = 'update.type', value.name = 'update.date')
 s.molten$update.date <- as.Date('1970-01-01') + lubridate::days(s.molten$update.date)
 s.molten$days.since.update <- as.numeric(difftime(
-  as.Date(Sys.time()), s.molten$update.date, units = 'days'))
+  TODAY, s.molten$update.date, units = 'days'))
 s.molten$update.type <- factor(s.molten$update.type,
   levels = c('rowsUpdatedAt', 'viewLastModified'))
 levels(s.molten$update.type) <- c('rows','view')
@@ -36,3 +38,21 @@ p1 <- ggplot(s.molten) +
   scale_y_continuous('Days since the dataset has been updated') +
   scale_color_continuous('Publication group number', labels = comma) +
   ggtitle('How up-to-date are the datasets?')
+
+s.molten$one.year <- difftime(s.molten$update.date, s.molten$publicationDate, units = 'weeks') > 52
+p2 <- ggplot(s.molten) +
+  aes(x = publicationDate, color = one.year,
+    group = interaction(one.year, update.type),
+    linetype = update.type) +
+  geom_line(stat='bin')
+
+s.daily <- ddply(s.molten, c('portal', 'update.date'), function(df) {
+  df.subset <- subset(df, difftime(TODAY, df$publicationDate, units = 'weeks') > 52)
+  c(prop.up.to.date = mean(df.subset$one.year))
+})
+s.daily$prop.up.to.date <- factor(s.daily$prop.up.to.date,
+  levels = names(sort(s.daily$prop.up.to.date)))
+
+p3 <- ggplot2(s.daily) +
+  aes(x = update.date, group = portal, y = prop.up.to.date) + geom_point()
+
