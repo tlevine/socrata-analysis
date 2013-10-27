@@ -70,8 +70,18 @@ s.window <- ddply(data.frame(weeks = 52:0), 'weeks', function(nweeks.df) {
 })
 p4 <- ggplot(s.window) + aes(x = weeks, y = prop, group = portal, size = count) + geom_line() +
   ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
-  scale_size_continuous('Number of datasets in the portal')
+  scale_size_continuous('Number of datasets in the portal') +
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)')
 
 p5 <- p4 + facet_wrap(~ portal)
+
+# p6 <- ggplot(s.window[order(s.window$weeks, decreasing = TRUE),]) +
+#   aes(x = count, y = prop, group = portal) + geom_path()
+
+p6 <- ggplot(subset(s.window, weeks == 52)) +
+  aes(x = count, y = prop, label = portal) + geom_text(alpha = 0.2) +
+  xlab('Number of datasets on the portal') +
+  ylab('Proportion of datasets older than a year that have been updated within the year')
+
+p7 <- p6 + xlim(c(1,2000))
