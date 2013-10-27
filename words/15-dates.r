@@ -21,7 +21,7 @@ if (!('socrata.deduplicated' %in% ls())) {
 s$has.been.updated <- !is.na(s$rowsUpdatedAt) & s$publicationDate < s$rowsUpdatedAt
 
 s.molten <- melt(s, measure.vars = c('rowsUpdatedAt','viewLastModified'), variable.name = 'update.type', value.name = 'update.date')
-s.molten$update.date <- as.Date('1970-01-01') + days(s.molten$update.date)
+s.molten$update.date <- as.Date('1970-01-01') + lubridate::days(s.molten$update.date)
 s.molten$days.since.update <- as.numeric(difftime(
   as.Date(Sys.time()), s.molten$update.date, units = 'days'))
 s.molten$update.type <- factor(s.molten$update.type,
