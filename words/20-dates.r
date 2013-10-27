@@ -1,6 +1,7 @@
 library(ggplot2)
 library(reshape2)
 library(lubridate)
+library(scales)
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 if (!('socrata.deduplicated' %in% ls())) {
@@ -32,4 +33,6 @@ p1 <- ggplot(s.molten[1:1000,]) +
     shape = update.type, color = publicationGroup) +
   facet_wrap(~ portal) + geom_point() +
   scale_x_date('Date of dataset publication') +
-  scale_y_continuous('Days since the dataset has been updated')
+  scale_y_continuous('Days since the dataset has been updated') +
+  scale_color_continuous('Publication group number', labels = comma) +
+  ggtitle('How up-to-date are the datasets?')
