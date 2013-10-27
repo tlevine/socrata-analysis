@@ -10,8 +10,11 @@ if (!('socrata' %in% ls())) {
   socrata <- read.csv('../socrata.csv', stringsAsFactors = F)
   socrata$createdAt <- as.Date(as.POSIXct(socrata$createdAt, origin = '1970-01-01'))
   socrata$publicationDate <- as.Date(as.POSIXct(socrata$publicationDate, origin = '1970-01-01'))
+  socrata$rowsUpdatedAt <- as.Date(as.POSIXct(socrata$rowsUpdatedAt, origin = '1970-01-01'))
+  socrata$viewLastModified <- as.Date(as.POSIXct(socrata$viewLastModified, origin = '1970-01-01'))
   socrata$date <- socrata$createdAt
   socrata[is.na(socrata$date),'date'] <- socrata[is.na(socrata$createdAt),'publicationDate']
+  socrata$publicationStage <- factor(socrata$publicationStage)
 
   socrata.distinct <- sqldf('select * from socrata group by id')
 }
