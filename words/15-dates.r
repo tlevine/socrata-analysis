@@ -53,6 +53,12 @@ s.daily <- ddply(s.molten, c('portal', 'update.date'), function(df) {
 s.daily$prop.up.to.date <- factor(s.daily$prop.up.to.date,
   levels = names(sort(s.daily$prop.up.to.date)))
 
-p3 <- ggplot2(s.daily) +
+p3 <- ggplot(s.daily) +
   aes(x = update.date, group = portal, y = prop.up.to.date) + geom_point()
 
+
+s.window <- adply(0:52, 1, function(weeks) {
+  df <- subset(s.molten, difftime(TODAY, s.molten$publicationDate, units = 'weeks') > weeks)
+  df$up.to.date <- difftime(TODAY, df$update.date, units = 'weeks') < weeks
+  c(prop = sum(df$up.to.date) / nrow(df))
+})
