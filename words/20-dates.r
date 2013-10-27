@@ -1,5 +1,6 @@
 library(ggplot2)
 library(reshape2)
+library(lubridate)
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 if (!('socrata.deduplicated' %in% ls())) {
@@ -19,7 +20,10 @@ if (!('socrata.deduplicated' %in% ls())) {
 s$has.been.updated <- !is.na(s$rowsUpdatedAt) & s$publicationDate < s$rowsUpdatedAt
 
 s.molten <- melt(s[c('portal','id',date.variables)], id.vars = c('portal','id','createdAt','publicationDate'), variable.name = 'update.type', value.name = 'update.date')
+s.molten$update.date <- as.Date('1970-01-01') + days(s.molten$update.date)
+s.molten$days.since.update <- as.numeric(difftime(
+  as.Date(Sys.time()), s.molten$update.date, units = 'days'))
 
-p1 <- ggplot(s.molten) +
-  aes(x = publicationDate, y = (update.date - publication), group = update.type, color = update.type) +
+p1 <- ggplot(s.molten[1:1000,]) +
+  aes(x = publicationDate, y = days.since.update, group = update.type, color = update.type) +
   facet_wrap(~ portal)
