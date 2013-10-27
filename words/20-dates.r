@@ -19,11 +19,17 @@ if (!('socrata.deduplicated' %in% ls())) {
 
 s$has.been.updated <- !is.na(s$rowsUpdatedAt) & s$publicationDate < s$rowsUpdatedAt
 
-s.molten <- melt(s[c('portal','id',date.variables)], id.vars = c('portal','id','createdAt','publicationDate'), variable.name = 'update.type', value.name = 'update.date')
+s.molten <- melt(s, measure.vars = c('rowsUpdatedAt','viewLastModified'), variable.name = 'update.type', value.name = 'update.date')
 s.molten$update.date <- as.Date('1970-01-01') + days(s.molten$update.date)
 s.molten$days.since.update <- as.numeric(difftime(
   as.Date(Sys.time()), s.molten$update.date, units = 'days'))
+s.molten$update.type <- factor(s.molten$update.type,
+  levels = c('rowsUpdatedAt', 'viewLastModified'))
+levels(s.molten$update.type) <- c('rows','view')
 
 p1 <- ggplot(s.molten[1:1000,]) +
-  aes(x = publicationDate, y = days.since.update, group = update.type, color = update.type) +
-  facet_wrap(~ portal)
+  aes(x = publicationDate, y = days.since.update, group = update.type,
+    shape = update.type, color = publicationGroup) +
+  facet_wrap(~ portal) + geom_point() +
+  scale_x_date('Date of dataset publication') +
+  scale_y_continuous('Days since the dataset has been updated')
