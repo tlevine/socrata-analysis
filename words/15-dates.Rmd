@@ -192,7 +192,29 @@ in `rowsUpdatedAt` that is more than one hour greater than the value
 in `publicationDate`.
 
 
+
+
+It is quite likely that people have "updated" a dataset by uploading
+a new version. For example, XXX uploading 2010 data
+[here]()
+and 2011 data
+[here]().
+But this is less helpful than updating the original dataset because
+you need to find the new dataset, make sure that it is indeed just
+a new version of the same dataset, and update your software to point
+to both datasets.
+
+
 ## The bigger picture
+I thought this was going to be an article about a metric for how up-to-date
+our data portal data are, but I wound up finding that the data are completely
+out-of-date. Given the hype 
+
+Maybe this says something about the need for more metrics of the progress of
+our open data efforts; nobody was measuring updatedness, so how could anyone
+have known to keep the data up-to-date?
+
+
 
 
 
