@@ -8,7 +8,7 @@ opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 ```
 
 ```{r up_to_date}
-print(p1)
+p1
 ```
 
 ## Data portal metrics
@@ -52,6 +52,10 @@ A simple way of checking this is to plot the value of our updatedness
 metric for different cutoff values. If we find a region where the value
 of the updatedness metric doesn't change very much when we change the
 cutoff, we could say that cutoffs in that region are safe to use.
+
+```{r robustness}
+p4
+```
 
 ## Updatedness by portal
 
