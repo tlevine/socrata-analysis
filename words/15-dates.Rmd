@@ -141,7 +141,16 @@ up and down very suddenly. When there are very few datasets on a portal
 (like 12), an addition of a dataset or an update to a dataset will have
 a large impact on the value of our updatedness metric (the height of the line).
 
+Let's look at just the plots for data portals that have had lots of datasets
+for quite a long time.
 
+```{r robustness_big_portals}
+p5
+```
+
+The blue lines tend to sort of flat for a little while to the right of the
+one-year mark (52 weeks, along the x-axis). Also, one year is a pretty number.
+Thus, I chose one year as the interval for this updatedness metric.
 
 ## Updatedness by portal
 
