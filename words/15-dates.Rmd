@@ -153,6 +153,15 @@ one-year mark (52 weeks, along the x-axis). Also, one year is a pretty number.
 Thus, I chose one year as the interval for this updatedness metric.
 
 ## Updatedness by portal
+Now that we have this updatedness metric, let's see what it tells us.
+Recall that the metric is the proportion of datasets older than a year that
+have been updated within the year. Oldness is determined based on the
+`publicationDate`, and last update is determined based on `viewLastModified`.
+
+Keep in mind that there are lots of problems with the data I'm using.
+First, I don't really know what `viewLastModified` means.
+Second, there are problems with the way I am deduplicating the data.
+Still, this will give you an idea of what metrics like this could tell us.
 
 ### 
 
