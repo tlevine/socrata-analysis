@@ -29,14 +29,27 @@ up-to-date. Specifically, we don't have a number that we can look at
 week-to-week to make sure that we are vaguely on track at keeping data
 up-to-date. So I made one.
 
-## Developing the metric
+## Motivation for the metric
+The metric that I came up with is **proportion of datasets older than
+a year that have been updated within the year**. Here's how I arrived
+at that metric.
 
-### Motivation
+### General formulation
 In producing a metric of updateness, we are trying to come up with a
 simple number that matches our intuition about whether something is
 up-to-date. Let's think a bit about what would count as up-to-date.
 
+A dataset first gets published at some time. For a little while, the
+data will be up-to-date even if no updates are sent. For example, if
+data about wifi usage per month are uploaded on the first of the month,
+we'll consider them to be up-to-date two weeks later.
 
+After some point, we must have received an update in order for the
+data to be up-to-date. In the case of monthly wifi usage, we need an
+update on the first of the second month; if we haven't received one
+by then, we'll consider the data out-of-date. Thus, I arrive at the
+general concept of comparing the date of initial publication to the
+date at which the dataset was last updated.
 
 ### Differences by dataset
 If a dataset of scores on standardized math tests taken in schools
@@ -54,18 +67,28 @@ updatedness would account for out how often new data come in and
 check whether those new data show up in the dataset. But that would
 be a lot of work, so let's start with something simpler.
 
+### All or nothing
+Rather than worring about the exact time period, let's address a simpler
+issue. I've heard complaints that some data get uploaded data once and
+never updated, ever. Rather than worring about the exact time since update,
+let's just check whether the dataset has been updated ever.
+
+I'm going to use the format of *datasets older than X that have been updated since*
+and just choose an appropriate time X. The time probably has to be kind of
+long, so that we don't count datasets as out-of-date when they just have
+long update cycles (like yearly data). On the other hand, the time can't be
+too long, because then we'll wind up saying that everything is out-of-date.
+
 ### Choosing the specific value
-Instead of accounting for differences in datasets and in data portals,
-I'm just going to choose one (somewhat arbitrary) value for this cutoff.
-Instead of coming up with a less arbitrary cutoff, we can check whether
-different values will give us the same value on our updatedness metric.
-To say it fancy-like, we can check whether our updatedness metric is
-robust to the cutoff.
+We can check whether different values will give us the same value on our
+updatedness metric. To say it fancy-like, we can check whether our updatedness
+metric is robust to the cutoff.
 
 A simple way of checking this is to plot the value of our updatedness
 metric for different cutoff values. If we find a region where the value
 of the updatedness metric doesn't change very much when we change the
 cutoff, we could say that cutoffs in that region are safe to use.
+
 
 ```{r robustness}
 p4
