@@ -163,11 +163,23 @@ First, I don't really know what `viewLastModified` means.
 Second, there are problems with the way I am deduplicating the data.
 Still, this will give you an idea of what metrics like this could tell us.
 
-### 
+### How up-to-date are the portals?
+Our updatedness measure is a number between 0 and 1, where 0 means that no
+datasets are up-to-date and 1 means that all datasets are up-to-date. Let's
+see what the updatedness measures are by portal.
+
+```{r robustness_big_portals}
+p5
+```
+
+It's harder to keep data up-to-date when you have more data, so let's plot
+updatedness as a function of number of datasets.
+
+```{r robustness_big_portals}
+p6
+```
 
 
-
-### Rivalries
 
 Chicago v new york
 

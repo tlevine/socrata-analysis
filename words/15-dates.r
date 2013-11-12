@@ -94,10 +94,13 @@ p5 <- ggplot(subset(s.window,
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
-p6 <- ggplot(subset(s.window, weeks == 52)) +
+p6 <- ggplot(subset(s.window, weeks == 52 & update.type == "view")) +
+  aes(x = prop) + geom_histogram() +
+  ylab('Number of portals') +
+  xlab('Updatedness (proportion datasets older than the cutoff that have been updated since the cutoff)') +
+  ggtitle('What are the typical values on this updatedness metric?')
+
+p7 <- ggplot(subset(s.window, weeks == 52 & update.type == 'view')) +
   aes(x = count, y = prop, label = portal) + geom_text(alpha = 0.2) +
   xlab('Number of datasets on the portal') +
-  ylab('Proportion of datasets older than a year that have been updated within the year') +
-  facet_wrap(~ update.type)
-
-p7 <- p6 + xlim(c(1,2000))
+  ylab('Proportion of datasets older than a year that have been updated within the year')
