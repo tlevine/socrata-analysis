@@ -192,46 +192,6 @@ in `rowsUpdatedAt` that is more than one hour greater than the value
 in `publicationDate`.
 
 
-
-
-### How up-to-date are the portals?
-Our updatedness measure is a number between 0 and 1, where 0 means that no
-datasets are up-to-date and 1 means that all datasets are up-to-date. Let's
-see what the updatedness measures are by portal.
-
-```{r robustness_big_portals}
-p5
-```
-
-It's harder to keep data up-to-date when you have more data, so let's plot
-updatedness as a function of number of datasets.
-
-```{r robustness_big_portals}
-p6
-```
-
-As we should expect, portals with more datasets tend to be less up-to-date.
-That is, there are very few portals in the top-right of the plot.
-
-### What this tells us that counts don't
-If you looked at just the dataset count metric, you'd think that
-Kenya (`opendata.go.ke`) and King County are doing great jobs;
-they both have a bit over 200 datasets.
-On the other hand, if you look just at this updatedness metric,
-you'd think that they're doing terrible jobs; only about 5% of
-their datasets that are older than a year have been updated within the year.
-
-I also find it interesting to compare the updatedness of different
-portals with similar counts. For example, New York and Chicago are
-the two highest in terms of dataset count. On the other hand,
-New York scores much higher on our updatedness metric.
-These two portals would appear similar if we just look at the count
-metric, but they seem quite different when we look at both.
-
-Given the problems with the data, I don't really trust these specific
-conclusions, but they do point out that we could get a better picture
-of our open data efforts by measuring more aspects of our performance.
-
 ## The bigger picture
 
 

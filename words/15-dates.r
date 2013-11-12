@@ -84,5 +84,5 @@ socrata.deduplicated$has.been.updated.factor <- factor(socrata.deduplicated$has.
 levels(socrata.deduplicated$has.been.updated.factor) <- c('Yes','No')
 
 p5 <- ggplot(socrata.deduplicated) +
-  aes(x = portal, group = has.been.updated, fill = has.been.updated) +
+  aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
   geom_bar()
