@@ -1,5 +1,5 @@
 ---
-title: How up-to-date are data portal datasets?
+title: 
 tags: ['open-data']
 ---
 ```{r configure, echo = F}
@@ -181,8 +181,10 @@ lines (few datasets) jumping up and down very suddenly, like for
 (like 12), an addition of a dataset or an update to a dataset will have
 a large impact on the value of our updatedness metric (the height of the line).
 
+## An even simpler metric
 It looks like pretty much nobody keeps their data up-to-date except Seattle
 and maybe New York.
+
 
 
 
@@ -226,3 +228,9 @@ conclusions, but they do point out that we could get a better picture
 of our open data efforts by measuring more aspects of our performance.
 
 ## The bigger picture
+
+
+
+Local law 11
+March 18
+September something
