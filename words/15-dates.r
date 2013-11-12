@@ -66,27 +66,9 @@ p2 <- ggplot(s.molten) +
     group = interaction(one.year, update.type),
     linetype = update.type) +
   geom_line(stat='bin')
-p4 <- ggplot(s.window) + aes(x = weeks, y = prop, group = update.type, size = count, color = update.type) + geom_line(alpha = 0.5) +
-  ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
-  scale_size_continuous('Number of datasets in the portal') +
-  ggtitle('How many old datasets have been updated recently, by portal?') +
-  xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
-p5 <- ggplot(subset(s.window,
-  portal == 'cookcounty.socrata.com' |
-  portal == 'data.baltimorecity.gov' |
-  portal == 'datacatalog.cookcountyil.gov' |
-  portal == 'data.cityofchicago.org' |
-  portal == 'data.cityofnewyork.us' |
-  portal == 'data.hawaii.gov' |
-  portal == 'data.ok.gov' |
-  portal == 'data.oregon.gov' |
-  portal == 'data.seattle.gov' |
-  portal == 'data.sfgov.org' |
-  portal == 'data.wa.gov' |
-  portal == 'opendata.go.ke'
-)) +
-  aes(x = weeks, y = prop, group = update.type, size = count, color = update.type) + geom_line(alpha = 0.5) +
+p4 <- ggplot(subset(s.window, update.type == 'rows')) +
+  aes(x = weeks, y = prop, size = count) + geom_line(alpha = 0.5) +
   ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
   scale_size_continuous('Number of datasets in the portal') +
   ggtitle('How many old datasets have been updated recently, by portal?') +

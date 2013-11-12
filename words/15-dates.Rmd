@@ -172,38 +172,20 @@ The first thing I notice when I look at this plot is that the metric based
 on `rowsUpdatedAt` (labeled "rows") is pretty much always zero.
 If `rowsUpdatedAt` means what I intuitively think of as the date of an update
 to the data, this is very bad; it means that we pretty much never update
-data that we put on data portals. On the other hand, the metric based on
-`viewLastModified` ("view") sometimes gets quite high, so let's hope that
-that measure tells us something.
+data that we put on data portals.
 
 The next thing I notice is that the value varies widely when there aren't
 very many datasets on the portal. Visually, this shows itself as skinny
-lines (few datasets) that are blue (based on `viewLastModified`) jumping
-up and down very suddenly. When there are very few datasets on a portal
+lines (few datasets) jumping up and down very suddenly, like for
+`nmfs.socrata.com`. When there are very few datasets on a portal
 (like 12), an addition of a dataset or an update to a dataset will have
 a large impact on the value of our updatedness metric (the height of the line).
 
-Let's look at just the plots for data portals that have had lots of datasets
-for quite a long time.
+It looks like pretty much nobody keeps their data up-to-date except Seattle
+and maybe New York.
 
-```{r robustness_big_portals}
-p5
-```
 
-The blue lines tend to sort of flat for a little while to the right of the
-one-year mark (52 weeks, along the x-axis). Also, one year is a pretty number.
-Thus, I chose one year as the interval for this updatedness metric.
 
-## Updatedness by portal
-Now that we have this updatedness metric, let's see what it tells us.
-Recall that the metric is the proportion of datasets older than a year that
-have been updated within the year. Oldness is determined based on the
-`publicationDate`, and last update is determined based on `viewLastModified`.
-
-Keep in mind that there are lots of problems with the data I'm using.
-First, I don't really know what `viewLastModified` means.
-Second, there are problems with the way I am deduplicating the data.
-Still, this will give you an idea of what metrics like this could tell us.
 
 ### How up-to-date are the portals?
 Our updatedness measure is a number between 0 and 1, where 0 means that no
