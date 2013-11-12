@@ -31,22 +31,36 @@ up-to-date. So I made one.
 
 ## Developing the metric
 
-### Motivation for this
+### Motivation
+In producing a metric of updateness, we are trying to come up with a
+simple number that matches our intuition about whether something is
+up-to-date. Let's think a bit about what would count as up-to-date.
 
 
 
-### Tuning
-This metric involves a somewhat arbitrary cut-off, and that is somewhat
-inconvenient; our updatedness value might change depending on whether
-we use a cutoff of one year or half a year.
+### Differences by dataset
+If a dataset of scores on standardized math tests taken in schools
+was uploaded two weeks ago and hasn't been touched since, I'd say it's
+up-to-date. A particular standardized math tests might be administered
+yearly, so I don't expect the data to have changed in a couple of weeks.
 
-I was tempted to come up with a fancier metric that looked more at the
-distribution of update times or chose a less-arbitrary cutoff for each
-different portal, but that would be more complicated and might be harder
-to understand. Instead of coming up with a less arbitrary cutoff, we
-can check whether different values will give us the same value on our
-updatedness metric. To say it fancy-like, we can check whether our
-updatedness metric is robust to the cutoff.
+On the other hand, if a dataset of 311 calls hasn't been updated in
+two weeks, we could say that it is out-of-date because 311 calls are
+always coming in.
+
+A dataset about something that happens often needs to be refreshed
+more often for us to consider it up-to-date. A very cool metric of
+updatedness would account for out how often new data come in and
+check whether those new data show up in the dataset. But that would
+be a lot of work, so let's start with something simpler.
+
+### Choosing the specific value
+Instead of accounting for differences in datasets and in data portals,
+I'm just going to choose one (somewhat arbitrary) value for this cutoff.
+Instead of coming up with a less arbitrary cutoff, we can check whether
+different values will give us the same value on our updatedness metric.
+To say it fancy-like, we can check whether our updatedness metric is
+robust to the cutoff.
 
 A simple way of checking this is to plot the value of our updatedness
 metric for different cutoff values. If we find a region where the value
@@ -70,4 +84,4 @@ Chicago v new york
 
 
 ## Issues with this present analysis
-federation is removed, but not filtered views
+federation and non-tables removed. but that doesn't work. i've explained this somewhere
