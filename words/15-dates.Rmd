@@ -181,9 +181,11 @@ lines (few datasets) jumping up and down very suddenly, like for
 (like 12), an addition of a dataset or an update to a dataset will have
 a large impact on the value of our updatedness metric (the height of the line).
 
-## An even simpler metric
-It looks like pretty much nobody keeps their data up-to-date except Seattle
-and maybe New York.
+## Something simpler
+I'd assumed that people actually update their data, but it looks like
+nobody keeps their data up-to-date except Seattle and maybe New York.
+I think we need something simpler to drive this conclusion home.
+
 
 
 

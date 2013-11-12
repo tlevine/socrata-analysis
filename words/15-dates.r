@@ -74,6 +74,7 @@ p4 <- ggplot(subset(s.window, update.type == 'rows')) +
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
+"
 p6 <- ggplot(subset(s.window, weeks == 52 & update.type == "rows")) +
   aes(x = prop) + geom_histogram() +
   ylab('Number of portals') +
@@ -84,3 +85,8 @@ p7 <- ggplot(subset(s.window, weeks == 52 & update.type == 'rows')) +
   aes(x = count, y = prop, label = portal) + geom_text(alpha = 0.2) +
   xlab('Number of datasets on the portal') +
   ylab('Proportion of datasets older than a year that have been updated within the year')
+"
+
+socrata.deduplicated$has.been.updated <- (
+  (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
+  socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 3600)
