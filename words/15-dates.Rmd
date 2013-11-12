@@ -186,7 +186,10 @@ I'd assumed that people actually update their data, but it looks like
 nobody keeps their data up-to-date except Seattle and maybe New York.
 I think we need something simpler to drive this conclusion home.
 
-
+Let's look at the number of datasets that have ever been updated, by
+portal. We'll count a dataset as having been updated if it has a value
+in `rowsUpdatedAt` that is more than one hour greater than the value
+in `publicationDate`.
 
 
 

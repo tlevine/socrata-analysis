@@ -9,7 +9,11 @@ date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastMod
 if (!('socrata.deduplicated' %in% ls())) {
   socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
   socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
-  socrata.deduplicated <- ddply(socrata.deduplicated, tableId, function(df) { df[1,] })
+  socrata.deduplicated <- ddply(socrata.deduplicated, 'tableId', function(df) { df[1,] })
+
+  socrata.deduplicated$has.been.updated <- (
+    (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
+    socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 3600)
 
   .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
   s <- socrata.deduplicated[.columns]
@@ -74,19 +78,11 @@ p4 <- ggplot(subset(s.window, update.type == 'rows')) +
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
-"
-p6 <- ggplot(subset(s.window, weeks == 52 & update.type == "rows")) +
-  aes(x = prop) + geom_histogram() +
-  ylab('Number of portals') +
-  xlab('Updatedness (proportion datasets older than the cutoff that have been updated since the cutoff)') +
-  ggtitle('What are the typical values on this updatedness metric?')
 
-p7 <- ggplot(subset(s.window, weeks == 52 & update.type == 'rows')) +
-  aes(x = count, y = prop, label = portal) + geom_text(alpha = 0.2) +
-  xlab('Number of datasets on the portal') +
-  ylab('Proportion of datasets older than a year that have been updated within the year')
-"
+socrata.deduplicated$portal <- factor(socrata.deduplicated$portal, levels = names(sort(table(socrata.deduplicated$portal))))
+socrata.deduplicated$has.been.updated.factor <- factor(socrata.deduplicated$has.been.updated,levels = c(TRUE, FALSE))
+levels(socrata.deduplicated$has.been.updated.factor) <- c('Yes','No')
 
-socrata.deduplicated$has.been.updated <- (
-  (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
-  socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 3600)
+p5 <- ggplot(socrata.deduplicated) +
+  aes(x = portal, group = has.been.updated, fill = has.been.updated) +
+  geom_bar()
