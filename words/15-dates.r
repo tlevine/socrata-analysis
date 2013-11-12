@@ -7,12 +7,9 @@ TODAY <- as.Date(Sys.time())
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 if (!('socrata.deduplicated' %in% ls())) {
-  socrata.deduplicated <- read.csv('../socrata-deduplicated.csv')
-  socrata.deduplicated <- subset(socrata.deduplicated, portal != 'opendata.socrata.com')
-
-  # Only tables, not maps and whatnot.
-  # There are problems with doing it this method!
-  socrata.deduplicated <- subset(socrata.deduplicated, displayType == 'table')
+  socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
+  socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
+  socrata.deduplicated <- ddply(socrata.deduplicated, tableId, function(df) { df[1,] })
 
   .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
   s <- socrata.deduplicated[.columns]

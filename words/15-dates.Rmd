@@ -30,6 +30,19 @@ week-to-week to make sure that we are vaguely on track at keeping data
 up-to-date. So I made one.
 
 ## The data about data
+I [downloaded]()
+all the metadata about all of the public datasets, and then I removed
+datasets that were [duplicated because of federation]().
+
+Socrata has this feature where you can create multiple
+[views]() from a single
+[table]().
+It is hard to separate the official views, created by someone in the
+government, from the unofficial, derived views. I did not try to determine
+which view/dataset was the original, official one, but I did separate
+them based on their `tableId`, which links all of the different views
+that use the same data.
+
 The Socrata API provides four date fields.
 * `createdAt`
 * `publicationDate`
@@ -41,22 +54,38 @@ it's always the oldest one. It is possible to create a dataset but keep
 it private, for internal review. If you spend a couple days reviewing
 the dataset privately before you post it publically, the `publicationDate`
 will reflect this latter date, while `createdAt` will still be the time
-when you added the private dataset.
+when you added the private dataset. Also, `createdAt` is different for
+different views of the same data, but `publicationDate` is not.
+
+```{r publicationDate}
+table(subset(socrata.deduplicated, tableId == 926641)$publicationDate)
+```
+
+```{r createdAt}
+table(subset(socrata.deduplicated, tableId == 926641)$createdAt)
+```
 
 `rowsUpdatedAt` and `viewLastModified` presumably have something to do
 with the time the dataset was updated. I don't really know what those
-mean.
+mean, but I think `rowsUpdatedAt` is the one I want. Recall from above
+that views with the same `tableId` share the share the underlying data.
+If the data get updated, it should be reflected in all of the datasets.
+This is the case for `rowsUpdatedAt`; for all
+`r sum(socrata.deduplicated.orig$tableId == 926641)`
+datasets with an `tableId` of `926641`, the `rowsUpdatedAt` field
+is the same.
 
-federation and non-tables removed. but that doesn't work. i've explained this somewhere
-XXX
+```{r rowsUpdatedAt}
+table(subset(socrata.deduplicated.orig, tableId == 926641)$rowsUpdatedAt)
+```
 
-### Problems with these data about data
-As I indicate above, I don't really understand what the data I'm using
-mean. Specifically, I don't really know what `rowsUpdatedAt` and
-`viewLastModified` mean, and there are issues with the deduplication
-of datasets. Thus, it's better to see this article as a prototype of a
-metric rather than a metric that we should really be using or an analysis
-that really tells us something.
+On the other hand, the `viewLastModified` field is quite different.
+
+```{r viewLastModified}
+table(subset(socrata.deduplicated.orig, tableId == 926641)$viewLastModified)
+```
+
+Thus, I'm using `rowsUpdatedAt` for calculating the updatedness measure.
 
 ## Motivation for the metric
 The metric that I came up with is **proportion of datasets older than
