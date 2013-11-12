@@ -10,6 +10,10 @@ if (!('socrata.deduplicated' %in% ls())) {
   socrata.deduplicated <- read.csv('../socrata-deduplicated.csv')
   socrata.deduplicated <- subset(socrata.deduplicated, portal != 'opendata.socrata.com')
 
+  # Only tables, not maps and whatnot.
+  # There are problems with doing it this method!
+  socrata.deduplicated <- subset(socrata.deduplicated, displayType == 'table')
+
   .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
   s <- socrata.deduplicated[.columns]
   s$createdAt <- as.Date(as.POSIXct(s$createdAt, origin = '1970-01-01'))
