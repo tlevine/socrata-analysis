@@ -40,7 +40,6 @@ p1 <- ggplot(s.molten) +
   scale_color_continuous('Publication group number', labels = comma) +
   ggtitle('How up-to-date are the datasets?')
 
-"
 s.molten$one.year <- difftime(s.molten$update.date, s.molten$publicationDate, units = 'weeks') > 52
 p2 <- ggplot(s.molten) +
   aes(x = publicationDate, color = one.year,
@@ -55,11 +54,7 @@ s.daily <- ddply(s.molten, c('portal', 'update.date'), function(df) {
 s.daily$prop.up.to.date <- factor(s.daily$prop.up.to.date,
   levels = names(sort(s.daily$prop.up.to.date)))
 
-p3 <- ggplot(s.daily) +
-  aes(x = update.date, group = portal, y = prop.up.to.date) + geom_point()
-"
-
-s.window <- ddply(data.frame(weeks = 52:0), 'weeks', function(nweeks.df) {
+s.window <- ddply(data.frame(weeks = (2 * 52):0), 'weeks', function(nweeks.df) {
   nweeks <- nweeks.df$weeks[1]
 
   ddply(s.molten, c('portal','update.type'), function(df.full) {
@@ -69,14 +64,12 @@ s.window <- ddply(data.frame(weeks = 52:0), 'weeks', function(nweeks.df) {
     c(prop = sum(df$up.to.date) / nrow(df), count = nrow(df))
   })
 })
-p4 <- ggplot(s.window) + aes(x = weeks, y = prop, group = update.type, size = count) + geom_line() +
+p4 <- ggplot(s.window) + aes(x = weeks, y = prop, group = update.type, size = count, color = update.type) + geom_line(alpha = 0.5) +
   ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
   scale_size_continuous('Number of datasets in the portal') +
   ggtitle('How many old datasets have been updated recently, by portal?') +
+  geom_vline(xintercept = c(4, 52)) + geom_text(x = c(4,52), y = 0.5) +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
-
-# p6 <- ggplot(s.window[order(s.window$weeks, decreasing = TRUE),]) +
-#   aes(x = count, y = prop, group = portal) + geom_path()
 
 p6 <- ggplot(subset(s.window, weeks == 52)) +
   aes(x = count, y = prop, label = portal) + geom_text(alpha = 0.2) +
