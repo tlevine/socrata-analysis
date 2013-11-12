@@ -118,11 +118,30 @@ metric for different cutoff values. If we find a region where the value
 of the updatedness metric doesn't change very much when we change the
 cutoff, we could say that cutoffs in that region are safe to use.
 
+I also had to decide whether to use `rowsUpdatedAt` or `viewLastModified`
+as the date of update. I don't really know what either of these means, so
+let's just try both.
+
 ```{r robustness}
 p4
 ```
 
-The first thing I notice when I look at this plot is that 
+The first thing I notice when I look at this plot is that the metric based
+on `rowsUpdatedAt` (labeled "rows") is pretty much always zero.
+If `rowsUpdatedAt` means what I intuitively think of as the date of an update
+to the data, this is very bad; it means that we pretty much never update
+data that we put on data portals. On the other hand, the metric based on
+`viewLastModified` ("view") sometimes gets quite high, so let's hope that
+that measure tells us something.
+
+The next thing I notice is that the value varies widely when there aren't
+very many datasets on the portal. Visually, this shows itself as skinny
+lines (few datasets) that are blue (based on `viewLastModified`) jumping
+up and down very suddenly. When there are very few datasets on a portal
+(like 12), an addition of a dataset or an update to a dataset will have
+a large impact on the value of our updatedness metric (the height of the line).
+
+
 
 ## Updatedness by portal
 
