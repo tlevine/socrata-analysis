@@ -7,10 +7,6 @@ source('15-dates.r')
 opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 ```
 
-```{r up_to_date}
-p1
-```
-
 ## Data portal metrics
 According to A, B, C and D, getting data to the web, in whatever form
 you can, is always better than nothing. How can you tell whether you're
@@ -86,6 +82,23 @@ table(subset(socrata.deduplicated.orig, tableId == 926641)$viewLastModified)
 ```
 
 Thus, I'm using `rowsUpdatedAt` for calculating the updatedness measure.
+
+## Data summary
+Let's start by plotting these date variables by dataset.
+I also included the publication group number, which is presumably
+an identification number that increases with each group of dataset
+publication.
+
+```{r up_to_date}
+p1
+```
+
+It looks like most data were "updated" only at their time of their
+initial publication. Colloquially, we'd say that they haven't been
+updated ever. But there are some spikes here and there.
+
+This is a bit complicated; let's try to come up with simpler measure
+for taking this in.
 
 ## Motivation for the metric
 The metric that I came up with is **proportion of datasets older than

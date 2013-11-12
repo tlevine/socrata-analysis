@@ -52,15 +52,13 @@ if (!('socrata.deduplicated' %in% ls())) {
   })
 }
 
-
-p1 <- ggplot(s.molten) +
-  aes(x = publicationDate, y = days.since.update, group = update.type,
-    shape = update.type, color = publicationGroup) +
+p1 <- ggplot(subset(s.molten, update.type == 'rows')) +
+  aes(x = publicationDate, y = days.since.update, color = publicationGroup) +
   facet_wrap(~ portal) + geom_point() +
-  scale_x_date('Date of dataset publication') +
-  scale_y_continuous('Days since the dataset has been updated') +
+  scale_x_date('Date of table publication') +
+  scale_y_continuous('Days since the table has been updated') +
   scale_color_continuous('Publication group number', labels = comma) +
-  ggtitle('How up-to-date are the datasets?')
+  ggtitle('How up-to-date are the data?')
 
 
 p2 <- ggplot(s.molten) +
