@@ -68,7 +68,7 @@ p4 <- ggplot(s.window) + aes(x = weeks, y = prop, group = update.type, size = co
   ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
   scale_size_continuous('Number of datasets in the portal') +
   ggtitle('How many old datasets have been updated recently, by portal?') +
-  geom_vline(xintercept = c(4, 52)) + geom_text(x = c(4,52), y = 0.5) +
+# geom_vline(xintercept = c(4, 52)) + geom_text(x = c(4,52), y = rep(0.5, 2)) +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
 p6 <- ggplot(subset(s.window, weeks == 52)) +

@@ -10,3 +10,53 @@ opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 ```{r up_to_date}
 print(p1)
 ```
+
+## Data portal metrics
+According to A, B, C and D, getting data to the web, in whatever form
+you can, is always better than nothing. How can you tell whether you're
+doing a good job at this basic release of data? Data catalog software
+typically provides one tool: the metric of number of datasets. We can go to
+[data.gov.uk](https://data.gov.uk) and find out that it currently has
+however many datasets, and we can go back next week and make sure that
+the number is increasing. There are problems with this metric, which I
+won't go into right now, but the metric does tell us something about how
+much data we are releasing.
+
+According to A, B, C and D, it is also important that we keep open data
+up-to-date. Unfortunately, data catalog software don't currently
+have great tools for helping you make sure that your data are indeed
+up-to-date. Specifically, we don't have a number that we can look at
+week-to-week to make sure that we are vaguely on track at keeping data
+up-to-date. So I made one.
+
+## Developing the metric
+
+### Motivation for this
+
+
+
+### Tuning
+This metric involves a somewhat arbitrary cut-off, and that is somewhat
+inconvenient; our updatedness value might change depending on whether
+we use a cutoff of one year or half a year.
+
+I was tempted to come up with a fancier metric that looked more at the
+distribution of update times or chose a less-arbitrary cutoff for each
+different portal, but that would be more complicated and might be harder
+to understand. Instead of coming up with a less arbitrary cutoff, we
+can check whether different values will give us the same value on our
+updatedness metric. To say it fancy-like, we can check whether our
+updatedness metric is robust to the cutoff.
+
+## Updatedness by portal
+
+### 
+
+
+
+### Rivalries
+
+Chicago v new york
+
+
+
