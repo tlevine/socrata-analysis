@@ -29,6 +29,35 @@ up-to-date. Specifically, we don't have a number that we can look at
 week-to-week to make sure that we are vaguely on track at keeping data
 up-to-date. So I made one.
 
+## The data about data
+The Socrata API provides four date fields.
+* `createdAt`
+* `publicationDate`
+* `rowsUpdatedAt`
+* `viewLastModified`
+
+`createdAt` is when someone clicked the button to include the dataset;
+it's always the oldest one. It is possible to create a dataset but keep
+it private, for internal review. If you spend a couple days reviewing
+the dataset privately before you post it publically, the `publicationDate`
+will reflect this latter date, while `createdAt` will still be the time
+when you added the private dataset.
+
+`rowsUpdatedAt` and `viewLastModified` presumably have something to do
+with the time the dataset was updated. I don't really know what those
+mean.
+
+federation and non-tables removed. but that doesn't work. i've explained this somewhere
+XXX
+
+### Problems with these data about data
+As I indicate above, I don't really understand what the data I'm using
+mean. Specifically, I don't really know what `rowsUpdatedAt` and
+`viewLastModified` mean, and there are issues with the deduplication
+of datasets. Thus, it's better to see this article as a prototype of a
+metric rather than a metric that we should really be using or an analysis
+that really tells us something.
+
 ## Motivation for the metric
 The metric that I came up with is **proportion of datasets older than
 a year that have been updated within the year**. Here's how I arrived
@@ -89,10 +118,11 @@ metric for different cutoff values. If we find a region where the value
 of the updatedness metric doesn't change very much when we change the
 cutoff, we could say that cutoffs in that region are safe to use.
 
-
 ```{r robustness}
 p4
 ```
+
+The first thing I notice when I look at this plot is that 
 
 ## Updatedness by portal
 
@@ -106,5 +136,3 @@ Chicago v new york
 
 
 
-## Issues with this present analysis
-federation and non-tables removed. but that doesn't work. i've explained this somewhere
