@@ -101,12 +101,15 @@ p6 <- ggplot(subset(s.molten, update.type == 'rows')) +
   aes(x = update.date) + geom_histogram(binwidth = 30) +
   facet_wrap(~ portal)
 
-p7 <- ggplot() +
-  aes(x = ) + geom_histogram(binwidth = 30) +
-  facet_wrap(~ portal)
-
-p8 <- ggplot(subset(s.molten, update.type == 'rows' & (portal == 'data.cityofnewyork.us' | portal == 'cookcounty.socrata.com' | portal == 'data.cityofchicago.org' | portal == 'data.hawaii.gov' | portal == 'data.kingcounty.gov' | portal == 'data.maryland.gov' | portal == 'data.medicare.gov' | portal == 'data.mo.gov' | portal == 'data.ny.gov' | portal == 'data.oregon.gov' | portal == 'data.sunlightlabs.com' | portal == 'opendata.go.ke'))) +
+p7 <- ggplot(subset(s.molten, update.type == 'rows' & (portal == 'data.cityofnewyork.us' | portal == 'cookcounty.socrata.com' | portal == 'data.cityofchicago.org' | portal == 'data.hawaii.gov' | portal == 'data.kingcounty.gov' | portal == 'data.maryland.gov' | portal == 'data.medicare.gov' | portal == 'data.mo.gov' | portal == 'data.ny.gov' | portal == 'data.oregon.gov' | portal == 'data.sunlightlabs.com' | portal == 'opendata.go.ke'))) +
   aes(x = update.date) + geom_histogram(binwidth = 30) +
   facet_wrap(~ portal) +
   scale_x_date('Month') +
   ylab('Number of datasets updated that month')
+
+p8 <- ggplot(subset(s.molten, portal == 'data.cityofnewyork.us')) +
+  aes(x = update.date) + geom_histogram(binwidth = 1) +
+  scale_x_date('Day', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
+  ylab('Number of datasets updated that month')
+
+ny <- subset(s.molten, portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
