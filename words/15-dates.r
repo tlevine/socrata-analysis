@@ -7,14 +7,17 @@ TODAY <- as.Date(Sys.time())
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 if (!('socrata.deduplicated' %in% ls())) {
+  print(1)
   socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
   socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
   socrata.deduplicated <- ddply(socrata.deduplicated, 'tableId', function(df) { df[1,] })
 
+  print(2)
   socrata.deduplicated$has.been.updated <- (
     (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
     socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 3600)
 
+  print(3)
   .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
   s <- socrata.deduplicated[.columns]
   s$createdAt <- as.Date(as.POSIXct(s$createdAt, origin = '1970-01-01'))
@@ -27,8 +30,9 @@ if (!('socrata.deduplicated' %in% ls())) {
 
   s$has.been.updated <- !is.na(s$rowsUpdatedAt) & s$publicationDate < s$rowsUpdatedAt
 
+  print(4)
   s.molten <- melt(s, measure.vars = c('rowsUpdatedAt','viewLastModified'), variable.name = 'update.type', value.name = 'update.date')
-  s.molten$update.date <- as.Date('1970-01-01') + lubridate::days(s.molten$update.date)
+  s.molten$update.date <- as.Date('1970-01-01') + days(s.molten$update.date)
   s.molten$days.since.update <- as.numeric(difftime(
     TODAY, s.molten$update.date, units = 'days'))
   s.molten$update.type <- factor(s.molten$update.type,
@@ -37,6 +41,7 @@ if (!('socrata.deduplicated' %in% ls())) {
 
   s.molten$one.year <- difftime(s.molten$update.date, s.molten$publicationDate, units = 'weeks') > 52
 
+  print(5)
   s.daily <- ddply(s.molten, c('portal', 'update.date'), function(df) {
     df.subset <- subset(df, difftime(TODAY, df$publicationDate, units = 'weeks') > 52)
     c(prop.up.to.date = mean(df.subset$one.year))
@@ -44,6 +49,7 @@ if (!('socrata.deduplicated' %in% ls())) {
   s.daily$prop.up.to.date <- factor(s.daily$prop.up.to.date,
     levels = names(sort(s.daily$prop.up.to.date)))
 
+  print(6)
   s.window <- ddply(data.frame(weeks = (2 * 52):0), 'weeks', function(nweeks.df) {
     nweeks <- nweeks.df$weeks[1]
 
