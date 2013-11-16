@@ -12,7 +12,7 @@ if (!('socrata.deduplicated' %in% ls())) {
   print(2)
   socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
   socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
-  socrata.deduplicated <- sqldf('SELECT * FROM [socrata.deduplicated] GROUP BY "tableId"')
+  socrata.deduplicated <- sqldf('SELECT *, sum(downloadCount) AS familyDownloadCount FROM [socrata.deduplicated] GROUP BY "tableId"')
 
   socrata.deduplicated$has.been.updated <- (
     (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
@@ -145,5 +145,13 @@ p13 <- ggplot(updates.2013) +
 updates.2013$url <- paste0('https://',updates.2013$portal,'/d/',updates.2013$id)
 updates.2013.joined <- plyr::join(updates.2013, socrata.deduplicated, type = 'left', by = c('portal','id'))
 updates.2013.joined[c('url','name','downloadCount')]
+
+updates.ever <- plyr::join(subset(s.molten, has.been.updated & update.type == 'rows')[c('portal','id', 'has.been.updated')], socrata.deduplicated, type = 'right', by = c('portal','id'))
+updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
+
+p14 <- ggplot(updates.ever) +
+  aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = downloadCount, color = has.been.updated) +
+  scale_y_log10('How many times the dataset has been downloaded', labels = comma) +
+  geom_point()
 
 ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
