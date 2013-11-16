@@ -126,4 +126,10 @@ p10 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (porta
   facet_wrap(~ portal, nrow = 2, ncol = 1) + geom_point(alpha = 0.3) +
   geom_text() + xlim(as.Date(c(paste0('2013-',c('03','08'), '-01'))))
 
+s.molten$update.minus.publish <- as.numeric(difftime(s.molten$update.date, s.molten$publicationDate, units = 'days'))
+p11 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'opendata.go.ke' | portal == 'data.oregon.gov' | portal == 'data.cityofnewyork.us'))) +
+  aes(x = publicationDate, y = update.minus.publish, label = id) +
+  scale_x_date('Initial publication date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
+  facet_wrap(~ portal, nrow = 3, ncol = 1) + geom_point(alpha = 0.3)
+
 ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
