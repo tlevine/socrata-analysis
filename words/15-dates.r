@@ -132,4 +132,13 @@ p11 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (porta
   scale_x_date('Initial publication date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
   facet_wrap(~ portal, nrow = 3, ncol = 1) + geom_point(alpha = 0.3)
 
+p12 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & publicationDate < as.Date('2013-01-01') & update.date > as.Date('2013-01-01'))) +
+  aes(x = portal) + geom_histogram() +
+  ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.')
+
+p13 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & publicationDate < as.Date('2013-01-01') & update.date > as.Date('2013-01-01'))) +
+  aes(x = portal, label = id, y = 1) + geom_text(position = 'stack') +
+  scale_y_continuous('', breaks = c()) +
+  ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.')
+
 ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
