@@ -142,4 +142,8 @@ p13 <- ggplot(updates.2013) +
   scale_y_continuous('', breaks = c()) +
   ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.')
 
+updates.2013$url <- paste0('https://',updates.2013$portal,'/d/',updates.2013$id)
+updates.2013.joined <- plyr::join(updates.2013, socrata.deduplicated, type = 'left', by = c('portal','id'))
+updates.2013.joined[c('url','name','downloadCount')]
+
 ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
