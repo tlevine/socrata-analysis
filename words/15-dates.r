@@ -3,24 +3,22 @@ library(reshape2)
 library(lubridate)
 library(scales)
 library(plyr)
+library(sqldf)
 TODAY <- as.Date(Sys.time())
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
+.columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
 if (!('socrata.deduplicated' %in% ls())) {
-  print(1)
-  socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
-  print(1.1)
-  socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
-  print(1.2)
-  socrata.deduplicated <- ddply(socrata.deduplicated, 'tableId', function(df) { df[1,] })
-
   print(2)
+  socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
+  socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
+  socrata.deduplicated <- sqldf('SELECT * FROM [socrata.deduplicated] GROUP BY "tableId"')
+
   socrata.deduplicated$has.been.updated <- (
     (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
     socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 3600)
 
   print(3)
-  .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
   s <- socrata.deduplicated[.columns]
   s$createdAt <- as.Date(as.POSIXct(s$createdAt, origin = '1970-01-01'))
   s$publicationDate <- as.Date(as.POSIXct(s$publicationDate, origin = '1970-01-01'))
@@ -34,7 +32,7 @@ if (!('socrata.deduplicated' %in% ls())) {
 
   print(4)
   s.molten <- melt(s, measure.vars = c('rowsUpdatedAt','viewLastModified'), variable.name = 'update.type', value.name = 'update.date')
-  s.molten$update.date <- as.Date('1970-01-01') + days(s.molten$update.date)
+  s.molten$update.date <- as.Date('1970-01-01') + lubridate::days(s.molten$update.date)
   s.molten$days.since.update <- as.numeric(difftime(
     TODAY, s.molten$update.date, units = 'days'))
   s.molten$update.type <- factor(s.molten$update.type,
