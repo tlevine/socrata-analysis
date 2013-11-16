@@ -101,7 +101,18 @@ p6 <- ggplot(subset(s.molten, update.type == 'rows')) +
   aes(x = update.date) + geom_histogram(binwidth = 30) +
   facet_wrap(~ portal)
 
-p7 <- ggplot(subset(s.molten, update.type == 'rows' & (portal == 'data.cityofnewyork.us' | portal == 'cookcounty.socrata.com' | portal == 'data.cityofchicago.org' | portal == 'data.hawaii.gov' | portal == 'data.kingcounty.gov' | portal == 'data.maryland.gov' | portal == 'data.medicare.gov' | portal == 'data.mo.gov' | portal == 'data.ny.gov' | portal == 'data.oregon.gov' | portal == 'data.sunlightlabs.com' | portal == 'opendata.go.ke'))) +
+updates.by.portal <- ddply(s.molten, 'portal', function(df) {
+  c(
+    portal = df[1,'portal'],
+    datasets.updated = nrow(df)
+  )
+})
+
+p7 <- ggplot() +
+  aes(x = ) + geom_histogram(binwidth = 30) +
+  facet_wrap(~ portal)
+
+p8 <- ggplot(subset(s.molten, update.type == 'rows' & (portal == 'data.cityofnewyork.us' | portal == 'cookcounty.socrata.com' | portal == 'data.cityofchicago.org' | portal == 'data.hawaii.gov' | portal == 'data.kingcounty.gov' | portal == 'data.maryland.gov' | portal == 'data.medicare.gov' | portal == 'data.mo.gov' | portal == 'data.ny.gov' | portal == 'data.oregon.gov' | portal == 'data.sunlightlabs.com' | portal == 'opendata.go.ke'))) +
   aes(x = update.date) + geom_histogram(binwidth = 30) +
   facet_wrap(~ portal) +
   scale_x_date('Month') +
