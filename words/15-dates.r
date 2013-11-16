@@ -9,7 +9,9 @@ date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastMod
 if (!('socrata.deduplicated' %in% ls())) {
   print(1)
   socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
+  print(1.1)
   socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
+  print(1.2)
   socrata.deduplicated <- ddply(socrata.deduplicated, 'tableId', function(df) { df[1,] })
 
   print(2)
