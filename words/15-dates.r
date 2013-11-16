@@ -151,12 +151,14 @@ updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
 updates.ever$portal <- droplevels(updates.ever$portal)
 
 p14 <- ggplot(updates.ever) +
-  aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = familyDownloadCount, color = has.been.updated.factor, size = familyNrow) +
+  aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = familyDownloadCount, color = has.been.updated.factor) +
   scale_x_continuous('', breaks = 1:length(levels(updates.ever$portal)), labels = levels(updates.ever$portal)) +
   scale_y_log10('How many times data has been downloaded', labels = comma) +
   scale_color_discrete('Has the dataset ever been updated?') +
-  scale_size_discrete('Number of records in the dataset') +
-  geom_point() + coord_flip() +
+  geom_point(alpha = 0.5) + coord_flip() +
   ggtitle('Datasets that get downloaded more tend also to be more up-to-date.\n(Each point is a family/table of datasets on a Socrata data portal.)')
+
+p15 <- p14 + aes(size = familyNrow) +
+  scale_size_continuous('Number of records in the dataset', labels = comma)
 
 # ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
