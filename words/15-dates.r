@@ -96,3 +96,13 @@ p5 <- ggplot(socrata.deduplicated) +
   ylab('') + xlab('Number of datasets on the portal') +
   scale_color_discrete('Has the dataset ever been updated?') +
   ggtitle('Hardly any datasets get updated.')
+
+p6 <- ggplot(subset(s.molten, update.type == 'rows')) +
+  aes(x = update.date) + geom_histogram(binwidth = 30) +
+  facet_wrap(~ portal)
+
+p7 <- ggplot(subset(s.molten, update.type == 'rows' & (portal == 'data.cityofnewyork.us' | portal == 'cookcounty.socrata.com' | portal == 'data.cityofchicago.org' | portal == 'data.hawaii.gov' | portal == 'data.kingcounty.gov' | portal == 'data.maryland.gov' | portal == 'data.medicare.gov' | portal == 'data.mo.gov' | portal == 'data.ny.gov' | portal == 'data.oregon.gov' | portal == 'data.sunlightlabs.com' | portal == 'opendata.go.ke'))) +
+  aes(x = update.date) + geom_histogram(binwidth = 30) +
+  facet_wrap(~ portal) +
+  scale_x_date('Month') +
+  ylab('Number of datasets updated that month')
