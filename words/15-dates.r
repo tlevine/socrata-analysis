@@ -148,10 +148,14 @@ updates.2013.joined[c('url','name','downloadCount')]
 
 updates.ever <- plyr::join(subset(s.molten, has.been.updated & update.type == 'rows')[c('portal','id', 'has.been.updated')], socrata.deduplicated, type = 'right', by = c('portal','id'))
 updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
+updates.ever$portal <- droplevels(updates.ever$portal)
 
 p14 <- ggplot(updates.ever) +
-  aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = downloadCount, color = has.been.updated) +
-  scale_y_log10('How many times the dataset has been downloaded', labels = comma) +
-  geom_point()
+  aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = familyDownloadCount, color = has.been.updated.factor) +
+  scale_x_continuous('', breaks = 1:length(levels(updates.ever$portal)), labels = levels(updates.ever$portal)) +
+  scale_y_log10('How many times data has been downloaded', labels = comma) +
+  scale_color_discrete('Has the dataset ever been updated?') +
+  geom_point() + coord_flip() +
+  ggtitle('Datasets that get downloaded more tend also to be more up-to-date.\n(Each point is a family/table of datasets on a Socrata data portal.)')
 
 ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
