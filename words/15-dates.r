@@ -144,7 +144,7 @@ p13 <- ggplot(updates.2013) +
 
 updates.2013$url <- paste0('https://',updates.2013$portal,'/d/',updates.2013$id)
 updates.2013.joined <- plyr::join(updates.2013, socrata.deduplicated, type = 'left', by = c('portal','id'))
-updates.2013.joined[c('url','name','downloadCount')]
+updates.2013.joined[c('url','name','familyDownloadCount', 'familyNrow')]
 
 updates.ever <- plyr::join(subset(s.molten, has.been.updated & update.type == 'rows')[c('portal','id', 'has.been.updated')], socrata.deduplicated, type = 'right', by = c('portal','id'))
 updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
@@ -160,5 +160,12 @@ p14 <- ggplot(updates.ever) +
 
 p15 <- p14 + aes(size = familyNrow) +
   scale_size_continuous('Number of records in the dataset', labels = comma)
+
+p16 <- ggplot(updates.2013.joined) +
+  aes(color = portal, label = paste0('https://',portal,'\n/d/',id), x = familyNrow, y = familyDownloadCount) +
+  scale_y_log10('Number of downloads', breaks = 10^(1:5), labels = comma) +
+  scale_x_log10('Number of records in the dataset', breaks = 10^(1:5), labels = comma) +
+  ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.') +
+  geom_text()
 
 # ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
