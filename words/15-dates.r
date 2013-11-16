@@ -144,7 +144,7 @@ p13 <- ggplot(updates.2013) +
 
 updates.2013$url <- paste0('https://',updates.2013$portal,'/d/',updates.2013$id)
 updates.2013.joined <- plyr::join(updates.2013, socrata.deduplicated, type = 'left', by = c('portal','id'))
-updates.2013.joined[c('url','name','familyDownloadCount', 'familyNrow')]
+updates.2013.joined[c('url','name')]
 
 updates.ever <- plyr::join(subset(s.molten, has.been.updated & update.type == 'rows')[c('portal','id', 'has.been.updated')], socrata.deduplicated, type = 'right', by = c('portal','id'))
 updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
