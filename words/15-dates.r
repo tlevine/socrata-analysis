@@ -60,6 +60,7 @@ if (!('socrata.deduplicated' %in% ls())) {
       c(prop = sum(df$up.to.date) / nrow(df), count = nrow(df))
     })
   })
+  print(7)
 }
 
 p1 <- ggplot(subset(s.molten, update.type == 'rows')) +
