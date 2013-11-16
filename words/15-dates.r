@@ -92,4 +92,7 @@ levels(socrata.deduplicated$has.been.updated.factor) <- c('Yes','No')
 
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
-  geom_bar()
+  geom_bar() + coord_flip() +
+  ylab('') + xlab('Number of datasets on the portal') +
+  scale_color_discrete('Has the dataset ever been updated?') +
+  ggtitle('Hardly any datasets get updated.')
