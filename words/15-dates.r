@@ -12,7 +12,7 @@ if (!('socrata.deduplicated' %in% ls())) {
   print(2)
   socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
   socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
-  socrata.deduplicated <- sqldf('SELECT *, sum(downloadCount) AS familyDownloadCount FROM [socrata.deduplicated] GROUP BY "tableId"')
+  socrata.deduplicated <- sqldf('SELECT *, max(nrow) AS familyNrow, sum(downloadCount) AS familyDownloadCount FROM [socrata.deduplicated] GROUP BY "tableId"')
 
   socrata.deduplicated$has.been.updated <- (
     (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
@@ -151,10 +151,11 @@ updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
 updates.ever$portal <- droplevels(updates.ever$portal)
 
 p14 <- ggplot(updates.ever) +
-  aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = familyDownloadCount, color = has.been.updated.factor) +
+  aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = familyDownloadCount, color = has.been.updated.factor, size = familyNrow) +
   scale_x_continuous('', breaks = 1:length(levels(updates.ever$portal)), labels = levels(updates.ever$portal)) +
   scale_y_log10('How many times data has been downloaded', labels = comma) +
   scale_color_discrete('Has the dataset ever been updated?') +
+  scale_size_discrete('Number of records in the dataset') +
   geom_point() + coord_flip() +
   ggtitle('Datasets that get downloaded more tend also to be more up-to-date.\n(Each point is a family/table of datasets on a Socrata data portal.)')
 
