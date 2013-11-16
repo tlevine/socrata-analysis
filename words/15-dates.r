@@ -101,13 +101,6 @@ p6 <- ggplot(subset(s.molten, update.type == 'rows')) +
   aes(x = update.date) + geom_histogram(binwidth = 30) +
   facet_wrap(~ portal)
 
-updates.by.portal <- ddply(s.molten, 'portal', function(df) {
-  c(
-    portal = df[1,'portal'],
-    datasets.updated = nrow(df)
-  )
-})
-
 p7 <- ggplot() +
   aes(x = ) + geom_histogram(binwidth = 30) +
   facet_wrap(~ portal)
