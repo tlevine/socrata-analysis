@@ -175,9 +175,9 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
   scale_color_discrete('Has the dataset ever been updated?') +
   ggtitle('Dataset publication and updating')
 
-monthly.dataset.count <- adply(as.vector(seq.Date(as.Date('2011-01-01'), as.Date('2013-07-01'), by = 'month')), 1, function(month.Date) {
-  print(str(month.Date))
-  month.iso <- strftime(month.Date, '%Y-%m-01')
-  sqldf(paste0('SELECT \'', month.iso, '\'')) #, count(*) FROM [socrata.deduplicated] GROUP BY "portal"'))
-  print(3)
+months <- data.frame(month = seq.Date(as.Date('2011-01-01'), as.Date('2013-07-01'), by = 'month'))
+months$month.iso <- strftime(months$month, '%Y-%m-01')
+monthly.dataset.count <- ddply(months, 'month', function(df) {
+  month.iso <- df[1,'month.iso']
+  sqldf(paste0('SELECT \'', month.iso, '\', count(*) FROM [socrata.deduplicated] GROUP BY "portal"'))
 })
