@@ -170,6 +170,15 @@ p14 <- ggplot(updates.ever) +
   geom_point(alpha = 0.5) + coord_flip() +
   ggtitle('Datasets that get downloaded more tend also to be more up-to-date.\n(Each point is a family/table of datasets on a Socrata data portal.)')
 
+m14.wilcox <- wilcox.test(socrata.deduplicated$familyDownloadCount[socrata.deduplicated$has.been.updated],
+                          socrata.deduplicated$familyDownloadCount[!socrata.deduplicated$has.been.updated])
+m14.medians <- c(median(socrata.deduplicated$familyDownloadCount[socrata.deduplicated$has.been.updated]),
+                 median(socrata.deduplicated$familyDownloadCount[!socrata.deduplicated$has.been.updated]))
+m14.student <- t.test(socrata.deduplicated$familyDownloadCount[socrata.deduplicated$has.been.updated],
+                      socrata.deduplicated$familyDownloadCount[!socrata.deduplicated$has.been.updated])
+m14.means <- c(mean(socrata.deduplicated$familyDownloadCount[socrata.deduplicated$has.been.updated]),
+               mean(socrata.deduplicated$familyDownloadCount[!socrata.deduplicated$has.been.updated]))
+
 p15 <- p14 + aes(size = familyNrow) +
   scale_size_continuous('Number of records in the dataset', labels = comma)
 
