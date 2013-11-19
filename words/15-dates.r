@@ -211,3 +211,8 @@ p18 <- ggplot(monthly.dataset.count) +
   aes(x = month, y = dataset.count, color = portal, label = portal) +
   geom_line() + xlim(c(min(months$month), max(months$month) + 100))
 p18 <- direct.label(p18, list(last.points))
+
+cat('Explain these two bad alternatives to updating:
+1. Replace an old dataset with a new one, changing the 4x4 identifier.
+2. Add a new dataset for the new year (maybe with the new year in the title), creating multiple 4x4 identifiers.
+')
