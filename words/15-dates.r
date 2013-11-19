@@ -63,6 +63,25 @@ if (!('socrata.deduplicated.orig' %in% ls())) {
     })
   })
   print(7)
+  s.molten$update.minus.publish <- as.numeric(difftime(s.molten$update.date, s.molten$publicationDate, units = 'days'))
+
+  updates.2013 <- subset(s.molten, has.been.updated & update.type == 'rows' & publicationDate < as.Date('2013-01-01') & update.date > as.Date('2013-01-01'))
+
+  updates.2013$url <- paste0('https://',updates.2013$portal,'/d/',updates.2013$id)
+  updates.2013.joined <- plyr::join(updates.2013, socrata.deduplicated, type = 'left', by = c('portal','id'))
+  updates.2013.joined[c('url','name','familyDownloadCount', 'familyNrow')]
+
+  updates.ever <- plyr::join(subset(s.molten, has.been.updated & update.type == 'rows')[c('portal','id', 'has.been.updated')], socrata.deduplicated, type = 'right', by = c('portal','id'))
+  updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
+  updates.ever$portal <- droplevels(updates.ever$portal)
+
+  print(8)
+  months <- data.frame(month = seq.Date(as.Date('2011-01-01'), as.Date('2013-07-01'), by = 'month'))
+  months$month.iso <- strftime(months$month, '%Y-%m-01')
+  monthly.dataset.count <- ddply(months, 'month', function(df) {
+    month.iso <- df[1,'month.iso']
+    sqldf(paste0('SELECT "portal", count(*) "dataset.count" FROM [socrata.deduplicated] GROUP BY "portal"'))
+  })
 }
 
 # ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
@@ -126,13 +145,11 @@ p10 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (porta
   facet_wrap(~ portal, nrow = 2, ncol = 1) + geom_point(alpha = 0.3) +
   geom_text() + xlim(as.Date(c(paste0('2013-',c('03','08'), '-01'))))
 
-s.molten$update.minus.publish <- as.numeric(difftime(s.molten$update.date, s.molten$publicationDate, units = 'days'))
 p11 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'opendata.go.ke' | portal == 'data.oregon.gov' | portal == 'data.cityofnewyork.us'))) +
   aes(x = publicationDate, y = update.minus.publish, label = id) +
   scale_x_date('Initial publication date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
   facet_wrap(~ portal, nrow = 3, ncol = 1) + geom_point(alpha = 0.3)
 
-updates.2013 <- subset(s.molten, has.been.updated & update.type == 'rows' & publicationDate < as.Date('2013-01-01') & update.date > as.Date('2013-01-01'))
 p12 <- ggplot(updates.2013) +
   aes(x = portal) + geom_histogram() +
   ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.')
@@ -141,14 +158,6 @@ p13 <- ggplot(updates.2013) +
   aes(x = portal, label = id, y = 1) + geom_text(position = 'stack') +
   scale_y_continuous('', breaks = c()) +
   ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.')
-
-updates.2013$url <- paste0('https://',updates.2013$portal,'/d/',updates.2013$id)
-updates.2013.joined <- plyr::join(updates.2013, socrata.deduplicated, type = 'left', by = c('portal','id'))
-updates.2013.joined[c('url','name','familyDownloadCount', 'familyNrow')]
-
-updates.ever <- plyr::join(subset(s.molten, has.been.updated & update.type == 'rows')[c('portal','id', 'has.been.updated')], socrata.deduplicated, type = 'right', by = c('portal','id'))
-updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
-updates.ever$portal <- droplevels(updates.ever$portal)
 
 p14 <- ggplot(updates.ever) +
   aes(x = as.numeric(portal) + 0.2 * has.been.updated, y = familyDownloadCount, color = has.been.updated.factor) +
@@ -175,9 +184,6 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
   scale_color_discrete('Has the dataset ever been updated?') +
   ggtitle('Dataset publication and updating')
 
-months <- data.frame(month = seq.Date(as.Date('2011-01-01'), as.Date('2013-07-01'), by = 'month'))
-months$month.iso <- strftime(months$month, '%Y-%m-01')
-monthly.dataset.count <- ddply(months, 'month', function(df) {
-  month.iso <- df[1,'month.iso']
-  sqldf(paste0('SELECT "portal", count(*) "dataset.count" FROM [socrata.deduplicated] GROUP BY "portal"'))
-})
+ggplot(monthly.dataset.count) +
+  aes(x = month, y = dataset.count, color = portal) +
+  geom_line()
