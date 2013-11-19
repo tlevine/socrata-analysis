@@ -168,7 +168,7 @@ p14 <- ggplot(updates.ever) +
   scale_y_log10('How many times data has been downloaded', labels = comma) +
   scale_color_discrete('Has the dataset ever been updated?') +
   geom_point(alpha = 0.5) + coord_flip() +
-  ggtitle('Datasets that get downloaded more tend also to be more up-to-date.\n(Each point is a family/table of datasets on a Socrata data portal.)')
+  ggtitle('Datasets that get downloaded more sort of tend to be more up-to-date.\n(Each point is a family/table of datasets on a Socrata data portal.)')
 
 m14.wilcox <- wilcox.test(socrata.deduplicated$familyDownloadCount[socrata.deduplicated$has.been.updated],
                           socrata.deduplicated$familyDownloadCount[!socrata.deduplicated$has.been.updated])
@@ -179,9 +179,10 @@ m14.student <- t.test(socrata.deduplicated$familyDownloadCount[socrata.deduplica
 m14.means <- c(mean(socrata.deduplicated$familyDownloadCount[socrata.deduplicated$has.been.updated]),
                mean(socrata.deduplicated$familyDownloadCount[!socrata.deduplicated$has.been.updated]))
 
-p15 <- p14 + aes(size = familyNrow) +
+p15 <- p14 + aes(y = familyNrow) +
   scale_size_continuous('Number of records in the dataset', labels = comma) +
-  ggtitle('Datasets that get downloaded more tend also to have more records.\n(Each point is a family/table of datasets on a Socrata data portal.)')
+  scale_y_log10('How many records the dataset has', labels = comma) +
+  ggtitle('Datasets that get downloaded more sort of tend to have more records.\n(Each point is a family/table of datasets on a Socrata data portal.)')
 
 m15.wilcox <- wilcox.test(socrata.deduplicated$familyNrow[socrata.deduplicated$has.been.updated],
                           socrata.deduplicated$familyNrow[!socrata.deduplicated$has.been.updated])
