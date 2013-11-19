@@ -78,10 +78,10 @@ if (!('socrata.deduplicated.orig' %in% ls())) {
   print(8)
 }
   months <- data.frame(month = seq.Date(as.Date('2011-01-01'), as.Date('2013-07-01'), by = 'month'))
-  months$month.iso <- strftime(months$month, '%Y-%m-01')
+  months$month.epoch <- as.numeric(strftime(months$month, '%s'))
   monthly.dataset.count <- ddply(months, 'month', function(df) {
-    month.iso <- df[1,'month.iso']
-    sqldf(paste0('SELECT "portal", count(*) "dataset.count" FROM [socrata.deduplicated] WHERE "publicationDate" < \'', month.iso, '\' GROUP BY "portal"'))
+    month.epoch <- df[1,'month.epoch']
+    sqldf(paste0('SELECT "portal", count(*) "dataset.count" FROM [socrata.deduplicated] WHERE "publicationDate" < \'', month.epoch, '\' GROUP BY "portal"'))
   })
 
 # ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
