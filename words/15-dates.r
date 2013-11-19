@@ -186,5 +186,6 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
   ggtitle('Dataset publication and updating')
 
 p18 <- ggplot(monthly.dataset.count) +
-  aes(x = month, y = dataset.count, color = portal) +
+  aes(x = month, y = dataset.count, color = portal, label = portal) +
   geom_line()
+p18 <- direct.label(p18, list(last.points))
