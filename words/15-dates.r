@@ -4,13 +4,14 @@ library(lubridate)
 library(scales)
 library(plyr)
 library(sqldf)
-TODAY <- as.Date(Sys.time())
+library(directlabels)
+TODAY <- as.Date('2013-07-08') # Really a few days before, but just to be safe
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
 .columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables,'has.been.updated', 'has.been.updated.factor')
-if (!('socrata.deduplicated.orig' %in% ls())) {
+if (!('socrata.deduplicated' %in% ls())) {
   print(2)
-  socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
+# socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
   socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
   socrata.deduplicated <- sqldf('SELECT *, max(nrow) AS familyNrow, sum(downloadCount) AS familyDownloadCount FROM [socrata.deduplicated] GROUP BY "tableId"')
 
@@ -188,4 +189,4 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
 p18 <- ggplot(monthly.dataset.count) +
   aes(x = month, y = dataset.count, color = portal, label = portal) +
   geom_line()
-p18 <- direct.label(p18, list(last.points))
+p18 <- direct.label(p18, list(last.points, hjust = -1))
