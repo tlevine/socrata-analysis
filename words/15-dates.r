@@ -170,6 +170,7 @@ p16 <- ggplot(updates.2013.joined) +
 
 p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
   aes(x = publicationDate, y = portal, color = has.been.updated.factor) +
-  geom_point() +
+  geom_point(position = 'jitter') +
   scale_x_date('Date of table publication') + ylab('') +
-  ggtitle('')
+  scale_color_discrete('Has the dataset ever been updated?') +
+  ggtitle('Dataset publication and updating')
