@@ -180,7 +180,8 @@ m14.means <- c(mean(socrata.deduplicated$familyDownloadCount[socrata.deduplicate
                mean(socrata.deduplicated$familyDownloadCount[!socrata.deduplicated$has.been.updated]))
 
 p15 <- p14 + aes(size = familyNrow) +
-  scale_size_continuous('Number of records in the dataset', labels = comma)
+  scale_size_continuous('Number of records in the dataset', labels = comma) +
+  ggtitle('Datasets that get downloaded more tend also to have more records.\n(Each point is a family/table of datasets on a Socrata data portal.)')
 
 m15.wilcox <- wilcox.test(socrata.deduplicated$familyNrow[socrata.deduplicated$has.been.updated],
                           socrata.deduplicated$familyNrow[!socrata.deduplicated$has.been.updated])
