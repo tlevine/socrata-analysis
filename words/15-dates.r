@@ -103,13 +103,14 @@ p2 <- ggplot(s.molten) +
     linetype = update.type) +
   geom_line(stat='bin')
 
-p4 <- ggplot(subset(s.window, update.type == 'rows')) +
+p3 <- ggplot(subset(s.window, update.type == 'rows')) +
   aes(x = weeks, y = prop, size = count) + geom_line(alpha = 0.5) +
   ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
   scale_size_continuous('Number of datasets in the portal') +
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
+print('Add a plot `p4` explaining why it is not interesting that the line moves when the portal has few datasets.')
 
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
