@@ -179,5 +179,5 @@ months <- data.frame(month = seq.Date(as.Date('2011-01-01'), as.Date('2013-07-01
 months$month.iso <- strftime(months$month, '%Y-%m-01')
 monthly.dataset.count <- ddply(months, 'month', function(df) {
   month.iso <- df[1,'month.iso']
-  sqldf(paste0('SELECT \'', month.iso, '\', count(*) FROM [socrata.deduplicated] GROUP BY "portal"'))
+  sqldf(paste0('SELECT count(*) FROM [socrata.deduplicated] GROUP BY "portal"'))
 })
