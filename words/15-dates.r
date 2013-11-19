@@ -76,13 +76,13 @@ if (!('socrata.deduplicated.orig' %in% ls())) {
   updates.ever$portal <- droplevels(updates.ever$portal)
 
   print(8)
+}
   months <- data.frame(month = seq.Date(as.Date('2011-01-01'), as.Date('2013-07-01'), by = 'month'))
   months$month.iso <- strftime(months$month, '%Y-%m-01')
   monthly.dataset.count <- ddply(months, 'month', function(df) {
     month.iso <- df[1,'month.iso']
-    sqldf(paste0('SELECT "portal", count(*) "dataset.count" FROM [socrata.deduplicated] GROUP BY "portal"'))
+    sqldf(paste0('SELECT "portal", count(*) "dataset.count" FROM [socrata.deduplicated] WHERE "publicationDate" < \'', month.iso, '\' GROUP BY "portal"'))
   })
-}
 
 # ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
 
@@ -184,6 +184,6 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
   scale_color_discrete('Has the dataset ever been updated?') +
   ggtitle('Dataset publication and updating')
 
-ggplot(monthly.dataset.count) +
+p18 <- ggplot(monthly.dataset.count) +
   aes(x = month, y = dataset.count, color = portal) +
   geom_line()
