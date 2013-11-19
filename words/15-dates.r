@@ -188,5 +188,5 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
 
 p18 <- ggplot(monthly.dataset.count) +
   aes(x = month, y = dataset.count, color = portal, label = portal) +
-  geom_line() + ylim(range(months$month))
-p18 <- direct.label(p18, list(last.points, hjust = -1))
+  geom_line() + xlim(c(min(months$month), max(months$month) + 100))
+p18 <- direct.label(p18, list(last.points))
