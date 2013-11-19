@@ -215,4 +215,8 @@ p18 <- direct.label(p18, list(last.points))
 cat('Explain these two bad alternatives to updating:
 1. Replace an old dataset with a new one, changing the 4x4 identifier.
 2. Add a new dataset for the new year (maybe with the new year in the title), creating multiple 4x4 identifiers.
+
+Also mention how it would be awesome to be able to set how often a
+dataset should be updated and then to be made aware when datasets
+are out-of-date. Show how this works in treasury.io.
 ')
