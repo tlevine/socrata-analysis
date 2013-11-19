@@ -7,8 +7,8 @@ library(sqldf)
 TODAY <- as.Date(Sys.time())
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
-.columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables)
-if (!('socrata.deduplicated' %in% ls())) {
+.columns <- c('portal','id','publicationStage', 'publicationGroup', date.variables,'has.been.updated', 'has.been.updated.factor')
+if (!('socrata.deduplicated.orig' %in% ls())) {
   print(2)
   socrata.deduplicated.orig <- read.csv('../socrata-deduplicated.csv')
   socrata.deduplicated <- subset(socrata.deduplicated.orig, portal != 'opendata.socrata.com')
@@ -17,6 +17,10 @@ if (!('socrata.deduplicated' %in% ls())) {
   socrata.deduplicated$has.been.updated <- (
     (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
     socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 3600)
+
+  socrata.deduplicated$portal <- factor(socrata.deduplicated$portal, levels = names(sort(table(socrata.deduplicated$portal))))
+  socrata.deduplicated$has.been.updated.factor <- factor(socrata.deduplicated$has.been.updated,levels = c(TRUE, FALSE))
+  levels(socrata.deduplicated$has.been.updated.factor) <- c('Yes','No')
 
   print(3)
   s <- socrata.deduplicated[.columns]
@@ -27,8 +31,6 @@ if (!('socrata.deduplicated' %in% ls())) {
   s$date <- s$createdAt
   s[is.na(s$date),'date'] <- s[is.na(s$createdAt),'publicationDate']
   s$publicationStage <- factor(s$publicationStage)
-
-  s$has.been.updated <- !is.na(s$rowsUpdatedAt) & s$publicationDate < s$rowsUpdatedAt
 
   print(4)
   s.molten <- melt(s, measure.vars = c('rowsUpdatedAt','viewLastModified'), variable.name = 'update.type', value.name = 'update.date')
@@ -63,6 +65,8 @@ if (!('socrata.deduplicated' %in% ls())) {
   print(7)
 }
 
+# ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
+
 p1 <- ggplot(subset(s.molten, update.type == 'rows')) +
   aes(x = publicationDate, y = days.since.update, color = publicationGroup) +
   facet_wrap(~ portal) + geom_point() +
@@ -85,10 +89,6 @@ p4 <- ggplot(subset(s.window, update.type == 'rows')) +
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
-
-socrata.deduplicated$portal <- factor(socrata.deduplicated$portal, levels = names(sort(table(socrata.deduplicated$portal))))
-socrata.deduplicated$has.been.updated.factor <- factor(socrata.deduplicated$has.been.updated,levels = c(TRUE, FALSE))
-levels(socrata.deduplicated$has.been.updated.factor) <- c('Yes','No')
 
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
@@ -144,7 +144,7 @@ p13 <- ggplot(updates.2013) +
 
 updates.2013$url <- paste0('https://',updates.2013$portal,'/d/',updates.2013$id)
 updates.2013.joined <- plyr::join(updates.2013, socrata.deduplicated, type = 'left', by = c('portal','id'))
-updates.2013.joined[c('url','name')]
+updates.2013.joined[c('url','name','familyDownloadCount', 'familyNrow')]
 
 updates.ever <- plyr::join(subset(s.molten, has.been.updated & update.type == 'rows')[c('portal','id', 'has.been.updated')], socrata.deduplicated, type = 'right', by = c('portal','id'))
 updates.ever$has.been.updated[is.na(updates.ever$has.been.updated)] <- FALSE
@@ -168,4 +168,8 @@ p16 <- ggplot(updates.2013.joined) +
   ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.') +
   geom_text()
 
-# ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
+p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
+  aes(x = publicationDate, y = portal, color = has.been.updated.factor) +
+  geom_point() +
+  scale_x_date('Date of table publication') + ylab('') +
+  ggtitle('')
