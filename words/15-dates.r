@@ -182,6 +182,15 @@ m14.means <- c(mean(socrata.deduplicated$familyDownloadCount[socrata.deduplicate
 p15 <- p14 + aes(size = familyNrow) +
   scale_size_continuous('Number of records in the dataset', labels = comma)
 
+m15.wilcox <- wilcox.test(socrata.deduplicated$familyNrow[socrata.deduplicated$has.been.updated],
+                          socrata.deduplicated$familyNrow[!socrata.deduplicated$has.been.updated])
+m15.medians <- c(median(socrata.deduplicated$familyNrow[socrata.deduplicated$has.been.updated],na.rm=TRUE),
+                 median(socrata.deduplicated$familyNrow[!socrata.deduplicated$has.been.updated],na.rm=TRUE))
+m15.student <- t.test(socrata.deduplicated$familyNrow[socrata.deduplicated$has.been.updated],
+                      socrata.deduplicated$familyNrow[!socrata.deduplicated$has.been.updated])
+m15.means <- c(mean(socrata.deduplicated$familyNrow[socrata.deduplicated$has.been.updated],na.rm=TRUE),
+               mean(socrata.deduplicated$familyNrow[!socrata.deduplicated$has.been.updated],na.rm=TRUE))
+
 p16 <- ggplot(updates.2013.joined) +
   aes(color = portal, label = paste0('https://',portal,'\n/d/',id), x = familyNrow, y = familyDownloadCount) +
   scale_y_log10('Number of downloads', breaks = 10^(1:5), labels = comma) +
