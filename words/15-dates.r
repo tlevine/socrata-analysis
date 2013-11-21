@@ -126,8 +126,6 @@ p3 <- ggplot(subset(s.window, update.type == 'rows')) +
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
-print('Add a plot `p4` explaining why it is not interesting that the line moves when the portal has few datasets.')
-
 data.cms.gov.cutoff <- subset(s.window, update.type == 'rows' & portal == 'data.cms.gov')
 data.cms.gov.cutoff$date <- TODAY - (7 * as.difftime('24:0:0') * data.cms.gov.cutoff$weeks)
 
@@ -150,9 +148,6 @@ p4.b <- ggplot(data.cms.gov.molten) +
   scale_color_discrete('Dates') +
   theme(legend.position = c(0.9,0.5)) +
   scale_x_datetime('Date of upload or publication to data.cms.gov', labels = date_format('%b %Y'), breaks = as.POSIXct(p4.breaks), minor_breaks = waiver())
-# p4 <- grid.arrange(p4.a, p4.b)
-# p4 <- grid.draw(rbind(ggplotGrob(p4.a), ggplotGrob(p4.b), size="first"))
-# p4 <- grid.arrange(p4.a, p4.b, heights = c(1/3, 2/3), widths = 1)
 
 gp4.a <- ggplot_gtable(ggplot_build(p4.a))
 gp4.b <- ggplot_gtable(ggplot_build(p4.b))
