@@ -246,7 +246,7 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
 p18 <- ggplot(monthly.dataset.count) +
   aes(x = month, y = dataset.count, color = portal, label = portal) +
   geom_line() + xlim(c(min(months$month), max(months$month) + 100)) +
-  scale_x_date('Date', labels = date_format('%b %Y')) +
+  xlab('Date') +
   ylab('Number of datasets in the portal') +
   ggtitle('How many datasets are in the different portals?')
 
