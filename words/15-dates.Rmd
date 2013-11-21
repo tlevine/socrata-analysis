@@ -186,7 +186,14 @@ This is not interesting, and the plot below should explain why.
 p4
 ```
 
-The first plot is a larger version of the one in the previous image
+In these two plots, we're only looking at `data.cms.gov`. The first
+plot is the same as the corresponding plot in the previous image,
+only larger. The second shows the dates at which each
+[data table](/!/) was
+published and most recently updated. Red dots are publication dates,
+and blue dots are update dates. If there was no update or the most
+recent update was within a day of the publication date, no blue dot
+is shown.
 
 The bumps in the top plot only occur when the portal contains very
 few datasets; the figure stabilizes at the end of March 2013, when
