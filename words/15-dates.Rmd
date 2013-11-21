@@ -291,6 +291,30 @@ Here they are by url.
 p13
 ```
 
+I was wondering whether anything was special about these. Maybe
+they have a lot of records or get downloaded a lot?
+
+```{r updates_2013_specialness}
+p16
+```
+
+Not really. You can try to find specialness in them, though;
+here they are.
+
+```{r updates_2013_list}
+cat(paste(
+  paste0(
+    '* `', updates.2013.joined$portal, '`: [', updates.2013.joined$name, ']',
+    '(https://', updates.2013.joined$portal, '/-/-/', updates.2013.joined$id, ')',
+  ),
+  collapse = '\n'
+))
+```
+
+Note well: These links go to arbitrary [views](/!/) on the particular
+[table]() that was updated; you'll have to follow a few links to get to
+the original dataset.
+
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
 our data portal data are, but I wound up finding that the data are completely
