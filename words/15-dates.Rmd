@@ -231,6 +231,23 @@ to both datasets.
 Only `r sum(socrata.deduplicated$has.been.updated)` datasets have
 ever been updated. Which ones are they?
 
+These `r sum(socrata.deduplicated$has.been.updated)` datasets are
+contained within only `r length(unique(subset(socrata.deduplicated, has.been.updated)$portal))`
+portals, out of the `r length(unique(socrata.deduplicated$portal))`
+that I looked at. Here are the updates over time by portal.
+
+```{r updates_over_time_by_portal}
+p6
+```
+
+A few datasets are still updated today (indicated by the tiny bumps
+towards the right of the graphs), but most were only updated two years
+ago. I didn't really look into why there were so many updates a long
+time ago and so few in between, but I suspect it has something to do
+with how all of these portals are managed by Socrata; there might have
+been some change in software or in technical support practices that
+would have impacted all of the portals.
+
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
 our data portal data are, but I wound up finding that the data are completely
