@@ -128,29 +128,27 @@ p3 <- ggplot(subset(s.window, update.type == 'rows')) +
 
 print('Add a plot `p4` explaining why it is not interesting that the line moves when the portal has few datasets.')
 
-p4.a <- ggplot(subset(s.window, update.type == 'rows' & portal == 'data.cms.gov')) +
-  aes(x = weeks, y = prop, size = count) + geom_line(alpha = 0.5) +
-  ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
+data.cms.gov.cutoff <- subset(s.window, update.type == 'rows' & portal == 'data.cms.gov')
+data.cms.gov.cutoff$date <- TODAY - (7 * as.difftime('24:0:0') * data.cms.gov.cutoff$weeks)
+
+p4.breaks <- seq.Date(as.Date('2011-05-01'), as.Date('2013-07-01'), '2 months')
+p4.a <- ggplot(data.cms.gov.cutoff) +
+  aes(x = date, y = prop, size = count) + geom_line(alpha = 0.5) +
+  aes(xmin = as.Date('2011-04-01'), xmax = as.Date('2013-08-01')) +
+  ylab('Proportion datasets older than the cutoff\nthat have been updated since') +
   scale_size_continuous('Number of datasets in the portal') +
-  ggtitle('How many old datasets have been updated recently, by portal?') +
-  xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
+  ggtitle('How many old datasets have been updated recently?') +
+  scale_x_date('Cutoff date', labels = date_format('%b %Y'), breaks = p4.breaks, minor_breaks = waiver())
 
 p4.b <- ggplot(data.cms.gov.molten) +
   aes(y = factor(tableId), x = date, group = tableId, label = label) +
+  aes(xmin = as.POSIXct('2011-04-01'), xmax = as.POSIXct('2013-08-01')) +
   geom_line() + geom_point(aes(color = date.type), size = 6) +
   geom_text(aes(hjust = hjust, vjust = vjust), size = 4) +
   scale_y_discrete('Data table', breaks = c()) +
-  scale_x_datetime('Date', labels = date_format('%b %Y'), breaks = '2 months', minor_breaks = waiver())
-
-data.cms.gov.updatedness <- data.frame(date = seq.Date(
-  as.Date(min(data.cms.gov.molten$date, na.rm = TRUE)),
-  as.Date(min(data.cms.gov.molten$date, na.rm = TRUE)),
-  by = 'month'))
-ddply(data.cms.gov.updatedness, 'date', function(this.date.df) {
-  this.date <- this.date.df[1,'date']
-  this.df <- subset(data.cms.gov.raw, as.POSIXct(publicationDate, origin = '1970-01-01') < this.date)
-  nrow(this.df)
-p4.c <- 
+  scale_x_datetime('Date of upload or publication', labels = date_format('%b %Y'), breaks = as.POSIXct(p4.breaks), minor_breaks = waiver())
+# p4 <- grid.arrange(p4.a, p4.b)
+p4 <- grid.draw(rbind(ggplotGrob(p4.a), ggplotGrob(p4.b), size="first"))
 
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
