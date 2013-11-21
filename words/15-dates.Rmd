@@ -278,6 +278,19 @@ by the rectangle in the plot below.
 p11
 ```
 
+There are, in fact, only `r nrow(updates.2013)` such datasets,
+and they're in `r length(unique(updates.2013$portal))` portals.
+
+```{r updates_2013_hist}
+p12
+```
+
+Here they are by url.
+
+```{r updates_2013_url}
+p13
+```
+
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
 our data portal data are, but I wound up finding that the data are completely

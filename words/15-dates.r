@@ -194,7 +194,7 @@ p12 <- ggplot(updates.2013) +
   ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.')
 
 p13 <- ggplot(updates.2013) +
-  aes(x = portal, label = id, y = 1) + geom_text(position = 'stack') +
+  aes(x = portal, label = paste0(portal,'/d/\n',id), y = 1) + geom_text(position = 'stack', size = 4) +
   scale_y_continuous('', breaks = c()) +
   ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.')
 
