@@ -142,6 +142,16 @@ p4.b <- ggplot(data.cms.gov.molten) +
   scale_y_discrete('Data table', breaks = c()) +
   scale_x_datetime('Date', labels = date_format('%b %Y'), breaks = '2 months', minor_breaks = waiver())
 
+data.cms.gov.updatedness <- data.frame(date = seq.Date(
+  as.Date(min(data.cms.gov.molten$date, na.rm = TRUE)),
+  as.Date(min(data.cms.gov.molten$date, na.rm = TRUE)),
+  by = 'month'))
+ddply(data.cms.gov.updatedness, 'date', function(this.date.df) {
+  this.date <- this.date.df[1,'date']
+  this.df <- subset(data.cms.gov.raw, as.POSIXct(publicationDate, origin = '1970-01-01') < this.date)
+  nrow(this.df)
+p4.c <- 
+
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
   geom_bar() + coord_flip() +
