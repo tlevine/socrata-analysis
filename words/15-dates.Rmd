@@ -411,6 +411,49 @@ The median record count was
 among data tables that didn't. A Wilcoxon rank sum test says that this
 difference too is significant.
 
+## A proposal for an updatedness measure
+Having found hardly any datasets that get updated, it's difficult for me to
+say whether any measure I come up with will be all that helpful. But here's
+my best guess as to the measure we should try to arrive at.
+
+### Update cycles
+As I explained above, different datasets have different update cycles
+(daily, weekly, quarterly, yearly, &c.), and we can know what this cycle
+is for most datasets. In many cases, we don't know exactly how often a
+dataset will be updated, but we can be reasonably confident that it will
+be within a certain range.
+
+### What we do in treasury.io
+We do something like this in [treasury.io](http://treasury.io).
+The Financial Management Service (FMS) provides a daily treasury
+statement. One statement is provided per work day, so we should
+get updates approximately every day. In order to make sure that
+our daily importer is working, we check every day that the
+resulting dataset is up-to-date.
+
+We know from experience that
+the file doesn't always come out on time, so we might only recieve
+today's statement two days from now. On the other hand, we've
+rarely (never?) seen it take longer than that. Our daily updatedness
+test checks how far behind the data are, and it sends us an email
+if the data are
+[more than three days behind](https://github.com/csvsoundsystem/federal-treasury-api/blob/master/tests/is_it_running.py#L47);
+if this happens,
+we'll suspect that it's something wrong with our importer rather
+than just a late upload from the FMS.
+
+### Possibilities
+If we indicate how often each dataset needs to
+be updated, the data portal software could make us aware of which datasets
+need updating.
+
+<!-- mock-up of a fancy interface -->
+
+We could also see how the updatedness of group of datasets compares
+with that of another group.
+
+<!-- mock-up of a fancy interface -->
+
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
 our data portal data are, but I wound up finding that the data are completely
