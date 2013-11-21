@@ -7,15 +7,15 @@ source('15-dates.r')
 opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 ```
 
-## Data portal metrics
+## Data portal statistics
 According to A, B, C and D, getting data to the web, in whatever form
 you can, is always better than nothing. How can you tell whether you're
 doing a good job at this basic release of data? Data catalog software
-typically provides a tool for this: the metric of number of datasets. We can go to
+typically provides a tool for this: a statistic of the number of datasets. We can go to
 [data.gov.uk](https://data.gov.uk) and find out that it currently has
 however many datasets, and we can go back next week and make sure that
-the number is increasing. There are problems with this metric, which I
-won't go into right now, but the metric does tell us something about how
+the number is increasing. There are problems with this measure, which I
+won't go into right now, but the measure does tell us something about how
 much data we are releasing.
 
 According to A, B, C and D, it is also important that we keep open data
@@ -100,13 +100,13 @@ updated ever. But there are some spikes here and there.
 This is a bit complicated; let's try to come up with simpler measure
 for taking this in.
 
-## Motivation for the metric
-The metric that I came up with is **proportion of datasets older than
+## Motivation for the measure
+One measure that I came up with is **proportion of datasets older than
 a year that have been updated within the year**. Here's how I arrived
-at that metric.
+at that measure.
 
 ### General formulation
-In producing a metric of updateness, we are trying to come up with a
+In producing a measure of updateness, we are trying to come up with a
 simple number that matches our intuition about whether something is
 up-to-date. Let's think a bit about what would count as up-to-date.
 
@@ -133,12 +133,12 @@ two weeks, we could say that it is out-of-date because 311 calls are
 always coming in.
 
 A dataset about something that happens often needs to be refreshed
-more often for us to consider it up-to-date. A very cool metric of
+more often for us to consider it up-to-date. A very cool measure of
 updatedness would account for out how often new data come in and
 check whether those new data show up in the dataset. But that would
 be a lot of work, so let's start with something simpler.
 
-### All or nothing
+### Keep it simple
 Rather than worring about the exact time period, let's address a simpler
 issue. I've heard complaints that some data get uploaded data once and
 never updated, ever. Rather than worring about the exact time since update,
@@ -152,12 +152,12 @@ too long, because then we'll wind up saying that everything is out-of-date.
 
 ### Choosing the specific value
 We can check whether different values will give us the same value on our
-updatedness metric. To say it fancy-like, we can check whether our updatedness
-metric is robust to the cutoff.
+updatedness measure. To say it fancy-like, we can check whether our updatedness
+measure is robust to the cutoff.
 
 A simple way of checking this is to plot the value of our updatedness
-metric for different cutoff values. If we find a region where the value
-of the updatedness metric doesn't change very much when we change the
+measure for different cutoff values. If we find a region where the value
+of the updatedness measure doesn't change very much when we change the
 cutoff, we could say that cutoffs in that region are safe to use.
 
 I also had to decide whether to use `rowsUpdatedAt` or `viewLastModified`
@@ -165,13 +165,13 @@ as the date of update. I don't really know what either of these means, so
 let's just try both.
 
 ```{r robustness}
-p4
+p3
 ```
 
-The first thing I notice when I look at this plot is that the metric based
-on `rowsUpdatedAt` (labeled "rows") is pretty much always zero.
-If `rowsUpdatedAt` means what I intuitively think of as the date of an update
-to the data, this is very bad; it means that we pretty much never update
+The main thing I notice is that the value of this statistic
+(again, proportion of datasets older than some date that have been updated since)
+is pretty close to zero for all of the portals at any time.
+This is very bad; it means that we pretty much never update
 data that we put on data portals.
 
 The next thing I notice is that the value varies widely when there aren't
@@ -179,11 +179,16 @@ very many datasets on the portal. Visually, this shows itself as skinny
 lines (few datasets) jumping up and down very suddenly, like for
 `nmfs.socrata.com`. When there are very few datasets on a portal
 (like 12), an addition of a dataset or an update to a dataset will have
-a large impact on the value of our updatedness metric (the height of the line).
+a large impact on the value of our updatedness measure (the height of the line).
+This is not interesting, and the plot below should explain why.
 
-## Something simpler
-I'd assumed that people actually update their data, but it looks like
-nobody keeps their data up-to-date except Seattle and maybe New York.
+```{r small_samples}
+p4
+```
+
+## Even simpler
+I'd assumed that people actually update their data, but it looks
+like people don't.
 I think we need something simpler to drive this conclusion home.
 
 Let's look at the number of datasets that have ever been updated, by
@@ -206,11 +211,11 @@ to both datasets.
 
 
 ## The bigger picture
-I thought this was going to be an article about a metric for how up-to-date
+I thought this was going to be an article about a measure for how up-to-date
 our data portal data are, but I wound up finding that the data are completely
 out-of-date. Given the hype 
 
-Maybe this says something about the need for more metrics of the progress of
+Maybe this says something about the need for more measures of the progress of
 our open data efforts; nobody was measuring updatedness, so how could anyone
 have known to keep the data up-to-date?
 
