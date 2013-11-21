@@ -176,7 +176,10 @@ p9 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows')) +
   scale_x_date('Update date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
   geom_point(alpha = 0.2, color = 'red') +
   geom_abline(intercept = 0, slope = 1, color = 'grey') +
-  coord_fixed()
+  coord_fixed() +
+  annotate('text', x = as.Date('2013-03-15'), y = as.Date('2013-07-01'), label = 'Published recently,\nupdated recently') +
+  annotate('text', x = as.Date('2012-02-01'), y = as.Date('2011-06-01'), label = 'Published a long time ago,\nupdated a long time ago') +
+  annotate('text', x = as.Date('2013-02-01'), y = as.Date('2011-12-01'), label = 'Published a long time ago,\nupdated recently')
 
 p10 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'data.oregon.gov' | portal == 'data.cityofnewyork.us'))) +
   aes(y = publicationDate, x = update.date, label = id) +
