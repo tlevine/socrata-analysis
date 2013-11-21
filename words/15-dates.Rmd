@@ -183,7 +183,7 @@ a large impact on the value of our updatedness measure (the height of the line).
 This is not interesting, and the plot below should explain why.
 
 ```{r small_samples}
-p4
+p4()
 ```
 
 In these two plots, we're only looking at `data.cms.gov`. The first
@@ -242,7 +242,20 @@ p6
 
 A few datasets are still updated today (indicated by the tiny bumps
 towards the right of the graphs), but most were only updated two years
-ago. I didn't really look into why there were so many updates a long
+ago.
+
+You might have guessed already, but these recent updates tend to be for
+datasets that were recently updated, rather than old datasets that have
+been maintained for a while. You can see that in this plot of publication
+date versus update date. The update date is along the x-axis, and the
+publication date is along the y-axis. The diagonal line is where the
+publication date and update date are the same, and it is impossible for
+a dataset to appear above the diagonal line. Datasets towards the bottom-left
+of the plot were published and updated a long time ago. Datasets towards
+the top-right were published and updated recently. Datasets towards the
+bottom-right were published a long time ago and updated recently.
+
+I didn't really look into why there were so many updates a long
 time ago and so few in between, but I suspect it has something to do
 with how all of these portals are managed by Socrata; there might have
 been some change in software or in technical support practices that
@@ -256,11 +269,3 @@ out-of-date. Given the hype
 Maybe this says something about the need for more measures of the progress of
 our open data efforts; nobody was measuring updatedness, so how could anyone
 have known to keep the data up-to-date?
-
-
-
-
-
-Local law 11
-March 18
-September something

@@ -154,7 +154,8 @@ gp4.b <- ggplot_gtable(ggplot_build(p4.b))
 maxWidth = unit.pmax(gp4.a$widths[2:3], gp4.b$widths[2:3])
 gp4.a$widths[2:3] <- maxWidth
 gp4.b$widths[2:3] <- maxWidth
-p4 <- grid.arrange(gp4.a,gp4.b, heights = c(1/3, 2/3))
+
+p4 <- function() { grid.arrange(gp4.a,gp4.b, heights = c(1/3, 2/3))}
 
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
@@ -169,23 +170,13 @@ p6 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows')) +
   ylab('Number of datasets') +
   facet_wrap(~ portal)
 
-p7 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'data.cityofnewyork.us' | portal == 'cookcounty.socrata.com' | portal == 'data.cityofchicago.org' | portal == 'data.hawaii.gov' | portal == 'data.kingcounty.gov' | portal == 'data.maryland.gov' | portal == 'data.medicare.gov' | portal == 'data.mo.gov' | portal == 'data.ny.gov' | portal == 'data.oregon.gov' | portal == 'data.sunlightlabs.com' | portal == 'opendata.go.ke'))) +
-  aes(x = update.date) + geom_histogram(binwidth = 30) +
-  facet_wrap(~ portal) +
-  scale_x_date('Month') +
-  ylab('Number of datasets updated that month')
-
-p8 <- ggplot(subset(s.molten, has.been.updated & (portal == 'data.cityofnewyork.us' | portal == 'opendata.go.ke' | portal == 'data.oregon.gov'))) +
-  aes(x = update.date) + geom_histogram(binwidth = 1) +
-  scale_x_date('Day', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
-  facet_wrap(~ portal, nrow = 3, ncol = 1) +
-  ylab('Number of datasets updated today')
-
-p9 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'opendata.go.ke' | portal == 'data.oregon.gov' | portal == 'data.cityofnewyork.us'))) +
+p9 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows')) +
   aes(y = publicationDate, x = update.date, label = id) +
   scale_y_date('Publication date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
   scale_x_date('Update date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
-  facet_wrap(~ portal, nrow = 3, ncol = 1) + geom_point(alpha = 0.3)
+  geom_point(alpha = 0.2, color = 'red') +
+  geom_abline(intercept = 0, slope = 1, color = 'grey') +
+  coord_fixed()
 
 p10 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'data.oregon.gov' | portal == 'data.cityofnewyork.us'))) +
   aes(y = publicationDate, x = update.date, label = id) +
