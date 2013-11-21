@@ -84,10 +84,18 @@ table(subset(socrata.deduplicated.orig, tableId == 926641)$viewLastModified)
 Thus, I'm using `rowsUpdatedAt` for calculating the updatedness measure.
 
 ## Data summary
-Let's start by plotting these date variables by dataset.
-I also included the publication group number, which is presumably
-an identification number that increases with each group of dataset
-publication.
+We have data from mid-2011 to mid-2013. In order to fit this all on
+one plot, let's look first at which datasets were updated; we're ignoring
+the dates when they were updated. Each horizontal band is a data portal,
+each dot is a data [table]()
+inside of a data portal,
+and the dots are colored based on whether the data were ever updated.
+
+```{r summary}
+p17
+```
+
+Now let's relate the update dates to the publication dates.
 
 ```{r up_to_date}
 p1

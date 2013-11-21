@@ -105,7 +105,7 @@ if (!('socrata.deduplicated' %in% ls())) {
 # ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
 
 p1 <- ggplot(subset(s.molten, update.type == 'rows')) +
-  aes(x = publicationDate, y = days.since.update, color = publicationGroup) +
+  aes(x = publicationDate, y = days.since.update) +
   facet_wrap(~ portal) + geom_point() +
   scale_x_date('Date of table publication') +
   scale_y_continuous('Days since the table has been updated') +
