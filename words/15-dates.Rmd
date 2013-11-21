@@ -177,7 +177,7 @@ data that we put on data portals.
 The next thing I notice is that the value varies widely when there aren't
 very many datasets on the portal. Visually, this shows itself as skinny
 lines (few datasets) jumping up and down very suddenly, like for
-`nmfs.socrata.com`. When there are very few datasets on a portal
+`data.cms.gov`. When there are very few datasets on a portal
 (like 12), an addition of a dataset or an update to a dataset will have
 a large impact on the value of our updatedness measure (the height of the line).
 This is not interesting, and the plot below should explain why.
@@ -185,6 +185,8 @@ This is not interesting, and the plot below should explain why.
 ```{r small_samples}
 p4
 ```
+
+The first plot is a larger version of the one in the previous image
 
 The bumps in the top plot only occur when the portal contains very
 few datasets; the figure stabilizes at the end of March 2013, when
@@ -204,7 +206,9 @@ in `rowsUpdatedAt` that is more than one hour greater than the value
 in `publicationDate`.
 
 
-
+```{r small_samples}
+p4
+```
 
 It is quite likely that people have "updated" a dataset by uploading
 a new version. For example, XXX uploading 2010 data

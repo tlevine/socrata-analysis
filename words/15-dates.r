@@ -135,9 +135,9 @@ p4.breaks <- seq.Date(as.Date('2011-05-01'), as.Date('2013-07-01'), '2 months')
 p4.a <- ggplot(data.cms.gov.cutoff) +
   aes(x = date, y = prop, size = count) + geom_line(alpha = 0.5) +
   aes(xmin = as.Date('2011-04-01'), xmax = as.Date('2013-08-01')) +
-  ylab('Proportion datasets older than the cutoff\nthat have been updated since') +
-  scale_size_continuous('Number of datasets\nin the portal') +
-  ggtitle('How many old datasets have been updated recently?') +
+  ylab('Proportion of datasets older than the cutoff\nthat have been updated since') +
+  scale_size_continuous('Number of datasets\nin data.cms.gov') +
+  ggtitle('How many old data.cms.gov datasets have been updated recently?') +
   theme(legend.position = c(0.9,0.5)) +
   scale_x_date('Cutoff date', labels = date_format('%b %Y'), breaks = p4.breaks, minor_breaks = waiver())
 
@@ -149,7 +149,7 @@ p4.b <- ggplot(data.cms.gov.molten) +
   scale_y_discrete('Data table', breaks = c()) +
   scale_color_discrete('Dates') +
   theme(legend.position = c(0.9,0.5)) +
-  scale_x_datetime('Date of upload or publication', labels = date_format('%b %Y'), breaks = as.POSIXct(p4.breaks), minor_breaks = waiver())
+  scale_x_datetime('Date of upload or publication to data.cms.gov', labels = date_format('%b %Y'), breaks = as.POSIXct(p4.breaks), minor_breaks = waiver())
 # p4 <- grid.arrange(p4.a, p4.b)
 # p4 <- grid.draw(rbind(ggplotGrob(p4.a), ggplotGrob(p4.b), size="first"))
 # p4 <- grid.arrange(p4.a, p4.b, heights = c(1/3, 2/3), widths = 1)
