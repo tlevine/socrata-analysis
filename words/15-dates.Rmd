@@ -227,6 +227,10 @@ you need to find the new dataset, make sure that it is indeed just
 a new version of the same dataset, and update your software to point
 to both datasets.
 
+### Which datasets have been updated?
+Only `r sum(socrata.deduplicated$has.been.updated)` datasets have
+ever been updated. Which ones are they?
+
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
 our data portal data are, but I wound up finding that the data are completely

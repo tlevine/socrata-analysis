@@ -165,6 +165,8 @@ p5 <- ggplot(socrata.deduplicated) +
 
 p6 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows')) +
   aes(x = update.date) + geom_histogram(binwidth = 30) +
+  scale_x_date('Month of update', labels = date_format('%b %Y')) +
+  ylab('Number of datasets') +
   facet_wrap(~ portal)
 
 p7 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'data.cityofnewyork.us' | portal == 'cookcounty.socrata.com' | portal == 'data.cityofchicago.org' | portal == 'data.hawaii.gov' | portal == 'data.kingcounty.gov' | portal == 'data.maryland.gov' | portal == 'data.medicare.gov' | portal == 'data.mo.gov' | portal == 'data.ny.gov' | portal == 'data.oregon.gov' | portal == 'data.sunlightlabs.com' | portal == 'opendata.go.ke'))) +
