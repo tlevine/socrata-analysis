@@ -256,7 +256,7 @@ the top-right were published and updated recently. Datasets towards the
 bottom-right were published a long time ago and updated recently.
 
 ```{r publish_v_update}
-p9
+p10
 ```
 
 I didn't really look into why there were so many updates a long
@@ -275,7 +275,7 @@ been updated during 2013; they are represented the ones contained
 by the rectangle in the plot below.
 
 ```{r publish_v_update_2013}
-p9
+p11
 ```
 
 ## The bigger picture

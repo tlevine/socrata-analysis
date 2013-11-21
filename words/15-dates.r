@@ -174,24 +174,20 @@ p9 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows')) +
   aes(y = publicationDate, x = update.date, label = id) +
   scale_y_date('Publication date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
   scale_x_date('Update date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
-  geom_point(alpha = 0.2, color = 'red') +
+  geom_point(alpha = 0.4, color = 'red') +
   geom_abline(intercept = 0, slope = 1, color = 'grey') +
   coord_fixed() +
+  ggtitle('Publication and update dates of all public datasets hosted on Socrata')
+
+p10 <- p9 +
   annotate('text', x = as.Date('2013-03-15'), y = as.Date('2013-07-01'), label = 'Published recently,\nupdated recently') +
   annotate('text', x = as.Date('2012-02-01'), y = as.Date('2011-06-01'), label = 'Published a long time ago,\nupdated a long time ago') +
   annotate('text', x = as.Date('2013-02-01'), y = as.Date('2011-12-01'), label = 'Published a long time ago,\nupdated recently')
 
-p10 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'data.oregon.gov' | portal == 'data.cityofnewyork.us'))) +
-  aes(y = publicationDate, x = update.date, label = id) +
-  scale_y_date('Publication date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
-  scale_x_date('Update date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
-  facet_wrap(~ portal, nrow = 2, ncol = 1) + geom_point(alpha = 0.3) +
-  geom_text() + xlim(as.Date(c(paste0('2013-',c('03','08'), '-01'))))
-
-p11 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows' & (portal == 'opendata.go.ke' | portal == 'data.oregon.gov' | portal == 'data.cityofnewyork.us'))) +
-  aes(x = publicationDate, y = update.minus.publish, label = id) +
-  scale_x_date('Initial publication date', breaks = pretty_breaks(12), labels = date_format('%B %Y')) +
-  facet_wrap(~ portal, nrow = 3, ncol = 1) + geom_point(alpha = 0.3)
+.date.2013 <- as.Date('2013-01-01')
+p11 <- p9 +
+  annotate('text', x = as.Date('2013-04-01'), y = as.Date('2012-05-01'), label = 'Published before 2013 and\nupdated during 2013') +
+  annotate('rect', xmin = .date.2013, ymax = .date.2013, xmax = TODAY, ymin = as.Date('2011-04-01'), alpha = 0.2)
 
 p12 <- ggplot(updates.2013) +
   aes(x = portal) + geom_histogram() +
