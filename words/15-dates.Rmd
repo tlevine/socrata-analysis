@@ -95,7 +95,24 @@ and the dots are colored based on whether the data were ever updated.
 p17
 ```
 
-Now let's relate the update dates to the publication dates.
+This plot shows us that older datasets are more likely to have been
+updated. It also subtly points out that different data portals have
+different amounts of datasets and that they have grown at different
+rates over time. Let's plot that more clearly.
+
+```{r dataset_counts_over_time}
+p18
+```
+
+Data portals grow over time, often in sudden bursts. Two notes about
+that plot:
+
+1. It assumes that no data have ever been deleted from a portal;
+    it's all based on the publication date.
+2. It is counting the number of [tables]()
+    rather than the number of [views]().
+
+Let's also relate the update dates to the publication dates.
 
 ```{r up_to_date}
 p1
