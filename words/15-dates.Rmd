@@ -209,16 +209,16 @@ I think we need something simpler to drive this conclusion home.
 
 Let's look at the number of datasets that have ever been updated, by
 portal. We'll count a dataset as having been updated if it has a value
-in `rowsUpdatedAt` that is more than one hour greater than the value
+in `rowsUpdatedAt` that is more than one day greater than the value
 in `publicationDate`.
 
 
-```{r small_samples}
-p4
+```{r any_update}
+p5
 ```
 
 It is quite likely that people have "updated" a dataset by uploading
-a new version. For example, XXX uploading 2010 data
+a new version. For example, XXX uploaded 2010 data
 [here]()
 and 2011 data
 [here]().
@@ -226,7 +226,6 @@ But this is less helpful than updating the original dataset because
 you need to find the new dataset, make sure that it is indeed just
 a new version of the same dataset, and update your software to point
 to both datasets.
-
 
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date

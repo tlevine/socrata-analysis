@@ -18,7 +18,7 @@ if (!('socrata.deduplicated' %in% ls())) {
 
   socrata.deduplicated$has.been.updated <- (
     (!is.na(socrata.deduplicated$rowsUpdatedAt)) &
-    socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 3600)
+    socrata.deduplicated$rowsUpdatedAt - socrata.deduplicated$publicationDate > 24 * 3600)
 
   socrata.deduplicated$portal <- factor(socrata.deduplicated$portal, levels = names(sort(table(socrata.deduplicated$portal))))
   socrata.deduplicated$has.been.updated.factor <- factor(socrata.deduplicated$has.been.updated,levels = c(TRUE, FALSE))
