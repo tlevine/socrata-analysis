@@ -26,13 +26,13 @@ week-to-week to make sure that we are vaguely on track at keeping data
 up-to-date. So I made one.
 
 ## The data about data
-I [downloaded]()
+I [downloaded](/!/socrata-summary/)
 all the metadata about all of the public datasets, and then I removed
-datasets that were [duplicated because of federation]().
+datasets that were [duplicated because of federation](/!/socrata-deduplicate/#dealing-with-federation).
 
 Socrata has this feature where you can create multiple
-[views]() from a single
-[table]().
+[views](/!/socrata-genealogies#term-view) from a single
+[table](/!/socrata-genealogies#term-table).
 It is hard to separate the official views, created by someone in the
 government, from the unofficial, derived views. I did not try to determine
 which view/dataset was the original, official one, but I did separate
@@ -84,12 +84,15 @@ table(subset(socrata.deduplicated.orig, tableId == 926641)$viewLastModified)
 Thus, I'm using `rowsUpdatedAt` for calculating the updatedness measure.
 
 ## What is an "update"
+I'm going to use the term "update"{:#term-update} to mean a reasonably particular
+thing that excludes some other things that you might consider an update.
+
 The Socrata data portal software has 
 [this publisher API](http://dev.socrata.com/publishers/getting-started)
 that lets the publisher (usually a government) upload data as a
-[dataset view](),
+[dataset view](/!/socrata-genealogies#term-view),
 with its own unique URL based on its
-[4x4 identifier]().
+[4x4 identifier](http://dev.socrata.com/docs/endpoints).
 
 ### Upload a new version and delete the old version
 That's great for uploading a new dataset, but what do you do if a dataset
@@ -124,7 +127,7 @@ new data while still referencing the same URL.
 We have data from mid-2011 to mid-2013. In order to fit this all on
 one plot, let's look first at which datasets were updated; we're ignoring
 the dates when they were updated. Each horizontal band is a data portal,
-each dot is a data [table]()
+each dot is a data [table](/!/socrata-genealogies#term-table)
 inside of a data portal,
 and the dots are colored based on whether the data were ever updated.
 
@@ -146,8 +149,8 @@ that plot:
 
 1. It assumes that no data have ever been deleted from a portal;
     it's all based on the publication date.
-2. It is counting the number of [tables]()
-    rather than the number of [views]().
+2. It is counting the number of [tables](/!/socrata-genealogies#term-table)
+    rather than the number of [views](/!/socrata-genealogies#term-view).
 
 Let's also relate the update dates to the publication dates.
 
@@ -251,7 +254,7 @@ p4()
 In these two plots, we're only looking at `data.cms.gov`. The first
 plot is the same as the corresponding plot in the previous image,
 only larger. The second shows the dates at which each
-[data table](/!/) was
+[data table](/!/socrata-genealogies#term-table) was
 published and most recently updated. Red dots are publication dates,
 and blue dots are update dates. If there was no update or the most
 recent update was within a day of the publication date, no blue dot
@@ -279,15 +282,10 @@ in `publicationDate`.
 p5
 ```
 
-It is quite likely that people have "updated" a dataset by uploading
-a new version. For example, XXX uploaded 2010 data
-[here]()
-and 2011 data
-[here]().
-But this is less helpful than updating the original dataset because
-you need to find the new dataset, make sure that it is indeed just
-a new version of the same dataset, and update your software to point
-to both datasets.
+Keep my [definition of "update"](#term-update) in mind;
+in the above count, I'm including neither situations where old datasets
+were deleted and replaced with new ones nor situations where new records
+were uploaded as a separate dataset.
 
 ### Which datasets have been updated?
 Only `r sum(socrata.deduplicated$has.been.updated)` datasets have
@@ -355,8 +353,8 @@ p13
 
 I was wondering whether anything was special about these. Maybe
 they have a lot of records or get downloaded a lot? For both of
-these statistics, I'm using the total across all [views]() in the
-[table/family](), not just the value for that particular view.
+these statistics, I'm using the total across all [views](/!/socrata-genealogies#term-view) in the
+[table/family](/!/socrata-genealogies#term-table), not just the value for that particular view.
 
 ```{r updates_2013_specialness}
 p16
@@ -375,8 +373,8 @@ cat(paste(
 ))
 ```
 
-Note well: These links go to arbitrary [views](/!/) on the particular
-[table]() that was updated; you'll have to follow a few links to get to
+Note well: These links go to arbitrary [views](/!/socrata-genealogies#term-view) on the particular
+[table](/!/socrata-genealogies#term-table) that was updated; you'll have to follow a few links to get to
 the original dataset.
 
 ### Updated datasets in context
@@ -432,7 +430,7 @@ our daily importer is working, we check every day that the
 resulting dataset is up-to-date.
 
 We know from experience that
-the file doesn't always come out on time, so we might only recieve
+the file doesn't always come out on time; that is, we might only recieve
 today's statement two days from now. On the other hand, we've
 rarely (never?) seen it take longer than that. Our daily updatedness
 test checks how far behind the data are, and it sends us an email
