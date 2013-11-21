@@ -292,7 +292,9 @@ p13
 ```
 
 I was wondering whether anything was special about these. Maybe
-they have a lot of records or get downloaded a lot?
+they have a lot of records or get downloaded a lot? For both of
+these statistics, I'm using the total across all [views]() in the
+[table/family](), not just the value for that particular view.
 
 ```{r updates_2013_specialness}
 p16
@@ -314,6 +316,38 @@ cat(paste(
 Note well: These links go to arbitrary [views](/!/) on the particular
 [table]() that was updated; you'll have to follow a few links to get to
 the original dataset.
+
+### Updated datasets in context
+Maybe there actually is something different about the sort of dataset that
+gets updated.
+
+It turns out that data that have been updated tend to get more downloads than
+data that data that haven't. (This again uses the family/table totals rather
+that the values for the particular views.)
+
+```{r update_download}
+p14
+```
+
+To give you some more concrete numbers, the median download count was
+`r m14.medians[1]` among data tables that got updated and `r m14.medians[2]`
+among data tables that didn't. A Wilcoxon rank sum test says that this
+difference is significant (assuming that our `r nrow(socrata.deduplicated)`
+datasets are a representative sample of some super-population, yadda yadda),
+with a p-value far less than 0.001.
+
+There is a similar relationship with number of records.
+It turns out that data that have been updated tend to contain more records than
+data that data that haven't.
+
+```{r update_nrow}
+p15
+```
+
+The median record count was
+`r m15.medians[1]` among data tables that got updated and `r m15.medians[2]`
+among data tables that didn't. A Wilcoxon rank sum test says that this
+difference too is significant.
 
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
