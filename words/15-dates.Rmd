@@ -255,6 +255,12 @@ of the plot were published and updated a long time ago. Datasets towards
 the top-right were published and updated recently. Datasets towards the
 bottom-right were published a long time ago and updated recently.
 
+
+```{r publish_v_update}
+p9
+```
+<!-- put these annotations in the plot-->
+
 I didn't really look into why there were so many updates a long
 time ago and so few in between, but I suspect it has something to do
 with how all of these portals are managed by Socrata; there might have
