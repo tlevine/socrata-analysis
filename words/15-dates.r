@@ -112,6 +112,33 @@ p3 <- ggplot(subset(s.window, update.type == 'rows')) +
 
 print('Add a plot `p4` explaining why it is not interesting that the line moves when the portal has few datasets.')
 
+p4.a <- ggplot(subset(s.window, update.type == 'rows' & portal == 'data.cms.gov')) +
+  aes(x = weeks, y = prop, size = count) + geom_line(alpha = 0.5) +
+  ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
+  scale_size_continuous('Number of datasets in the portal') +
+  ggtitle('How many old datasets have been updated recently, by portal?') +
+  xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
+
+data.cms.gov.raw <- subset(socrata.deduplicated, portal == 'data.cms.gov')[c('id','tableId','publicationDate','rowsUpdatedAt')]
+data.cms.gov.raw$rowsUpdatedAt[data.cms.gov.raw$rowsUpdatedAt - 24 * 3600 < data.cms.gov.raw$publicationDate] <- NA
+data.cms.gov.molten <- melt(data.cms.gov.raw, id.vars = c('id','tableId'), variable.name = 'date.type', value.name = 'date')
+data.cms.gov.molten$date <- as.POSIXct(data.cms.gov.molten$date, origin = '1970-01-01')
+data.cms.gov.molten$date.type <- factor(data.cms.gov.molten$date.type, levels = c('publicationDate','rowsUpdatedAt'))
+levels(data.cms.gov.molten$date.type) <- c('First published','Last updated')
+data.cms.gov.molten$url <- paste0('https://data.cms.gov/d/',data.cms.gov.molten$id)
+data.cms.gov.molten$label <- data.cms.gov.molten$url
+data.cms.gov.molten$label[data.cms.gov.molten$date.type == 'Last updated'] <- ''
+data.cms.gov.molten$hjust <- 1.1
+data.cms.gov.molten$vjust <- 0.5
+data.cms.gov.molten$hjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- 0
+data.cms.gov.molten$vjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- -1.5
+
+p4.b <- ggplot(data.cms.gov.molten) +
+  aes(y = url, x = date, group = tableId, label = label) +
+  geom_line() + geom_point(aes(color = date.type), size = 6) +
+  geom_text(aes(hjust = hjust, vjust = vjust), size = 4) +
+  scale_y_discrete('Data table', breaks = c())
+
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
   geom_bar() + coord_flip() +
