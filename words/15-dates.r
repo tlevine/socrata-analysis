@@ -129,12 +129,12 @@ data.cms.gov.molten$url <- paste0('https://data.cms.gov/d/',data.cms.gov.molten$
 data.cms.gov.molten$label <- data.cms.gov.molten$url
 data.cms.gov.molten$label[data.cms.gov.molten$date.type == 'Last updated'] <- ''
 data.cms.gov.molten$hjust <- 1.1
-data.cms.gov.molten$vjust <- 0.5
+data.cms.gov.molten$vjust <- 0.35
 data.cms.gov.molten$hjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- 0
 data.cms.gov.molten$vjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- -1.5
 
 p4.b <- ggplot(data.cms.gov.molten) +
-  aes(y = url, x = date, group = tableId, label = label) +
+  aes(y = factor(tableId), x = date, group = tableId, label = label) +
   geom_line() + geom_point(aes(color = date.type), size = 6) +
   geom_text(aes(hjust = hjust, vjust = vjust), size = 4) +
   scale_y_discrete('Data table', breaks = c())
