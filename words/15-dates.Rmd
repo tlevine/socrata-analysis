@@ -186,6 +186,13 @@ This is not interesting, and the plot below should explain why.
 p4
 ```
 
+The bumps in the top plot only occur when the portal contains very
+few datasets; the figure stabilizes at the end of March 2013, when
+a bunch of datasets get published. (In case you're curious, these
+datasets are all derived from the
+[Beneficiary Summary File](http://www.resdac.org/cms-data/files/bsf),
+according to their respective descriptions in the portal.)
+
 ## Even simpler
 I'd assumed that people actually update their data, but it looks
 like people don't.
