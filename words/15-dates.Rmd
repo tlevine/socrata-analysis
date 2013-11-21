@@ -11,7 +11,7 @@ opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 According to A, B, C and D, getting data to the web, in whatever form
 you can, is always better than nothing. How can you tell whether you're
 doing a good job at this basic release of data? Data catalog software
-typically provides one tool: the metric of number of datasets. We can go to
+typically provides a tool for this: the metric of number of datasets. We can go to
 [data.gov.uk](https://data.gov.uk) and find out that it currently has
 however many datasets, and we can go back next week and make sure that
 the number is increasing. There are problems with this metric, which I
