@@ -83,6 +83,43 @@ table(subset(socrata.deduplicated.orig, tableId == 926641)$viewLastModified)
 
 Thus, I'm using `rowsUpdatedAt` for calculating the updatedness measure.
 
+## What is an "update"
+The Socrata data portal software has 
+[this publisher API](http://dev.socrata.com/publishers/getting-started)
+that lets the publisher (usually a government) upload data as a
+[dataset view](),
+with its own unique URL based on its
+[4x4 identifier]().
+
+### Upload a new version and delete the old version
+That's great for uploading a new dataset, but what do you do if a dataset
+changes? For example, let's say you have a dataset of
+[lottery contracts for 2011](https://data.oregon.gov/dataset/Contracts-Lottery-Fiscal-Year-2011/dwi6-thje)
+and you notice a spelling error in one of the fields. You fix it on your own computer,
+but how do you get it to the main site? You could upload the new one and delete the old
+one, but then the URL will change.
+
+When someone uploads a new version of the dataset to Socrata
+but it has a different URL, I do not count it as an update.
+
+### Upload new data as a separate dataset
+Or what if you want to add the 2012 data?
+You could upload the 2012 data as a
+[separate dataset](https://data.oregon.gov/Revenue-Expense/Contracts-Lottery-Fiscal-Year-2012/i3ri-n6hq),
+but then it would be hard to find; the open data catalog doesn't make a link between these two datasets.
+
+Within the present article, I do not consider this to be an update either.
+
+### Using the append and replace API methods
+Not only can you create new datasets, you can also
+[append to or replace](http://dev.socrata.com/publishers/importing#append_replace)
+the data in an existing dataset. That is, you can upload new data for an
+existing dataset while keeping its 4x4 identifier and all of its metadata.
+
+This approach is much better than the other two because it
+makes it much easier to find the new data; we can get the
+new data while still referencing the same URL.
+
 ## Data summary
 We have data from mid-2011 to mid-2013. In order to fit this all on
 one plot, let's look first at which datasets were updated; we're ignoring
@@ -377,8 +414,8 @@ difference too is significant.
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
 our data portal data are, but I wound up finding that the data are completely
-out-of-date. Given the hype 
+out-of-date.
 
-Maybe this says something about the need for more measures of the progress of
+I suppose this says something about the need for more measures of the progress of
 our open data efforts; nobody was measuring updatedness, so how could anyone
 have known to keep the data up-to-date?
