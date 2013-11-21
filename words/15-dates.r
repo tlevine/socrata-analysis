@@ -5,6 +5,7 @@ library(scales)
 library(plyr)
 library(sqldf)
 library(directlabels)
+library(gridExtra)
 TODAY <- as.Date('2013-07-08') # Really a few days before, but just to be safe
 
 date.variables <- c('createdAt','publicationDate', 'rowsUpdatedAt', 'viewLastModified')
@@ -84,6 +85,21 @@ if (!('socrata.deduplicated' %in% ls())) {
     sqldf(paste0('SELECT "portal", count(*) "dataset.count" FROM [socrata.deduplicated] WHERE "publicationDate" < \'', month.epoch, '\' GROUP BY "portal"'))
   })
   monthly.dataset.count$dataset.count <- as.numeric(monthly.dataset.count$dataset.count)
+
+  print(9)
+  data.cms.gov.raw <- subset(socrata.deduplicated, portal == 'data.cms.gov')[c('id','tableId','publicationDate','rowsUpdatedAt')]
+  data.cms.gov.raw$rowsUpdatedAt[data.cms.gov.raw$rowsUpdatedAt - 24 * 3600 < data.cms.gov.raw$publicationDate] <- NA
+  data.cms.gov.molten <- melt(data.cms.gov.raw, id.vars = c('id','tableId'), variable.name = 'date.type', value.name = 'date')
+  data.cms.gov.molten$date <- as.POSIXct(data.cms.gov.molten$date, origin = '1970-01-01')
+  data.cms.gov.molten$date.type <- factor(data.cms.gov.molten$date.type, levels = c('publicationDate','rowsUpdatedAt'))
+  levels(data.cms.gov.molten$date.type) <- c('First published','Last updated')
+  data.cms.gov.molten$url <- paste0('https://data.cms.gov/d/',data.cms.gov.molten$id)
+  data.cms.gov.molten$label <- data.cms.gov.molten$url
+  data.cms.gov.molten$label[data.cms.gov.molten$date.type == 'Last updated'] <- ''
+  data.cms.gov.molten$hjust <- 1.1
+  data.cms.gov.molten$vjust <- 0.35
+  data.cms.gov.molten$hjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- 0
+  data.cms.gov.molten$vjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- -1.5
 }
 
 # ny <- subset(s.molten, has.been.updated & portal == 'data.cityofnewyork.us' & update.date == '2013-06-28')
@@ -119,25 +135,12 @@ p4.a <- ggplot(subset(s.window, update.type == 'rows' & portal == 'data.cms.gov'
   ggtitle('How many old datasets have been updated recently, by portal?') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
-data.cms.gov.raw <- subset(socrata.deduplicated, portal == 'data.cms.gov')[c('id','tableId','publicationDate','rowsUpdatedAt')]
-data.cms.gov.raw$rowsUpdatedAt[data.cms.gov.raw$rowsUpdatedAt - 24 * 3600 < data.cms.gov.raw$publicationDate] <- NA
-data.cms.gov.molten <- melt(data.cms.gov.raw, id.vars = c('id','tableId'), variable.name = 'date.type', value.name = 'date')
-data.cms.gov.molten$date <- as.POSIXct(data.cms.gov.molten$date, origin = '1970-01-01')
-data.cms.gov.molten$date.type <- factor(data.cms.gov.molten$date.type, levels = c('publicationDate','rowsUpdatedAt'))
-levels(data.cms.gov.molten$date.type) <- c('First published','Last updated')
-data.cms.gov.molten$url <- paste0('https://data.cms.gov/d/',data.cms.gov.molten$id)
-data.cms.gov.molten$label <- data.cms.gov.molten$url
-data.cms.gov.molten$label[data.cms.gov.molten$date.type == 'Last updated'] <- ''
-data.cms.gov.molten$hjust <- 1.1
-data.cms.gov.molten$vjust <- 0.35
-data.cms.gov.molten$hjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- 0
-data.cms.gov.molten$vjust[data.cms.gov.molten$id == '8j8s-q5gd'] <- -1.5
-
 p4.b <- ggplot(data.cms.gov.molten) +
   aes(y = factor(tableId), x = date, group = tableId, label = label) +
   geom_line() + geom_point(aes(color = date.type), size = 6) +
   geom_text(aes(hjust = hjust, vjust = vjust), size = 4) +
-  scale_y_discrete('Data table', breaks = c())
+  scale_y_discrete('Data table', breaks = c()) +
+  scale_x_datetime('Date', labels = date_format('%b %Y'), breaks = '2 months', minor_breaks = waiver())
 
 p5 <- ggplot(socrata.deduplicated) +
   aes(x = portal, group = has.been.updated.factor, fill = has.been.updated.factor) +
