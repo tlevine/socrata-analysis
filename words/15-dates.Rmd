@@ -137,14 +137,15 @@ but but the new one would be hard to find; the open data catalog doesn't make a 
 Within the present article, I do not consider this to be an update either.
 
 ### Using the append and replace API methods
-Not only can you create new datasets, you can also
+The publisher API lets you
 [append to or replace](http://dev.socrata.com/publishers/importing#append_replace)
 the data in an existing dataset. That is, you can upload new data for an
 existing dataset while keeping its 4x4 identifier and all of its metadata.
 
 This approach is much better than the other two because it
 makes it much easier to find the new data; we can get the
-new data while still referencing the same URL.
+new data while still referencing the same URL. This is the
+only of the three approaches that I count as an update.
 
 ## Data summary
 We have data from mid-2011 to mid-2013. In order to fit this all on
@@ -181,8 +182,8 @@ Let's also relate the update dates to the publication dates.
 p1
 ```
 
-It looks like most data were "updated" only at their time of their
-initial publication. Colloquially, we'd say that they haven't been
+It looks like most data were "updated" only within an hour of their
+initial publications. Colloquially, we'd say that they haven't been
 updated ever. But there are some spikes here and there.
 
 Also, it appears that only certain kinds of data get updated.
@@ -191,9 +192,16 @@ Also, it appears that only certain kinds of data get updated.
 table(socrata.deduplicated$viewType, is.na(socrata.deduplicated$rowsUpdatedAt))
 ```
 
-## Motivation for the measure
-This is a bit complicated; let's try to come up with simpler measure
-for taking this in.
+Tabular data (the stuff you're used to) get updated, but links to
+external data (`href`), geospatial data (`geo`) and ordinary files (`blobby`)
+don't seem to get updates. I don't know whether this is a feature of
+Socrata or just a strong tendency for those sorts of data.
+
+## Motivating an updatedness measure
+The update date can tell us how up-to-date a particular dataset is,
+but I want to get a bigger picture. I want to quantitatively compare
+datasets and groups of datasets. I tried to come up with a simple
+statistic that would let us do that.
 
 One measure that I came up with is **proportion of datasets older than
 a year that have been updated within the year**. (The timespan of a
@@ -299,7 +307,7 @@ according to their respective descriptions in the portal.)
 ## Even simpler
 I'd assumed that people actually update their data, but it looks
 like people don't.
-I think we need something simpler to drive this conclusion home.
+I think we need something even simpler to drive this conclusion home.
 
 Let's look at the number of datasets that have ever been updated, by
 portal. We'll count a dataset as having been updated if it has a value
@@ -317,8 +325,8 @@ were deleted and replaced with new ones nor situations where new records
 were uploaded as a separate dataset.
 
 ### Which datasets have been updated?
-Only `r sum(socrata.deduplicated$has.been.updated)` datasets have
-ever been updated. Which ones are they?
+Only `r sum(socrata.deduplicated$has.been.updated)` of the
+`r nrow(socrata.deduplicated)` datasets have ever been updated.
 
 These `r sum(socrata.deduplicated$has.been.updated)` datasets are
 contained within only `r length(unique(subset(socrata.deduplicated, has.been.updated)$portal))`
@@ -389,14 +397,14 @@ these statistics, I'm using the total across all [views](/!/socrata-genealogies#
 p16
 ```
 
-Not really. You can try to find specialness in them, though;
-here they are.
+I didn't find anything special about these, but I didn't look very hard.
+In case you want to give it a shot, here they are.
 
 ```{r updates_2013_list}
 cat(paste(
   paste0(
     '* `', updates.2013.joined$portal, '`: [', updates.2013.joined$name, ']',
-    '(https://', updates.2013.joined$portal, '/-/-/', updates.2013.joined$id, ')',
+    '(https://', updates.2013.joined$portal, '/-/-/', updates.2013.joined$id, ')'
   ),
   collapse = '\n'
 ))
