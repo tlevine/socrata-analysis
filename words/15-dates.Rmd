@@ -454,7 +454,7 @@ with that of another group.
 
 ## The bigger picture
 I thought this was going to be an article about a measure for how up-to-date
-our data portal data are, but I wound up finding that the data are completely
+our data portal data are, but I really just found that the data are completely
 out-of-date.
 
 I suppose this says something about the need for more measures of the progress of
