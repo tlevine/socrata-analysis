@@ -14,7 +14,6 @@ source('15-dates.r')
 opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 ```
 
-## Data portal statistics
 [Project Open Data](http://project-open-data.github.io/principles/),
 the [Sunlight Foundation](http://sunlightfoundation.com/opendataguidelines/#real-time-updates),
 a bunch of
@@ -24,11 +23,26 @@ a bunch of
 and probably everyone else says that it's important that open data
 be kept up-to-date. So I was wondering how up-to-date they actually are.
 
+I collected some data about the updatedness of open data.
+Based on these data about open data,
+the open data don't seem very up-to-date.
+
 ## The data about data
 I [downloaded](/!/socrata-summary/)
-all the metadata about all of the public datasets, and then I removed
-datasets that were [duplicated because of federation](/!/socrata-deduplicate/#dealing-with-federation).
+all the metadata about all of the public datasets that are hosted on
+`r length(unique(socrata.deduplicated$portal))`
+data portals run by [Socrata](http://socrata.com).
 
+### Removing duplicates
+I had to do a lot to remove duplicate datasets.
+I group the causes of duplication into two categories:
+federation and derived views.
+
+Dealing with federation was quite straightforward;
+you can read about that
+[here](/!/socrata-deduplicate/#dealing-with-federation).
+
+Dealing with derived views is more complicated.
 Socrata has this feature where you can create multiple
 [views](/!/socrata-genealogies#term-view) from a single
 [table](/!/socrata-genealogies#term-table).
@@ -36,9 +50,14 @@ It is hard to separate the official views, created by someone in the
 government, from the unofficial, derived views. I did not try to determine
 which view/dataset was the original, official one, but I did separate
 them based on their `tableId`, which links all of the different views
-that use the same data.
+that use the same data. Because I didn't figure out which view is the
+original one for each table, I can't tell you things like the name of
+the original dataset. On the other hand, I can tell you a lot of things.
+Most importantly, this manner of removing duplicates doesn't hinder
+my approach for determining updatedness.
 
-The Socrata API provides four date fields.
+### Dates
+The Socrata API provides four date fields for each view.
 * `createdAt`
 * `publicationDate`
 * `rowsUpdatedAt`
@@ -83,19 +102,23 @@ table(subset(socrata.deduplicated.orig, tableId == 926641)$viewLastModified)
 Thus, I'm using `rowsUpdatedAt` for calculating the updatedness measure.
 
 ## What is an "update"
-I'm going to use the term "update"{:#term-update} to mean a reasonably particular
+I'm going to use the term *update*{:#term-update} to mean a reasonably particular
 thing that excludes some other things that you might consider an update.
 
 The Socrata data portal software has 
 [this publisher API](http://dev.socrata.com/publishers/getting-started)
 that lets the publisher (usually a government) upload data as a
-[dataset view](/!/socrata-genealogies#term-view),
+[dataset](/!/socrata-genealogies/#term-dataset)-type [view](/!/socrata-genealogies#term-view),
 with its own unique URL based on its
 [4x4 identifier](http://dev.socrata.com/docs/endpoints).
+I presume that there's some web interface for this too.
+
+An update only occurs when you use the API (or the presumed web interface)
+in a particular manner. I'll tell you about three ways you might use it,
+and I only count the third way as an update.
 
 ### Upload a new version and delete the old version
-That's great for uploading a new dataset, but what do you do if a dataset
-changes? For example, let's say you have a dataset of
+Let's say you have a dataset of
 [lottery contracts for 2011](https://data.oregon.gov/dataset/Contracts-Lottery-Fiscal-Year-2011/dwi6-thje)
 and you notice a spelling error in one of the fields. You fix it on your own computer,
 but how do you get it to the main site? You could upload the new one and delete the old
@@ -105,10 +128,11 @@ When someone uploads a new version of the dataset to Socrata
 but it has a different URL, I do not count it as an update.
 
 ### Upload new data as a separate dataset
-Or what if you want to add the 2012 data?
+What if you want to add the 2012 data but keep the 2011 data the same?
 You could upload the 2012 data as a
-[separate dataset](https://data.oregon.gov/Revenue-Expense/Contracts-Lottery-Fiscal-Year-2012/i3ri-n6hq),
-but then it would be hard to find; the open data catalog doesn't make a link between these two datasets.
+[separate dataset](https://data.oregon.gov/Revenue-Expense/Contracts-Lottery-Fiscal-Year-2012/i3ri-n6hq).
+The old dataset would still have the same URL,
+but but the new one would be hard to find; the open data catalog doesn't make a link between these two datasets.
 
 Within the present article, I do not consider this to be an update either.
 
