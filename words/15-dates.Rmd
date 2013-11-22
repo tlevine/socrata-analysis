@@ -4,7 +4,7 @@ description: I looked at data from a bunch of open data catalogs, and it turns o
 tags: ['open-data']
 created_at: 2013-11-22
 kind: article
-tweet_text: I’d assumed that people actually update their data, but it looks like people don’t.
+tweet_text: I wrongly assumed that people actually update their data. http://thomaslevine.com/!/data-updatedness/
 twitter_image: figure/small_samples.png
 facebook_image: figure/small_samples.png
 other_source: https://github.com/tlevine/socrata-analysis/tree/master/words/15-dates.Rmd
@@ -527,7 +527,7 @@ these would be, but they might include datasets that are out-of-date
 and datasets that will soon be out-of-date. Imagine the following table
 being presented in some administration page in a data catalog.
 
-![](mockups/notifications.jpg)
+![](mockups/notifications.jpg){:.wide}
 
 ## You get what you measure
 I thought this article was going to be about which datasets are more up-to-date,
