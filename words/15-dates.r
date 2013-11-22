@@ -205,6 +205,7 @@ p14 <- ggplot(updates.ever) +
   scale_x_continuous('', breaks = 1:length(levels(updates.ever$portal)), labels = levels(updates.ever$portal)) +
   scale_y_log10('How many times data has been downloaded', labels = comma) +
   scale_color_discrete('Has the dataset ever been updated?') +
+  theme(legend.position = 'bottom') +
   geom_point(alpha = 0.5) + coord_flip() +
   ggtitle('Datasets that get downloaded more sort of tend to be more up-to-date.\n(Each point is a family/table of datasets on a Socrata data portal.)')
 
@@ -236,6 +237,7 @@ p16 <- ggplot(updates.2013.joined) +
   scale_y_log10('Number of downloads', breaks = 10^(1:5), labels = comma) +
   scale_x_log10('Number of records in the dataset', breaks = 10^(1:5), labels = comma) +
   ggtitle('These are all of the Socrata datasets published before 2013 that have been updated since.') +
+  theme(legend.position = 'bottom') +
   geom_text()
 
 p17 <- ggplot(subset(s.molten, update.type == 'rows')) +

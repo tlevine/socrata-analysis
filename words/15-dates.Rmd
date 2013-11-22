@@ -158,7 +158,7 @@ each dot is a data [table](/!/socrata-genealogies#term-table)
 inside of a data portal,
 and the dots are colored based on whether the data were ever updated.
 
-```{r summary, fig.height = 5}
+```{r summary}
 p17
 ```
 
@@ -167,7 +167,7 @@ updated. It also subtly points out that different data portals have
 different amounts of datasets and that they have grown at different
 rates over time. Let's plot that more clearly.
 
-```{r dataset_counts_over_time, height = 5}
+```{r dataset_counts_over_time, fig.height = 7}
 p18
 ```
 
@@ -387,7 +387,7 @@ p12
 
 Here they are by url.
 
-```{r updates_2013_url, fig.height = 5}
+```{r updates_2013_url, fig.height = 5, fig.width = 14}
 p13
 ```
 
