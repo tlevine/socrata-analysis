@@ -1,5 +1,5 @@
 ---
-title: How up-to-date is your data catalog?
+title: Updating of data catalogs
 description: I looked at data from a bunch of open data catalogs, and it turns out that pretty much none of the datasets I was looking at have ever been updated.
 tags: ['open-data']
 created_at: 2013-11-22
