@@ -452,10 +452,13 @@ with that of another group.
 <!-- mock-up of a fancy interface -->
 
 ## The bigger picture
-I thought this was going to be an article about a measure for how up-to-date
-our data portal data are, but I really just found that the data are completely
-out-of-date.
+I thought this was going to find out which datasets are more up-to-date,
+when they get updated, and so on, but I really just found that the data
+are completely out-of-date.
 
-I suppose this says something about the need for more measures of the progress of
-our open data efforts; nobody was measuring updatedness, so how could anyone
-have known to keep the data up-to-date?
+Perhaps this says something about the need for more measures of the progress of
+our open data efforts. We have a crude measure of the size of a data catalog
+(the number of datasets it contains), so we can check that number and make sure
+that it is increasing. But that's pretty much the only one we have, and there
+are surely other things that are worth measuring. Nobody is measuring updatedness,
+so how can we expect anyone to know that the data are out-of-date?
