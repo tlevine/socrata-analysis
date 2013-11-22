@@ -440,16 +440,40 @@ we'll suspect that it's something wrong with our importer rather
 than just a late upload from the FMS.
 
 ### Possibilities
+I brainstormed a bit with [Cris Cristina](https://twitter.com/criscristina)
+about how we could present this sort of information inside of a data catalog
+website to help people maintain it.
+
 If we indicate how often each dataset needs to
 be updated, the data portal software could make us aware of which datasets
-need updating.
+need updating. Aside from comparing datasets to datasets, we could compare
+other groupings, like departments.
 
-<!-- mock-up of a fancy interface -->
+![](mockups/dataset.jpg){:.wide}
 
-We could also see how the updatedness of group of datasets compares
-with that of another group.
+Rather than just presenting a bunch of raw statistics as in the previous
+sketch, we could aggregate these so that you can look at just one thing
+to get a quick idea of whether a dataset or group of datasets is in good
+shape. For example, we could have icons for the general health of a dataset:
+Sad face for bad, smily face for good, and big smiley face for awesome.
 
-<!-- mock-up of a fancy interface -->
+![](mockups/datasets.jpg){:.wide}
+
+We could present much more detail about the updates to a dataset.
+Rather than simply saying the date at which it was last updated, we could
+have a timeline of the updates, and we could let you look at old versions
+of the dataset. (Actually, it's super important to have access to old
+versions, but I won't get into that now.) Perhaps you could put multiple
+datasets or groups of datasets on this timeline and compare them.
+
+![A sketch of a timeline of dataset updates](mockups/timeline.jpg){:.wide}
+
+Also, we can present specific action items. I don't know exactly what
+these would be, but they might include datasets that are out-of-date
+and datasets that will soon be out-of-date. Imagine the following table
+being presented in some administration page in a data catalog.
+
+![](mockups/notifications.jpg)
 
 ## The bigger picture
 I thought this was going to find out which datasets are more up-to-date,
