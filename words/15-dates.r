@@ -109,7 +109,7 @@ p1 <- ggplot(subset(s.molten, update.type == 'rows')) +
   facet_wrap(~ portal) + geom_point() +
   scale_x_date('Date of table publication') +
   scale_y_continuous('Days since the table has been updated') +
-  scale_color_continuous('Publication group number', labels = comma) +
+# scale_color_continuous('Publication group number', labels = comma) +
   ggtitle('How up-to-date are the data?')
 
 

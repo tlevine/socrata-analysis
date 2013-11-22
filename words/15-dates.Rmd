@@ -35,11 +35,13 @@ data portals run by [Socrata](http://socrata.com).
 
 ### Removing duplicates
 I had to do a lot to remove duplicate datasets.
-I group the causes of duplication into two categories:
-federation and derived views.
+I did these two things.
 
-Dealing with federation was quite straightforward;
-you can read about that
+1. Remove federated datasets
+2. Deal with derived views
+
+Dealing with federation was annoying, but I had already
+done that; you can read about that
 [here](/!/socrata-deduplicate/#dealing-with-federation).
 
 Dealing with derived views is more complicated.
@@ -58,6 +60,7 @@ my approach for determining updatedness.
 
 ### Dates
 The Socrata API provides four date fields for each view.
+
 * `createdAt`
 * `publicationDate`
 * `rowsUpdatedAt`
@@ -155,7 +158,7 @@ each dot is a data [table](/!/socrata-genealogies#term-table)
 inside of a data portal,
 and the dots are colored based on whether the data were ever updated.
 
-```{r summary}
+```{r summary, height = 5}
 p17
 ```
 
@@ -164,7 +167,7 @@ updated. It also subtly points out that different data portals have
 different amounts of datasets and that they have grown at different
 rates over time. Let's plot that more clearly.
 
-```{r dataset_counts_over_time}
+```{r dataset_counts_over_time, height = 5}
 p18
 ```
 
