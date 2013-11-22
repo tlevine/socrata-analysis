@@ -7,6 +7,7 @@ kind: article
 tweet_text: I’d assumed that people actually update their data, but it looks like people don’t.
 twitter_image: figure/small_samples.png
 facebook_image: figure/small_samples.png
+other_source: https://github.com/tlevine/socrata-analysis/tree/master/words/15-dates.Rmd
 ---
 ```{r configure, echo = F}
 source('15-dates.r')
@@ -14,22 +15,8 @@ opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 ```
 
 ## Data portal statistics
-According to A, B, C and D, getting data to the web, in whatever form
-you can, is always better than nothing. How can you tell whether you're
-doing a good job at this basic release of data? Data catalog software
-typically provides a tool for this: a statistic of the number of datasets. We can go to
-[data.gov.uk](https://data.gov.uk) and find out that it currently has
-however many datasets, and we can go back next week and make sure that
-the number is increasing. There are problems with this measure, which I
-won't go into right now, but the measure does tell us something about how
-much data we are releasing.
-
-According to A, B, C and D, it is also important that we keep open data
-up-to-date. Unfortunately, data catalog software don't currently
-have great tools for helping you make sure that your data are indeed
-up-to-date. Specifically, we don't have a number that we can look at
-week-to-week to make sure that we are vaguely on track at keeping data
-up-to-date. So I made one.
+According to A, B, C and D, it is important that we keep open data
+up-to-date. Do we keep them up-to-date?
 
 ## The data about data
 I [downloaded](/!/socrata-summary/)
@@ -174,13 +161,13 @@ Also, it appears that only certain kinds of data get updated.
 table(socrata.deduplicated$viewType, is.na(socrata.deduplicated$rowsUpdatedAt))
 ```
 
+## Motivation for the measure
 This is a bit complicated; let's try to come up with simpler measure
 for taking this in.
 
-## Motivation for the measure
 One measure that I came up with is **proportion of datasets older than
-a year that have been updated within the year**. Here's how I arrived
-at that measure.
+a year that have been updated within the year**. (The timespan of a
+year is pretty arbitrary, though.) Here's how I arrived at that measure.
 
 ### General formulation
 In producing a measure of updateness, we are trying to come up with a
@@ -227,7 +214,7 @@ long, so that we don't count datasets as out-of-date when they just have
 long update cycles (like yearly data). On the other hand, the time can't be
 too long, because then we'll wind up saying that everything is out-of-date.
 
-### Choosing the specific value
+### Choosing a less arbitrary cutoff
 We can check whether different values will give us the same value on our
 updatedness measure. To say it fancy-like, we can check whether our updatedness
 measure is robust to the cutoff.
