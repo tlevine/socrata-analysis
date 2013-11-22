@@ -9,7 +9,7 @@ twitter_image: figure/small_samples.png
 facebook_image: figure/small_samples.png
 other_source: https://github.com/tlevine/socrata-analysis/tree/master/words/15-dates.Rmd
 ---
-```{r configure, echo = FALSE}
+```{r configure, echo = FALSE, warning = FALSE}
 source('15-dates.r')
 opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5, echo = FALSE, warning = FALSE)
 ```
@@ -158,7 +158,7 @@ each dot is a data [table](/!/socrata-genealogies#term-table)
 inside of a data portal,
 and the dots are colored based on whether the data were ever updated.
 
-```{r summary, height = 5}
+```{r summary, fig.height = 5}
 p17
 ```
 
@@ -381,13 +381,13 @@ p11
 There are, in fact, only `r nrow(updates.2013)` such datasets,
 and they're in `r length(unique(updates.2013$portal))` portals.
 
-```{r updates_2013_hist}
+```{r updates_2013_hist, fig.height = 5}
 p12
 ```
 
 Here they are by url.
 
-```{r updates_2013_url}
+```{r updates_2013_url, fig.height = 5}
 p13
 ```
 

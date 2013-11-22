@@ -124,6 +124,7 @@ p3 <- ggplot(subset(s.window, update.type == 'rows')) +
   ylab('Proportion datasets older than the cutoff that have been updated since the cutoff') +
   scale_size_continuous('Number of datasets\nin the portal') +
   ggtitle('How many old datasets have been updated recently, by portal?') +
+  theme(legend.position = 'bottom') +
   xlab('Cutoff (number of weeks before today)') + facet_wrap(~ portal)
 
 data.cms.gov.cutoff <- subset(s.window, update.type == 'rows' & portal == 'data.cms.gov')
@@ -162,6 +163,7 @@ p5 <- ggplot(socrata.deduplicated) +
   geom_bar() + coord_flip() +
   ylab('') + xlab('Number of datasets on the portal') +
   scale_fill_discrete('Has the dataset ever been updated?') +
+  theme(legend.position = 'bottom') +
   ggtitle('Hardly any datasets get updated.')
 
 p6 <- ggplot(subset(s.molten, has.been.updated & update.type == 'rows')) +
@@ -241,6 +243,7 @@ p17 <- ggplot(subset(s.molten, update.type == 'rows')) +
   geom_point(position = 'jitter') +
   scale_x_date('Date of table publication') + ylab('') +
   scale_color_discrete('Has the dataset ever been updated?') +
+  theme(legend.position = 'bottom') +
   ggtitle('Dataset publication and updating')
 
 p18 <- ggplot(monthly.dataset.count) +
