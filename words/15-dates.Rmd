@@ -526,58 +526,35 @@ being presented in some administration page in a data catalog.
 
 ![](mockups/notifications.jpg)
 
-## Data-driven open data
+## You get what you measure
 I thought this article was going to be about which datasets are more up-to-date,
 when they get updated, and so on, but I really just found that the data
 are completely out-of-date.
 
-Considering that we're doing open *data*, it's only reasonable that we make
-data-driven decisions about our open data efforts. For describing our current
-situation, I quite like the phrase "You get what you measure." (or any of its
-variants). We say a lot of things about how people should be doing open data,
+The phrase "You get what you measure." (or any of its variants) seems to
+describe our present situation quite well.
+We say a lot of things about how people should be doing open data,
 and people count [some of these things once-in-a-while](http://census.okfn.org/).
 Aside from efforts like the Open Data Census, we don't really do anything.
 
 ### Current metrics
-Well actually we sort of do at least count the number of datasets.
-
-Socrata has some relevant metrics built-in.
-The main metric is the number of datasets.
-That number is much less meaningful than you might think, as Andrew Nicklin
-[explains](http://technickle.nicklin.info/post/58169276432/accurately-counting-socrata-datasets),
-but it still tells us something.
-
-The [site-wide usage metrics](/!/socrata-metrics-api/) tell us some other things, though
-they're probably really intended for diagnosing technical issues with the servers.
-
-`next.data.gov` has ever-so-slightly advanced its [metrics page](http://next.data.gov/metric)
-by adding a "Latest Entry" number (I don't know what that means.) and breaking
-out the statistics by agency.
-
-Even with all of these issues, I think the dataset count metric is at least
-somewhat meaningful and helpful. We know that we should be increasing that
-number, and we can make vague comparisons that give us some idea as to whether
-we are progressing and how one portal/agency stands in relation to another.
-We are measuring dataset counts, and dataset counts are increasing.
+Well actually we sort of do at least count the number of datasets. There are
+[problems](http://technickle.nicklin.info/post/58169276432/accurately-counting-socrata-datasets),
+with this metric, but it does vaguely point us in the right direction.
 
 ### Other metrics
-Getting more datasets is great, but there are a bunch of other things that
-we want.
+We measure the number of datasets, and we get more datasets. There are a bunch
+of other things that we want. We don't measure them, and we don't get them.
+As you saw above, we don't measure updatedness, and we don't get up-to-date data.
+Similarly, we don't measure [license-free-ness](http://theunitedstates.io/licensing/),
+and we [don't get license-free data](/!/open-data-licensing/). Also, we don't
+check whether different datasets could be combined into one, and we get a lot
+of situations, at least in [New York City](http://appgen.me/audit/report) and
+[Missouri](/!/missouri-data-licensing/), several datasets could be combined
+into one.
 
-Perhaps this says something about the need for more measures of the progress of
-our open data efforts. We have a crude measure of the size of a data catalog
-(the number of datasets it contains), so we can check that number and make sure
-that it is increasing. But that's pretty much the only one we have, and there
-are surely other things that are worth measuring. Nobody is measuring updatedness,
-so how can we expect anyone to know that the data are out-of-date?
-
-
-
-Perhaps this says something about the need for more measures of the progress of
-our open data efforts. We have a crude measure of the size of a data catalog
-(the number of datasets it contains), so we can check that number and make sure
-that it is increasing. But that's pretty much the only one we have, and there
-are surely other things that are worth measuring. Nobody is measuring updatedness,
-so how can we expect anyone to know that the data are out-of-date?
-I think that we'll keep these portals more up-to-date if we come up with a
-measure of their updateness that is easy to calculate and easy to understand.
+### Data-driven open data
+Considering that we're doing open *data*, it's only reasonable that we make
+data-driven decisions about our open data efforts. We obviously need data
+about open data to make these data-driven decisions, so we had better start
+measuring the all of these things that we care about.
