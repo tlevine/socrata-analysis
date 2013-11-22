@@ -15,8 +15,14 @@ opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
 ```
 
 ## Data portal statistics
-According to A, B, C and D, it is important that we keep open data
-up-to-date. Do we keep them up-to-date?
+[Project Open Data](http://project-open-data.github.io/principles/),
+the [Sunlight Foundation](http://sunlightfoundation.com/opendataguidelines/#real-time-updates),
+a bunch of
+[open](http://le.utah.gov/~2013/bills/sbillenr/SB0283.pdf)
+[data](http://www.scribd.com/fullscreen/26442622?access_key=key-20rfsh26eu0ob66xlbmu))
+[policies](http://www.governor.ny.gov/executiveorder/95),
+and probably everyone else says that it's important that open data
+be kept up-to-date. So I was wondering how up-to-date they actually are.
 
 ## The data about data
 I [downloaded](/!/socrata-summary/)
