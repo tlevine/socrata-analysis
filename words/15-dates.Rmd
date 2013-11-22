@@ -9,9 +9,9 @@ twitter_image: figure/small_samples.png
 facebook_image: figure/small_samples.png
 other_source: https://github.com/tlevine/socrata-analysis/tree/master/words/15-dates.Rmd
 ---
-```{r configure, echo = F}
+```{r configure, echo = FALSE}
 source('15-dates.r')
-opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5)
+opts_chunk$set(fig.width=10, fig.height=10, dpi = 42 * 5, echo = FALSE, warning = FALSE)
 ```
 
 [Project Open Data](http://project-open-data.github.io/principles/),
@@ -74,12 +74,12 @@ will reflect this latter date, while `createdAt` will still be the time
 when you added the private dataset. Also, `createdAt` is different for
 different views of the same data, but `publicationDate` is not.
 
-```{r publicationDate}
-table(subset(socrata.deduplicated, tableId == 926641)$publicationDate)
+```{r publicationDate, echo = TRUE}
+table(subset(socrata, tableId == 926641)$publicationDate)
 ```
 
-```{r createdAt}
-table(subset(socrata.deduplicated, tableId == 926641)$createdAt)
+```{r createdAt, echo = TRUE}
+table(subset(socrata, tableId == 926641)$createdAt)
 ```
 
 `rowsUpdatedAt` and `viewLastModified` presumably have something to do
@@ -92,13 +92,13 @@ This is the case for `rowsUpdatedAt`; for all
 datasets with an `tableId` of `926641`, the `rowsUpdatedAt` field
 is the same.
 
-```{r rowsUpdatedAt}
+```{r rowsUpdatedAt, echo = TRUE}
 table(subset(socrata.deduplicated.orig, tableId == 926641)$rowsUpdatedAt)
 ```
 
 On the other hand, the `viewLastModified` field is quite different.
 
-```{r viewLastModified}
+```{r viewLastModified, echo = TRUE}
 table(subset(socrata.deduplicated.orig, tableId == 926641)$viewLastModified)
 ```
 
@@ -191,7 +191,7 @@ updated ever. But there are some spikes here and there.
 
 Also, it appears that only certain kinds of data get updated.
 
-```{r viewType_table}
+```{r viewType_table, echo = TRUE}
 table(socrata.deduplicated$viewType, is.na(socrata.deduplicated$rowsUpdatedAt))
 ```
 
